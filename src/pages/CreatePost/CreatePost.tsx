@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Button } from '../../shared';
 import { Portal, PostModal } from '../../shared/PostModal';
+import { MODAL_ATTRIBUTES } from './const';
 
 export const CreatePost = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -8,12 +10,25 @@ export const CreatePost = () => {
   };
   return (
     <>
-      <button onClick={onClickHandleModal}>게시물 작성</button>
+      <input></input>
+      <textarea></textarea>
+      <div>사진 업로드하는 곳</div>
+      <div>지도</div>
       {openModal && (
         <Portal>
-          <PostModal>작성한 게시물을 업로드 할까요?</PostModal>
+          <PostModal
+            onClick={onClickHandleModal}
+            attribute={MODAL_ATTRIBUTES.UPLOAD}
+          />
         </Portal>
       )}
+      <Button label="취소" $buttonTheme="gray" size="small" />
+      <Button
+        onClick={onClickHandleModal}
+        label="게시물 작성"
+        $buttonTheme="filled"
+        size="small"
+      />
     </>
   );
 };

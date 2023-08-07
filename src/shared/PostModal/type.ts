@@ -1,3 +1,4 @@
 export interface ModalProps {
-  children: React.ReactNode;
+  onClick?: () => void;
+  attribute: string;
 }

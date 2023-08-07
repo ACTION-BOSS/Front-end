@@ -1,22 +1,33 @@
 import React, { FC } from 'react';
 import { ModalProps } from './type';
-import { StModal } from './style';
-import { PostModalButton } from '../PostModalButton';
+import { StModal, StButtonContainer, StModalBg } from './PostModalStyle';
+import { Button } from '../Button/Button';
+import { BUTTON_CONFIGS } from '../../pages/CreatePost/const';
 
-export const PostModal: FC<ModalProps> = ({ children }) => {
+export const PostModal: FC<ModalProps> = ({ attribute, onClick }) => {
+  const buttonConfig = BUTTON_CONFIGS[attribute];
+
   return (
-    <StModal>
-      <div>{children}</div>
-      <PostModalButton func="cancel" />
-      {children === '작성한 게시물을 업로드 할까요?' && (
-        <PostModalButton func="verify" />
-      )}
-      {children === '작성한 게시물을 삭제 할까요?' && (
-        <PostModalButton func="delete" />
-      )}
-      {children === '작성한 게시물을 수정 할까요?' && (
-        <PostModalButton func="modify" />
-      )}
-    </StModal>
+    <>
+      <StModalBg onClick={onClick}></StModalBg>
+      <StModal>
+        <div>{attribute}</div>
+        <StButtonContainer>
+          <Button
+            onClick={onClick}
+            label="취소"
+            $buttonTheme="gray"
+            size="large"
+          />
+          {buttonConfig && (
+            <Button
+              label={buttonConfig.label}
+              $buttonTheme="filled"
+              size="large"
+            />
+          )}
+        </StButtonContainer>
+      </StModal>
+    </>
   );
 };
