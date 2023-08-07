@@ -19,6 +19,7 @@ export const StModal = styled.div`
   width: 40vw;
   height: 40vh;
   border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 `;
 
 export const StButtonContainer = styled.div`
