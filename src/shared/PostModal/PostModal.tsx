@@ -22,7 +22,7 @@ export const PostModal: FC<ModalProps> = ({ attribute, onClick }) => {
           {buttonConfig && (
             <Button
               label={buttonConfig.label}
-              $buttonTheme="filled"
+              $buttonTheme="pink"
               size="large"
             />
           )}

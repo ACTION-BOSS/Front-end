@@ -26,7 +26,7 @@ export const CreatePost = () => {
       <Button
         onClick={onClickHandleModal}
         label="게시물 작성"
-        $buttonTheme="filled"
+        $buttonTheme="pink"
         size="small"
       />
     </>
