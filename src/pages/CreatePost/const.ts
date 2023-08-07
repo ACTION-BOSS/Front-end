@@ -5,7 +5,7 @@ export const MODAL_ATTRIBUTES = {
 };
 
 export const BUTTON_CONFIGS = {
-  [MODAL_ATTRIBUTES.UPLOAD]: { label: '확인', theme: 'filled' },
-  [MODAL_ATTRIBUTES.DELETE]: { label: '삭제', theme: 'filled' },
-  [MODAL_ATTRIBUTES.EDIT]: { label: '수정', theme: 'filled' },
+  [MODAL_ATTRIBUTES.UPLOAD]: { label: '확인', theme: 'pink' },
+  [MODAL_ATTRIBUTES.DELETE]: { label: '삭제', theme: 'pink' },
+  [MODAL_ATTRIBUTES.EDIT]: { label: '수정', theme: 'pink' },
 };

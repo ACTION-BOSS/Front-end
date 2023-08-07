@@ -5,10 +5,10 @@ export interface IRecoilContext {}
 
 export const RecoilContext = createContext<IRecoilContext | null>(null);
 
-type IRecoilProviderProps = {
+type RecoilProviderProps = {
   children: ReactNode;
 };
 
-export const RecoilProvider: FC<IRecoilProviderProps> = ({ children }) => {
+export const RecoilProvider: FC<RecoilProviderProps> = ({ children }) => {
   return <RecoilRoot>{children}</RecoilRoot>;
 };
