@@ -21,11 +21,12 @@ export const GlobalStyle = createGlobalStyle`
         align-items: center;
 
         margin: 0;
+        padding: 0;
 
         width: 100vw;
         height : 100vh;
 
-        font-size: 1.2rem;
+        font-size: 1rem;
         background-color: #ffffff;
 
     }
