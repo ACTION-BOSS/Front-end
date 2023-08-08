@@ -19,7 +19,7 @@ export const $buttonTheme = {
   },
 
   gray: {
-    backgroundColor: Theme.colors.gray,
+    backgroundColor: Theme.colors.gray1,
     color: Theme.colors.black,
     border: '1px solid transparent',
     hover: {
@@ -39,7 +39,7 @@ export const $buttonTheme = {
   emptyGray: {
     backgroundColor: Theme.colors.white,
     color: Theme.colors.black,
-    border: `2px solid ${Theme.colors.gray}`,
+    border: `2px solid ${Theme.colors.gray1}`,
     hover: {
       backgroundColor: '#efefef',
     },
@@ -48,7 +48,7 @@ export const $buttonTheme = {
   emptyPink: {
     backgroundColor: Theme.colors.white,
     color: Theme.colors.pink,
-    border: `2px solid ${Theme.colors.gray}`,
+    border: `2px solid ${Theme.colors.gray1}`,
     hover: {
       backgroundColor: '#efefef',
     },
