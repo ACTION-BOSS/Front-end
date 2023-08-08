@@ -27,6 +27,8 @@ export const GlobalStyle = createGlobalStyle`
 
         font-size: 1.2rem;
         background-color: #ffffff;
+        
+        font-family: 'Pretendard', sans-serif;
 
     }
 
