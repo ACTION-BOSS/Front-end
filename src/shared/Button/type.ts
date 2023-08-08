@@ -2,11 +2,12 @@ import { ButtonHTMLAttributes } from 'react';
 import { DefaultTheme } from 'styled-components';
 import { $buttonTheme } from './buttonTheme';
 
+export type SizeType = 'large' | 'medium' | 'small';
 export interface ButtonStyleProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   $buttonTheme: keyof typeof $buttonTheme;
   theme: Mytheme;
-  size: string;
+  size: SizeType;
   $bold?: boolean;
 }
 

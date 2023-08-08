@@ -29,7 +29,7 @@ export const SampleLogo = styled.div`
   width: 117px;
   height: 61px;
 
-  background-color: ${Theme.colors.gray};
+  background-color: ${Theme.colors.gray1};
 `;
 
 export const StModalWrapper = styled.div`
@@ -55,10 +55,10 @@ export const StViewWrapper = styled.div`
   align-items: center;
 `;
 
-export const StButtonWrapper = styled.div`
+export const StFooter = styled.div`
   display: flex;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  justify-content: center;
+  align-items: center;
 
   height: 100px;
 

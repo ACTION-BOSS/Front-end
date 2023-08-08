@@ -2,6 +2,12 @@ import { styled, css } from 'styled-components';
 import { ButtonStyleProps } from './type';
 import { $buttonTheme } from './buttonTheme';
 
+const sizeToPadding = {
+  large: '22px',
+  medium: '16px',
+  small: '12px',
+};
+
 export const ButtonStyle = styled.button<ButtonStyleProps>`
   display: flex;
   flex: 1;
@@ -13,8 +19,10 @@ export const ButtonStyle = styled.button<ButtonStyleProps>`
     border-color 0.1s;
   cursor: pointer;
   align-items: center;
-  padding-top: ${(props) => (props.size === 'large' ? '16px' : '12px')};
-  padding-bottom: ${(props) => (props.size === 'large' ? '16px' : '12px')};
+  padding-top: ${(props: ButtonStyleProps) =>
+    sizeToPadding[props.size] || sizeToPadding.small};
+  padding-bottom: ${(props: ButtonStyleProps) =>
+    props.size === 'large' ? '16px' : '12px'};
   padding-left: 16px;
   padding-right: 16px;
   box-sizing: border-box;
@@ -23,7 +31,7 @@ export const ButtonStyle = styled.button<ButtonStyleProps>`
   background-color: ${(props) =>
     $buttonTheme[props.$buttonTheme].backgroundColor};
   color: ${(props) => $buttonTheme[props.$buttonTheme].color};
-  font-size: ${(props) => (props.size === 'large' ? '18px' : '14px')};
+  font-size: ${(props) => (props.size === 'small' ? '14px' : '18px')};
   font-weight: ${(props) => (props.$bold ? '700' : '400')};
   border: ${(props) => $buttonTheme[props.$buttonTheme].border};
   ${(props) => css`

@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { ButtonStyle, ButtonWrapper } from './ButtonStyle';
+import { SizeType } from './type';
 
 type ButtonProps = {
   label: string;
@@ -10,7 +11,7 @@ type ButtonProps = {
     | 'blue'
     | 'emptyGray'
     | 'emptyPink';
-  size: string;
+  size: SizeType;
   $bold?: boolean;
   onClick?: () => void;
 };
@@ -18,7 +19,7 @@ type ButtonProps = {
 /***
  * @param {string} label - 버튼 이름
  * @param {string} $buttonTheme - pink / emptyBlue / gray / blue / emptyGray / emptyPink
- * @param {string} size - small / large
+ * @param {string} size - small / large / medium
  * @param {boolean} $bold - [선택] 넣을 경우 굵은 글씨
  * @param {function} onClick
  */
