@@ -17,15 +17,12 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         display: flex;
-        justify-content: center;
-        align-items: center;
-
         margin: 0;
 
-        width: 100vw;
-        height : 100vh;
+        width: 100%;
+        height : 100%;
 
-        font-size: 1.2rem;
+        font-size: 1rem;
         background-color: #ffffff;
 
     }
