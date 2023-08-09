@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { LOGO_GARO, WRITE } from '../../assets';
 
 export const Wrap = styled.div`
   position: fixed;
@@ -11,6 +12,7 @@ export const Wrap = styled.div`
   padding: 0px 40px;
   box-shadow: 0 4px 4px -4px gray;
   z-index: 999;
+  background-color: white;
   div {
     display: flex;
     align-items: center;
@@ -19,28 +21,30 @@ export const Wrap = styled.div`
   justify-content: space-between;
 `;
 export const HeaderLeft = styled.div`
-  width: 165px;
-  height: 45px;
-  background-color: #d9d9d9;
+  width: 160px;
+  height: 40px;
+  background-image: url(${LOGO_GARO});
 `;
 export const HeaderRight = styled.div`
-  font-size: 1.1rem;
-  font-weight: bold;
-  gap: 30px;
+  font-size: ${(props) => props.theme.fontSizes.h2};
+  font-weight: ${(props) => props.theme.fontWeights.h2};
+  gap: 20px;
   button {
     color: black;
-    font-size: 1.1rem;
     height: 45px;
     padding: 15px 30px;
+    border: none;
+    font-size: ${(props) => props.theme.fontSizes.h2};
+    font-weight: ${(props) => props.theme.fontWeights.h2};
   }
 `;
 export const PostUploadBtn = styled.div`
   cursor: pointer;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   .box {
-    width: 25px;
-    height: 25px;
-    background-color: #d9d9d9;
+    width: 24px;
+    height: 24px;
+    background-image: url(${WRITE});
   }
 `;
