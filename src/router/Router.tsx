@@ -1,8 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { CreatePost, Introduction, MainPage } from '../pages';
 import { Header } from '../shared/Header';
-import MainPage from '../pages/MainPage/MainPage';
-import { CreatePost } from '../pages/CreatePost/CreatePost';
-import { Introduction } from '../pages/Introduction/Introduction';
 
 export const RouterProvider = () => {
   return (

@@ -2,6 +2,20 @@ import { styled, css } from 'styled-components';
 import { ButtonStyleProps } from './type';
 import { $buttonTheme } from './buttonTheme';
 
+const sizeToVerticalPadding = {
+  large: '22px',
+  medium: '16px',
+  small: '12px',
+  xsmall: '4px',
+};
+
+const sizeToHorizontalPadding = {
+  large: '16px',
+  medium: '16px',
+  small: '16px',
+  xsmall: '6px',
+};
+
 export const ButtonStyle = styled.button<ButtonStyleProps>`
   display: flex;
   flex: 1;
@@ -13,18 +27,23 @@ export const ButtonStyle = styled.button<ButtonStyleProps>`
     border-color 0.1s;
   cursor: pointer;
   align-items: center;
-  padding-top: ${(props) => (props.size === 'large' ? '16px' : '12px')};
-  padding-bottom: ${(props) => (props.size === 'large' ? '16px' : '12px')};
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-top: ${(props: ButtonStyleProps) =>
+    sizeToVerticalPadding[props.size] || sizeToVerticalPadding.small};
+  padding-bottom: ${(props: ButtonStyleProps) =>
+    sizeToVerticalPadding[props.size] || sizeToVerticalPadding.small};
+  padding-left: ${(props: ButtonStyleProps) =>
+    sizeToHorizontalPadding[props.size] || sizeToHorizontalPadding.small};
+  padding-right: ${(props: ButtonStyleProps) =>
+    sizeToHorizontalPadding[props.size] || sizeToHorizontalPadding.small};
   box-sizing: border-box;
   font: inherit;
-  border-radius: 11px;
+  border-radius: ${(props) =>
+    props.$buttonTheme === 'emptyGray' ? ' 4px' : '11px'};
   background-color: ${(props) =>
     $buttonTheme[props.$buttonTheme].backgroundColor};
   color: ${(props) => $buttonTheme[props.$buttonTheme].color};
-  font-size: ${(props) => (props.size === 'large' ? '18px' : '14px')};
-  font-weight: ${(props) => (props.$bold ? '700' : '400')};
+  font-size: ${(props) => props.fontSize};
+  font-weight: ${(props) => props.fontWeight};
   border: ${(props) => $buttonTheme[props.$buttonTheme].border};
   ${(props) => css`
     &:hover,
@@ -33,6 +52,10 @@ export const ButtonStyle = styled.button<ButtonStyleProps>`
         .backgroundColor};
     }
   `}
+  box-shadow: ${(props) =>
+    props.$buttonTheme === 'emptyGray'
+      ? ' 0px 0px 2px 0px rgba(41, 47, 61, 0.25)'
+      : 'none'}
 `;
 
 export const ButtonWrapper = styled.div`

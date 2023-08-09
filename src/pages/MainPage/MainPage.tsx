@@ -2,7 +2,7 @@ import React from 'react';
 import { MainPageLayout } from './layout';
 import { MainMap, MainPosts } from './components';
 
-const MainPage = () => {
+export const MainPage = () => {
   return (
     <MainPageLayout>
       <MainMap />
@@ -10,5 +10,3 @@ const MainPage = () => {
     </MainPageLayout>
   );
 };
-
-export default MainPage;

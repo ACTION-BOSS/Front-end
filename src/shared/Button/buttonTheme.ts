@@ -39,7 +39,7 @@ export const $buttonTheme = {
   emptyGray: {
     backgroundColor: Theme.colors.white,
     color: Theme.colors.black,
-    border: `2px solid ${Theme.colors.gray1}`,
+    border: `0px solid transparent`,
     hover: {
       backgroundColor: '#efefef',
     },
