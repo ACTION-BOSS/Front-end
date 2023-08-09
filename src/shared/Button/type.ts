@@ -2,7 +2,16 @@ import { ButtonHTMLAttributes } from 'react';
 import { DefaultTheme } from 'styled-components';
 import { $buttonTheme } from './buttonTheme';
 
+export type ThemeType =
+  | 'pink'
+  | 'emptyBlue'
+  | 'gray'
+  | 'blue'
+  | 'emptyGray'
+  | 'emptyPink';
+
 export type SizeType = 'large' | 'medium' | 'small';
+
 export interface ButtonStyleProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   $buttonTheme: keyof typeof $buttonTheme;

@@ -17,7 +17,7 @@ type ShowStepProps = {
 export const ShowStep: FC<ShowStepProps> = ({ step = EStep.STEP1 }) => {
   //   const stepNumber = Number(step.at(-1));
 
-  let stepNumber = 3;
+  let stepNumber = 1;
 
   const progressByStep = (currentStep: number) => {
     return stepNumber >= currentStep;

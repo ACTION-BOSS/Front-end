@@ -1,16 +1,10 @@
 import { FC } from 'react';
 import { ButtonStyle, ButtonWrapper } from './ButtonStyle';
-import { SizeType } from './type';
+import { SizeType, ThemeType } from './type';
 
 type ButtonProps = {
   label: string;
-  $buttonTheme:
-    | 'pink'
-    | 'emptyBlue'
-    | 'gray'
-    | 'blue'
-    | 'emptyGray'
-    | 'emptyPink';
+  $buttonTheme: ThemeType;
   size: SizeType;
   $bold?: boolean;
   onClick?: () => void;
