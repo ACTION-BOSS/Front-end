@@ -10,8 +10,6 @@ export const StHeader = styled.div`
 
   padding-left: 14px;
   padding-right: 14px;
-
-  background-color: orange;
 `;
 
 export const StLogoWrapper = styled.div`

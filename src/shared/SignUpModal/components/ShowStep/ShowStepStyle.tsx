@@ -23,7 +23,7 @@ export const StRoundStep = styled.div<{
   border-radius: 999px;
 
   background-color: ${(props) =>
-    props.$onProgress ? Theme.colors.gray7 : Theme.colors.gray2};
+    props.$onProgress ? Theme.colors.gray7 : Theme.colors.gray3};
 `;
 
 export const StLetterStep = styled.p<{
@@ -32,7 +32,7 @@ export const StLetterStep = styled.p<{
   font-size: ${Theme.fontSizes.label2};
   font-weight: ${Theme.fontWeights.label2};
   color: ${(props) =>
-    props.$onProgress ? Theme.colors.gray7 : Theme.colors.gray2};
+    props.$onProgress ? Theme.colors.gray7 : Theme.colors.gray3};
 `;
 
 export const StLineWrapper = styled.div`
@@ -43,9 +43,9 @@ export const StLineWrapper = styled.div`
 export const StLine = styled.div<{
   $onProgress?: boolean;
 }>`
-  width: 20.43px;
+  width: 21px;
   height: 0;
   border: 0.5px solid
-    ${(props) => (props.$onProgress ? Theme.colors.gray7 : Theme.colors.gray2)};
+    ${(props) => (props.$onProgress ? Theme.colors.gray7 : Theme.colors.gray3)};
   margin-top: 5px;
 `;

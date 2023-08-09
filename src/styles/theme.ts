@@ -1,49 +1,6 @@
-interface ThemeProps {
-  colors: {
-    pink: string;
-    blue: string;
-    blueGray: string;
-    gray1: string;
-    gray2: string;
-    gray3: string;
-    gray4: string;
-    gray5: string;
-    gray6: string;
-    gray7: string;
-    gray8: string;
-    white: string;
-    black: string;
-  };
-  fontSizes: {
-    h1: string;
-    h2: string;
-    h3: string;
-    body1: string;
-    body2: string;
-    body3: string;
-    body4: string;
-    label1: string;
-    label2: string;
-    label3: string;
-  };
-  fontWeights: {
-    h1: string;
-    h2: string;
-    h3: string;
-    body1: string;
-    body2: string;
-    body3: string;
-    body4: string;
-    label1: string;
-    label2: string;
-    label3: string;
-  };
-  textDecoration: {
-    label3: string;
-  };
-}
+import { ThemeType } from './type';
 
-export const Theme: ThemeProps = {
+export const Theme: ThemeType = {
   colors: {
     pink: '#FF005E',
     blue: '#5782FA',

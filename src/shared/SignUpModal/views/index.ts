@@ -1,3 +1,3 @@
-export * from './EmailPasswordView';
-export * from './NicknameView';
-export * from './PasswordVerificationView';
+export * from './EmailPassword/EmailPasswordView';
+export * from './Nickname/NicknameView';
+export * from './PasswordVerification/PasswordVerificationView';

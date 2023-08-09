@@ -10,7 +10,7 @@ export type ThemeType =
   | 'emptyGray'
   | 'emptyPink';
 
-export type SizeType = 'large' | 'medium' | 'small';
+export type SizeType = 'large' | 'medium' | 'small' | 'xsmall';
 
 export interface ButtonStyleProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -18,6 +18,8 @@ export interface ButtonStyleProps
   theme: Mytheme;
   size: SizeType;
   $bold?: boolean;
+  fontSize?: string;
+  fontWeight?: string;
 }
 
 export interface Mytheme extends DefaultTheme {
