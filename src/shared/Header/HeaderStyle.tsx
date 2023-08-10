@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { LOGO_GARO, WRITE } from '../../assets';
+import { LOGO_GARO } from '../../assets';
 
 export const Wrap = styled.div`
   position: fixed;
@@ -41,10 +41,5 @@ export const HeaderRight = styled.div`
 export const PostUploadBtn = styled.div`
   cursor: pointer;
   display: flex;
-  gap: 8px;
-  .box {
-    width: 24px;
-    height: 24px;
-    background-image: url(${WRITE});
-  }
+  gap: 5px;
 `;
