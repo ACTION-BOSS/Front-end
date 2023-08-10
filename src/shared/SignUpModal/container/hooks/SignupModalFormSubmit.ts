@@ -20,7 +20,14 @@ export const useSignupModalFormSubmit = () => {
 
   const onFormSubmit: SubmitHandler<SignupModalFormData> = useCallback(
     async (data) => {
-      const { nickname, password, email, userName, phoneNumber } = data;
+      const {
+        nickname,
+        password,
+        emailId,
+        emailDomain,
+        userName,
+        phoneNumber,
+      } = data;
       try {
         // 데이터 전송하는 axios
         // 데이터를 가지고 뭔가 하는 로직

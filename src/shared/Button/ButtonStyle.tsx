@@ -25,7 +25,7 @@ export const ButtonStyle = styled.button<ButtonStyleProps>`
     color 0.1s,
     background-color 0.1s,
     border-color 0.1s;
-  cursor: pointer;
+  cursor: ${(props) => (props.$buttonTheme === 'gray' ? 'normal' : 'pointer')};
   align-items: center;
   padding-top: ${(props: ButtonStyleProps) =>
     sizeToVerticalPadding[props.size] || sizeToVerticalPadding.small};
@@ -38,7 +38,9 @@ export const ButtonStyle = styled.button<ButtonStyleProps>`
   box-sizing: border-box;
   font: inherit;
   border-radius: ${(props) =>
-    props.$buttonTheme === 'emptyGray' ? ' 4px' : '11px'};
+    props.$buttonTheme === 'emptyGray' || props.size === 'xsmall'
+      ? ' 4px'
+      : '11px'};
   background-color: ${(props) =>
     $buttonTheme[props.$buttonTheme].backgroundColor};
   color: ${(props) => $buttonTheme[props.$buttonTheme].color};

@@ -12,15 +12,13 @@ export const StHeader = styled.div`
   padding-right: 14px;
 `;
 
-export const StLogoWrapper = styled.div`
+export const StChildrenWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
   padding-top: 40px;
   padding-bottom: 40px;
-
-  background-color: pink;
 `;
 
 export const SampleLogo = styled.div`
@@ -40,6 +38,8 @@ export const StModalWrapper = styled.div`
   border-radius: 12px;
   background-color: ${Theme.colors.white};
   box-shadow: 0px 2px 15px 0px rgba(41, 47, 61, 0.25);
+
+  overflow: hidden;
 `;
 
 export const StViewWrapper = styled.div`
@@ -49,6 +49,8 @@ export const StViewWrapper = styled.div`
 
   padding-top: 10px;
   padding-bottom: 10px;
+  padding-left: 36px;
+  padding-right: 36px;
 
   align-items: center;
 `;

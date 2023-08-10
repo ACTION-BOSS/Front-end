@@ -7,7 +7,7 @@ import {
 import { useRecoilValue } from 'recoil';
 import { $stepIndex } from '../state';
 import { EStep } from '../type';
-import { useSignupModalFormController } from './hooks';
+import { useSignupModalFormController, useVerificationCode } from './hooks';
 type SignupModalContainerProps = {};
 
 export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
@@ -16,27 +16,44 @@ export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
   const {
     onChangeNickname,
     onChangePassword,
-    onChangeEmail,
+    onChangeEmailId,
+    onChangeEmailDomain,
     onChangeUserName,
     onChangePhoneNumber,
     nicknameValue,
     passwordValue,
-    emailValue,
+    emailIdValue,
+    emailDomainValue,
     userNameValue,
     phoneNumberValue,
   } = useSignupModalFormController();
 
+  const {
+    isCodeSended,
+    onCodeSendButtonClick,
+    inputCode,
+    handleInputChange,
+    isInputFilled,
+  } = useVerificationCode();
+
   return (
     //@ts-ignore TODO : fix typescript
-    <div>
+    <>
       {step === EStep.STEP1 && (
         <EmailPasswordView
-          emailValue={emailValue}
-          onChangeEmail={onChangeEmail}
+          emailIdValue={emailIdValue}
+          onChangeEmailId={onChangeEmailId}
+          emailDomainValue={emailDomainValue}
+          onChangeEmailDomain={onChangeEmailDomain}
+          isCodeSended={isCodeSended}
+          onCodeSendButtonClick={onCodeSendButtonClick}
+          inputCode={inputCode}
+          handleInputChange={handleInputChange}
+          isInputFilled={isInputFilled}
         />
       )}
       {step === EStep.STEP2 && <PasswordVerificationView />}
       {step === EStep.STEP3 && <NicknameView />}
-    </div>
+    </>
   );
 };

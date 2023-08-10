@@ -12,24 +12,35 @@ export const useSignupModalFormController = () => {
     control: control,
     name: 'nickname',
   });
+
   const {
     field: { value: passwordValue, onChange: onChangePassword },
   } = useController({
     control: control,
     name: 'password',
   });
+
   const {
-    field: { value: emailValue, onChange: onChangeEmail },
+    field: { value: emailIdValue, onChange: onChangeEmailId },
   } = useController({
     control: control,
-    name: 'email',
+    name: 'emailId',
   });
+
+  const {
+    field: { value: emailDomainValue, onChange: onChangeEmailDomain },
+  } = useController({
+    control: control,
+    name: 'emailDomain',
+  });
+
   const {
     field: { value: userNameValue, onChange: onChangeUserName },
   } = useController({
     control: control,
     name: 'userName',
   });
+
   const {
     field: { value: phoneNumberValue, onChange: onChangePhoneNumber },
   } = useController({
@@ -40,12 +51,14 @@ export const useSignupModalFormController = () => {
   return {
     onChangeNickname,
     onChangePassword,
-    onChangeEmail,
+    onChangeEmailId,
+    onChangeEmailDomain,
     onChangeUserName,
     onChangePhoneNumber,
     nicknameValue,
     passwordValue,
-    emailValue,
+    emailIdValue,
+    emailDomainValue,
     userNameValue,
     phoneNumberValue,
   };

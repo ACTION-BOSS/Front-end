@@ -14,7 +14,7 @@ type ButtonProps = {
 
 /***
  * @param {string} label - 버튼 이름
- * @param {string} $buttonTheme - pink / emptyBlue / gray / blue / emptyGray / emptyPink
+ * @param {string} $buttonTheme - pink / emptyBlue / gray(=disabled) / blue / emptyGray / emptyPink
  * @param {string} size - xsmall/ small / large / medium
  * @param {string} fontSize - Theme.fontSizes...
  * @param {string} fontWeight - Theme.fontWeights...

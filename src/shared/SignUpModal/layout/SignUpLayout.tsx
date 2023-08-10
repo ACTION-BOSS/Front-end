@@ -2,8 +2,7 @@ import { FC, ReactNode } from 'react';
 import {
   StModalWrapper,
   StHeader,
-  StLogoWrapper,
-  SampleLogo,
+  StChildrenWrapper,
   StViewWrapper,
   StFooter,
 } from './LayoutStyle';
@@ -11,6 +10,7 @@ import { ShowStep } from '../components';
 import { EStep } from '../type';
 import { Button } from '../../Button';
 import styled from 'styled-components';
+import { BACK, BLACK_X, LOGO_SERO } from '../../../assets';
 
 type SignUpLayoutProps = {
   children: ReactNode;
@@ -20,14 +20,14 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
   return (
     <StModalWrapper>
       <StHeader>
-        <div style={{ aspectRatio: 1, backgroundColor: 'gray', width: 24 }} />
+        <img src={BACK} />
         <ShowStep step={EStep.STEP1} />
-        <div style={{ aspectRatio: 1, backgroundColor: 'gray', width: 24 }} />
+        <img src={BLACK_X} />
       </StHeader>
 
-      <StLogoWrapper>
-        <SampleLogo />
-      </StLogoWrapper>
+      <StChildrenWrapper>
+        <img src={LOGO_SERO} />
+      </StChildrenWrapper>
 
       <StViewWrapper>{children}</StViewWrapper>
 
