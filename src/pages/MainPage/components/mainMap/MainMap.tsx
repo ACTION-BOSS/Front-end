@@ -23,7 +23,7 @@ export const MainMap: React.FC = () => {
 
   return (
     <s.MainMapContainer>
-      <div id="map" style={{ width: '100%', height: '100%' }} />;
+      <div id="map" style={{ width: '100%', height: '100%' }} />
     </s.MainMapContainer>
   );
 };
