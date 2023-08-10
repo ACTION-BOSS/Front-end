@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as s from './MainPostsStyle';
 import { MainPost } from '../mainPost/MainPost';
 
 export const MainPosts = () => {
+  const [option, setOption] = useState('최신순');
+  const [toggle, setToggle] = useState(true);
   const OPTIONS = [
     { value: 'latest', name: '최신순' },
     { value: 'like', name: '좋아요순' },
@@ -13,13 +15,12 @@ export const MainPosts = () => {
       <s.MainPostHeader>
         <div>우리동네 민원들</div>
         <div>
-          <select>
-            {OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.name}
-              </option>
-            ))}
-          </select>
+          <div>
+            <s.OptionButton>
+              <div>{option}</div>
+            </s.OptionButton>
+            <div></div>
+          </div>
         </div>
       </s.MainPostHeader>
       <s.MainPosts>

@@ -2,6 +2,7 @@ import React from 'react';
 import * as s from './HeaderStyle';
 import { Outlet } from 'react-router-dom';
 import { Button } from '../Button/Button';
+import { WriteIcon } from '../../assets';
 
 export const Header = () => {
   const onClickLogin = () => {};
@@ -12,7 +13,7 @@ export const Header = () => {
         <s.HeaderRight>
           <s.PostUploadBtn>
             <div>게시물작성</div>
-            <div className="box"></div>
+            <WriteIcon />
           </s.PostUploadBtn>
           <div>
             <Button
