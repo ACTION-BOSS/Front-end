@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { StMapBg, StMapContainer } from './style';
+import { StMapBg, StContainer, StMapContainer, StMapText } from './style';
 
 declare global {
   interface Window {
@@ -27,6 +27,13 @@ export const MapView = () => {
       const marker = new Marker();
       const infowindow = new InfoWindow({ zindex: 1 });
 
+      // 확대/축소 컨트롤
+      const zoomControl = new window.kakao.maps.ZoomControl();
+      mapInstance.addControl(
+        zoomControl,
+        window.kakao.maps.ControlPosition.RIGHT,
+      );
+
       // 지도 클릭 이벤트
       event.addListener(mapInstance, 'click', (mouseEvent: any) => {
         searchDetailAddrFromCoords(
@@ -34,19 +41,10 @@ export const MapView = () => {
           mouseEvent.latLng,
           (result: any, status: any) => {
             if (status === services.Status.OK) {
-              const detailAddr = !!result[0].road_address
-                ? '<div>도로명주소 : ' +
-                  result[0].road_address.address_name +
-                  '</div>'
-                : '';
-              const content =
-                '<div class="bAddr">' +
-                '<span class="title">법정동 주소정보</span>' +
-                detailAddr +
-                '<div>지번 주소 : ' +
-                result[0].address.address_name +
-                '</div>' +
-                '</div>';
+              const content = result[0].address.address_name;
+              console.log('주소:', content);
+              console.log('위도:', mouseEvent.latLng.getLat());
+              console.log('경도:', mouseEvent.latLng.getLng());
 
               marker.setPosition(mouseEvent.latLng);
               marker.setMap(mapInstance);
@@ -57,21 +55,8 @@ export const MapView = () => {
           },
         );
       });
-
-      // 지도 중심 변경 이벤트
-      event.addListener(mapInstance, 'idle', () => {
-        searchAddrFromCoords(
-          geocoder,
-          mapInstance.getCenter(),
-          displayCenterInfo,
-        );
-      });
     }
   }, []);
-
-  const searchAddrFromCoords = (geocoder: any, coords: any, callback: any) => {
-    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
-  };
 
   const searchDetailAddrFromCoords = (
     geocoder: any,
@@ -81,21 +66,13 @@ export const MapView = () => {
     geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
   };
 
-  const displayCenterInfo = (result: any, status: any) => {
-    if (status === window.kakao.maps.services.Status.OK) {
-      for (let i = 0; i < result.length; i++) {
-        if (result[i].region_type === 'H') {
-          console.log(result[i].address_name); // 현재는 콘솔에 출력하도록 했습니다.
-          break;
-        }
-      }
-    }
-  };
-
   return (
     <>
       <StMapBg>
-        <StMapContainer ref={mapContainerRef}></StMapContainer>
+        <StContainer>
+          <StMapText>민원 위치 설정</StMapText>
+          <StMapContainer ref={mapContainerRef}></StMapContainer>
+        </StContainer>
       </StMapBg>
     </>
   );
