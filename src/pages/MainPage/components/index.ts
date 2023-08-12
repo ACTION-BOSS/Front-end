@@ -1,3 +1,4 @@
-export * from './mainMap';
-export * from './mainPosts';
-export * from './mainPost';
+export * from './MainMap';
+export * from './MainPosts';
+export * from './MainPost';
+export * from './MainModal';
