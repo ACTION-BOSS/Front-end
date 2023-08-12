@@ -19,13 +19,20 @@ export const MainPostHeader = styled.div`
     border: none;
   }
 `;
-export const OptionButton = styled.div`
+export const OptionButton = styled.div<OptionProps>`
   width: 70px;
   height: 30px;
   border-radius: 10px;
-  border: 1px solid ${(props) => props.theme.colors.gray4};
+  border: 1px solid
+    ${(props) =>
+      props.active === 'true'
+        ? props.theme.colors.gray3
+        : props.theme.colors.gray4};
   font-size: ${(props) => props.theme.fontSizes.body3};
-  color: ${(props) => props.theme.colors.gray3};
+  color: ${(props) =>
+    props.active === 'true'
+      ? props.theme.colors.gray3
+      : props.theme.colors.gray4};
   display: flex;
   align-items: center;
   justify-content: center;
