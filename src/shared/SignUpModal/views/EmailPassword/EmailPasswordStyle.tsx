@@ -47,7 +47,7 @@ export const StButtonWrapper = styled.div`
   margin-right: 5px;
 `;
 
-export const StGrayInput = styled.input`
+export const StGrayInput = styled.input<{ $isError?: boolean | null }>`
   display: flex;
   width: 153px;
   height: 42px;
@@ -59,11 +59,14 @@ export const StGrayInput = styled.input`
   font-size: ${Theme.fontSizes.body3};
   font-weight: ${Theme.fontWeights.body3};
 
-  border: none;
+  border: ${(props) =>
+    props.$isError ? `1px solid ${Theme.colors.pink}` : 'none'};
   outline: none;
 `;
 
-export const StVerificationInput = styled.input`
+export const StVerificationInput = styled.input<{
+  $isVerificated: boolean | null;
+}>`
   display: flex;
   flex: 1;
   justify-content: space-between;
@@ -76,7 +79,13 @@ export const StVerificationInput = styled.input`
   font-size: ${Theme.fontSizes.body3};
   font-weight: ${Theme.fontWeights.body3};
 
-  border: none;
+  border: ${(props) => {
+    return props.$isVerificated === true
+      ? `1px solid ${Theme.colors.blue}`
+      : props.$isVerificated === false
+      ? `1px solid ${Theme.colors.pink}`
+      : 'none';
+  }};
   outline: none;
 `;
 
@@ -123,11 +132,18 @@ export const StLabelTextWrapper = styled.div`
   padding-right: 5px;
 `;
 
-export const StLabel1Text = styled.p`
+export const StLabel1Text = styled.p<{
+  $isCorrect?: boolean | null;
+}>`
   font-size: ${Theme.fontSizes.label1};
   font-weight: ${Theme.fontWeights.label1};
 
-  color: ${Theme.colors.gray7};
+  color: ${(props) =>
+    props.$isCorrect === false
+      ? Theme.colors.pink
+      : props.$isCorrect === true
+      ? Theme.colors.blue
+      : Theme.colors.gray7};
 `;
 
 export const StLabel3Text = styled.p`
@@ -137,4 +153,6 @@ export const StLabel3Text = styled.p`
   text-decoration-line: underline;
 
   color: ${Theme.colors.gray7};
+
+  cursor: pointer;
 `;

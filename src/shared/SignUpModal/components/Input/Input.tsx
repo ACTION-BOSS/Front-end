@@ -3,23 +3,33 @@ import styled from 'styled-components';
 import { Theme } from '../../../../styles';
 type InputProps = {
   placeholder: string;
-  value?: string;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  $isError: boolean;
+  width?: string;
 };
 
 export const Input: FC<InputProps> = ({
   placeholder = '',
   value = '',
   onChange = () => {},
+  $isError = false,
+  width,
 }) => {
   return (
-    <StGrayInput placeholder={placeholder} value={value} onChange={onChange} />
+    <StGrayInput
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      $isError={$isError}
+      width={width}
+    />
   );
 };
 
-export const StGrayInput = styled.input`
+export const StGrayInput = styled.input<{ $isError: boolean; width?: string }>`
   display: flex;
-  width: 153px;
+  width: ${(props) => (props.width === 'fluid' ? '100%' : '153px')};
   height: 42px;
   padding: 6px 12px;
   border-radius: 8px;
@@ -29,7 +39,8 @@ export const StGrayInput = styled.input`
   font-size: ${Theme.fontSizes.body3};
   font-weight: ${Theme.fontWeights.body3};
 
-  border: none;
+  border: ${(props) =>
+    props.$isError ? `1px solid ${Theme.colors.pink}` : 'none'};
   outline: none;
 
   &::placeholder {

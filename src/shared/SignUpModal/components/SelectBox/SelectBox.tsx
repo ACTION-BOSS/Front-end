@@ -1,38 +1,60 @@
-import { FC, memo } from 'react';
+import { FC, memo, useEffect } from 'react';
 import { useSelect } from './useSelect';
-import { SelectTrigger } from './SelectTrigger';
-import { StSelectList, StSelectOption } from './SelectStyle';
+import {
+  StPlaceholderText,
+  StSelectList,
+  StSelectOption,
+  StSelectTriggerWrapper,
+} from './SelectStyle';
+import { ToggleIcon } from '../../../../assets';
 
 type SelectBoxProps = {
   initialOptions: string[];
+  setToSelfTypeMode: () => void;
+  $isError: boolean | null;
 };
 
-export const SelectBox: FC<SelectBoxProps> = memo(({ initialOptions }) => {
-  const {
-    isSelectOpen,
-    selected,
-    options,
-    setIsSelectOpen,
-    setSelected,
-    setOptions,
-  } = useSelect(initialOptions);
+export const SelectBox: FC<SelectBoxProps> = memo(
+  ({ initialOptions, setToSelfTypeMode, $isError = false }) => {
+    const {
+      isSelectOpen,
+      selected,
+      setIsSelectOpen,
+      setSelected,
+      emailDomainValue,
+    } = useSelect(initialOptions);
 
-  return (
-    <div style={{ position: 'relative' }}>
-      <SelectTrigger
-        options={options}
-        setIsSelectOpen={setIsSelectOpen}
-        selected={selected}
-      />
-      {isSelectOpen && (
-        <StSelectList>
-          {options.map((e, i) => (
-            <StSelectOption key={i} onMouseDown={() => setSelected(i)}>
-              {e}
-            </StSelectOption>
-          ))}
-        </StSelectList>
-      )}
-    </div>
-  );
-});
+    useEffect(() => {
+      if (selected === 0) {
+        setToSelfTypeMode();
+      }
+    }, [selected]);
+
+    return (
+      <div style={{ position: 'relative' }}>
+        <StSelectTriggerWrapper
+          onBlur={() => setIsSelectOpen(false)}
+          onClick={() => setIsSelectOpen((prev: boolean) => !prev)}
+          $isError={$isError}
+        >
+          {!emailDomainValue && (
+            <StPlaceholderText>선택해주세요</StPlaceholderText>
+          )}
+          <div>{emailDomainValue}</div>
+          <div style={{ width: '10px' }}>
+            <ToggleIcon size={10} />
+          </div>
+        </StSelectTriggerWrapper>
+        {isSelectOpen && (
+          <StSelectList>
+            {initialOptions.map((e, i) => (
+              <StSelectOption key={i} onMouseDown={() => setSelected(i)}>
+                {e}
+              </StSelectOption>
+            ))}
+          </StSelectList>
+        )}
+      </div>
+    );
+  },
+);

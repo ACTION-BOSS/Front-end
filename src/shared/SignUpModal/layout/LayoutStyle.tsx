@@ -55,12 +55,20 @@ export const StViewWrapper = styled.div`
   align-items: center;
 `;
 
+export const StButtonWrapper = styled.div`
+  width: 328px;
+`;
+
+export const StTransparentDiv = styled.div`
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+`;
+
 export const StFooter = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
-  height: 100px;
-
-  background-color: teal;
+  height: 95px;
 `;

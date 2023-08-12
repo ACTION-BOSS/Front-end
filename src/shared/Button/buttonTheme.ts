@@ -21,7 +21,7 @@ export const $buttonTheme = {
   gray: {
     backgroundColor: Theme.colors.gray2,
     color: Theme.colors.white,
-    border: '1px solid transparent',
+    border: '0px solid transparent',
     hover: {
       backgroundColor: Theme.colors.gray2,
     },

@@ -5,24 +5,64 @@ import {
   StChildrenWrapper,
   StViewWrapper,
   StFooter,
+  StButtonWrapper,
+  StTransparentDiv,
 } from './LayoutStyle';
 import { ShowStep } from '../components';
 import { EStep } from '../type';
 import { Button } from '../../Button';
-import styled from 'styled-components';
-import { BACK, BLACK_X, LOGO_SERO } from '../../../assets';
+import { LOGO_SERO } from '../../../assets';
+import { BackIcon, XButtonIcon } from '../../../assets/icon';
+import { $isReadyStepTwo, $stepIndex } from '../state';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { Pressable } from '../../Pressable/Pressable';
 
 type SignUpLayoutProps = {
   children: ReactNode;
 };
 
 export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
+  const [stepIndex, setStepIndex] = useRecoilState($stepIndex);
+  const isReadyStepTwo = useRecoilValue($isReadyStepTwo);
+
+  console.log('다음스텝 레디?', isReadyStepTwo);
+
+  const isReadyNextStep = () => {
+    if (stepIndex === EStep.STEP1) {
+      return !isReadyStepTwo;
+    }
+
+    if (stepIndex === EStep.STEP2) {
+      return true;
+    }
+  };
+
+  const handleNextStepButtonClick = () => {
+    if (stepIndex === EStep.STEP1) {
+      setStepIndex(EStep.STEP2);
+    }
+  };
+
+  const handleBackIconClick = () => {
+    if (stepIndex === EStep.STEP2) {
+      setStepIndex(EStep.STEP1);
+    }
+  };
+
   return (
     <StModalWrapper>
       <StHeader>
-        <img src={BACK} />
-        <ShowStep step={EStep.STEP1} />
-        <img src={BLACK_X} />
+        {stepIndex === EStep.STEP1 ? (
+          <StTransparentDiv />
+        ) : (
+          <Pressable onClick={handleBackIconClick}>
+            <BackIcon size={24} />
+          </Pressable>
+        )}
+        <ShowStep step={stepIndex} />
+        <Pressable>
+          <XButtonIcon size={24} />
+        </Pressable>
       </StHeader>
 
       <StChildrenWrapper>
@@ -33,13 +73,16 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
 
       <StFooter>
         <StButtonWrapper>
-          <Button label="로그인" $buttonTheme="gray" size="large" $bold />
+          <Button
+            label={stepIndex === EStep.STEP3 ? '회원가입 완료' : '다음'}
+            $buttonTheme="blue"
+            size="large"
+            $bold
+            onClick={handleNextStepButtonClick}
+            disabled={isReadyNextStep()}
+          />
         </StButtonWrapper>
       </StFooter>
     </StModalWrapper>
   );
 };
-
-export const StButtonWrapper = styled.div`
-  width: 312px;
-`;

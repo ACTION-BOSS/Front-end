@@ -12,23 +12,33 @@ import {
   StUpperDiv,
   StRelativeDiv,
   StVerificationInput,
-  StTimerText,
   StVerificationButtonWrapper,
   StLabel1Text,
   StLabel3Text,
   StLabelTextWrapper,
+  StGrayInput,
 } from './EmailPasswordStyle';
-import { Input, SelectBox } from '../../components';
+import { Input, SelectBox, Timer } from '../../components';
+import { useRecoilValue } from 'recoil';
+import {
+  $isCodeSent,
+  $isEmailCodeVerificated,
+  $isEmailSendFailed,
+  $isTimeOver,
+} from '../../state';
 type EmailPasswordViewProps = {
   emailIdValue: string;
   onChangeEmailId: (...event: any[]) => void;
   emailDomainValue: string;
   onChangeEmailDomain: (...event: any[]) => void;
-  isCodeSended: boolean;
   inputCode: string;
   onCodeSendButtonClick: () => void;
   handleInputChange: (e: string) => void;
   isInputFilled: boolean;
+  isSelfTypeMode: boolean;
+  setToSelfTypeMode: () => void;
+  reSendEmail: () => void;
+  onEmailCodeAuthenticationButtonClick: () => void;
 };
 
 export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
@@ -36,12 +46,34 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
   onChangeEmailId,
   emailDomainValue,
   onChangeEmailDomain,
-  isCodeSended,
   onCodeSendButtonClick,
   inputCode,
   handleInputChange,
   isInputFilled,
+  isSelfTypeMode,
+  setToSelfTypeMode,
+  reSendEmail,
+  onEmailCodeAuthenticationButtonClick,
 }) => {
+  const isCodeSent = useRecoilValue($isCodeSent);
+  const isEmailSendFailed = useRecoilValue($isEmailSendFailed);
+  const isEmailCodeVerificated = useRecoilValue($isEmailCodeVerificated);
+  const isTimeOver = useRecoilValue($isTimeOver);
+
+  const getTextByEmailCodeVerificated = (
+    isEmailCodeVerificated: boolean | null,
+  ) => {
+    if (isEmailCodeVerificated === null) {
+      return '이메일을 받지 못하셨나요?';
+    }
+    if (isEmailCodeVerificated === false) {
+      return '인증코드가 다릅니다';
+    }
+    if (isEmailCodeVerificated) {
+      return '인증이 완료되었습니다';
+    }
+  };
+
   return (
     <StWrapper>
       <StColumnDiv>
@@ -55,6 +87,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
               fontSize={Theme.fontSizes.label1}
               fontWeight={Theme.fontWeights.label1}
               onClick={onCodeSendButtonClick}
+              disabled={isCodeSent}
             />
           </StButtonWrapper>
         </StUpperSpaceDiv>
@@ -64,20 +97,42 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               onChangeEmailId(event.target.value);
             }}
-            placeholder="선택해주세요"
+            placeholder="example"
+            $isError={isEmailSendFailed}
           />
           <StAtText>@</StAtText>
-          <SelectBox initialOptions={['직접입력', '2asdfasdf', '3asdfasdf']} />
-          {/* <StGrayInput
-            value={emailDomainValue}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              onChangeEmailDomain(event.target.value);
-            }}
-          /> */}
+
+          {isSelfTypeMode ? (
+            <StGrayInput
+              value={emailDomainValue}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                onChangeEmailDomain(event.target.value);
+              }}
+              $isError={isEmailSendFailed}
+            />
+          ) : (
+            <SelectBox
+              setToSelfTypeMode={setToSelfTypeMode}
+              initialOptions={[
+                '직접입력',
+                'naver.com',
+                'gamil.com',
+                'hanmail.com',
+              ]}
+              $isError={isEmailSendFailed}
+            />
+          )}
         </StFlexRowDiv>
+        {isEmailSendFailed && (
+          <StLabelTextWrapper>
+            <StLabel1Text $isCorrect={false}>
+              잘못된 이메일 형식입니다
+            </StLabel1Text>
+          </StLabelTextWrapper>
+        )}
       </StColumnDiv>
 
-      {isCodeSended && (
+      {isCodeSent && (
         <StColumnDiv>
           <StUpperDiv>
             <StUpperText>이메일로 전송된 인증코드를 입력해주세요</StUpperText>
@@ -89,32 +144,27 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
               onChange={(e) => {
                 handleInputChange(e.target.value);
               }}
+              $isVerificated={isEmailCodeVerificated}
             />
-            <StTimerText>02:22</StTimerText>
+            <Timer initialTime={180} />
             <StVerificationButtonWrapper>
-              {isInputFilled ? (
-                <Button
-                  label="인증하기"
-                  $buttonTheme="emptyGray"
-                  size="xsmall"
-                  fontSize={Theme.fontSizes.label1}
-                  fontWeight={Theme.fontWeights.label1}
-                />
-              ) : (
-                <Button
-                  label="인증하기"
-                  $buttonTheme="gray"
-                  size="xsmall"
-                  fontSize={Theme.fontSizes.label1}
-                  fontWeight={Theme.fontWeights.label1}
-                />
-              )}
+              <Button
+                label="인증하기"
+                $buttonTheme="emptyGray"
+                size="xsmall"
+                fontSize={Theme.fontSizes.label1}
+                fontWeight={Theme.fontWeights.label1}
+                onClick={onEmailCodeAuthenticationButtonClick}
+                disabled={!isInputFilled || isTimeOver}
+              />
             </StVerificationButtonWrapper>
           </StRelativeDiv>
 
           <StLabelTextWrapper>
-            <StLabel1Text>이메일을 받지 못하셨나요?</StLabel1Text>
-            <StLabel3Text>이메일 재전송</StLabel3Text>
+            <StLabel1Text $isCorrect={isEmailCodeVerificated}>
+              {getTextByEmailCodeVerificated(isEmailCodeVerificated)}
+            </StLabel1Text>
+            <StLabel3Text onClick={reSendEmail}>이메일 재전송</StLabel3Text>
           </StLabelTextWrapper>
         </StColumnDiv>
       )}

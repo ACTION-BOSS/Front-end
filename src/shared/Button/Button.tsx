@@ -10,6 +10,7 @@ type ButtonProps = {
   fontWeight?: string;
   $bold?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 /***
@@ -28,12 +29,17 @@ export const Button: FC<ButtonProps> = ({
   fontSize = '16px',
   fontWeight = '700',
   $bold = false,
-  onClick,
+  onClick = () => {},
+  disabled = false,
 }) => {
   return (
-    <ButtonWrapper onClick={onClick}>
+    <ButtonWrapper
+      onClick={() => {
+        !disabled && onClick();
+      }}
+    >
       <ButtonStyle
-        $buttonTheme={$buttonTheme}
+        $buttonTheme={disabled ? 'gray' : $buttonTheme}
         size={size}
         fontSize={fontSize}
         fontWeight={fontWeight}

@@ -1,17 +1,19 @@
-import { FC } from 'react';
+import { FC, useCallback, useState } from 'react';
 import {
   EmailPasswordView,
   NicknameView,
   PasswordVerificationView,
 } from '../views';
-import { useRecoilValue } from 'recoil';
-import { $stepIndex } from '../state';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { $isResetCode, $stepIndex } from '../state';
 import { EStep } from '../type';
 import { useSignupModalFormController, useVerificationCode } from './hooks';
+import { debounce } from 'lodash';
 type SignupModalContainerProps = {};
 
 export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
   const step = useRecoilValue($stepIndex);
+  const setIsResetCode = useSetRecoilState($isResetCode);
 
   const {
     onChangeNickname,
@@ -29,12 +31,25 @@ export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
   } = useSignupModalFormController();
 
   const {
-    isCodeSended,
     onCodeSendButtonClick,
     inputCode,
     handleInputChange,
     isInputFilled,
+    onEmailCodeAuthenticationButtonClick,
   } = useVerificationCode();
+
+  const [isSelfTypeMode, setIsSelfTypeMode] = useState<boolean>(false);
+  const setToSelfTypeMode = () => {
+    setIsSelfTypeMode(true);
+  };
+
+  const reSendEmail = useCallback(
+    debounce(() => {
+      console.log('이메일 재전송 버튼');
+      setIsResetCode(true);
+    }, 1000),
+    [],
+  );
 
   return (
     //@ts-ignore TODO : fix typescript
@@ -45,11 +60,16 @@ export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
           onChangeEmailId={onChangeEmailId}
           emailDomainValue={emailDomainValue}
           onChangeEmailDomain={onChangeEmailDomain}
-          isCodeSended={isCodeSended}
           onCodeSendButtonClick={onCodeSendButtonClick}
           inputCode={inputCode}
           handleInputChange={handleInputChange}
           isInputFilled={isInputFilled}
+          isSelfTypeMode={isSelfTypeMode}
+          setToSelfTypeMode={setToSelfTypeMode}
+          reSendEmail={reSendEmail}
+          onEmailCodeAuthenticationButtonClick={
+            onEmailCodeAuthenticationButtonClick
+          }
         />
       )}
       {step === EStep.STEP2 && <PasswordVerificationView />}
