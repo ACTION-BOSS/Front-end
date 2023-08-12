@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as s from './MainPostsStyle';
-import { MainPost } from '../mainPost/MainPost';
+import { MainPost } from '../MainPost/MainPost';
 import {
   CheckIcon,
   CheckXIcon,
