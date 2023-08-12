@@ -38,3 +38,13 @@ export const $isReadyStepTwo = atom<boolean>({
   key: 'isReadyStepTwo',
   default: false,
 });
+
+export const $isReadyStepThree = atom<boolean>({
+  key: 'isReadyStepTwo',
+  default: false,
+});
+
+export const $isReadyForSignup = atom<boolean>({
+  key: 'isReadyForSignup',
+  default: false,
+});

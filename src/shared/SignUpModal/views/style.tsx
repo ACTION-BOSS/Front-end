@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme } from '../../../styles';
 
 export const StWrapper = styled.div`
   display: flex;
@@ -47,9 +47,9 @@ export const StButtonWrapper = styled.div`
   margin-right: 5px;
 `;
 
-export const StGrayInput = styled.input<{ $isError?: boolean | null }>`
+export const StGrayInput = styled.input<{ $isError: boolean; width?: string }>`
   display: flex;
-  width: 153px;
+  width: ${(props) => (props.width === 'fluid' ? '100%' : '153px')};
   height: 42px;
   padding: 6px 12px;
   border-radius: 8px;
@@ -62,31 +62,12 @@ export const StGrayInput = styled.input<{ $isError?: boolean | null }>`
   border: ${(props) =>
     props.$isError ? `1px solid ${Theme.colors.pink}` : 'none'};
   outline: none;
-`;
 
-export const StVerificationInput = styled.input<{
-  $isVerificated: boolean | null;
-}>`
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  height: 42px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  background-color: ${Theme.colors.blueGray};
-  color: ${Theme.colors.black};
-
-  font-size: ${Theme.fontSizes.body3};
-  font-weight: ${Theme.fontWeights.body3};
-
-  border: ${(props) => {
-    return props.$isVerificated === true
-      ? `1px solid ${Theme.colors.blue}`
-      : props.$isVerificated === false
-      ? `1px solid ${Theme.colors.pink}`
-      : 'none';
-  }};
-  outline: none;
+  &::placeholder {
+    color: ${Theme.colors.gray4};
+    font-size: ${Theme.fontSizes.label1};
+    font-weight: 100;
+  }
 `;
 
 export const StFlexRowDiv = styled.div`
@@ -155,4 +136,45 @@ export const StLabel3Text = styled.p`
   color: ${Theme.colors.gray7};
 
   cursor: pointer;
+`;
+
+export const StInputsWrapper = styled.div`
+  display: flex;
+  gap: 9.5px;
+  flex-direction: column;
+`;
+
+export const StInputWrapper = styled.div`
+  display: flex;
+`;
+
+export const StVerificationInput = styled.input<{
+  $isVerificated: boolean | null;
+}>`
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  height: 42px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: ${Theme.colors.blueGray};
+  color: ${Theme.colors.black};
+
+  font-size: ${Theme.fontSizes.body3};
+  font-weight: ${Theme.fontWeights.body3};
+
+  border: ${(props) => {
+    return props.$isVerificated === true
+      ? `1px solid ${Theme.colors.blue}`
+      : props.$isVerificated === false
+      ? `1px solid ${Theme.colors.pink}`
+      : 'none';
+  }};
+  outline: none;
+
+  &::placeholder {
+    color: ${Theme.colors.gray4};
+    font-size: ${Theme.fontSizes.label1};
+    font-weight: 100;
+  }
 `;

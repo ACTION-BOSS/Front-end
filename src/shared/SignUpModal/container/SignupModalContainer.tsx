@@ -18,12 +18,14 @@ export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
   const {
     onChangeNickname,
     onChangePassword,
+    onChangePasswordVerification,
     onChangeEmailId,
     onChangeEmailDomain,
     onChangeUserName,
     onChangePhoneNumber,
     nicknameValue,
     passwordValue,
+    passwordVerificationValue,
     emailIdValue,
     emailDomainValue,
     userNameValue,
@@ -72,8 +74,20 @@ export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
           }
         />
       )}
-      {step === EStep.STEP2 && <PasswordVerificationView />}
-      {step === EStep.STEP3 && <NicknameView />}
+      {step === EStep.STEP2 && (
+        <PasswordVerificationView
+          passwordValue={passwordValue}
+          passwordVerificationValue={passwordVerificationValue}
+          onChangePassword={onChangePassword}
+          onChangePasswordVerification={onChangePasswordVerification}
+        />
+      )}
+      {step === EStep.STEP3 && (
+        <NicknameView
+          nicknameValue={nicknameValue}
+          onChangeNickname={onChangeNickname}
+        />
+      )}
     </>
   );
 };

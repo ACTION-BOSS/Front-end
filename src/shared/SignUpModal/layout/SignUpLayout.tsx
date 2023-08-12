@@ -13,7 +13,12 @@ import { EStep } from '../type';
 import { Button } from '../../Button';
 import { LOGO_SERO } from '../../../assets';
 import { BackIcon, XButtonIcon } from '../../../assets/icon';
-import { $isReadyStepTwo, $stepIndex } from '../state';
+import {
+  $isReadyForSignup,
+  $isReadyStepThree,
+  $isReadyStepTwo,
+  $stepIndex,
+} from '../state';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Pressable } from '../../Pressable/Pressable';
 
@@ -24,6 +29,8 @@ type SignUpLayoutProps = {
 export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
   const [stepIndex, setStepIndex] = useRecoilState($stepIndex);
   const isReadyStepTwo = useRecoilValue($isReadyStepTwo);
+  const isReadyStepThree = useRecoilValue($isReadyStepThree);
+  const isReadyForSignup = useRecoilValue($isReadyForSignup);
 
   console.log('다음스텝 레디?', isReadyStepTwo);
 
@@ -33,7 +40,11 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
     }
 
     if (stepIndex === EStep.STEP2) {
-      return true;
+      return !isReadyStepThree;
+    }
+
+    if (stepIndex === EStep.STEP3) {
+      return !isReadyForSignup;
     }
   };
 
@@ -41,11 +52,23 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
     if (stepIndex === EStep.STEP1) {
       setStepIndex(EStep.STEP2);
     }
+
+    if (stepIndex === EStep.STEP2) {
+      setStepIndex(EStep.STEP3);
+    }
+    if (stepIndex === EStep.STEP3) {
+      alert('signup complete');
+      // setStepIndex(EStep.STEP3);
+    }
   };
 
   const handleBackIconClick = () => {
     if (stepIndex === EStep.STEP2) {
       setStepIndex(EStep.STEP1);
+    }
+
+    if (stepIndex === EStep.STEP3) {
+      setStepIndex(EStep.STEP2);
     }
   };
 

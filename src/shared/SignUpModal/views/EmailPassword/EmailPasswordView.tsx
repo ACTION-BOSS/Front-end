@@ -1,24 +1,7 @@
-import { ChangeEvent, FC } from 'react';
+import { FC } from 'react';
 import { Theme } from '../../../../styles';
 import { Button } from '../../../Button';
-import {
-  StWrapper,
-  StColumnDiv,
-  StUpperSpaceDiv,
-  StUpperText,
-  StButtonWrapper,
-  StFlexRowDiv,
-  StAtText,
-  StUpperDiv,
-  StRelativeDiv,
-  StVerificationInput,
-  StVerificationButtonWrapper,
-  StLabel1Text,
-  StLabel3Text,
-  StLabelTextWrapper,
-  StGrayInput,
-} from './EmailPasswordStyle';
-import { Input, SelectBox, Timer } from '../../components';
+import { SelectBox, Timer } from '../../components';
 import { useRecoilValue } from 'recoil';
 import {
   $isCodeSent,
@@ -26,6 +9,23 @@ import {
   $isEmailSendFailed,
   $isTimeOver,
 } from '../../state';
+import {
+  StWrapper,
+  StColumnDiv,
+  StUpperSpaceDiv,
+  StUpperText,
+  StButtonWrapper,
+  StFlexRowDiv,
+  StGrayInput,
+  StAtText,
+  StLabelTextWrapper,
+  StLabel1Text,
+  StUpperDiv,
+  StRelativeDiv,
+  StVerificationInput,
+  StVerificationButtonWrapper,
+  StLabel3Text,
+} from '../style';
 type EmailPasswordViewProps = {
   emailIdValue: string;
   onChangeEmailId: (...event: any[]) => void;
@@ -92,11 +92,9 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
           </StButtonWrapper>
         </StUpperSpaceDiv>
         <StFlexRowDiv>
-          <Input
+          <StGrayInput
             value={emailIdValue}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              onChangeEmailId(event.target.value);
-            }}
+            onChange={onChangeEmailId}
             placeholder="example"
             $isError={isEmailSendFailed}
           />
@@ -105,9 +103,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
           {isSelfTypeMode ? (
             <StGrayInput
               value={emailDomainValue}
-              onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                onChangeEmailDomain(event.target.value);
-              }}
+              onChange={onChangeEmailDomain}
               $isError={isEmailSendFailed}
             />
           ) : (

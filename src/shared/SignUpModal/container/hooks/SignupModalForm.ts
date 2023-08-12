@@ -4,6 +4,7 @@ export type SignupModalFormData = {
   emailId: string;
   emailDomain: string;
   password: string;
+  passwordVerification: string;
   phoneNumber: string;
   userName: string;
   nickname: string;
@@ -15,6 +16,7 @@ export const useSignupModalForm = () => {
     emailId: '',
     emailDomain: '',
     password: '',
+    passwordVerification: '',
     phoneNumber: '',
     userName: '',
     nickname: '',
