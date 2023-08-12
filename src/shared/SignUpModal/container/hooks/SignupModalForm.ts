@@ -1,20 +1,22 @@
 import { useForm } from 'react-hook-form';
 
 export type SignupModalFormData = {
-  email: string;
+  emailId: string;
+  emailDomain: string;
+  successKey: string;
   password: string;
-  phoneNumber: string;
-  userName: string;
+  passwordVerification: string;
   nickname: string;
 };
 
 export const useSignupModalForm = () => {
   // 관리 될 form 의 초기값
   const defaultValues = {
-    email: '',
+    emailId: '',
+    emailDomain: '',
+    successKey: '',
     password: '',
-    phoneNumber: '',
-    userName: '',
+    passwordVerification: '',
     nickname: '',
   };
 

@@ -1,58 +1,169 @@
-import { ChangeEvent, FC } from 'react';
-import { styled } from 'styled-components';
+import { FC } from 'react';
 import { Theme } from '../../../../styles';
 import { Button } from '../../../Button';
+import { SelectBox, Timer } from '../../components';
+import { useRecoilValue } from 'recoil';
+import {
+  $isCodeSent,
+  $isEmailCodeVerificated,
+  $isEmailSendFailed,
+  $isTimeOver,
+} from '../../state';
+import {
+  StWrapper,
+  StColumnDiv,
+  StUpperSpaceDiv,
+  StUpperText,
+  StButtonWrapper,
+  StFlexRowDiv,
+  StGrayInput,
+  StAtText,
+  StLabelTextWrapper,
+  StLabel1Text,
+  StUpperDiv,
+  StRelativeDiv,
+  StVerificationInput,
+  StVerificationButtonWrapper,
+  StLabel3Text,
+} from '../style';
 type EmailPasswordViewProps = {
-  emailValue: string;
-  onChangeEmail: (...event: any[]) => void;
+  emailIdValue: string;
+  onChangeEmailId: (...event: any[]) => void;
+  emailDomainValue: string;
+  onChangeEmailDomain: (...event: any[]) => void;
+  inputCode: string;
+  onCodeSendButtonClick: () => void;
+  handleInputChange: (e: string) => void;
+  isInputFilled: boolean;
+  isSelfTypeMode: boolean;
+  setToSelfTypeMode: () => void;
+  reSendEmail: () => void;
+  onEmailCodeAuthenticationButtonClick: () => void;
 };
 
 export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
-  emailValue,
-  onChangeEmail,
+  emailIdValue,
+  onChangeEmailId,
+  emailDomainValue,
+  onChangeEmailDomain,
+  onCodeSendButtonClick,
+  inputCode,
+  handleInputChange,
+  isInputFilled,
+  isSelfTypeMode,
+  setToSelfTypeMode,
+  reSendEmail,
+  onEmailCodeAuthenticationButtonClick,
 }) => {
+  const isCodeSent = useRecoilValue($isCodeSent);
+  const isEmailSendFailed = useRecoilValue($isEmailSendFailed);
+  const isEmailCodeVerificated = useRecoilValue($isEmailCodeVerificated);
+  const isTimeOver = useRecoilValue($isTimeOver);
+
+  const getTextByEmailCodeVerificated = (
+    isEmailCodeVerificated: boolean | null,
+  ) => {
+    if (isEmailCodeVerificated === null) {
+      return '이메일을 받지 못하셨나요?';
+    }
+    if (isEmailCodeVerificated === false) {
+      return '인증코드가 다릅니다';
+    }
+    if (isEmailCodeVerificated) {
+      return '인증이 완료되었습니다';
+    }
+  };
+
   return (
-    <div>
+    <StWrapper>
       <StColumnDiv>
         <StUpperSpaceDiv>
           <StUpperText>이메일 인증</StUpperText>
-          <Button
-            label="인증코드 보내기"
-            $buttonTheme="emptyGray"
-            size="xsmall"
-            fontSize={Theme.fontSizes.label1}
-            fontWeight={Theme.fontWeights.label1}
-          />
+          <StButtonWrapper>
+            <Button
+              label="인증코드 보내기"
+              $buttonTheme="emptyGray"
+              size="xsmall"
+              fontSize={Theme.fontSizes.label1}
+              fontWeight={Theme.fontWeights.label1}
+              onClick={onCodeSendButtonClick}
+              disabled={isCodeSent}
+            />
+          </StButtonWrapper>
         </StUpperSpaceDiv>
-        <input
-          value={emailValue}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            onChangeEmail(event.target.value);
-          }}
-        />
+        <StFlexRowDiv>
+          <StGrayInput
+            value={emailIdValue}
+            onChange={onChangeEmailId}
+            placeholder="example"
+            $isError={isEmailSendFailed}
+          />
+          <StAtText>@</StAtText>
+
+          {isSelfTypeMode ? (
+            <StGrayInput
+              value={emailDomainValue}
+              onChange={onChangeEmailDomain}
+              $isError={isEmailSendFailed}
+            />
+          ) : (
+            <SelectBox
+              setToSelfTypeMode={setToSelfTypeMode}
+              initialOptions={[
+                '직접입력',
+                'naver.com',
+                'gamil.com',
+                'hanmail.com',
+              ]}
+              $isError={isEmailSendFailed}
+            />
+          )}
+        </StFlexRowDiv>
+        {isEmailSendFailed && (
+          <StLabelTextWrapper>
+            <StLabel1Text $isCorrect={false}>
+              잘못된 이메일 형식입니다
+            </StLabel1Text>
+          </StLabelTextWrapper>
+        )}
       </StColumnDiv>
-    </div>
+
+      {isCodeSent && (
+        <StColumnDiv>
+          <StUpperDiv>
+            <StUpperText>이메일로 전송된 인증코드를 입력해주세요</StUpperText>
+          </StUpperDiv>
+          <StRelativeDiv>
+            <StVerificationInput
+              placeholder="인증코드 6자리 입력"
+              value={inputCode}
+              onChange={(e) => {
+                handleInputChange(e.target.value);
+              }}
+              $isVerificated={isEmailCodeVerificated}
+            />
+            <Timer initialTime={180} />
+            <StVerificationButtonWrapper>
+              <Button
+                label="인증하기"
+                $buttonTheme="emptyGray"
+                size="xsmall"
+                fontSize={Theme.fontSizes.label1}
+                fontWeight={Theme.fontWeights.label1}
+                onClick={onEmailCodeAuthenticationButtonClick}
+                disabled={!isInputFilled || isTimeOver}
+              />
+            </StVerificationButtonWrapper>
+          </StRelativeDiv>
+
+          <StLabelTextWrapper>
+            <StLabel1Text $isCorrect={isEmailCodeVerificated}>
+              {getTextByEmailCodeVerificated(isEmailCodeVerificated)}
+            </StLabel1Text>
+            <StLabel3Text onClick={reSendEmail}>이메일 재전송</StLabel3Text>
+          </StLabelTextWrapper>
+        </StColumnDiv>
+      )}
+    </StWrapper>
   );
 };
-
-export const StColumnDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const StUpperDiv = styled.div`
-  display: flex;
-
-  border-bottom: 0.5px solid ${Theme.colors.gray3};
-`;
-
-export const StUpperSpaceDiv = styled(StUpperDiv)`
-  justify-content: space-between;
-`;
-
-export const StUpperText = styled.p`
-  font-size: ${Theme.fontSizes.body3};
-  font-weight: ${Theme.fontWeights.body3};
-
-  color: ${Theme.colors.black};
-`;

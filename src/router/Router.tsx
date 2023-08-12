@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { CreatePost, Introduction, MainPage } from '../pages';
 import { Header } from '../shared/Header';
+import { TestPage } from '../pages/TestPage';
 
 export const RouterProvider = () => {
   return (
@@ -11,6 +12,7 @@ export const RouterProvider = () => {
         </Route>
         <Route path="/" element={<Introduction />} />
         <Route path="/create" element={<CreatePost />} />
+        <Route path="/test" element={<TestPage />} />
       </Routes>
     </BrowserRouter>
   );

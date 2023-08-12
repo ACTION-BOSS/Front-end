@@ -12,41 +12,48 @@ export const useSignupModalFormController = () => {
     control: control,
     name: 'nickname',
   });
+
   const {
     field: { value: passwordValue, onChange: onChangePassword },
   } = useController({
     control: control,
     name: 'password',
   });
+
   const {
-    field: { value: emailValue, onChange: onChangeEmail },
+    field: {
+      value: passwordVerificationValue,
+      onChange: onChangePasswordVerification,
+    },
   } = useController({
     control: control,
-    name: 'email',
+    name: 'passwordVerification',
   });
+
   const {
-    field: { value: userNameValue, onChange: onChangeUserName },
+    field: { value: emailIdValue, onChange: onChangeEmailId },
   } = useController({
     control: control,
-    name: 'userName',
+    name: 'emailId',
   });
+
   const {
-    field: { value: phoneNumberValue, onChange: onChangePhoneNumber },
+    field: { value: emailDomainValue, onChange: onChangeEmailDomain },
   } = useController({
     control: control,
-    name: 'phoneNumber',
+    name: 'emailDomain',
   });
 
   return {
     onChangeNickname,
     onChangePassword,
-    onChangeEmail,
-    onChangeUserName,
-    onChangePhoneNumber,
+    onChangePasswordVerification,
+    onChangeEmailId,
+    onChangeEmailDomain,
     nicknameValue,
     passwordValue,
-    emailValue,
-    userNameValue,
-    phoneNumberValue,
+    passwordVerificationValue,
+    emailIdValue,
+    emailDomainValue,
   };
 };
