@@ -10,7 +10,7 @@ import {
 
 export const MainPosts = () => {
   const [currentOption, setCurrentOption] = useState('최신순');
-  const [isToggle, setIsToggle] = useState(true);
+  const [isToggle, setIsToggle] = useState(false);
   const OPTIONS = ['최신순', '불편순', '해결순'];
 
   const onClickToggleHandler = () => {
@@ -28,7 +28,10 @@ export const MainPosts = () => {
         <div>우리동네 민원들</div>
         <div>
           <div>
-            <s.OptionButton onClick={onClickToggleHandler}>
+            <s.OptionButton
+              onClick={onClickToggleHandler}
+              active={isToggle.toString()}
+            >
               <div>{currentOption}</div>
               {isToggle ? <Toggle2Icon size={16} /> : <ToggleIcon size={16} />}
             </s.OptionButton>

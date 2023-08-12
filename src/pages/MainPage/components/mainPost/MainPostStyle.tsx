@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 interface OptionProps {
-  currentOption: string;
+  currentoption: string;
 }
 
 export const MainPostStyle = styled.div`
@@ -11,24 +11,26 @@ export const MainPostStyle = styled.div`
 export const MainPostImg = styled.div<OptionProps>`
   width: 100%;
   height: 180px;
-  background-color: #d9d9d9;
-  border-radius: 12px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  img {
+  border-radius: 12px;
+  overflow: hidden;
+  .postImg {
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
-    filter: ${(props) =>
-      props.currentOption === '해결순'
-        ? 'brightness(50%)'
-        : 'brightness(100%)'};
-  }
-  svg {
+    background-color: ${(props) =>
+      props.currentoption === '해결순' ? 'rgba(41, 47, 61, 0.40)' : 'none'};
     z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  img {
+    width: 100%;
+    height: 100%;
   }
 `;
 export const UnLike = styled.div`
