@@ -1,29 +1,68 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as s from './MainMapStyle';
+import { MapIcon } from '../../../../shared/MapIcon';
+import { MainModal } from '../MainModal';
 
 declare global {
   interface Window {
     kakao: any;
   }
 }
-export const MainMap: React.FC = () => {
+export const MainMap = () => {
+  const [isModal, setIsModal] = useState(true);
+  const [zoomLevel, setZoomLevel] = useState(3);
+  const [mapCenter, setMapCenter] = useState({
+    lat: 37.565869791860365,
+    lng: 126.98258019375905,
+  });
+
+  const onClickModalHandler = () => {
+    setIsModal(!isModal);
+  };
+
+  const zoomChangeHandler = (newZoomLevel: number) => {
+    setZoomLevel(newZoomLevel);
+  };
+
+  const mapCenterChangeHandler = (newMapCenter: {
+    lat: number;
+    lng: number;
+  }) => {
+    setMapCenter(newMapCenter);
+  };
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const container = document.getElementById('map');
 
       window.kakao.maps.load(() => {
         const options = {
-          center: new window.kakao.maps.LatLng(37.566826, 126.9786567),
-          level: 3,
+          center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lng),
+          level: zoomLevel,
         };
-        new window.kakao.maps.Map(container, options);
+        const map = new window.kakao.maps.Map(container, options);
+
+        // 휠로 줌 막음
+        map.setZoomable(false);
       });
     }
-  }, []);
+  }, [zoomLevel, mapCenter]);
 
   return (
     <s.MainMapContainer>
-      <div id="map" style={{ width: '100%', height: '100%' }} />
+      <div id="map" className="map" />
+      <s.MainMapIcon>
+        <MapIcon
+          zoomLevel={zoomLevel}
+          onZoomChange={zoomChangeHandler}
+          mapCenterChangeHandler={mapCenterChangeHandler}
+        />
+      </s.MainMapIcon>
+      {isModal && (
+        <s.MainModalContainer>
+          <MainModal onClick={onClickModalHandler} />
+        </s.MainModalContainer>
+      )}
     </s.MainMapContainer>
   );
 };
