@@ -8,10 +8,10 @@ type SignUpModalProps = {};
 export const SignUpModal: FC<SignUpModalProps> = ({}) => {
   const { form } = useSignupModalForm();
   return (
-    <SignUpLayout>
-      <FormProvider {...form}>
+    <FormProvider {...form}>
+      <SignUpLayout>
         <SignupModalContainer />
-      </FormProvider>
-    </SignUpLayout>
+      </SignUpLayout>
+    </FormProvider>
   );
 };

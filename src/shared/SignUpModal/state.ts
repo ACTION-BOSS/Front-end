@@ -40,7 +40,7 @@ export const $isReadyStepTwo = atom<boolean>({
 });
 
 export const $isReadyStepThree = atom<boolean>({
-  key: 'isReadyStepTwo',
+  key: 'isReadyStepThree',
   default: false,
 });
 

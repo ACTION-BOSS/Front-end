@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { debounce } from 'lodash';
 import {
@@ -7,10 +7,19 @@ import {
   $isEmailSendFailed,
   $isReadyStepTwo,
 } from '../../state';
+import { useFormContext, useController } from 'react-hook-form';
+import { SignupModalFormData } from './SignupModalForm';
 
 export const useVerificationCode = () => {
+  const { control } = useFormContext<SignupModalFormData>();
+  const {
+    field: { value: successKeyValue, onChange: onChangeSuccessKeyValue },
+  } = useController({
+    control: control,
+    name: 'successKey',
+  });
+
   const [isCodeSent, setIsCodeSent] = useRecoilState($isCodeSent);
-  const [inputCode, setInputCode] = useState<string>('');
   const setIsEmailSendFailed = useSetRecoilState($isEmailSendFailed);
   const setIsEmailCodeVerificated = useSetRecoilState($isEmailCodeVerificated);
   const setIsReadyStepTwo = useSetRecoilState($isReadyStepTwo);
@@ -37,16 +46,16 @@ export const useVerificationCode = () => {
   );
 
   const handleInputChange = (code: string) => {
-    if (/^\d*$/.test(code) || code.length < inputCode.length) {
+    if (/^\d*$/.test(code) || code.length < successKeyValue.length) {
       if (code.length <= 6) {
-        setInputCode(code);
+        onChangeSuccessKeyValue(code);
       }
     }
   };
 
-  const isInputFilled = inputCode.length === 6;
+  const isInputFilled = successKeyValue.length === 6;
 
-  console.log('inputcode', inputCode);
+  console.log('inputcode', successKeyValue);
 
   const onEmailCodeAuthenticationButtonClick = useCallback(
     debounce(() => {
@@ -72,7 +81,7 @@ export const useVerificationCode = () => {
   return {
     isCodeSent,
     onCodeSendButtonClick,
-    inputCode,
+    inputCode: successKeyValue,
     handleInputChange,
     isInputFilled,
     onEmailCodeAuthenticationButtonClick,

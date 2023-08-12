@@ -21,6 +21,7 @@ import {
 } from '../state';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Pressable } from '../../Pressable/Pressable';
+import { useSignupModalFormSubmit } from '../container';
 
 type SignUpLayoutProps = {
   children: ReactNode;
@@ -31,6 +32,7 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
   const isReadyStepTwo = useRecoilValue($isReadyStepTwo);
   const isReadyStepThree = useRecoilValue($isReadyStepThree);
   const isReadyForSignup = useRecoilValue($isReadyForSignup);
+  const { submit } = useSignupModalFormSubmit();
 
   console.log('다음스텝 레디?', isReadyStepTwo);
 
@@ -57,7 +59,7 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
       setStepIndex(EStep.STEP3);
     }
     if (stepIndex === EStep.STEP3) {
-      alert('signup complete');
+      submit();
       // setStepIndex(EStep.STEP3);
     }
   };

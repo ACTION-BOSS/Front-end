@@ -21,15 +21,11 @@ export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
     onChangePasswordVerification,
     onChangeEmailId,
     onChangeEmailDomain,
-    onChangeUserName,
-    onChangePhoneNumber,
     nicknameValue,
     passwordValue,
     passwordVerificationValue,
     emailIdValue,
     emailDomainValue,
-    userNameValue,
-    phoneNumberValue,
   } = useSignupModalFormController();
 
   const {

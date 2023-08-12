@@ -44,34 +44,16 @@ export const useSignupModalFormController = () => {
     name: 'emailDomain',
   });
 
-  const {
-    field: { value: userNameValue, onChange: onChangeUserName },
-  } = useController({
-    control: control,
-    name: 'userName',
-  });
-
-  const {
-    field: { value: phoneNumberValue, onChange: onChangePhoneNumber },
-  } = useController({
-    control: control,
-    name: 'phoneNumber',
-  });
-
   return {
     onChangeNickname,
     onChangePassword,
     onChangePasswordVerification,
     onChangeEmailId,
     onChangeEmailDomain,
-    onChangeUserName,
-    onChangePhoneNumber,
     nicknameValue,
     passwordValue,
     passwordVerificationValue,
     emailIdValue,
     emailDomainValue,
-    userNameValue,
-    phoneNumberValue,
   };
 };
