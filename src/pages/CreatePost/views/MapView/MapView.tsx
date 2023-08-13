@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { StMapBg, StContainer, StMapContainer, StMapText } from './style';
+import { useRecoilState } from 'recoil';
+import { postState } from '../../../../providers';
+import { StContainer, StMapContainer, StMapText } from './style';
+// import { MyDirectIcon } from '../../../../assets';
 
 declare global {
   interface Window {
@@ -10,6 +13,7 @@ declare global {
 export const MapView = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const [map, setMap] = useState<any>(null); // map 인스턴스를 state로 관리
+  const [post, setPost] = useRecoilState(postState);
 
   useEffect(() => {
     if (window.kakao && window.kakao.maps && mapContainerRef.current) {
@@ -41,22 +45,27 @@ export const MapView = () => {
           mouseEvent.latLng,
           (result: any, status: any) => {
             if (status === services.Status.OK) {
-              const content = result[0].address.address_name;
-              console.log('주소:', content);
-              console.log('위도:', mouseEvent.latLng.getLat());
-              console.log('경도:', mouseEvent.latLng.getLng());
+              const address = result[0].address.address_name;
+              const latitude = mouseEvent.latLng.getLat();
+              const longitude = mouseEvent.latLng.getLng();
+              setPost((prevPost) => ({
+                ...prevPost,
+                address,
+                latitude,
+                longitude,
+              }));
 
               marker.setPosition(mouseEvent.latLng);
               marker.setMap(mapInstance);
 
-              infowindow.setContent(content);
+              infowindow.setContent(address);
               infowindow.open(mapInstance, marker);
             }
           },
         );
       });
     }
-  }, []);
+  }, []); //종속 배열 어떻게 해야할지
 
   const searchDetailAddrFromCoords = (
     geocoder: any,
@@ -68,12 +77,12 @@ export const MapView = () => {
 
   return (
     <>
-      <StMapBg>
-        <StContainer>
-          <StMapText>민원 위치 설정</StMapText>
-          <StMapContainer ref={mapContainerRef}></StMapContainer>
-        </StContainer>
-      </StMapBg>
+      <StContainer>
+        {/* <MyDirectIcon /> */}
+        <StMapText>민원 위치 설정하기</StMapText>
+
+        <StMapContainer ref={mapContainerRef}></StMapContainer>
+      </StContainer>
     </>
   );
 };

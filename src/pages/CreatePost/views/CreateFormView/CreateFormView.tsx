@@ -1,15 +1,22 @@
 import {
   StFormContainer,
+  StInputContainer,
   StContentContainer,
+  StTextContainer,
   StPhotoBoxContainer,
+  StIconBox,
   StPhotoBox,
   StPhotoText,
   StPhotoBoxInput,
   StCloseButton,
 } from './style';
 import React, { useState } from 'react';
+import { HelpIcon } from '../../../../assets';
+import { useRecoilState } from 'recoil';
+import { postState } from '../../../../providers';
 
 export const CreateFormView = () => {
+  const [post, setPost] = useRecoilState(postState);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,34 +26,65 @@ export const CreateFormView = () => {
         URL.createObjectURL(file),
       );
       setPreviewImages(imagesArray.slice(0, 3));
+      setPost({ ...post, images: imagesArray.slice(0, 3) });
     }
   };
 
   const removeImage = (index: number) => {
     const updatedImages = [...previewImages];
+    const updatedImgs = [...post.images];
     updatedImages.splice(index, 1);
+    updatedImgs.splice(index, 1);
     setPreviewImages(updatedImages);
+    setPost({ ...post, images: updatedImgs });
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPost({ ...post, title: e.target.value });
+  };
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setPost({ ...post, content: e.target.value });
   };
 
   return (
     <>
       <StFormContainer>
-        <input placeholder="제목을 작성해주세요 *"></input>
+        <StInputContainer>
+          <input
+            placeholder="제목을 작성해주세요 *"
+            value={post.title}
+            onChange={handleTitleChange}
+            maxLength={50}
+          ></input>
+          <div>{post.title.length}/50자</div>
+        </StInputContainer>
         <StContentContainer>
-          <textarea placeholder="민원 내용을 작성해주세요 *"></textarea>
+          <StTextContainer>
+            <textarea
+              placeholder="민원 내용을 작성해주세요 *"
+              value={post.content}
+              onChange={handleContentChange}
+              maxLength={500}
+            ></textarea>
+            <div>{post.content.length}/500자</div>
+          </StTextContainer>
           <StPhotoBoxContainer>
-            <StPhotoText>최소 한 장의 사진을 올려주세요</StPhotoText>
+            <StIconBox>
+              <HelpIcon />
+              <StPhotoText>최소 한 장의 사진을 올려주세요</StPhotoText>
+            </StIconBox>
 
             {Array(3)
               .fill(null)
               .map((_, index) => (
-                <StPhotoBox key={index} image={previewImages[index]}>
-                  {previewImages[index] && (
+                <StPhotoBox key={index} image={post.images[index]}>
+                  {post.images[index] && (
                     <StCloseButton onClick={() => removeImage(index)}>
                       X
                     </StCloseButton>
                   )}
-                  {!previewImages[index] && (
+                  {!post.images[index] && (
                     <StPhotoBoxInput>
                       <input
                         type="file"
