@@ -25,7 +25,7 @@ export const Timer: FC<TimerProps> = ({ initialTime }) => {
 
   const { time, start, reset } = useTimer({
     timerType: 'DECREMENTAL',
-    initialTime: 13,
+    initialTime,
     step: 1,
     endTime: 0,
     autostart: isCodeSent,

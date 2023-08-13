@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { useSetRecoilState } from 'recoil';
 import { $isReadyForSignup } from '../../state';
@@ -12,6 +12,8 @@ import {
   StVerificationInput,
   StWrapper,
 } from '../style';
+import { api } from '../../../../api';
+import { AxiosError } from 'axios';
 
 type NicknameViewProps = {
   nicknameValue: string;
@@ -23,8 +25,11 @@ export const NicknameView: FC<NicknameViewProps> = ({
   onChangeNickname,
 }) => {
   const setIsReadyForSignup = useSetRecoilState($isReadyForSignup);
+  const [isDuplicatedNickname, setIsDuplicatedNickname] = useState<
+    boolean | null
+  >(null);
 
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 15) return;
     onChangeNickname(e);
   };
@@ -43,9 +48,6 @@ export const NicknameView: FC<NicknameViewProps> = ({
         text: '2글자 이상 15글자 이하의 닉네임만 가능합니다',
       };
     } else {
-      // TODO : duplicate check axios
-      const isDuplicatedNickname = false;
-
       if (isDuplicatedNickname) {
         return {
           verification: false,
@@ -62,17 +64,38 @@ export const NicknameView: FC<NicknameViewProps> = ({
 
   const { verification, text } = validationCheck(nicknameValue);
 
-  const isNicknameLengthValid =
-    nicknameValue.length >= 2 && nicknameValue.length <= 15;
+  useEffect(() => {
+    const checkNicknameDuplicated = async () => {
+      try {
+        const response = await api.post('signup/nicknameCheck', {
+          nickname: nicknameValue,
+        });
 
-  // TODO : debounce Nickname duplication check
-  const isVerified = true;
+        console.log(response);
+
+        if (response.status === 200) {
+          setIsDuplicatedNickname(false);
+        }
+      } catch (e) {
+        const AxiosError = e as AxiosError;
+
+        console.log('err', AxiosError);
+
+        if (
+          AxiosError.response?.status === 401 ||
+          AxiosError.response?.status === 403
+        ) {
+          setIsDuplicatedNickname(true);
+        }
+      }
+    };
+
+    checkNicknameDuplicated();
+  }, [nicknameValue]);
 
   useEffect(() => {
-    if (isVerified !== null) {
-      setIsReadyForSignup(isVerified);
-    }
-  }, [isVerified]);
+    setIsReadyForSignup(verification);
+  }, [verification]);
 
   return (
     <StWrapper>

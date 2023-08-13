@@ -22,6 +22,7 @@ import {
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Pressable } from '../../Pressable/Pressable';
 import { useSignupModalFormSubmit } from '../container';
+import { useModal } from '../../../providers';
 
 type SignUpLayoutProps = {
   children: ReactNode;
@@ -33,8 +34,7 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
   const isReadyStepThree = useRecoilValue($isReadyStepThree);
   const isReadyForSignup = useRecoilValue($isReadyForSignup);
   const { submit } = useSignupModalFormSubmit();
-
-  console.log('다음스텝 레디?', isReadyStepTwo);
+  const { closeModal } = useModal();
 
   const isReadyNextStep = () => {
     if (stepIndex === EStep.STEP1) {
@@ -74,6 +74,10 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
     }
   };
 
+  const handleCloseIconClick = () => {
+    closeModal();
+  };
+
   return (
     <StModalWrapper>
       <StHeader>
@@ -85,7 +89,7 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
           </Pressable>
         )}
         <ShowStep step={stepIndex} />
-        <Pressable>
+        <Pressable onClick={handleCloseIconClick}>
           <XButtonIcon size={24} />
         </Pressable>
       </StHeader>

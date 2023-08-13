@@ -44,7 +44,7 @@ export const $isReadyStepThree = atom<boolean>({
   default: false,
 });
 
-export const $isReadyForSignup = atom<boolean>({
+export const $isReadyForSignup = atom<boolean | null>({
   key: 'isReadyForSignup',
   default: false,
 });
