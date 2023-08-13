@@ -23,7 +23,7 @@ export const PostModal: FC<ModalProps> = ({
       <StModal>
         {modalType === 'warning' ? (
           <>
-            <div>제목, 내용, 사진, 위치를 모두 입력해주세요</div>
+            <div>양식을 모두 입력해주세요</div>
             <StButtonContainer>
               {buttonConfig && (
                 <Button

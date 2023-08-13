@@ -79,7 +79,7 @@ export const MapView = () => {
     <>
       <StContainer>
         {/* <MyDirectIcon /> */}
-        <StMapText>민원 위치 설정하기</StMapText>
+        <StMapText>민원 위치 설정하기 *</StMapText>
 
         <StMapContainer ref={mapContainerRef}></StMapContainer>
       </StContainer>
