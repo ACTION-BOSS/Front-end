@@ -9,9 +9,29 @@ import {
 } from '../../state';
 import { useFormContext, useController } from 'react-hook-form';
 import { SignupModalFormData } from './SignupModalForm';
+// import axios from 'axios';
+
+// const api = axios.create({
+//   baseURL: 'https://actionboss.store:8080/api',
+// });
 
 export const useVerificationCode = () => {
   const { control } = useFormContext<SignupModalFormData>();
+
+  // const {
+  //   field: { value: emailIdValue, onChange: onChangeEmailId },
+  // } = useController({
+  //   control: control,
+  //   name: 'emailId',
+  // });
+
+  // const {
+  //   field: { value: emailDomainValue, onChange: onChangeEmailDomain },
+  // } = useController({
+  //   control: control,
+  //   name: 'emailDomain',
+  // });
+
   const {
     field: { value: successKeyValue, onChange: onChangeSuccessKeyValue },
   } = useController({
@@ -25,8 +45,10 @@ export const useVerificationCode = () => {
   const setIsReadyStepTwo = useSetRecoilState($isReadyStepTwo);
 
   const onCodeSendButtonClick = useCallback(
-    debounce(() => {
-      console.log('CodeSendButtonClicked');
+    debounce(async () => {
+      // const response = await api.post('signup/emailSend', {
+      //   email: `${emailIdValue}@${emailDomainValue}`,
+      // });
 
       const response = {
         status: 200,

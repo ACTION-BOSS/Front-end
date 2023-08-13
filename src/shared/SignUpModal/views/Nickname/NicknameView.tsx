@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { ChangeEvent, FC, useEffect } from 'react';
 
 import { useSetRecoilState } from 'recoil';
 import { $isReadyForSignup } from '../../state';
@@ -24,6 +24,47 @@ export const NicknameView: FC<NicknameViewProps> = ({
 }) => {
   const setIsReadyForSignup = useSetRecoilState($isReadyForSignup);
 
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > 15) return;
+    onChangeNickname(e);
+  };
+
+  const validationCheck = (nickname: string) => {
+    if (nickname.length === 0) {
+      return {
+        verification: null,
+        text: null,
+      };
+    }
+
+    if (nickname.length < 2 || nickname.length > 15) {
+      return {
+        verification: false,
+        text: '2글자 이상 15글자 이하의 닉네임만 가능합니다',
+      };
+    } else {
+      // TODO : duplicate check axios
+      const isDuplicatedNickname = false;
+
+      if (isDuplicatedNickname) {
+        return {
+          verification: false,
+          text: '이미 존재하는 닉네임입니다',
+        };
+      } else {
+        return {
+          verification: true,
+          text: '사용 가능한 닉네임입니다',
+        };
+      }
+    }
+  };
+
+  const { verification, text } = validationCheck(nicknameValue);
+
+  const isNicknameLengthValid =
+    nicknameValue.length >= 2 && nicknameValue.length <= 15;
+
   // TODO : debounce Nickname duplication check
   const isVerified = true;
 
@@ -44,18 +85,14 @@ export const NicknameView: FC<NicknameViewProps> = ({
           <StVerificationInput
             placeholder="닉네임을 입력해주세요"
             value={nicknameValue}
-            onChange={onChangeNickname}
-            $isVerificated={isVerified}
+            onChange={handleChangeInput}
+            $isVerificated={verification}
           />
         </StInputWrapper>
 
-        {isVerified !== null && (
+        {verification !== null && (
           <StLabelTextWrapper>
-            <StLabel1Text $isCorrect={isVerified}>
-              {isVerified
-                ? '사용 가능한 닉네임입니다'
-                : '이미 존재하는 닉네임입니다'}
-            </StLabel1Text>
+            <StLabel1Text $isCorrect={verification}>{text}</StLabel1Text>
           </StLabelTextWrapper>
         )}
       </StColumnDiv>
