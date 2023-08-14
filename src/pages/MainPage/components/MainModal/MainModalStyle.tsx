@@ -38,19 +38,24 @@ export const MainModalMiddle = styled.div`
   }
 `;
 export const UnLike = styled.div`
+  height: 30px;
+  width: 60px;
   position: absolute;
   top: 10px;
   right: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
-  padding: 0px 10px;
   background-color: white;
   box-shadow: 0px 0px 10px 0px rgba(41, 47, 61, 0.2);
   border-radius: 100px;
   font-size: ${(props) => props.theme.fontSizes.body1};
   font-weight: ${(props) => props.theme.fontWeights.body1};
   color: ${(props) => props.theme.colors.gray8};
+  div {
+    padding-right: 4px;
+  }
 `;
 export const MainModalBottom = styled.div`
   margin-top: 20px;

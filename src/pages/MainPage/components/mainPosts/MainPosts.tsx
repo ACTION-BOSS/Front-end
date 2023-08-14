@@ -7,13 +7,19 @@ import {
   Toggle2Icon,
   ToggleIcon,
 } from '../../../../assets';
+import { Post } from '../../type';
 
 interface Props {
   currentOption: string;
   optionChangeHandler: (option: string) => void;
+  data: Post[];
 }
 
-export const MainPosts = ({ currentOption, optionChangeHandler }: Props) => {
+export const MainPosts = ({
+  currentOption,
+  optionChangeHandler,
+  data,
+}: Props) => {
   const [isToggle, setIsToggle] = useState(false);
   const OPTIONS = ['최신순', '불편순', '해결순'];
 
@@ -23,7 +29,7 @@ export const MainPosts = ({ currentOption, optionChangeHandler }: Props) => {
 
   const onClickOptionHandler = (option: string) => {
     optionChangeHandler(option);
-    setIsToggle(!isToggle);
+    onClickToggleHandler();
   };
 
   return (
@@ -51,11 +57,13 @@ export const MainPosts = ({ currentOption, optionChangeHandler }: Props) => {
         </div>
       </s.MainPostHeader>
       <s.MainPosts>
-        {Array(5)
-          .fill(0)
-          .map((item, index) => (
-            <MainPost key={index} currentOption={currentOption} />
-          ))}
+        {data.map((post: Post) => (
+          <MainPost
+            key={post.postId}
+            post={post}
+            currentOption={currentOption}
+          />
+        ))}
       </s.MainPosts>
     </s.MainPostsConatiner>
   );

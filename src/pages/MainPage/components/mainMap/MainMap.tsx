@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import * as s from './MainMapStyle';
 import { MapIcon } from '../../../../shared/MapIcon';
 import { MainModal } from '../MainModal';
+import { mainSidebarData } from '../../container/dummy';
+import { Ping, Post } from '../../type';
 
 declare global {
   interface Window {
@@ -12,10 +14,24 @@ declare global {
 interface Props {
   mapCenter: { lat: number; lng: number };
   mapCenterChangeHandler: (userLocation: { lat: number; lng: number }) => void;
+  pingData: Ping[];
 }
-export const MainMap = ({ mapCenter, mapCenterChangeHandler }: Props) => {
-  const [isModal, setIsModal] = useState(true);
-  const [zoomLevel, setZoomLevel] = useState(3);
+
+export const MainMap = ({
+  mapCenter,
+  mapCenterChangeHandler,
+  pingData,
+}: Props) => {
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const [zoomLevel, setZoomLevel] = useState<number>(3);
+  const [modalData, setModalData] = useState<Post>({
+    address: '',
+    likeCount: 0,
+    nickname: '',
+    postId: 0,
+    thumbnail: '',
+    title: '',
+  });
 
   const onClickModalHandler = () => {
     setIsModal(!isModal);
@@ -49,10 +65,29 @@ export const MainMap = ({ mapCenter, mapCenterChangeHandler }: Props) => {
         map.setZoomable(false);
 
         // 초기 위치에 마커 추가
-        addMarkerToMap(mapCenter, map);
+        pingData.forEach((ping: any) => {
+          const marker = new window.kakao.maps.Marker({
+            map: map,
+            position: new window.kakao.maps.LatLng(
+              ping.latitude,
+              ping.longitude,
+            ),
+            id: ping.id,
+          });
+          window.kakao.maps.event.addListener(marker, 'click', () => {
+            console.log('ping', ping.postId);
+            const selectData = mainSidebarData.filter(
+              (post) => post.postId === ping.postId,
+            );
+            setModalData(selectData[0]);
+            setIsModal(true);
+          });
+        });
       });
     }
   }, [zoomLevel, mapCenter]);
+
+  console.log(zoomLevel);
 
   return (
     <s.MainMapContainer>
@@ -66,7 +101,7 @@ export const MainMap = ({ mapCenter, mapCenterChangeHandler }: Props) => {
       </s.MainMapIcon>
       {isModal && (
         <s.MainModalContainer>
-          <MainModal onClick={onClickModalHandler} />
+          <MainModal onClick={onClickModalHandler} post={modalData} />
         </s.MainModalContainer>
       )}
     </s.MainMapContainer>
