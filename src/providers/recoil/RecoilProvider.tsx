@@ -4,7 +4,7 @@ import { atom, RecoilRoot } from 'recoil';
 export interface PostState {
   title: string;
   content: string;
-  images: string[];
+  images: File[];
   latitude: number;
   longitude: number;
   address: string;

@@ -22,11 +22,11 @@ export const CreateFormView = () => {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-      const imagesArray = Array.from(files).map((file) =>
-        URL.createObjectURL(file),
-      );
+      const fileArray = Array.from(files);
+      const imagesArray = fileArray.map((file) => URL.createObjectURL(file));
+
       setPreviewImages(imagesArray.slice(0, 3));
-      setPost({ ...post, images: imagesArray.slice(0, 3) });
+      setPost({ ...post, images: fileArray.slice(0, 3) });
     }
   };
 
@@ -78,13 +78,13 @@ export const CreateFormView = () => {
             {Array(3)
               .fill(null)
               .map((_, index) => (
-                <StPhotoBox key={index} image={post.images[index]}>
-                  {post.images[index] && (
+                <StPhotoBox key={index} image={previewImages[index]}>
+                  {previewImages[index] && (
                     <StCloseButton onClick={() => removeImage(index)}>
                       X
                     </StCloseButton>
                   )}
-                  {!post.images[index] && (
+                  {!previewImages[index] && (
                     <StPhotoBoxInput>
                       <input
                         type="file"

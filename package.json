@@ -15,10 +15,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "axios": "^1.4.0",
-<<<<<<< HEAD
-=======
     "lodash": "^4.17.21",
->>>>>>> develop
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "7.45.4",

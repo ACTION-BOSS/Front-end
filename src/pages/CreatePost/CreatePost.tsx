@@ -17,7 +17,7 @@ import {
 } from './style';
 
 export const CreatePost = () => {
-  const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('token');
   const post = useRecoilValue(postState);
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('default');
@@ -40,6 +40,13 @@ export const CreatePost = () => {
     }
   };
 
+  console.log(post.images);
+  console.log(post.title);
+  console.log(post.content);
+  console.log(post.latitude);
+  console.log(post.longitude);
+  console.log(post.address);
+
   const sendPostRequest = async () => {
     const formData = new FormData();
     const postJSON = JSON.stringify({
@@ -49,20 +56,28 @@ export const CreatePost = () => {
       longitude: post.longitude,
       address: post.address,
     });
-    formData.append('post', postJSON);
-    post.images.forEach((image, index) => {
-      formData.append(`images[${index}]`, image);
+
+    const blob = new Blob([postJSON], { type: 'application/json' });
+    formData.append('post', blob);
+    post.images.forEach((image) => {
+      formData.append(`images`, image);
     });
+    console.log('formdata', formData);
+    // for (let i = 0; i < post.images.length; i++) {
+    //   formData.append('images', post.images[i]);
+    // }
 
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URI}/posts`,
+        // '/api/posts',
         formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
           },
+          withCredentials: true,
         },
       );
       console.log(response.data);
