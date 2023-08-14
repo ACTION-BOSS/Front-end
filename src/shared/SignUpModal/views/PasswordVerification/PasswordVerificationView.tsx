@@ -27,6 +27,21 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
   onChangePasswordVerification,
 }) => {
   const setIsReadyStepThree = useSetRecoilState($isReadyStepThree);
+  // const [isPasswordVerified, setIsPasswordVerified] = useState<boolean | null>(
+  //   null,
+  // );
+
+  // const checkPasswordVerification = () => {
+  //   const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
+
+  //   if(passwordValue.length === 0){
+  //     setIsPasswordVerified(null)
+  //   } else {
+  //     setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue))
+  //   }
+
+  //   setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
+  // };
 
   const isVerified =
     passwordVerificationValue.length === 0

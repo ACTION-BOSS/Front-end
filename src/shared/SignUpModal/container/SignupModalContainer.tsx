@@ -1,19 +1,18 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useState } from 'react';
 import {
   EmailPasswordView,
   NicknameView,
   PasswordVerificationView,
 } from '../views';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { $isResetCode, $stepIndex } from '../state';
+import { useRecoilValue } from 'recoil';
+import { $stepIndex } from '../state';
 import { EStep } from '../type';
 import { useSignupModalFormController, useVerificationCode } from './hooks';
-import { debounce } from 'lodash';
+
 type SignupModalContainerProps = {};
 
 export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
   const step = useRecoilValue($stepIndex);
-  const setIsResetCode = useSetRecoilState($isResetCode);
 
   const {
     onChangeNickname,
@@ -34,20 +33,13 @@ export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
     handleInputChange,
     isInputFilled,
     onEmailCodeAuthenticationButtonClick,
+    reSendEmail,
   } = useVerificationCode();
 
   const [isSelfTypeMode, setIsSelfTypeMode] = useState<boolean>(false);
   const setToSelfTypeMode = () => {
     setIsSelfTypeMode(true);
   };
-
-  const reSendEmail = useCallback(
-    debounce(() => {
-      console.log('이메일 재전송 버튼');
-      setIsResetCode(true);
-    }, 1000),
-    [],
-  );
 
   return (
     //@ts-ignore TODO : fix typescript

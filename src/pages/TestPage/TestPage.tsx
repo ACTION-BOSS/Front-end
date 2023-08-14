@@ -27,6 +27,16 @@ export const TestPage: FC<TestPageProps> = ({}) => {
           }}
         />
       </div>
+      <div style={{ width: '100px' }}>
+        <Button
+          label="로그인"
+          $buttonTheme="pink"
+          size="small"
+          onClick={() => {
+            openModal(EModalType.LOGIN);
+          }}
+        />
+      </div>
     </div>
   );
 };

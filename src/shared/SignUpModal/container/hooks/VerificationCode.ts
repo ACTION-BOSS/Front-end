@@ -6,6 +6,7 @@ import {
   $isEmailCodeVerificated,
   $isEmailSendFailed,
   $isReadyStepTwo,
+  $isResetCode,
 } from '../../state';
 import { useFormContext, useController } from 'react-hook-form';
 import { SignupModalFormData } from './SignupModalForm';
@@ -40,6 +41,7 @@ export const useVerificationCode = () => {
   const setIsEmailSendFailed = useSetRecoilState($isEmailSendFailed);
   const setIsEmailCodeVerificated = useSetRecoilState($isEmailCodeVerificated);
   const setIsReadyStepTwo = useSetRecoilState($isReadyStepTwo);
+  const setIsResetCode = useSetRecoilState($isResetCode);
 
   const onCodeSendButtonClick = useCallback(
     debounce(async () => {
@@ -107,6 +109,32 @@ export const useVerificationCode = () => {
     [successKeyValue, emailDomainValue, emailIdValue],
   );
 
+  const reSendEmail = useCallback(
+    debounce(async () => {
+      try {
+        const response = await api.post('signup/emailSend', {
+          email: `${emailIdValue}@${emailDomainValue}`,
+        });
+
+        if (response.status === 200) {
+          return;
+        }
+      } catch (e) {
+        const AxiosError = e as AxiosError;
+
+        if (AxiosError.response) {
+          if (
+            AxiosError.response.status === 401 ||
+            AxiosError.response.status === 403
+          ) {
+            console.log('error: ', AxiosError);
+          }
+        }
+      }
+    }, 1000),
+    [emailDomainValue, emailIdValue],
+  );
+
   return {
     isCodeSent,
     onCodeSendButtonClick,
@@ -114,5 +142,6 @@ export const useVerificationCode = () => {
     handleInputChange,
     isInputFilled,
     onEmailCodeAuthenticationButtonClick,
+    reSendEmail,
   };
 };

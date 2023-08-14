@@ -10,12 +10,8 @@ import { api } from '../../../../api';
 export const useSignupModalFormSubmit = () => {
   const { handleSubmit } = useFormContext<SignupModalFormData>();
 
-  //watch : 각 데이터 볼수이씀 ex. watch('nickname')
-
   const onFormError: SubmitErrorHandler<SignupModalFormData> = useCallback(
-    async (error) => {
-      // error 났을때 처리하고싶은 로직
-    },
+    async (error) => {},
     [],
   );
 
@@ -23,9 +19,6 @@ export const useSignupModalFormSubmit = () => {
     async (data) => {
       const { nickname, password, emailId, emailDomain, successKey } = data;
       try {
-        // 데이터 전송하는 axios
-        // 데이터를 가지고 뭔가 하는 로직
-
         const response = await api.post('/signup', {
           nickname,
           password,
@@ -33,7 +26,9 @@ export const useSignupModalFormSubmit = () => {
           successKey,
         });
 
-        console.log(123, response);
+        if (response.status === 200) {
+          console.log(response);
+        }
       } catch (error) {
         console.error('error', error);
       }

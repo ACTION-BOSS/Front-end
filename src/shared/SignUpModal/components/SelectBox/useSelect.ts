@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { SignupModalFormData } from '../../container';
 
+import { useRecoilState } from 'recoil';
+import { $selectedOptionIndex } from '../../state';
+
 export const useSelect = (initialOptions: string[]) => {
   const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
-  const [selected, setSelected] = useState<number>(-1);
+  const [selectedOptionIndex, setSelectedOptionIndex] =
+    useRecoilState($selectedOptionIndex);
   const { control } = useFormContext<SignupModalFormData>();
   const {
     field: { value: emailDomainValue, onChange: onChangeEmailDomain },
@@ -14,18 +18,18 @@ export const useSelect = (initialOptions: string[]) => {
   });
 
   useEffect(() => {
-    if (selected === 0) {
+    if (selectedOptionIndex === 0) {
       onChangeEmailDomain('');
     } else {
-      onChangeEmailDomain(initialOptions[selected]);
+      onChangeEmailDomain(initialOptions[selectedOptionIndex]);
     }
-  }, [selected]);
+  }, [selectedOptionIndex]);
 
   return {
     isSelectOpen,
-    selected,
+    selectedOptionIndex,
     setIsSelectOpen,
-    setSelected,
+    setSelectedOptionIndex,
     emailDomainValue,
   };
 };

@@ -60,7 +60,6 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
     }
     if (stepIndex === EStep.STEP3) {
       submit();
-      // setStepIndex(EStep.STEP3);
     }
   };
 

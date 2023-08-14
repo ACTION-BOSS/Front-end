@@ -1,5 +1,5 @@
 import { FC, ReactNode, createContext, useContext, useState } from 'react';
-import { SignUpModal } from '../../shared';
+import { LoginModal, SignUpModal } from '../../shared';
 import { EModalType } from './type';
 import { styled } from 'styled-components';
 
@@ -32,7 +32,7 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
       return <SignUpModal />;
     }
     if (modalType === EModalType.LOGIN) {
-      return <div>fuck</div>;
+      return <LoginModal />;
     }
   };
 

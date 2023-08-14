@@ -48,3 +48,8 @@ export const $isReadyForSignup = atom<boolean | null>({
   key: 'isReadyForSignup',
   default: false,
 });
+
+export const $selectedOptionIndex = atom<number>({
+  key: 'selectedOptionIndex',
+  default: -1,
+});

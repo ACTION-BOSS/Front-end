@@ -18,17 +18,17 @@ export const SelectBox: FC<SelectBoxProps> = memo(
   ({ initialOptions, setToSelfTypeMode, $isError = false }) => {
     const {
       isSelectOpen,
-      selected,
+      selectedOptionIndex,
       setIsSelectOpen,
-      setSelected,
+      setSelectedOptionIndex,
       emailDomainValue,
     } = useSelect(initialOptions);
 
     useEffect(() => {
-      if (selected === 0) {
+      if (selectedOptionIndex === 0) {
         setToSelfTypeMode();
       }
-    }, [selected]);
+    }, [selectedOptionIndex]);
 
     return (
       <div style={{ position: 'relative' }}>
@@ -48,7 +48,10 @@ export const SelectBox: FC<SelectBoxProps> = memo(
         {isSelectOpen && (
           <StSelectList>
             {initialOptions.map((e, i) => (
-              <StSelectOption key={i} onMouseDown={() => setSelected(i)}>
+              <StSelectOption
+                key={i}
+                onMouseDown={() => setSelectedOptionIndex(i)}
+              >
                 {e}
               </StSelectOption>
             ))}
