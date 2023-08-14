@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MainMap, MainPosts } from '../components';
+import { getMainPingData, mainSidebarData } from './dummy';
 
 export const MainContainer = () => {
   const [mapCenter, setMapCenter] = useState({
@@ -19,15 +20,20 @@ export const MainContainer = () => {
     setCurrentOption(option);
   };
 
+  const data = mainSidebarData;
+  const pingData = getMainPingData;
+
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       <MainMap
         mapCenter={mapCenter}
         mapCenterChangeHandler={mapCenterChangeHandler}
+        pingData={pingData}
       />
       <MainPosts
         currentOption={currentOption}
         optionChangeHandler={optionChangeHandler}
+        data={data}
       />
     </div>
   );
