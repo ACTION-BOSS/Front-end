@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ReactQueryProvider, RecoilProvider } from './providers';
+import { ModalProvider, ReactQueryProvider, RecoilProvider } from './providers';
 import { RouterProvider } from './router';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, Theme } from './styles';
@@ -11,7 +11,9 @@ export const App: FC = () => {
       <RecoilProvider>
         <ReactQueryProvider>
           <ThemeProvider theme={Theme}>
-            <RouterProvider />
+            <ModalProvider>
+              <RouterProvider />
+            </ModalProvider>
           </ThemeProvider>
         </ReactQueryProvider>
       </RecoilProvider>
