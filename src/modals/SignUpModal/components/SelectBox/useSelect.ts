@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { SignupModalFormData } from '../../container';
-
 import { useRecoilState } from 'recoil';
 import { $selectedOptionIndex } from '../../state';
 

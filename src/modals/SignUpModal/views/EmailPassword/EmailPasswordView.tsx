@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { Theme } from '../../../../styles';
-import { Button } from '../../../../shared/Button';
-import { SelectBox, Timer } from '../../components';
 import { useRecoilValue } from 'recoil';
+import { Theme } from '../../../../styles';
+import { SelectBox, Timer } from '../../components';
+import { Button } from '../../../../shared';
 import {
   $isCodeSent,
   $isEmailCodeVerificated,
@@ -26,6 +26,7 @@ import {
   StVerificationButtonWrapper,
   StLabel3Text,
 } from '../style';
+
 type EmailPasswordViewProps = {
   emailIdValue: string;
   onChangeEmailId: (...event: any[]) => void;
@@ -112,7 +113,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
               initialOptions={[
                 '직접입력',
                 'naver.com',
-                'gamil.com',
+                'gmail.com',
                 'hanmail.com',
               ]}
               $isError={isEmailSendFailed}

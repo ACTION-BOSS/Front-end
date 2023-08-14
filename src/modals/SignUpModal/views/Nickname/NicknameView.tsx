@@ -1,5 +1,4 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
-
 import { useSetRecoilState } from 'recoil';
 import { $isReadyForSignup } from '../../state';
 import {
@@ -29,7 +28,7 @@ export const NicknameView: FC<NicknameViewProps> = ({
     boolean | null
   >(null);
 
-  const handleChangeInput = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 15) return;
     onChangeNickname(e);
   };
@@ -67,7 +66,7 @@ export const NicknameView: FC<NicknameViewProps> = ({
   useEffect(() => {
     const checkNicknameDuplicated = async () => {
       try {
-        const response = await api.post('signup/nicknameCheck', {
+        const response = await api.post('auth/signup/nicknameCheck', {
           nickname: nicknameValue,
         });
 
