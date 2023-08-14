@@ -46,7 +46,7 @@ export const useVerificationCode = () => {
   const onCodeSendButtonClick = useCallback(
     debounce(async () => {
       try {
-        const response = await api.post('signup/emailSend', {
+        const response = await api.post('auth/signup/emailSend', {
           email: `${emailIdValue}@${emailDomainValue}`,
         });
 
@@ -86,7 +86,7 @@ export const useVerificationCode = () => {
   const onEmailCodeAuthenticationButtonClick = useCallback(
     debounce(async () => {
       try {
-        const response = await api.post('/signup/emailCheck', {
+        const response = await api.post('auth/signup/emailCheck', {
           email: `${emailIdValue}@${emailDomainValue}`,
           successKey: successKeyValue,
         });
@@ -112,7 +112,7 @@ export const useVerificationCode = () => {
   const reSendEmail = useCallback(
     debounce(async () => {
       try {
-        const response = await api.post('signup/emailSend', {
+        const response = await api.post('auth/signup/emailSend', {
           email: `${emailIdValue}@${emailDomainValue}`,
         });
 

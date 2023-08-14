@@ -19,12 +19,12 @@ export const useLoginModalFormSubmit = () => {
     async (data) => {
       const { password, emailId, emailDomain } = data;
       try {
-        const response = await api.post('/login', {
+        const response = await api.post('auth/login', {
           password,
           email: `${emailId}@${emailDomain}`,
         });
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           console.log(response);
 
           // Authorization 헤더에서 토큰 추출
