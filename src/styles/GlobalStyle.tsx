@@ -37,5 +37,12 @@ export const GlobalStyle = createGlobalStyle`
         height: 100%;
         /* overflow-y: hidden; */
     }
+
+    @font-face {
+    font-family: 'GilbeotTG';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/GilbeotTG.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
  
 `;
