@@ -65,7 +65,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
               initialOptions={[
                 '직접입력',
                 'naver.com',
-                'gamil.com',
+                'gmail.com',
                 'hanmail.com',
               ]}
               $isError={isVerificationFailed}
