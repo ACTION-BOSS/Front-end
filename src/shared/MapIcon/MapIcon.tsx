@@ -34,11 +34,11 @@ export const MapIcon = ({
         <GPSIcon size={24} />
       </div>
       <div className="mapSizeIcon">
-        <div className="plusIcon" onClick={zoomInHandler}>
+        <div className="plusIcon" onClick={zoomOutHandler}>
           <PlusIcon size={24} />
         </div>
         <div className="line"></div>
-        <div className="minusIcon" onClick={zoomOutHandler}>
+        <div className="minusIcon" onClick={zoomInHandler}>
           <MinusIcon size={24} />
         </div>
       </div>
