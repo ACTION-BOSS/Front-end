@@ -12,7 +12,7 @@ import {
 } from '../../../SignUpModal/views/style';
 import styled from 'styled-components';
 import { Theme } from '../../../../styles';
-import { Button } from '../../../Button';
+import { Button } from '../../../../shared/Button';
 
 type EmailPasswordViewProps = {
   emailIdValue: string;

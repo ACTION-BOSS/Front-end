@@ -1,7 +1,8 @@
 import { FC, ReactNode, createContext, useContext, useState } from 'react';
-import { LoginModal, SignUpModal } from '../../shared';
+
 import { EModalType } from './type';
 import { styled } from 'styled-components';
+import { SignUpModal, LoginModal } from '../../modals';
 
 interface IModalContext {
   openModal: (modalType: EModalType) => void;

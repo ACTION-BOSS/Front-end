@@ -2,6 +2,4 @@
 
 export * from './SharedComponent';
 export * from './Button';
-export * from './SignUpModal';
 export * from './Pressable/Pressable';
-export * from './LoginModal';

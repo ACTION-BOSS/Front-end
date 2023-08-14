@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Theme } from '../../../../styles';
-import { Button } from '../../../Button';
+import { Button } from '../../../../shared/Button';
 import { SelectBox, Timer } from '../../components';
 import { useRecoilValue } from 'recoil';
 import {

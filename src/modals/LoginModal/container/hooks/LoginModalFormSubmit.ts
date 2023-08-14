@@ -19,14 +19,10 @@ export const useLoginModalFormSubmit = () => {
     async (data) => {
       const { password, emailId, emailDomain } = data;
       try {
-        const response = await api.post(
-          '/login',
-          {
-            password,
-            email: `${emailId}@${emailDomain}`,
-          },
-          { withCredentials: true },
-        );
+        const response = await api.post('/login', {
+          password,
+          email: `${emailId}@${emailDomain}`,
+        });
 
         if (response.status === 200) {
           console.log(response);
