@@ -1,0 +1,18 @@
+TODO
+
+1. password Verification
+2. check Ui change
+
+
+5. code Verification post
+6. resend post
+7. check password post (debounce)
+8. check nickname post (debounce)
+9. signup successed UI
+10. login view UI
+11. login post logic
+12. make modal pop up
+
+// 닉네임 중복체크 201 -> 200코드가 옴
+// figma 비밀번호 verification, 닉네임 verification 내가 만듦
+// 비밀번호 validation 안 맞을 때 어떻게 UI?

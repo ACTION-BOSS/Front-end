@@ -19,11 +19,11 @@ export const $buttonTheme = {
   },
 
   gray: {
-    backgroundColor: Theme.colors.gray1,
-    color: Theme.colors.black,
-    border: '1px solid transparent',
+    backgroundColor: Theme.colors.gray2,
+    color: Theme.colors.white,
+    border: '0px solid transparent',
     hover: {
-      backgroundColor: '#dfdfdf',
+      backgroundColor: Theme.colors.gray2,
     },
   },
 

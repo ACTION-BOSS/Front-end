@@ -1,17 +1,24 @@
 {
   "name": "front-end",
   "version": "0.1.0",
+  "proxy": "https://actionboss.store:8080",
   "private": true,
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "@tanstack/react-query": "^4.32.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
+    "@types/lodash": "^4.14.197",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "axios": "^1.4.0",
+<<<<<<< HEAD
+=======
+    "lodash": "^4.17.21",
+>>>>>>> develop
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "7.45.4",
@@ -20,6 +27,7 @@
     "recoil": "^0.7.7",
     "styled-components": "^6.0.7",
     "styled-reset": "^4.5.1",
+    "use-timer": "^2.0.1",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
