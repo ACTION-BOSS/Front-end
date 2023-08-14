@@ -8,8 +8,12 @@ import {
   ToggleIcon,
 } from '../../../../assets';
 
-export const MainPosts = () => {
-  const [currentOption, setCurrentOption] = useState('최신순');
+interface Props {
+  currentOption: string;
+  optionChangeHandler: (option: string) => void;
+}
+
+export const MainPosts = ({ currentOption, optionChangeHandler }: Props) => {
   const [isToggle, setIsToggle] = useState(false);
   const OPTIONS = ['최신순', '불편순', '해결순'];
 
@@ -18,7 +22,7 @@ export const MainPosts = () => {
   };
 
   const onClickOptionHandler = (option: string) => {
-    setCurrentOption(option);
+    optionChangeHandler(option);
     setIsToggle(!isToggle);
   };
 
