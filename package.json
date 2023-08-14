@@ -1,8 +1,10 @@
 {
   "name": "front-end",
   "version": "0.1.0",
+  "proxy": "https://actionboss.store:8080",
   "private": true,
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "@tanstack/react-query": "^4.32.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
