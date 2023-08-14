@@ -1,34 +1,69 @@
 import React, { useState } from 'react';
 import * as s from './MainPostsStyle';
-import { MainPost } from '../mainPost/MainPost';
+import { MainPost } from '../MainPost/MainPost';
+import {
+  CheckIcon,
+  CheckXIcon,
+  Toggle2Icon,
+  ToggleIcon,
+} from '../../../../assets';
+import { Post } from '../../type';
 
-export const MainPosts = () => {
-  const [option, setOption] = useState('최신순');
-  const [toggle, setToggle] = useState(true);
-  const OPTIONS = [
-    { value: 'latest', name: '최신순' },
-    { value: 'like', name: '좋아요순' },
-    { value: 'done', name: '완료순' },
-  ];
+interface Props {
+  currentOption: string;
+  optionChangeHandler: (option: string) => void;
+  data: Post[];
+}
+
+export const MainPosts = ({
+  currentOption,
+  optionChangeHandler,
+  data,
+}: Props) => {
+  const [isToggle, setIsToggle] = useState(false);
+  const OPTIONS = ['최신순', '불편순', '해결순'];
+
+  const onClickToggleHandler = () => {
+    setIsToggle(!isToggle);
+  };
+
+  const onClickOptionHandler = (option: string) => {
+    optionChangeHandler(option);
+    onClickToggleHandler();
+  };
+
   return (
     <s.MainPostsConatiner>
       <s.MainPostHeader>
         <div>우리동네 민원들</div>
         <div>
           <div>
-            <s.OptionButton>
-              <div>{option}</div>
+            <s.OptionButton
+              onClick={onClickToggleHandler}
+              active={isToggle.toString()}
+            >
+              <div>{currentOption}</div>
+              {isToggle ? <Toggle2Icon size={16} /> : <ToggleIcon size={16} />}
             </s.OptionButton>
-            <div></div>
+            <s.OptionList active={isToggle.toString()}>
+              {OPTIONS.map((item, index) => (
+                <li key={index} onClick={() => onClickOptionHandler(item)}>
+                  {item}
+                  {currentOption === item ? <CheckIcon /> : <CheckXIcon />}
+                </li>
+              ))}
+            </s.OptionList>
           </div>
         </div>
       </s.MainPostHeader>
       <s.MainPosts>
-        {Array(5)
-          .fill(0)
-          .map((item, index) => (
-            <MainPost key={index} />
-          ))}
+        {data.map((post: Post) => (
+          <MainPost
+            key={post.postId}
+            post={post}
+            currentOption={currentOption}
+          />
+        ))}
       </s.MainPosts>
     </s.MainPostsConatiner>
   );

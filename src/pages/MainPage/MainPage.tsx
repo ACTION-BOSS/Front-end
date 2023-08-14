@@ -1,12 +1,11 @@
 import React from 'react';
 import { MainPageLayout } from './layout';
-import { MainMap, MainPosts } from './components';
+import { MainContainer } from './container';
 
 export const MainPage = () => {
   return (
     <MainPageLayout>
-      <MainMap />
-      <MainPosts />
+      <MainContainer />
     </MainPageLayout>
   );
 };
