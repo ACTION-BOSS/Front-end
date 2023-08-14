@@ -10,9 +10,7 @@ import {
 } from './LayoutStyle';
 import { ShowStep } from '../components';
 import { EStep } from '../type';
-import { Button } from '../../../shared/Button';
-import { LOGO_SERO } from '../../../assets';
-import { BackIcon, XButtonIcon } from '../../../assets/icon';
+import { BackIcon, LOGO_SERO, XButtonIcon } from '../../../assets';
 import {
   $isReadyForSignup,
   $isReadyStepThree,
@@ -20,9 +18,9 @@ import {
   $stepIndex,
 } from '../state';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Pressable } from '../../../shared/Pressable/Pressable';
 import { useSignupModalFormSubmit } from '../container';
 import { useModal } from '../../../providers';
+import { Button, Pressable } from '../../../shared';
 
 type SignUpLayoutProps = {
   children: ReactNode;

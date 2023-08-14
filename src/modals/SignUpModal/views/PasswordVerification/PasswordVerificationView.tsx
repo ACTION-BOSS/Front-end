@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react';
-
 import { useSetRecoilState } from 'recoil';
 import { $isReadyStepThree } from '../../state';
 import {
@@ -13,6 +12,7 @@ import {
   StLabelTextWrapper,
   StLabel1Text,
 } from '../style';
+
 type PasswordVerificationViewProps = {
   passwordValue: string;
   passwordVerificationValue: string;

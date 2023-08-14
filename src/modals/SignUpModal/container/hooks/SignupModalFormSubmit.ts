@@ -19,7 +19,7 @@ export const useSignupModalFormSubmit = () => {
     async (data) => {
       const { nickname, password, emailId, emailDomain, successKey } = data;
       try {
-        const response = await api.post('/signup', {
+        const response = await api.post('auth/signup', {
           nickname,
           password,
           email: `${emailId}@${emailDomain}`,
