@@ -17,6 +17,7 @@ import {
 } from './style';
 
 export const CreatePost = () => {
+  const token = localStorage.getItem('accessToken');
   const post = useRecoilValue(postState);
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('default');
@@ -41,21 +42,29 @@ export const CreatePost = () => {
 
   const sendPostRequest = async () => {
     const formData = new FormData();
-    formData.append('latitude', String(post.latitude));
-    formData.append('longitude', String(post.longitude));
-    formData.append('address', post.address);
-    formData.append('title', post.title);
-    formData.append('content', post.content);
+    const postJSON = JSON.stringify({
+      title: post.title,
+      content: post.content,
+      latitude: post.latitude,
+      longitude: post.longitude,
+      address: post.address,
+    });
+    formData.append('post', postJSON);
     post.images.forEach((image, index) => {
-      formData.append(`image${index}`, image);
+      formData.append(`images[${index}]`, image);
     });
 
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URI}/posts`,
         formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        },
       );
-      // Handle response here, e.g.:
       console.log(response.data);
     } catch (error) {
       console.error('Failed to send post request:', error);
