@@ -62,20 +62,18 @@ export const CreatePost = () => {
     post.images.forEach((image) => {
       formData.append(`images`, image);
     });
-    console.log('formdata', formData);
     // for (let i = 0; i < post.images.length; i++) {
     //   formData.append('images', post.images[i]);
     // }
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URI}/posts`,
-        // '/api/posts',
+        // `${process.env.REACT_APP_API_URI}/posts`,
+        '/api/posts',
         formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
           },
           withCredentials: true,
         },
