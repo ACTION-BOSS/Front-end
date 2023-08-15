@@ -107,6 +107,7 @@ export const CheckXIcon: FC<IconProps> = ({ size = 25, color = '#E0E3EB' }) => {
   );
 };
 
+// 해결 완료!
 export const ClearSumIcon: FC<IconProps> = ({
   size = 131,
   color = '#F0F1F5',
@@ -174,6 +175,7 @@ export const ClearSumIcon: FC<IconProps> = ({
   );
 };
 
+// 체크 아이콘
 export const ClearIcon: FC<IconProps> = ({ size = 25, color = '#F0F1F5' }) => {
   return (
     <svg
@@ -226,6 +228,7 @@ export const GPSIcon: FC<IconProps> = ({ size = 25, color = '#454554' }) => {
   );
 };
 
+// i있는 아이콘
 export const HelpIcon: FC<IconProps> = ({ size = 25, color = '#C2C8D6' }) => {
   return (
     <svg

@@ -20,7 +20,7 @@ export const Header = () => {
               onClick={onClickLogin}
               size={'small'}
               label={'로그인'}
-              $buttonTheme={'gray'}
+              $buttonTheme={'blueGray'}
               $bold={true}
             />
           </div>

@@ -6,6 +6,7 @@ export type ThemeType =
   | 'pink'
   | 'emptyBlue'
   | 'gray'
+  | 'blueGray'
   | 'blue'
   | 'emptyGray'
   | 'emptyPink'
@@ -43,6 +44,15 @@ export interface Mytheme extends DefaultTheme {
   };
 
   gray: {
+    backgroundColor: string;
+    color: string;
+    border: string;
+    hover: {
+      backgroundColor: string;
+    };
+  };
+
+  blueGray: {
     backgroundColor: string;
     color: string;
     border: string;
