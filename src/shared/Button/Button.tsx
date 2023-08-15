@@ -20,7 +20,8 @@ type ButtonProps = {
  * @param {string} fontSize - Theme.fontSizes...
  * @param {string} fontWeight - Theme.fontWeights...
  * @param {boolean} $bold - [선택] 넣을 경우 굵은 글씨
- * @param {function} onClick
+ * @param {function} onClick - [선택] 버튼 클릭 시 실행될 함수
+ * @param {boolean} disabled - [선택] true값 전달 시 버튼이 disabled됨 (클릭 x, gray색의 버튼으로)
  */
 export const Button: FC<ButtonProps> = ({
   label = 'label',
