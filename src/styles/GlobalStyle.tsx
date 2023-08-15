@@ -8,8 +8,9 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     *, *::before, *::after {
-        box-sizing: border-box;
-    }
+        box-sizing: border-box;  
+        font-family: 'Pretendard', sans-serif;           
+    }  
 
     html {
         height : 100%;
@@ -26,9 +27,8 @@ export const GlobalStyle = createGlobalStyle`
 
         font-size: 1rem;
         background-color: #ffffff;
-        
-        font-family: 'Pretendard', sans-serif;
 
+        font-family: 'Pretendard', sans-serif;
     }
 
     #root {
@@ -37,4 +37,12 @@ export const GlobalStyle = createGlobalStyle`
         height: 100%;
         /* overflow-y: hidden; */
     }
+
+    @font-face {
+    font-family: 'GilbeotTG';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/GilbeotTG.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+ 
 `;
