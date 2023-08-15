@@ -33,10 +33,10 @@ export const getMapPing = async (sort: string) => {
 
 export const getSidebarPosts = async (page: number, sort: string) => {
   const isdone = sort === '해결순' ? true : false;
-  const issort = sort === '불편순' ? 'likeCount' : 'createdAt';
+  const sortOption = sort === '불편순' ? 'likeCount' : 'createdAt';
   try {
     const response = await axios.get(
-      `/api/main?page=${page}&size=5&sort=${issort}&isdone=${isdone}`,
+      `/api/main?page=${page}&size=5&sort=${sortOption}&isdone=${isdone}`,
     );
     return response.data;
   } catch (e) {

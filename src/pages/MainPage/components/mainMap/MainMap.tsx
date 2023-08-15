@@ -84,7 +84,12 @@ export const MainMap = ({ currentOption }: Props) => {
           });
         });
 
-        // 초기 위치에 마커 추가
+        // const clusterer = new window.kakao.maps.MarkerClusterer({
+        //   map: map,
+        //   averageCenter: true,
+        //   minLevel: 3,
+        // });
+
         data?.forEach((ping: Ping) => {
           const marker = new window.kakao.maps.Marker({
             map: map,
