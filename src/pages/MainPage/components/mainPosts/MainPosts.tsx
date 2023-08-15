@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as s from './MainPostsStyle';
-import { MainPost } from '../MainPost/MainPost';
+
 import {
   CheckIcon,
   CheckXIcon,
@@ -8,6 +8,7 @@ import {
   ToggleIcon,
 } from '../../../../assets';
 import { Post } from '../../type';
+import { MainPost } from '../MainPost';
 
 interface Props {
   currentOption: string;
