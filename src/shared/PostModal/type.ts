@@ -1,4 +1,6 @@
 export interface ModalProps {
-  onClick?: () => void;
+  onClickHandleModal?: () => void;
+  sendPostRequest?: () => void;
   attribute: string;
+  modalType: string;
 }
