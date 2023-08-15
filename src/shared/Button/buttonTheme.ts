@@ -53,4 +53,13 @@ export const $buttonTheme = {
       backgroundColor: '#efefef',
     },
   },
+
+  empty: {
+    backgroundColor: Theme.colors.white,
+    color: Theme.colors.black,
+    border: `0px solid transparent`,
+    hover: {
+      backgroundColor: '#efefef',
+    },
+  },
 };
