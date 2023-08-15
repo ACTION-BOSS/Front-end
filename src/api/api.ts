@@ -21,51 +21,22 @@ api.interceptors.request.use(
   },
 );
 
-// export const getMapPing = async (isdone: boolean, lat: number, lon: number) => {
-//   try {
-//     const response = await axios.get(
-//       `${URL}/main?&isdone=${isdone}&latitude=${lat}&longitude=${lon}`,
-//     );
-//     return response.data;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
-
-export const getMapPing = async (isdone: boolean) => {
+export const getMapPing = async (sort: string) => {
+  const isdone = sort === '해결순' ? true : false;
   try {
-    const response = await axios.get(`${URL}/main?&isdone=${isdone}`);
+    const response = await axios.get(`/api/main/map?&isdone=${isdone}`);
     return response.data;
   } catch (e) {
     console.log(e);
   }
 };
 
-// export const getSidebarPosts = async (
-//   page: number,
-//   sort: string,
-//   isdone: boolean,
-//   lat: number,
-//   lon: number,
-// ) => {
-//   try {
-//     const response = await axios.get(
-//       `${URL}/main?page=${page}&size=5&sort${sort}&isdone=${isdone}&latitude=${lat}&longitude=${lon}`,
-//     );
-//     return response.data;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
-
-export const getSidebarPosts = async (
-  page: number,
-  sort: string,
-  isdone: boolean,
-) => {
+export const getSidebarPosts = async (page: number, sort: string) => {
+  const isdone = sort === '해결순' ? true : false;
+  const sortOption = sort === '불편순' ? 'likeCount' : 'createdAt';
   try {
     const response = await axios.get(
-      `${URL}/main?page=${page}&size=5&sort${sort}&isdone=${isdone}`,
+      `/api/main?page=${page}&size=5&sort=${sortOption}&isdone=${isdone}`,
     );
     return response.data;
   } catch (e) {
@@ -74,6 +45,10 @@ export const getSidebarPosts = async (
 };
 
 export const getSelectPost = async (postId: number) => {
-  const response = await axios.get(`${URL}/main/${postId}`);
-  return response.data;
+  try {
+    const response = await axios.get(`/api/main/${postId}`);
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
 };
