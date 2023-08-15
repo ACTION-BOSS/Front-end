@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import * as s from './MainMapStyle';
 import { MapIcon } from '../../../../shared/MapIcon';
 import { MainModal } from '../MainModal';
-import { mainSidebarData } from '../../container/dummy';
 import { Ping, Post } from '../../type';
+import { useQuery } from '@tanstack/react-query';
+import { getMapPing, getSelectPost } from '../../../../api';
+import { PingIcon } from '../../../../assets';
 
 declare global {
   interface Window {
@@ -12,18 +14,16 @@ declare global {
 }
 
 interface Props {
-  mapCenter: { lat: number; lng: number };
-  mapCenterChangeHandler: (userLocation: { lat: number; lng: number }) => void;
-  pingData: Ping[];
+  currentOption: string;
 }
 
-export const MainMap = ({
-  mapCenter,
-  mapCenterChangeHandler,
-  pingData,
-}: Props) => {
+export const MainMap = ({ currentOption }: Props) => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [zoomLevel, setZoomLevel] = useState<number>(3);
+  const [mapCenter, setMapCenter] = useState({
+    lat: 37.565869791860365,
+    lng: 126.98258019375905,
+  });
   const [modalData, setModalData] = useState<Post>({
     address: '',
     likeCount: 0,
@@ -33,12 +33,25 @@ export const MainMap = ({
     title: '',
   });
 
-  const onClickModalHandler = () => {
-    setIsModal(!isModal);
+  const { data } = useQuery(['mapPing', currentOption], () =>
+    getMapPing(currentOption),
+  );
+
+  const onClickPingHandler = async (pingNum: number) => {
+    try {
+      const postData = await getSelectPost(pingNum);
+      setModalData(postData);
+      setIsModal(true); // 모달을 열어주는 부분 추가
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const zoomChangeHandler = (newZoomLevel: number) => {
-    setZoomLevel(newZoomLevel);
+  const mapCenterChangeHandler = (newMapCenter: {
+    lat: number;
+    lng: number;
+  }) => {
+    setMapCenter(newMapCenter);
   };
 
   // 마커 추가 함수
@@ -61,33 +74,45 @@ export const MainMap = ({
         };
         const map = new window.kakao.maps.Map(container, options);
 
-        // 휠로 줌 막음
-        map.setZoomable(false);
+        map.setZoomable(false); // 휠 줌 막음
+
+        window.kakao.maps.event.addListener(map, 'dragend', function () {
+          const newCenter = map.getCenter();
+          setMapCenter({
+            lat: newCenter.getLat(),
+            lng: newCenter.getLng(),
+          });
+        });
 
         // 초기 위치에 마커 추가
-        pingData.forEach((ping: any) => {
+        data?.forEach((ping: Ping) => {
           const marker = new window.kakao.maps.Marker({
             map: map,
+            image: new window.kakao.maps.MarkerImage(
+              PingIcon(currentOption),
+              new window.kakao.maps.Size(51, 71),
+            ),
             position: new window.kakao.maps.LatLng(
               ping.latitude,
               ping.longitude,
             ),
-            id: ping.id,
+            id: ping.postId,
           });
           window.kakao.maps.event.addListener(marker, 'click', () => {
-            console.log('ping', ping.postId);
-            const selectData = mainSidebarData.filter(
-              (post) => post.postId === ping.postId,
-            );
-            setModalData(selectData[0]);
-            setIsModal(true);
+            onClickPingHandler(ping.postId);
           });
         });
       });
     }
-  }, [zoomLevel, mapCenter]);
+  }, [data, zoomLevel, mapCenter]);
 
-  console.log(zoomLevel);
+  const onClickModalHandler = () => {
+    setIsModal(!isModal);
+  };
+
+  const zoomChangeHandler = (newZoomLevel: number) => {
+    setZoomLevel(newZoomLevel);
+  };
 
   return (
     <s.MainMapContainer>

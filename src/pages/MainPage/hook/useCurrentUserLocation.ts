@@ -10,7 +10,6 @@ export const useGetCurrentLocation = (
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        console.log(position.coords.latitude, position.coords.longitude);
         onLocationReceived(userLocation);
       });
     }

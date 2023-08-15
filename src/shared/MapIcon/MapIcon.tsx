@@ -15,14 +15,14 @@ export const MapIcon = ({
   mapCenterChangeHandler,
 }: Props) => {
   const zoomInHandler = () => {
-    if (zoomLevel < 9) {
-      onZoomChange(zoomLevel + 1);
+    if (zoomLevel > 1) {
+      onZoomChange(zoomLevel - 1);
     }
   };
 
   const zoomOutHandler = () => {
-    if (zoomLevel > 1) {
-      onZoomChange(zoomLevel - 1);
+    if (zoomLevel < 9) {
+      onZoomChange(zoomLevel + 1);
     }
   };
 
@@ -34,11 +34,11 @@ export const MapIcon = ({
         <GPSIcon size={24} />
       </div>
       <div className="mapSizeIcon">
-        <div className="plusIcon" onClick={zoomOutHandler}>
+        <div className="plusIcon" onClick={zoomInHandler}>
           <PlusIcon size={24} />
         </div>
         <div className="line"></div>
-        <div className="minusIcon" onClick={zoomInHandler}>
+        <div className="minusIcon" onClick={zoomOutHandler}>
           <MinusIcon size={24} />
         </div>
       </div>
