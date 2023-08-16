@@ -2,37 +2,48 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Theme } from '../../styles';
 import { EModalType } from '../../providers';
+import { Button } from '../../shared';
+import { useDeleteData } from '../../pages/DetailPage/container/hooks';
+
 type PopUpModalProps = {
   type: EModalType;
 };
 
 const getModalMessage = (type: EModalType) => {
-  if (EModalType.DELETE) {
+  if (type === EModalType.DELETE) {
     return '작성한 게시물을 삭제할까요?';
   }
-  if (EModalType.DONE) {
+  if (type === EModalType.DONE) {
     return '해결 완료 처리된 게시물입니다';
   }
 };
 
-// const ModalContents: Record<EModalType, ReactNode> = {
-//   [EModalType.DELETE]: (
-//     <>
-//       <Button label="취소" $buttonTheme="emptyBlue" size="large" />
-//       <Button label="삭제" $buttonTheme="pink" size="large" />
-//     </>
-//   ),
-//   [EModalType.DONE]: <div>ㅁㅇㄹㅇ</div>,
-//   [EModalType.SIGN_UP]: <></>,
-//   [EModalType.LOGIN]: <></>,
-//   [EModalType.SIGN_UP_SUCCESS]: <></>,
-// };
+const getModalButton = (type: EModalType) => {
+  const { handleDeleteData } = useDeleteData();
+
+  if (type === EModalType.DELETE) {
+    return (
+      <>
+        <Button label="취소" $buttonTheme="emptyBlue" size="large" />
+        <Button
+          label="삭제"
+          $buttonTheme="pink"
+          size="large"
+          onClick={handleDeleteData}
+        />
+      </>
+    );
+  }
+  if (type === EModalType.DONE) {
+    return '해결 완료 처리된 게시물입니다';
+  }
+};
 
 export const PopUpModal: FC<PopUpModalProps> = ({ type }) => {
   return (
     <StModalWrapper>
       <StText>{getModalMessage(type)}</StText>
-      <StButtonWrapper>asd</StButtonWrapper>
+      <StButtonWrapper>{getModalButton(type)}</StButtonWrapper>
     </StModalWrapper>
   );
 };

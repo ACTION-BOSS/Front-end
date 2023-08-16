@@ -3,13 +3,12 @@ import styled from 'styled-components';
 import { Button } from '../../../../shared';
 import { Theme } from '../../../../styles';
 import { CompletedButton } from '../../components';
-import { useDeleteData, useDetailData } from '../../container';
+import { useDetailData } from '../../container';
 import { EModalType, useModal } from '../../../../providers';
 type FooterButtonsProps = {};
 
 export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
   const { data, isLoading, error } = useDetailData();
-  const { handleDeleteData } = useDeleteData();
   const { openModal, closeModal } = useModal();
 
   if (isLoading) {
