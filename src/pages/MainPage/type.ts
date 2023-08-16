@@ -13,3 +13,9 @@ export interface Ping {
   longitude: number;
 }
 
+export interface Coordinates {
+  northlat: number;
+  eastlon: number;
+  southlat: number;
+  westlon: number;
+}
