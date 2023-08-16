@@ -14,6 +14,7 @@ export const StLandingView = styled.div`
 
 export const StLogoFlag = styled.img`
   margin-top: 10vh;
+  margin-left: 5vw;
   width: 62px;
   height: 83px;
 `;
