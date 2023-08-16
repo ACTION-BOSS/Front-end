@@ -47,7 +47,10 @@ export const StButtonWrapper = styled.div`
   margin-right: 5px;
 `;
 
-export const StGrayInput = styled.input<{ $isError: boolean; width?: string }>`
+export const StGrayInput = styled.input<{
+  $isError: boolean | null;
+  width?: string;
+}>`
   display: flex;
   width: ${(props) => (props.width === 'fluid' ? '100%' : '153px')};
   height: 42px;

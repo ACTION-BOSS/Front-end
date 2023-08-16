@@ -3,6 +3,7 @@ import { FC, ReactNode, createContext, useContext, useState } from 'react';
 import { EModalType } from './type';
 import { styled } from 'styled-components';
 import { SignUpModal, LoginModal } from '../../modals';
+import { SignUpSuccessModal } from '../../modals/SignUpSuccessModal/SignUpSuccessModal';
 
 interface IModalContext {
   openModal: (modalType: EModalType) => void;
@@ -35,6 +36,9 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
     if (modalType === EModalType.LOGIN) {
       return <LoginModal />;
     }
+    if (modalType === EModalType.SIGN_UP_SUCCESS) {
+      return <SignUpSuccessModal />;
+    }
   };
 
   return (
@@ -66,7 +70,6 @@ export const StModalBackground = styled.div`
   position: fixed;
   background-color: rgba(40.8, 46.8, 61.2, 0.4);
   width: 100%;
-  height: 100%;
-
   z-index: 99;
+  height: 100vh;
 `;
