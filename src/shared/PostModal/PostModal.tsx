@@ -13,6 +13,7 @@ export const PostModal: FC<ModalProps> = ({
   attribute,
   onClickHandleModal,
   sendPostRequest,
+  sendEditRequest,
   modalType,
 }) => {
   const buttonConfig = BUTTON_CONFIGS[attribute];
@@ -21,7 +22,7 @@ export const PostModal: FC<ModalProps> = ({
     <StModalContainer>
       <StModalBg onClick={onClickHandleModal}></StModalBg>
       <StModal>
-        {modalType === 'warning' ? (
+        {modalType === 'warning' && (
           <>
             <div>양식을 모두 입력해주세요</div>
             <StButtonContainer>
@@ -35,7 +36,8 @@ export const PostModal: FC<ModalProps> = ({
               )}
             </StButtonContainer>
           </>
-        ) : (
+        )}
+        {modalType === 'default' && (
           <>
             <div>{attribute}</div>
             <StButtonContainer>
@@ -48,6 +50,27 @@ export const PostModal: FC<ModalProps> = ({
               {buttonConfig && (
                 <Button
                   onClick={sendPostRequest}
+                  label={buttonConfig.label}
+                  $buttonTheme={buttonConfig.theme as 'blue' | 'pink'}
+                  size="large"
+                />
+              )}
+            </StButtonContainer>
+          </>
+        )}
+        {modalType === 'edit' && (
+          <>
+            <div>{attribute}</div>
+            <StButtonContainer>
+              <Button
+                onClick={onClickHandleModal}
+                label="취소"
+                $buttonTheme="emptyBlue"
+                size="large"
+              />
+              {buttonConfig && (
+                <Button
+                  onClick={sendEditRequest}
                   label={buttonConfig.label}
                   $buttonTheme={buttonConfig.theme as 'blue' | 'pink'}
                   size="large"

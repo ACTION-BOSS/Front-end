@@ -99,26 +99,9 @@ export const StIconBox = styled.div`
 `;
 
 export const StPhotoText = styled.div`
-  font-size: ${Theme.fontSizes.label1};
+  font-size: 11px;
   font-weight: ${Theme.fontWeights.label1};
   color: ${Theme.colors.gray7};
-`;
-
-export const StCloseButton = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-  }
 `;
 
 export const StPhotoBox = styled.div<{ image?: string }>`
@@ -143,5 +126,3 @@ export const StPhotoBox = styled.div<{ image?: string }>`
     color: white;
   }
 `;
-
-export const StPhotoBoxInput = styled(StPhotoBox).attrs({ as: 'label' })``;

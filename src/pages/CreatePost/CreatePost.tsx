@@ -40,12 +40,12 @@ export const CreatePost = () => {
     }
   };
 
-  console.log(post.images);
-  console.log(post.title);
-  console.log(post.content);
-  console.log(post.latitude);
-  console.log(post.longitude);
-  console.log(post.address);
+  // console.log(post.images);
+  // console.log(post.title);
+  // console.log(post.content);
+  // console.log(post.latitude);
+  // console.log(post.longitude);
+  // console.log(post.address);
 
   const sendPostRequest = async () => {
     const formData = new FormData();

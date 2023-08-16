@@ -24,7 +24,7 @@ export const useLoginModalFormSubmit = () => {
           email: `${emailId}@${emailDomain}`,
         });
 
-        if (response.status === 201) {
+        if (response.status === 200) {
           console.log(response);
 
           // Authorization 헤더에서 토큰 추출
