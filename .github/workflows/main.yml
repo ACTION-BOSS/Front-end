@@ -17,10 +17,6 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Setting .env
-        run: |
-          echo "REACT_APP_API_URI=${{ secrets.REACT_APP_API_URI }}" > .env
-
       - name: S3 Deploy
         run: aws s3 sync ./build s3://hdaejang.com/ --acl bucket-owner-full-control
         env:
