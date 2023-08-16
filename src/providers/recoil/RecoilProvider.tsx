@@ -8,6 +8,7 @@ export interface PostState {
   latitude: number;
   longitude: number;
   address: string;
+  imageUrlList?: string[];
 }
 
 export const postState = atom<PostState>({
@@ -19,10 +20,9 @@ export const postState = atom<PostState>({
     title: '',
     content: '',
     images: [],
+    imageUrlList: [],
   },
 });
-
-console.log(postState);
 
 export interface IRecoilContext {}
 

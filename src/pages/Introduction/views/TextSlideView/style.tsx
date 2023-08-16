@@ -17,12 +17,12 @@ export const FlowText = styled.div`
   overflow: hidden;
   transition: 0.3s;
   font-size: 38px;
-  font-weight: bold;
-  color: ${Theme.colors.gray8};
   padding: 20px 0 20px 0;
 `;
 
 export const FlowWrap = styled.div`
+  font-family: 'GilbeotTG';
+  color: ${Theme.colors.gray8};
   animation: ${textLoop} 10s linear infinite;
   display: flex;
   align-items: center;
@@ -30,7 +30,7 @@ export const FlowWrap = styled.div`
 `;
 
 export const LogoSymbol = styled.img`
-  width: 60px;
-  height: 60px;
-  margin-left: 15px;
+  width: 55px;
+  height: 40px;
+  margin-left: 12px;
 `;

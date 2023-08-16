@@ -15,12 +15,20 @@ import {
   StSkyline,
   StGrayBg,
 } from './style';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 export const CreatePost = () => {
   const token = localStorage.getItem('token');
   const post = useRecoilValue(postState);
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('default');
+  const navigate = useNavigate();
+
+  const onClickCancle = () => {
+    setModalType('cancle');
+    setOpenModal(!openModal);
+  };
 
   const onClickHandleModal = () => {
     if (
@@ -40,12 +48,12 @@ export const CreatePost = () => {
     }
   };
 
-  console.log(post.images);
-  console.log(post.title);
-  console.log(post.content);
-  console.log(post.latitude);
-  console.log(post.longitude);
-  console.log(post.address);
+  // console.log(post.images);
+  // console.log(post.title);
+  // console.log(post.content);
+  // console.log(post.latitude);
+  // console.log(post.longitude);
+  // console.log(post.address);
 
   const sendPostRequest = async () => {
     const formData = new FormData();
@@ -62,27 +70,23 @@ export const CreatePost = () => {
     post.images.forEach((image) => {
       formData.append(`images`, image);
     });
-    // for (let i = 0; i < post.images.length; i++) {
-    //   formData.append('images', post.images[i]);
-    // }
 
-    try {
-      const response = await axios.post(
-        // `${process.env.REACT_APP_API_URI}/posts`,
-        '/api/posts',
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        },
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error('Failed to send post request:', error);
-    }
+    return axios.post('/api/posts', formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    });
   };
+
+  const mutation = useMutation(sendPostRequest, {
+    onSuccess: (data) => {
+      navigate(`/detail/${data.data.data.postId}`);
+    },
+    onError: (error) => {
+      console.error('게시 요청 실패:', error);
+    },
+  });
 
   return (
     <StCreatePostContainer>
@@ -90,7 +94,12 @@ export const CreatePost = () => {
       <MapView />
       <StBtnContainer>
         <StBtnBox1>
-          <Button label="취소" $buttonTheme="empty" size="small" />
+          <Button
+            onClick={onClickCancle}
+            label="취소"
+            $buttonTheme="empty"
+            size="small"
+          />
         </StBtnBox1>
         <StBtnBox2>
           <Button
@@ -111,7 +120,7 @@ export const CreatePost = () => {
         <Portal>
           <PostModal
             onClickHandleModal={onClickHandleModal}
-            sendPostRequest={sendPostRequest}
+            sendPostRequest={() => mutation.mutate()}
             attribute={MODAL_ATTRIBUTES.UPLOAD}
             modalType={modalType}
           />
