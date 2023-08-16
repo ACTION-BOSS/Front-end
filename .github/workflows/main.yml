@@ -1,18 +1,12 @@
 name: front-dev-deploy
 
 on:
-  push: # 적용될 액션
-    branches: main # 적용될 브랜치
-    # paths:
-    #   - './**' # workflow에서 적용될 path
-
-# defaults:
-#   run:
-#     working-directory: ./frontend # workflow에서 default working directory
+  push:
+    branches: main
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest # 인스턴스 OS
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
@@ -20,19 +14,19 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Replace KAKAO KEY in index.html
-        run: sed -i 's/%REACT_APP_KAKAO_KEY%/${{ secrets.REACT_APP_KAKAO_KEY }}/g' public/index.html
-
       - name: Build
         run: yarn build
 
       - name: Setting .env
         run: |
           echo "REACT_APP_API_URI=${{ secrets.REACT_APP_API_URI }}" > .env
-          echo "REACT_APP_KAKAO_KEY=${{ secrets.REACT_APP_KAKAO_KEY }}" > .env
+          echo "REACT_APP_KAKAO_KEY=${{ secrets.REACT_APP_KAKAO_KEY }}" >> .env
+
+      - name: Replace Kakao Key in index.html
+        run: sed -i 's/__REACT_APP_KAKAO_KEY__/${{ secrets.REACT_APP_KAKAO_KEY }}/g' ./build/index.html
 
       - name: S3 Deploy
-        run: aws s3 sync ./build s3://hdaejang.com/ --acl bucket-owner-full-control # s3 이름 2021-cvi-dev
+        run: aws s3 sync ./build s3://hdaejang.com/ --acl bucket-owner-full-control
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
