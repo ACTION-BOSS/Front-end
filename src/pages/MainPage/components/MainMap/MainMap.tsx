@@ -37,7 +37,7 @@ export const MainMap = ({
   });
   const [modalData, setModalData] = useState<Post>({
     address: '',
-    likeCount: 0,
+    agreeCount: 0,
     nickname: '',
     postId: 0,
     thumbnail: '',
