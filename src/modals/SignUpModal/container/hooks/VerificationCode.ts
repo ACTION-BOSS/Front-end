@@ -61,10 +61,7 @@ export const useVerificationCode = () => {
         console.log('error: ', AxiosError);
 
         if (AxiosError.response) {
-          if (
-            AxiosError.response.status === 401 ||
-            AxiosError.response.status === 403
-          ) {
+          if (AxiosError.response.status === 400) {
             setIsEmailSendFailed(true);
           }
         }
@@ -100,7 +97,7 @@ export const useVerificationCode = () => {
         console.log('err', AxiosError);
 
         if (AxiosError.response) {
-          if (AxiosError.response.status === 401) {
+          if (AxiosError.response.status === 400) {
             setIsEmailCodeVerificated(false);
           }
         }
@@ -116,17 +113,14 @@ export const useVerificationCode = () => {
           email: `${emailIdValue}@${emailDomainValue}`,
         });
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           return;
         }
       } catch (e) {
         const AxiosError = e as AxiosError;
 
         if (AxiosError.response) {
-          if (
-            AxiosError.response.status === 401 ||
-            AxiosError.response.status === 403
-          ) {
+          if (AxiosError.response.status === 400) {
             console.log('error: ', AxiosError);
           }
         }

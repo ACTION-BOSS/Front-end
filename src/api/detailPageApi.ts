@@ -1,8 +1,5 @@
 import { api } from './api';
 
-const url = document.location.href;
-const currentPageId = url.split('/').at(-1);
-
 const getHeaderWithToken = () => {
   const token = localStorage.getItem('token');
   const headers = token
@@ -14,12 +11,12 @@ const getHeaderWithToken = () => {
   return headers;
 };
 
-export const fetchDetailPageData = () => {
+export const fetchDetailPageData = (postId: string | undefined) => {
   const headers = getHeaderWithToken();
 
   const getDetailPageData = async () => {
     try {
-      const response = await api.get(`/posts/${currentPageId}`, {
+      const response = await api.get(`/posts/${postId}`, {
         headers: headers,
       });
 
@@ -34,14 +31,14 @@ export const fetchDetailPageData = () => {
     }
   };
 
-  return { getDetailPageData, currentPageId };
+  return { getDetailPageData, currentPageId: postId };
 };
 
-export const deletePostedData = async () => {
+export const deletePostedData = async (postId: string | undefined) => {
   const headers = getHeaderWithToken();
 
   try {
-    const response = await api.delete(`/posts/${currentPageId}`, {
+    const response = await api.delete(`/posts/${postId}`, {
       headers: headers,
     });
 

@@ -28,7 +28,7 @@ export const useSignupModalFormSubmit = () => {
           successKey,
         });
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           closeModal();
           openModal(EModalType.SIGN_UP_SUCCESS);
         }
