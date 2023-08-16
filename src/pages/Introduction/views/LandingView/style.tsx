@@ -6,13 +6,14 @@ export const StLandingView = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 85vh;
+  height: 110vh;
   background-color: ${Theme.colors.blue};
   overflow: hidden;
+  margin-top: 6vh;
 `;
 
 export const StLogoFlag = styled.img`
-  margin-top: 6vh;
+  margin-top: 10vh;
   width: 62px;
   height: 83px;
 `;
@@ -22,7 +23,6 @@ export const StBIName = styled.div`
   font-size: 50px;
   font-weight: 400;
   color: ${Theme.colors.white};
-  margin-bottom: 10px;
 `;
 
 export const StSlogan = styled.div`
@@ -30,7 +30,7 @@ export const StSlogan = styled.div`
   font-size: 40px;
   font-weight: 400;
   color: ${Theme.colors.white};
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 export const StText = styled.div`
@@ -55,7 +55,7 @@ export const StNavButton = styled.button`
   font-size: 20px;
   font-weight: ${Theme.fontWeights.h1};
   color: ${Theme.colors.black};
-  margin-top: 6vh;
+  margin-top: 4vh;
   cursor: pointer;
 `;
 
@@ -71,6 +71,6 @@ export const StMapBox = styled.div`
     0 0 15px #94aef7;
 
   position: absolute;
-  bottom: -15.5vh;
+  bottom: -20vh;
   z-index: 1;
 `;

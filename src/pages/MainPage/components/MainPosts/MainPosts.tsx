@@ -8,16 +8,21 @@ import {
 } from '../../../../assets';
 import { getSidebarPosts } from '../../../../api';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { Post } from '../../type';
+import { Coordinates, Post } from '../../type';
 import { MainPost } from '../MainPost/MainPost';
 import { MainPostSkeleton } from '../MainPostSkeleton';
 
 interface Props {
   currentOption: string;
   optionChangeHandler: (option: string) => void;
+  mapCoordinates: Coordinates;
 }
 
-export const MainPosts = ({ currentOption, optionChangeHandler }: Props) => {
+export const MainPosts = ({
+  currentOption,
+  optionChangeHandler,
+  mapCoordinates,
+}: Props) => {
   const [isToggle, setIsToggle] = useState(false);
   const OPTIONS = ['최신순', '불편순', '해결순'];
   const observerElem = useRef<HTMLDivElement>(null);
@@ -30,7 +35,7 @@ export const MainPosts = ({ currentOption, optionChangeHandler }: Props) => {
     optionChangeHandler(option);
     onClickToggleHandler();
   };
-
+  //isLoading과 isFetching을 나누어 생각해봐야할듯
   const {
     data,
     isSuccess,
@@ -40,8 +45,9 @@ export const MainPosts = ({ currentOption, optionChangeHandler }: Props) => {
     isLoading,
     isError,
   } = useInfiniteQuery(
-    ['sideBarPosts', currentOption],
-    ({ pageParam = 0 }) => getSidebarPosts(pageParam, currentOption),
+    ['sideBarPosts', currentOption, mapCoordinates],
+    ({ pageParam = 0 }) =>
+      getSidebarPosts(pageParam, currentOption, mapCoordinates),
     {
       getNextPageParam: (lastPage) => {
         return lastPage.presentPage < lastPage.totalPage
@@ -98,7 +104,7 @@ export const MainPosts = ({ currentOption, optionChangeHandler }: Props) => {
         </div>
       </s.MainPostHeader>
       <s.MainPosts>
-        {(isFetching || isLoading) &&
+        {isLoading &&
           Array(5)
             .fill(0)
             .map((post, index) => <MainPostSkeleton key={index} />)}

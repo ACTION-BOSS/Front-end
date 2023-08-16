@@ -2,7 +2,7 @@ export interface Post {
   postId: number;
   title: string;
   thumbnail: string;
-  likeCount: number;
+  agreeCount: number;
   nickname: string;
   address: string;
 }
@@ -13,3 +13,9 @@ export interface Ping {
   longitude: number;
 }
 
+export interface Coordinates {
+  northlat: number;
+  eastlon: number;
+  southlat: number;
+  westlon: number;
+}

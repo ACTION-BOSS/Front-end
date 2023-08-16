@@ -5,7 +5,8 @@ interface OptionProps {
 }
 
 export const MainPostStyle = styled.div`
-  padding: 15px 0;
+  margin: 20px 0;
+  cursor: pointer;
 `;
 
 export const MainPostImg = styled.div<OptionProps>`
