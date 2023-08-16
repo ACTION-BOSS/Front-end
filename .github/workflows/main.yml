@@ -22,7 +22,7 @@ jobs:
           echo "REACT_APP_API_URI=${{ secrets.REACT_APP_API_URI }}" > .env
 
       - name: S3 Deploy
-        run: aws s3 sync ./build s3://hdaejang.com/ --acl bucket-owner-full-control
+        run: aws s3 sync ./dist s3://hdaejang.com/ --acl bucket-owner-full-control
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
