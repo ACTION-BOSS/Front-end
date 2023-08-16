@@ -72,7 +72,7 @@ export const NicknameView: FC<NicknameViewProps> = ({
 
         console.log(response);
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           setIsDuplicatedNickname(false);
         }
       } catch (e) {
@@ -80,10 +80,7 @@ export const NicknameView: FC<NicknameViewProps> = ({
 
         console.log('err', AxiosError);
 
-        if (
-          AxiosError.response?.status === 401 ||
-          AxiosError.response?.status === 403
-        ) {
+        if (AxiosError.response?.status === 400) {
           setIsDuplicatedNickname(true);
         }
       }
