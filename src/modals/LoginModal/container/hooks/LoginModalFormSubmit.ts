@@ -7,12 +7,20 @@ import {
 import { api } from '../../../../api';
 import { LoginModalFormData } from './LoginModalForm';
 import { AxiosError } from 'axios';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { $isVerificationFailed } from '../../state';
+import {
+  $tokenExpiryState,
+  $tokenState,
+  useModal,
+} from '../../../../providers';
 
 export const useLoginModalFormSubmit = () => {
   const { handleSubmit } = useFormContext<LoginModalFormData>();
   const setIsVerificationFailed = useSetRecoilState($isVerificationFailed);
+  const [tokenState, setTokenState] = useRecoilState($tokenState);
+  const setTokenExpiry = useSetRecoilState($tokenExpiryState);
+  const { closeModal } = useModal();
 
   const onFormError: SubmitErrorHandler<LoginModalFormData> = useCallback(
     async (error) => {},
@@ -29,18 +37,22 @@ export const useLoginModalFormSubmit = () => {
         });
 
         if (response.status === 200) {
-          // Authorization 헤더에서 토큰 추출
           const token = response.headers['authorization'];
-
-          // "Bearer "를 제거합니다. (만약 헤더에 "Bearer "가 붙어있다면)
           const actualToken = token.split(' ')[1];
 
-          // 토큰을 localStorage에 저장
+          // global state에 저장 + 만료시간
+          setTokenState(token);
+          const expiryDate = new Date();
+          expiryDate.setMinutes(expiryDate.getMinutes() + 60);
+          setTokenExpiry(expiryDate);
+
+          // localStorage에 저장
           localStorage.setItem('token', actualToken);
 
-          // 로그인성공시 로직
-
-          location.href = '/';
+          if (tokenState) {
+            console.log('로그인 성공!');
+            closeModal();
+          }
         }
       } catch (e) {
         const AxiosError = e as AxiosError;

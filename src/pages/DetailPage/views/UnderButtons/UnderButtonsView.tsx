@@ -1,14 +1,19 @@
 import { FC } from 'react';
 import { styled } from 'styled-components';
 import { LocationButton, MetooButton } from '../../components';
-type UnderButtonsViewProps = {};
+type UnderButtonsViewProps = { address: string; owner: boolean };
 
-export const UnderButtonsView: FC<UnderButtonsViewProps> = ({}) => {
+export const UnderButtonsView: FC<UnderButtonsViewProps> = ({
+  address,
+  owner = false,
+}) => {
+  const metooCount = 12;
+
   return (
     <StWrapper>
       <StButtonWrapper>
-        <LocationButton />
-        <MetooButton />
+        <LocationButton address={address} />
+        <MetooButton onClick={() => {}} metooCount={metooCount} />
       </StButtonWrapper>
     </StWrapper>
   );

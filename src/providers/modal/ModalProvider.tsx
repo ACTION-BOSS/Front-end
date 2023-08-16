@@ -70,6 +70,6 @@ export const StModalBackground = styled.div`
   position: fixed;
   background-color: rgba(40.8, 46.8, 61.2, 0.4);
   width: 100%;
-  z-index: 99;
+  z-index: 99999;
   height: 100vh;
 `;

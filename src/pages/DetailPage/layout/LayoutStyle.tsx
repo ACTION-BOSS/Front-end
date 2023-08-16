@@ -29,6 +29,9 @@ export const StChildrenWrapper = styled.div`
 `;
 
 export const StBottomButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
   position: absolute;
 
   padding-bottom: 127px;
@@ -56,4 +59,14 @@ export const StGrayBg = styled.div`
   width: 100vw;
   height: 50vh;
   background-color: #f0f1f5;
+`;
+
+export const StButtonsWrapper = styled.div`
+  display: flex;
+  width: 240px;
+  height: 56px;
+  gap: 12px;
+
+  @media (max-width: 650px) {
+  }
 `;

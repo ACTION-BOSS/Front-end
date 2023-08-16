@@ -5,6 +5,7 @@ import { $buttonTheme } from './buttonTheme';
 const sizeToVerticalPadding = {
   large: '22px',
   medium: '16px',
+  mediumLong: '16px',
   small: '12px',
   xsmall: '4px',
 };
@@ -12,6 +13,7 @@ const sizeToVerticalPadding = {
 const sizeToHorizontalPadding = {
   large: '16px',
   medium: '16px',
+  mediumLong: '34px',
   small: '16px',
   xsmall: '6px',
 };

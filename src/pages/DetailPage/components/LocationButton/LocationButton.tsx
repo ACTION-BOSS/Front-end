@@ -2,16 +2,20 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Theme } from '../../../../styles';
 import { MyDirectIcon } from '../../../../assets';
-type LocationButtonProps = {};
+type LocationButtonProps = { address: string };
 
-export const LocationButton: FC<LocationButtonProps> = ({}) => {
+export const LocationButton: FC<LocationButtonProps> = ({ address }) => {
+  const getFirstThreeWords = (address: string) => {
+    return address.split(' ').slice(0, 3).join(' ');
+  };
+
   return (
     <StLocationButton>
       <StLocationButtonLabel>
         <MyDirectIcon color="black" size={32} />
         <StTextWrapper>
           <p>(민원 위치)</p>
-          <p>노원구 공릉동 동일로</p>
+          <p>{getFirstThreeWords(address) || '주소 불러오기 실패'}</p>
         </StTextWrapper>
       </StLocationButtonLabel>
     </StLocationButton>

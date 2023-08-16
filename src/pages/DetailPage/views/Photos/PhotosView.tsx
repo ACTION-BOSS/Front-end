@@ -1,12 +1,11 @@
 import { FC, useState } from 'react';
 import { styled } from 'styled-components';
-import { MANHOLE, SWING } from '../../../../assets';
 import { Theme } from '../../../../styles';
-type PhotosViewProps = {};
+type PhotosViewProps = {
+  imageUrlList: string[];
+};
 
-const images = [MANHOLE, SWING];
-
-export const PhotosView: FC<PhotosViewProps> = ({}) => {
+export const PhotosView: FC<PhotosViewProps> = ({ imageUrlList }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
 
   const handleClickImage = (i: number) => {
@@ -16,7 +15,7 @@ export const PhotosView: FC<PhotosViewProps> = ({}) => {
   const previewImages = Array(3)
     .fill(0)
     .map((e, i) => {
-      return images[i] || e;
+      return imageUrlList[i] || e;
     });
 
   return (

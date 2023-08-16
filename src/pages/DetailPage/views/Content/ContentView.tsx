@@ -10,27 +10,35 @@ import {
   StWriterInfo,
 } from './ContentStyle';
 
-type ContentViewProps = {};
+type ContentViewProps = {
+  title: string;
+  content: string;
+  createdAt: string;
+  nickname: string;
+};
 
-const contents = 'titletitletitletitletitle';
-
-export const ContentView: FC<ContentViewProps> = ({}) => {
+export const ContentView: FC<ContentViewProps> = ({
+  title,
+  content,
+  createdAt,
+  nickname,
+}) => {
   return (
     <StWrapper>
       <StTitleWrapper>
-        <StTitle>게시물 제목</StTitle>
+        <StTitle>{title}</StTitle>
         <StWriterInfo>
-          <div>2023.03.11</div>
+          <div>{createdAt}</div>
           <div>|</div>
-          <div>작성자</div>
+          <div>{nickname}</div>
         </StWriterInfo>
       </StTitleWrapper>
 
       <StContentWrapper>
-        <StContentWord>{contents}</StContentWord>
+        <StContentWord>{content}</StContentWord>
         <StHowManyWrapper>
           <StHowManyLetters>{`${
-            contents.trim().length
+            content.trim().length
           }/500자`}</StHowManyLetters>
         </StHowManyWrapper>
       </StContentWrapper>

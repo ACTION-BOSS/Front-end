@@ -12,7 +12,7 @@ export type ThemeType =
   | 'emptyPink'
   | 'empty';
 
-export type SizeType = 'large' | 'medium' | 'small' | 'xsmall';
+export type SizeType = 'large' | 'medium' | 'mediumLong' | 'small' | 'xsmall';
 
 export interface ButtonStyleProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
