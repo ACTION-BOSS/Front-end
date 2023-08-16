@@ -3,9 +3,14 @@ import * as s from './HeaderStyle';
 import { Outlet } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import { WriteIcon } from '../../assets';
+import { EModalType, useModal } from '../../providers';
 
 export const Header = () => {
-  const onClickLogin = () => {};
+  const { openModal } = useModal();
+  const onClickLogin = () => {
+    openModal(EModalType.LOGIN);
+  };
+
   return (
     <>
       <s.Wrap>

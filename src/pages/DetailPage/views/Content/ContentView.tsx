@@ -21,7 +21,7 @@ export const ContentView: FC<ContentViewProps> = ({}) => {
         <StTitle>게시물 제목</StTitle>
         <StWriterInfo>
           <div>2023.03.11</div>
-          <div>|</div>``
+          <div>|</div>
           <div>작성자</div>
         </StWriterInfo>
       </StTitleWrapper>

@@ -63,8 +63,10 @@ export const StModalBackground = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   background-color: rgba(40.8, 46.8, 61.2, 0.4);
   width: 100%;
   height: 100%;
+
+  z-index: 99;
 `;
