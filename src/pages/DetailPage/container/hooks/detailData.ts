@@ -1,11 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchDetailPageData } from '../../../../api';
+import { useParams } from 'react-router-dom';
 
 export const useDetailData = () => {
-  const { getDetailPageData, currentPageId } = fetchDetailPageData();
+  const { postId } = useParams();
+
+  const { getDetailPageData } = fetchDetailPageData(postId);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['postDetail', currentPageId],
+    queryKey: ['postDetail', postId],
     queryFn: getDetailPageData,
   });
 
