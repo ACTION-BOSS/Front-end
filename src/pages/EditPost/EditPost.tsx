@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { MODAL_ATTRIBUTES } from '../CreatePost/const';
 import { EditFormView } from './views';
 import { useRecoilState } from 'recoil';
@@ -14,9 +14,13 @@ import {
   StBg,
   StSkyline,
   StGrayBg,
+  StAddressContainer,
+  StIconText,
+  StAddressText,
 } from './style';
 import { Button } from '../../shared';
 import { Portal, PostModal } from '../../shared/PostModal';
+import { MyDirectIcon } from '../../assets';
 
 export const EditPost = () => {
   const token = localStorage.getItem('token');
@@ -25,16 +29,27 @@ export const EditPost = () => {
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('default');
 
+  const navigate = useNavigate();
+
+  const onClickCancle = () => {
+    setModalType('cancle');
+    setOpenModal(!openModal);
+  };
+
   const { id: stringId } = useParams();
   const id = Number(stringId);
 
   const getPostDetail = async (id: number) => {
+    const headers = token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : undefined;
+
     const response = await axios.get(`/api/posts/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: headers,
     });
-    return response.data;
+    return response.data.data;
   };
 
   const {
@@ -42,6 +57,13 @@ export const EditPost = () => {
     isError,
     isLoading,
   } = useQuery(['postDetail', id], () => getPostDetail(id));
+
+  console.log(postData);
+
+  // if (postData && !postData.owner) {
+  //   window.location.replace('javascript:history.back()');
+  //   return null;
+  // }
 
   useEffect(() => {
     if (postData) {
@@ -58,10 +80,10 @@ export const EditPost = () => {
       }),
     {
       onSuccess: () => {
-        // 성공 시 처리
+        navigate(`/detail/${id}`);
       },
       onError: (error) => {
-        // 오류 시 처리
+        console.error('수정 요청 실패:', error);
       },
     },
   );
@@ -91,14 +113,27 @@ export const EditPost = () => {
   return (
     <StEditPostContainer>
       <EditFormView />
+
+      <StAddressContainer>
+        <StIconText>
+          <MyDirectIcon />
+          <StAddressText>{post.address}</StAddressText>
+        </StIconText>
+      </StAddressContainer>
+
       <StBtnContainer>
         <StBtnBox1>
-          <Button label="취소" $buttonTheme="empty" size="small" />
+          <Button
+            onClick={onClickCancle}
+            label="취소"
+            $buttonTheme="empty"
+            size="small"
+          />
         </StBtnBox1>
         <StBtnBox2>
           <Button
             onClick={onClickHandleModal}
-            label="수정"
+            label="수정 완료"
             $buttonTheme="blue"
             size="small"
           />
