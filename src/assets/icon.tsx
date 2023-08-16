@@ -529,3 +529,18 @@ export const XButtonIcon: FC<IconProps> = ({
     </svg>
   );
 };
+
+export const PingIcon = (currentOption: string) => {
+  return currentOption === '해결순'
+    ? 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102437/nc0sornjf4xi7adwqml9.svg'
+    : 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102302/kilci9jvo8fxzrshdfbz.svg';
+};
+
+export const pingB =
+  'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102437/nc0sornjf4xi7adwqml9.svg';
+
+export const BigPingA =
+  'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102445/ztckh2owqwlwd2sgjhq8.svg';
+
+export const BigPingB =
+  'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102441/l6cvbmmefjdc50sonkn0.svg';

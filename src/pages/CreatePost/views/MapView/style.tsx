@@ -26,3 +26,10 @@ export const StMapContainer = styled.div`
   height: 40vh;
   border-radius: 12px;
 `;
+
+export const StMainMapIcon = styled.div`
+  z-index: 2;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+`;
