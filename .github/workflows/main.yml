@@ -24,10 +24,9 @@ jobs:
         run: yarn build
 
       - name: Setting .env
-        run: |
+        run:
           echo "REACT_APP_API_URI: ${{ secrets.REACT_APP_API_URI }}" >> .env
           echo "REACT_APP_KAKAO_KEY: ${{ secrets.REACT_APP_KAKAO_KEY }}" >> .env
-          cat .env
 
       - name: S3 Deploy
         run: aws s3 sync ./build s3://hdaejang.com/ --acl bucket-owner-full-control # s3 이름 2021-cvi-dev
