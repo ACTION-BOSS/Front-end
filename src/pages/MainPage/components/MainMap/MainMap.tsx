@@ -43,26 +43,35 @@ export const MainMap = ({
     thumbnail: '',
     title: '',
   });
+  const [previousData, setPreviousData] = useState<Ping[]>([]);
 
-  const { data } = useQuery(['mapPing', currentOption, mapCoordinates], () =>
-    getMapPing(currentOption, mapCoordinates),
+  const { data, isLoading, isError } = useQuery(
+    ['mapPing', currentOption, mapCoordinates],
+    () => getMapPing(currentOption, mapCoordinates),
   );
-  console.log(data);
-  const onClickPingHandler = async (pingNum: number) => {
-    try {
-      const postData = await getSelectPost(pingNum);
-      setModalData(postData);
-      setIsModal(true);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
-  const mapCenterChangeHandler = (currentMapCenter: {
-    lat: number;
-    lng: number;
-  }) => {
-    setMapCenter(currentMapCenter);
+  useEffect(() => {
+    if (data) {
+      setPreviousData(data);
+    }
+  }, [data]);
+
+  const renderPingMarkers = (pingData: Ping[], map: any, clusterer: any) => {
+    pingData.forEach((ping: Ping) => {
+      const marker = new window.kakao.maps.Marker({
+        map,
+        image: new window.kakao.maps.MarkerImage(
+          PingIcon(currentOption),
+          new window.kakao.maps.Size(51, 71),
+        ),
+        position: new window.kakao.maps.LatLng(ping.latitude, ping.longitude),
+        id: ping.postId,
+      });
+      window.kakao.maps.event.addListener(marker, 'click', () => {
+        onClickPingHandler(ping.postId);
+      });
+      clusterer.addMarker(marker);
+    });
   };
 
   useEffect(() => {
@@ -124,24 +133,11 @@ export const MainMap = ({
           ],
         });
 
-        data?.forEach((ping: Ping) => {
-          const marker = new window.kakao.maps.Marker({
-            map,
-            image: new window.kakao.maps.MarkerImage(
-              PingIcon(currentOption),
-              new window.kakao.maps.Size(51, 71),
-            ),
-            position: new window.kakao.maps.LatLng(
-              ping.latitude,
-              ping.longitude,
-            ),
-            id: ping.postId,
-          });
-          window.kakao.maps.event.addListener(marker, 'click', () => {
-            onClickPingHandler(ping.postId);
-          });
-          clusterer.addMarker(marker);
-        });
+        if (isLoading && previousData.length > 0) {
+          renderPingMarkers(previousData, map, clusterer);
+        }
+
+        data && renderPingMarkers(data, map, clusterer);
       });
     }
   }, [data, zoomLevel, mapCenter]);
@@ -152,6 +148,23 @@ export const MainMap = ({
 
   const zoomChangeHandler = (newZoomLevel: number) => {
     setZoomLevel(newZoomLevel);
+  };
+
+  const onClickPingHandler = async (pingNum: number) => {
+    try {
+      const postData = await getSelectPost(pingNum);
+      setModalData(postData);
+      setIsModal(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const mapCenterChangeHandler = (currentMapCenter: {
+    lat: number;
+    lng: number;
+  }) => {
+    setMapCenter(currentMapCenter);
   };
 
   return (
