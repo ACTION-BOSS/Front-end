@@ -35,7 +35,7 @@ export const MainPosts = ({
     optionChangeHandler(option);
     onClickToggleHandler();
   };
-
+  //isLoading과 isFetching을 나누어 생각해봐야할듯
   const {
     data,
     isSuccess,
