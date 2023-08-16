@@ -27,6 +27,15 @@ export const $buttonTheme = {
     },
   },
 
+  blueGray: {
+    backgroundColor: Theme.colors.blueGray,
+    color: Theme.colors.black,
+    border: '0px solid transparent',
+    hover: {
+      backgroundColor: Theme.colors.gray2,
+    },
+  },
+
   blue: {
     backgroundColor: Theme.colors.blue,
     color: Theme.colors.white,

@@ -13,6 +13,8 @@ import {
 import styled from 'styled-components';
 import { Theme } from '../../../../styles';
 import { Button } from '../../../../shared/Button';
+import { $isVerificationFailed } from '../../state';
+import { useRecoilValue } from 'recoil';
 
 type EmailPasswordViewProps = {
   emailIdValue: string;
@@ -37,13 +39,19 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
   passwordValue,
   onPressLoginButton,
 }) => {
-  const isVerificationFailed = false;
+  const isReadyForLogin = !(
+    emailIdValue.length > 0 &&
+    emailDomainValue.length > 0 &&
+    passwordValue.length > 0
+  );
+
+  const isVerificationFailed = useRecoilValue($isVerificationFailed);
 
   return (
     <StWrapper>
       <StColumnDiv>
         <StUpperSpaceDiv>
-          <StUpperText>이메일 인증</StUpperText>
+          <StUpperText>로그인 하기</StUpperText>
         </StUpperSpaceDiv>
         <StFlexRowDiv>
           <StGrayInput
@@ -72,13 +80,6 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
             />
           )}
         </StFlexRowDiv>
-        {isVerificationFailed && (
-          <StLabelTextWrapper>
-            <StLabel1Text $isCorrect={false}>
-              잘못된 이메일 형식입니다
-            </StLabel1Text>
-          </StLabelTextWrapper>
-        )}
       </StColumnDiv>
       <StVerificationInput
         placeholder="비밀번호를 입력해주세요"
@@ -89,6 +90,13 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
         }}
         $isVerificated={isVerificationFailed}
       />
+      {isVerificationFailed && (
+        <StLabelTextWrapper>
+          <StLabel1Text $isCorrect={false}>
+            이메일과 비밀번호를 확인해주세요
+          </StLabel1Text>
+        </StLabelTextWrapper>
+      )}
 
       <StButtonWrapper>
         <Button
@@ -97,7 +105,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
           size="large"
           $bold
           onClick={onPressLoginButton}
-          disabled={isVerificationFailed}
+          disabled={isReadyForLogin}
         />
       </StButtonWrapper>
     </StWrapper>
@@ -125,9 +133,9 @@ export const StVerificationInput = styled.input<{
   font-weight: ${Theme.fontWeights.body3};
 
   border: ${(props) => {
-    return props.$isVerificated === true
+    return props.$isVerificated === false
       ? `1px solid ${Theme.colors.blue}`
-      : props.$isVerificated === false
+      : props.$isVerificated === true
       ? `1px solid ${Theme.colors.pink}`
       : 'none';
   }};

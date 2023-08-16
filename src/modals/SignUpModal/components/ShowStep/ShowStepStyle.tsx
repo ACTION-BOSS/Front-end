@@ -46,6 +46,6 @@ export const StLine = styled.div<{
   width: 21px;
   height: 0;
   border: 0.5px solid
-    ${(props) => (props.$onProgress ? Theme.colors.gray7 : Theme.colors.gray3)};
+    ${(props) => (props.$onProgress ? Theme.colors.pink : Theme.colors.gray3)};
   margin-top: 5px;
 `;

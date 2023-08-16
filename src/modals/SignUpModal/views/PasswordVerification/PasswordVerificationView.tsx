@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { $isReadyStepThree } from '../../state';
 import {
@@ -11,6 +11,7 @@ import {
   StVerificationInput,
   StLabelTextWrapper,
   StLabel1Text,
+  StLabelTextWrapper2,
 } from '../style';
 
 type PasswordVerificationViewProps = {
@@ -27,32 +28,70 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
   onChangePasswordVerification,
 }) => {
   const setIsReadyStepThree = useSetRecoilState($isReadyStepThree);
-  // const [isPasswordVerified, setIsPasswordVerified] = useState<boolean | null>(
-  //   null,
-  // );
 
-  // const checkPasswordVerification = () => {
-  //   const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
+  const [isPasswordVerified, setIsPasswordVerified] = useState<boolean | null>(
+    null,
+  );
 
-  //   if(passwordValue.length === 0){
-  //     setIsPasswordVerified(null)
-  //   } else {
-  //     setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue))
-  //   }
+  const [isVerified, setIsVerified] = useState<boolean | null>(null);
 
-  //   setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
-  // };
+  const checkPasswordVerification = () => {
+    const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
 
-  const isVerified =
-    passwordVerificationValue.length === 0
-      ? null
-      : passwordValue === passwordVerificationValue;
+    if (passwordValue.length === 0) {
+      setIsPasswordVerified(null);
+    } else {
+      setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
+    }
+
+    setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
+  };
+
+  const handleChangePassword = (...event: any[]) => {
+    checkPasswordVerification();
+    onChangePassword(...event);
+  };
+
+  const isVerifiedValue = () => {
+    if (passwordVerificationValue.length === 0) {
+      setIsVerified(null);
+    }
+    if (isPasswordVerified) {
+      return setIsVerified(passwordValue === passwordVerificationValue);
+    }
+  };
+
+  const verificationInputErrorText = (isVerified: boolean | null) => {
+    if (isPasswordVerified) {
+      if (isVerified === null) return '';
+      if (isVerified) {
+        return '비밀번호가 일치합니다';
+      } else {
+        return '비밀번호가 서로 다릅니다';
+      }
+    } else {
+      return '';
+    }
+  };
+
+  useEffect(() => {
+    isVerifiedValue();
+  }, [passwordValue, passwordVerificationValue]);
 
   useEffect(() => {
     if (isVerified !== null) {
-      setIsReadyStepThree(isVerified);
+      // @ts-ignore
+      setIsReadyStepThree(() => {
+        return isVerified;
+      });
     }
   }, [isVerified]);
+
+  useEffect(() => {
+    if (passwordValue.length === 0) {
+      setIsPasswordVerified(null);
+    }
+  }, [passwordValue]);
 
   return (
     <StWrapper>
@@ -67,11 +106,19 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
               placeholder="비밀번호를 입력해주세요"
               type="password"
               value={passwordValue}
-              onChange={onChangePassword}
-              $isVerificated={isVerified}
+              onChange={handleChangePassword}
+              $isVerificated={isPasswordVerified}
             />
           </StInputWrapper>
-
+          {isPasswordVerified !== null && (
+            <StLabelTextWrapper2>
+              <StLabel1Text $isCorrect={isPasswordVerified}>
+                {isPasswordVerified
+                  ? '사용가능한 비밀번호입니다'
+                  : '비밀번호는 영어+숫자 8~15자리로 입력할 수 있어요'}
+              </StLabel1Text>
+            </StLabelTextWrapper2>
+          )}
           <StInputWrapper>
             <StVerificationInput
               placeholder="비밀번호를 확인해주세요"
@@ -82,13 +129,10 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
             />
           </StInputWrapper>
         </StInputsWrapper>
-
         {isVerified !== null && (
           <StLabelTextWrapper>
             <StLabel1Text $isCorrect={isVerified}>
-              {isVerified
-                ? '비밀번호가 일치합니다'
-                : '비밀번호가 서로 다릅니다'}
+              {verificationInputErrorText(isVerified)}
             </StLabel1Text>
           </StLabelTextWrapper>
         )}

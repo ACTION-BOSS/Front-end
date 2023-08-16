@@ -8,6 +8,7 @@ export const StHeader = styled.div`
 
   height: 60px;
 
+  padding-top: 20px;
   padding-left: 14px;
   padding-right: 14px;
 `;

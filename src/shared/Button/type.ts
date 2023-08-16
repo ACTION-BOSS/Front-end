@@ -6,12 +6,13 @@ export type ThemeType =
   | 'pink'
   | 'emptyBlue'
   | 'gray'
+  | 'blueGray'
   | 'blue'
   | 'emptyGray'
   | 'emptyPink'
   | 'empty';
 
-export type SizeType = 'large' | 'medium' | 'small' | 'xsmall';
+export type SizeType = 'large' | 'medium' | 'mediumLong' | 'small' | 'xsmall';
 
 export interface ButtonStyleProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -43,6 +44,15 @@ export interface Mytheme extends DefaultTheme {
   };
 
   gray: {
+    backgroundColor: string;
+    color: string;
+    border: string;
+    hover: {
+      backgroundColor: string;
+    };
+  };
+
+  blueGray: {
     backgroundColor: string;
     color: string;
     border: string;

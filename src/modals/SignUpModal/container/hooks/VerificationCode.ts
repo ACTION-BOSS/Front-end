@@ -50,7 +50,7 @@ export const useVerificationCode = () => {
           email: `${emailIdValue}@${emailDomainValue}`,
         });
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           setIsCodeSent(true);
           setIsEmailSendFailed(false);
           return;
@@ -90,7 +90,7 @@ export const useVerificationCode = () => {
           email: `${emailIdValue}@${emailDomainValue}`,
           successKey: successKeyValue,
         });
-        if (response.status === 200) {
+        if (response.status === 201) {
           setIsEmailCodeVerificated(true);
           setIsReadyStepTwo(true);
           return;
