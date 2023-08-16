@@ -1,14 +1,28 @@
 import { FC } from 'react';
-import { ReactQueryProvider, RecoilProvider } from './providers';
+import {
+  LoginHandler,
+  ModalProvider,
+  ReactQueryProvider,
+  RecoilProvider,
+} from './providers';
 import { RouterProvider } from './router';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle, Theme } from './styles';
 
 export const App: FC = () => {
   return (
     <>
+      <GlobalStyle />
       <RecoilProvider>
-        <ReactQueryProvider>
-          <RouterProvider />
-        </ReactQueryProvider>
+        <LoginHandler>
+          <ReactQueryProvider>
+            <ThemeProvider theme={Theme}>
+              <ModalProvider>
+                <RouterProvider />
+              </ModalProvider>
+            </ThemeProvider>
+          </ReactQueryProvider>
+        </LoginHandler>
       </RecoilProvider>
     </>
   );

@@ -1,0 +1,46 @@
+import { ThemeType } from './type';
+
+export const Theme: ThemeType = {
+  colors: {
+    pink: '#FF005E',
+    blue: '#5782FA',
+    blueGray: '#F0F1F5',
+    gray1: '#E0E3EB',
+    gray2: '#C2C8D6',
+    gray3: '#A3ACC2',
+    gray4: '#8A8FA8',
+    gray5: '#73738C',
+    gray6: '#5C5C70',
+    gray7: '#454554',
+    gray8: '#292F3D',
+    white: '#FEFEFE',
+    black: '#14171F',
+  },
+  fontSizes: {
+    h1: '25px',
+    h2: '18px',
+    h3: '15px',
+    body1: '18px',
+    body2: '15px',
+    body3: '13px',
+    body4: '15px',
+    label1: '12px',
+    label2: '10px',
+    label3: '12px',
+  },
+  fontWeights: {
+    h1: '600',
+    h2: '700',
+    h3: '600',
+    body1: '500',
+    body2: '500',
+    body3: '500',
+    body4: '300',
+    label1: '300',
+    label2: '300',
+    label3: '500',
+  },
+  textDecoration: {
+    label3: 'underline',
+  },
+};

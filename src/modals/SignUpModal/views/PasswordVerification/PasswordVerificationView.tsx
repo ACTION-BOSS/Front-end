@@ -1,0 +1,142 @@
+import { FC, useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { $isReadyStepThree } from '../../state';
+import {
+  StWrapper,
+  StColumnDiv,
+  StUpperSpaceDiv,
+  StUpperText,
+  StInputsWrapper,
+  StInputWrapper,
+  StVerificationInput,
+  StLabelTextWrapper,
+  StLabel1Text,
+  StLabelTextWrapper2,
+} from '../style';
+
+type PasswordVerificationViewProps = {
+  passwordValue: string;
+  passwordVerificationValue: string;
+  onChangePassword: (...event: any[]) => void;
+  onChangePasswordVerification: (...event: any[]) => void;
+};
+
+export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
+  passwordValue,
+  passwordVerificationValue,
+  onChangePassword,
+  onChangePasswordVerification,
+}) => {
+  const setIsReadyStepThree = useSetRecoilState($isReadyStepThree);
+
+  const [isPasswordVerified, setIsPasswordVerified] = useState<boolean | null>(
+    null,
+  );
+
+  const [isVerified, setIsVerified] = useState<boolean | null>(null);
+
+  const checkPasswordVerification = () => {
+    const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
+
+    if (passwordValue.length === 0) {
+      setIsPasswordVerified(null);
+    } else {
+      setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
+    }
+
+    setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
+  };
+
+  const handleChangePassword = (...event: any[]) => {
+    checkPasswordVerification();
+    onChangePassword(...event);
+  };
+
+  const isVerifiedValue = () => {
+    if (passwordVerificationValue.length === 0) {
+      setIsVerified(null);
+    }
+    if (isPasswordVerified) {
+      return setIsVerified(passwordValue === passwordVerificationValue);
+    }
+  };
+
+  const verificationInputErrorText = (isVerified: boolean | null) => {
+    if (isPasswordVerified) {
+      if (isVerified === null) return '';
+      if (isVerified) {
+        return '비밀번호가 일치합니다';
+      } else {
+        return '비밀번호가 서로 다릅니다';
+      }
+    } else {
+      return '';
+    }
+  };
+
+  useEffect(() => {
+    isVerifiedValue();
+  }, [passwordValue, passwordVerificationValue]);
+
+  useEffect(() => {
+    if (isVerified !== null) {
+      // @ts-ignore
+      setIsReadyStepThree(() => {
+        return isVerified;
+      });
+    }
+  }, [isVerified]);
+
+  useEffect(() => {
+    if (passwordValue.length === 0) {
+      setIsPasswordVerified(null);
+    }
+  }, [passwordValue]);
+
+  return (
+    <StWrapper>
+      <StColumnDiv>
+        <StUpperSpaceDiv>
+          <StUpperText>비밀번호 확인</StUpperText>
+        </StUpperSpaceDiv>
+
+        <StInputsWrapper>
+          <StInputWrapper>
+            <StVerificationInput
+              placeholder="비밀번호를 입력해주세요"
+              type="password"
+              value={passwordValue}
+              onChange={handleChangePassword}
+              $isVerificated={isPasswordVerified}
+            />
+          </StInputWrapper>
+          {isPasswordVerified !== null && (
+            <StLabelTextWrapper2>
+              <StLabel1Text $isCorrect={isPasswordVerified}>
+                {isPasswordVerified
+                  ? '사용가능한 비밀번호입니다'
+                  : '비밀번호는 영어+숫자 8~15자리로 입력할 수 있어요'}
+              </StLabel1Text>
+            </StLabelTextWrapper2>
+          )}
+          <StInputWrapper>
+            <StVerificationInput
+              placeholder="비밀번호를 확인해주세요"
+              type="password"
+              value={passwordVerificationValue}
+              onChange={onChangePasswordVerification}
+              $isVerificated={isVerified}
+            />
+          </StInputWrapper>
+        </StInputsWrapper>
+        {isVerified !== null && (
+          <StLabelTextWrapper>
+            <StLabel1Text $isCorrect={isVerified}>
+              {verificationInputErrorText(isVerified)}
+            </StLabel1Text>
+          </StLabelTextWrapper>
+        )}
+      </StColumnDiv>
+    </StWrapper>
+  );
+};

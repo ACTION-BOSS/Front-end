@@ -1,1 +1,1 @@
-export * from './hooks/hook';
+export * from './MainContainer';
