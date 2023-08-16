@@ -104,7 +104,7 @@ export const MainPosts = ({
         </div>
       </s.MainPostHeader>
       <s.MainPosts>
-        {(isFetching || isLoading) &&
+        {isLoading &&
           Array(5)
             .fill(0)
             .map((post, index) => <MainPostSkeleton key={index} />)}
