@@ -3,8 +3,10 @@ import * as s from './HeaderStyle';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import { WriteIcon } from '../../assets';
+import { EModalType, useModal } from '../../providers';
 
 export const Header = () => {
+  const { openModal } = useModal();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const token = localStorage.getItem('token');
@@ -23,6 +25,11 @@ export const Header = () => {
     localStorage.removeItem('token');
     window.location.reload();
   };
+
+  const onClickLoginButton = () => {
+    openModal(EModalType.LOGIN);
+  };
+
   return (
     <>
       <s.Wrap>
@@ -52,6 +59,7 @@ export const Header = () => {
                 label={'로그인'}
                 $buttonTheme={'gray'}
                 $bold={true}
+                onClick={onClickLoginButton}
               />
             )}
           </div>
