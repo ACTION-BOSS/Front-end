@@ -1,6 +1,9 @@
 import { api } from './api';
 
-export const fetchDetailPageData = (id: number) => {
+const url = document.location.href;
+const currentPageId = url.split('/').at(-1);
+
+const getHeaderWithToken = () => {
   const token = localStorage.getItem('token');
   const headers = token
     ? {
@@ -8,16 +11,22 @@ export const fetchDetailPageData = (id: number) => {
       }
     : undefined;
 
-  const getDetailPageData = async () => {
-    const response = await api.get(`/posts/${id}`, {
-      headers: headers,
-    });
+  return headers;
+};
 
+export const fetchDetailPageData = () => {
+  const headers = getHeaderWithToken();
+
+  const getDetailPageData = async () => {
     try {
+      const response = await api.get(`/posts/${currentPageId}`, {
+        headers: headers,
+      });
+
       if (response.status === 200) {
         return response.data.data;
       } else {
-        throw new Error(`Request failed with status ${response.status}`);
+        throw new Error(`게시글 불러오기 실패 / status :  ${response.status}`);
       }
     } catch (e) {
       console.log(e);
@@ -25,5 +34,25 @@ export const fetchDetailPageData = (id: number) => {
     }
   };
 
-  return { getDetailPageData };
+  return { getDetailPageData, currentPageId };
+};
+
+export const deletePostedData = async () => {
+  const headers = getHeaderWithToken();
+
+  try {
+    const response = await api.delete(`/posts/${currentPageId}`, {
+      headers: headers,
+    });
+
+    if (response.status === 200) {
+      console.log('민원글 삭제에 성공');
+      return response.data;
+    } else {
+      throw new Error(`게시글 삭제 실패 / status: ${response.status}`);
+    }
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
 };

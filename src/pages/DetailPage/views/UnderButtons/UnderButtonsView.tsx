@@ -1,19 +1,24 @@
 import { FC } from 'react';
 import { styled } from 'styled-components';
 import { LocationButton, MetooButton } from '../../components';
-type UnderButtonsViewProps = { address: string; owner: boolean };
+type UnderButtonsViewProps = {
+  address: string;
+  owner: boolean;
+  agree: boolean;
+  agreeCount: number;
+};
 
 export const UnderButtonsView: FC<UnderButtonsViewProps> = ({
   address,
   owner = false,
+  agree,
+  agreeCount,
 }) => {
-  const metooCount = 12;
-
   return (
     <StWrapper>
       <StButtonWrapper>
         <LocationButton address={address} />
-        <MetooButton onClick={() => {}} metooCount={metooCount} />
+        <MetooButton onClick={() => {}} agree={agree} agreeCount={agreeCount} />
       </StButtonWrapper>
     </StWrapper>
   );

@@ -28,7 +28,6 @@ export const StWriterInfo = styled.div`
   font-size: ${Theme.fontSizes.body4};
   font-weight: ${Theme.fontWeights.body4};
 
-  padding: 10px 20px 0px 20px;
   gap: 10px;
 `;
 
@@ -38,7 +37,7 @@ export const StTitleWrapper = styled.div`
 `;
 
 export const StContentWrapper = styled.div`
-  padding: 20px;
+  padding-bottom: 20px;
   word-wrap: break-word;
 `;
 
@@ -49,7 +48,7 @@ export const StContentWord = styled.p`
   font-size: ${Theme.fontSizes.body2};
   font-weight: ${Theme.fontWeights.body2};
   line-height: 26px;
-  padding: 4px;
+  padding: 20px;
 `;
 
 export const StHowManyWrapper = styled.div`
@@ -59,8 +58,6 @@ export const StHowManyWrapper = styled.div`
 `;
 
 export const StHowManyLetters = styled.div`
-  padding: 12px;
-
   color: ${Theme.colors.gray7};
   font-size: ${Theme.fontSizes.label1};
   font-weight: ${Theme.fontWeights.label1};

@@ -28,18 +28,6 @@ export const StChildrenWrapper = styled.div`
   box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
 `;
 
-export const StBottomButtonWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  position: absolute;
-
-  padding-bottom: 127px;
-
-  bottom: -260px;
-  right: 4px;
-`;
-
 export const StBg = styled.div`
   z-index: -1;
   position: fixed;
@@ -59,14 +47,4 @@ export const StGrayBg = styled.div`
   width: 100vw;
   height: 50vh;
   background-color: #f0f1f5;
-`;
-
-export const StButtonsWrapper = styled.div`
-  display: flex;
-  width: 240px;
-  height: 56px;
-  gap: 12px;
-
-  @media (max-width: 650px) {
-  }
 `;

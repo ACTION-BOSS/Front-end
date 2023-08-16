@@ -17,15 +17,7 @@ export const StChildrenWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  padding-top: 40px;
-  padding-bottom: 40px;
-`;
-
-export const SampleLogo = styled.div`
-  width: 117px;
-  height: 61px;
-
-  background-color: ${Theme.colors.gray1};
+  padding: 20px;
 `;
 
 export const StModalWrapper = styled.div`

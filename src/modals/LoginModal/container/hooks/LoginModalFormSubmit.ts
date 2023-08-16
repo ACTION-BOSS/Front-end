@@ -49,7 +49,7 @@ export const useLoginModalFormSubmit = () => {
           // localStorage에 저장
           localStorage.setItem('token', actualToken);
 
-          if (tokenState) {
+          if (token) {
             console.log('로그인 성공!');
             closeModal();
           }

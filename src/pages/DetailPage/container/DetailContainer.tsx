@@ -4,15 +4,24 @@ import { useDetailData } from './hooks';
 type DetailContainerProps = {};
 
 export const DetailContainer: FC<DetailContainerProps> = ({}) => {
-  const { data, isLoading, error } = useDetailData(19);
+  const { data, isLoading, error } = useDetailData();
 
   if (isLoading || error) {
     return <></>;
   }
 
   console.log(data);
-  const { imageUrlList, title, content, createdAt, address, nickname, owner } =
-    data;
+  const {
+    imageUrlList,
+    title,
+    content,
+    createdAt,
+    address,
+    nickname,
+    owner,
+    agree,
+    agreeCount,
+  } = data;
 
   return (
     <>
@@ -23,7 +32,12 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
         createdAt={createdAt}
         nickname={nickname}
       />
-      <UnderButtonsView address={address} owner={owner} />
+      <UnderButtonsView
+        address={address}
+        owner={owner}
+        agree={agree}
+        agreeCount={agreeCount}
+      />
     </>
   );
 };

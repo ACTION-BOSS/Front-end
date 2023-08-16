@@ -36,7 +36,7 @@ export const $isReadyStepTwo = atom<boolean>({
   default: false,
 });
 
-export const $isReadyStepThree = atom<boolean>({
+export const $isReadyStepThree = atom<boolean | null>({
   key: 'isReadyStepThree',
   default: false,
 });

@@ -2,7 +2,7 @@ import { FC, ReactNode, createContext, useContext, useState } from 'react';
 
 import { EModalType } from './type';
 import { styled } from 'styled-components';
-import { SignUpModal, LoginModal } from '../../modals';
+import { SignUpModal, LoginModal, PopUpModal } from '../../modals';
 import { SignUpSuccessModal } from '../../modals/SignUpSuccessModal/SignUpSuccessModal';
 
 interface IModalContext {
@@ -38,6 +38,9 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
     }
     if (modalType === EModalType.SIGN_UP_SUCCESS) {
       return <SignUpSuccessModal />;
+    }
+    if (modalType === EModalType.DELETE || modalType === EModalType.DONE) {
+      return <PopUpModal type={modalType} />;
     }
   };
 

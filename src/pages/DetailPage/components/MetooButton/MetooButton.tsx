@@ -3,20 +3,22 @@ import { styled } from 'styled-components';
 import { Theme } from '../../../../styles';
 import { UncomBigIcon } from '../../../../assets';
 type MetooButtonProps = {
-  metooCount: number;
+  agreeCount: number;
   onClick: () => void;
+  agree: boolean;
 };
 
 export const MetooButton: FC<MetooButtonProps> = ({
-  metooCount = 0,
+  agreeCount = 0,
   onClick,
+  agree = false,
 }) => {
   return (
     <StButton onClick={onClick}>
       <StButtonLabel>
         <div>나도 불편해요</div>
         <UncomBigIcon color="white" size={32} />
-        <div>{metooCount}</div>
+        <div>{agreeCount}</div>
       </StButtonLabel>
     </StButton>
   );
