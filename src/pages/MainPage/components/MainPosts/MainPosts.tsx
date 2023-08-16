@@ -50,8 +50,8 @@ export const MainPosts = ({
       getSidebarPosts(pageParam, currentOption, mapCoordinates),
     {
       getNextPageParam: (lastPage) => {
-        return lastPage.presentPage < lastPage.totalPage
-          ? lastPage.presentPage + 1
+        return lastPage.data.presentPage < lastPage.data.totalPage
+          ? lastPage.data.presentPage + 1
           : null;
       },
     },
@@ -77,8 +77,7 @@ export const MainPosts = ({
   }, [handleObserver]);
 
   const allPosts =
-    (isSuccess && data.pages.flatMap((page) => page.postList)) || [];
-
+    (isSuccess && data.pages.flatMap((page) => page.data.postList)) || [];
   return (
     <s.MainPostsConatiner>
       <s.MainPostHeader>

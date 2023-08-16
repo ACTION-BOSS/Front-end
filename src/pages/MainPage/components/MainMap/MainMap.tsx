@@ -52,7 +52,7 @@ export const MainMap = ({
 
   useEffect(() => {
     if (data) {
-      setPreviousData(data);
+      setPreviousData(data.data);
     }
   }, [data]);
 
@@ -137,7 +137,7 @@ export const MainMap = ({
           renderPingMarkers(previousData, map, clusterer);
         }
 
-        data && renderPingMarkers(data, map, clusterer);
+        data && renderPingMarkers(data.data, map, clusterer);
       });
     }
   }, [data, zoomLevel, mapCenter]);
@@ -153,7 +153,7 @@ export const MainMap = ({
   const onClickPingHandler = async (pingNum: number) => {
     try {
       const postData = await getSelectPost(pingNum);
-      setModalData(postData);
+      setModalData(postData.data);
       setIsModal(true);
     } catch (error) {
       console.error(error);
