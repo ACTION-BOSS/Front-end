@@ -20,10 +20,6 @@ jobs:
       - name: Setting .env
         run: |
           echo "REACT_APP_API_URI=${{ secrets.REACT_APP_API_URI }}" > .env
-          echo "REACT_APP_KAKAO_KEY=${{ secrets.REACT_APP_KAKAO_KEY }}" >> .env
-
-      - name: Replace Kakao Key in index.html
-        run: sed -i 's/__REACT_APP_KAKAO_KEY__/${{ secrets.REACT_APP_KAKAO_KEY }}/g' ./build/index.html
 
       - name: S3 Deploy
         run: aws s3 sync ./build s3://hdaejang.com/ --acl bucket-owner-full-control
