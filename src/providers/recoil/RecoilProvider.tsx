@@ -24,8 +24,6 @@ export const postState = atom<PostState>({
   },
 });
 
-console.log(postState);
-
 export interface IRecoilContext {}
 
 export const RecoilContext = createContext<IRecoilContext | null>(null);

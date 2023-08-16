@@ -10,11 +10,11 @@ export const RouterProvider = () => {
       <Routes>
         <Route element={<Header />}>
           <Route path="/main" element={<MainPage />} />
+          <Route path="/" element={<Introduction />} />
+          <Route path="/create" element={<CreatePost />} />
+          <Route path="/edit/:id" element={<EditPost />} />
         </Route>
-        <Route path="/" element={<Introduction />} />
-        <Route path="/create" element={<CreatePost />} />
         <Route path="/test" element={<TestPage />} />
-        <Route path="/edit/:id" element={<EditPost />} />
       </Routes>
     </BrowserRouter>
   );

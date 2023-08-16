@@ -26,11 +26,7 @@ export const EditFormView = () => {
   return (
     <StFormContainer>
       <StInputContainer>
-        <input
-          value={post.title}
-          onChange={onChangeTitle}
-          maxLength={50}
-        ></input>
+        <input value={post.title} onChange={onChangeTitle} maxLength={50} />
         <div>{post.title.length}/50자</div>
       </StInputContainer>
       <StContentContainer>
@@ -39,9 +35,10 @@ export const EditFormView = () => {
             value={post.content}
             onChange={onChangeContent}
             maxLength={500}
-          ></textarea>
+          />
           <div>{post.content.length}/500자</div>
         </StTextContainer>
+
         <StPhotoBoxContainer>
           <StIconBox>
             <HelpIcon />

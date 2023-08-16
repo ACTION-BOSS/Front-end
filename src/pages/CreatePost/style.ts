@@ -8,12 +8,13 @@ export const StCreatePostContainer = styled.div`
   width: 100vw;
   height: 170vh;
   overflow-y: auto;
+  margin-top: 85px;
 `;
 
 export const StBg = styled.div`
   z-index: -1;
   position: fixed;
-  margin-top: 65vh;
+  margin-top: 48.5vh;
 `;
 
 export const StSkyline = styled.div`
@@ -43,6 +44,10 @@ export const StBtnContainer = styled.div`
   }
 `;
 
-export const StBtnBox1 = styled.div``;
+export const StBtnBox1 = styled.div`
+  width: 104px;
+`;
 
-export const StBtnBox2 = styled.div``;
+export const StBtnBox2 = styled.div`
+  width: 154px;
+`;
