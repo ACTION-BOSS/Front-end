@@ -21,6 +21,7 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
     owner,
     agree,
     agreeCount,
+    postId,
   } = data;
 
   return (
@@ -37,6 +38,7 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
         owner={owner}
         agree={agree}
         agreeCount={agreeCount}
+        postId={postId}
       />
     </>
   );

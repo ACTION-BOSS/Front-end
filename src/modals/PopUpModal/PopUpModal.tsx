@@ -35,7 +35,16 @@ const getModalButton = (type: EModalType) => {
     );
   }
   if (type === EModalType.DONE) {
-    return '해결 완료 처리된 게시물입니다';
+    return (
+      <Button
+        label="메인화면으로"
+        $buttonTheme="emptyBlue"
+        size="large"
+        onClick={() => {
+          location.href = '/main';
+        }}
+      />
+    );
   }
 };
 

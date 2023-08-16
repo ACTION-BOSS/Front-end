@@ -6,6 +6,7 @@ type UnderButtonsViewProps = {
   owner: boolean;
   agree: boolean;
   agreeCount: number;
+  postId: string;
 };
 
 export const UnderButtonsView: FC<UnderButtonsViewProps> = ({
@@ -13,12 +14,18 @@ export const UnderButtonsView: FC<UnderButtonsViewProps> = ({
   owner = false,
   agree,
   agreeCount,
+  postId,
 }) => {
   return (
     <StWrapper>
       <StButtonWrapper>
         <LocationButton address={address} />
-        <MetooButton onClick={() => {}} agree={agree} agreeCount={agreeCount} />
+        <MetooButton
+          onClick={() => {}}
+          agree={agree}
+          agreeCount={agreeCount}
+          postId={postId}
+        />
       </StButtonWrapper>
     </StWrapper>
   );

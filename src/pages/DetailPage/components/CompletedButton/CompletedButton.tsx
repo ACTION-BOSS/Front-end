@@ -1,20 +1,58 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { Theme } from '../../../../styles';
 import { ClearIcon, HelpIcon } from '../../../../assets';
+import { useDetailData } from '../../container';
+import { useNavigate } from 'react-router-dom';
+import { toggleDoneData } from '../../../../api';
+import { debounce } from 'lodash';
 type CompletedButtonProps = {};
 
 export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
+  const { data, isLoading, error } = useDetailData();
+  const [localDone, setLocalDone] = useState<boolean | null>(null);
+  const [localDoneCount, setLocalDoneCount] = useState<number | null>(null);
+  const navigate = useNavigate();
+
+  if (isLoading) {
+    return <></>;
+  }
+
+  const { done, doneCount, postId } = data;
+
+  const handleClickDoneButton = debounce(async () => {
+    if (localDoneCount === 6 && !localDone) {
+      alert('이미 완료된 민원글입니다.');
+      navigate('/main');
+      return;
+    }
+
+    await toggleDoneData(postId);
+
+    if (localDone) {
+      setLocalDoneCount((prevCount) => (prevCount ? prevCount - 1 : 0));
+      setLocalDone(false);
+    } else {
+      setLocalDoneCount((prevCount) => (prevCount ? prevCount + 1 : 1));
+      setLocalDone(true);
+    }
+  }, 500);
+
+  useEffect(() => {
+    setLocalDone(done);
+    setLocalDoneCount(doneCount);
+  }, [done, doneCount]);
+
   return (
     <StWrapper>
-      <StButtonWrapper>
+      <StButtonWrapper onClick={handleClickDoneButton}>
         <StBlueArea>
           <div>해결된 민원이에요</div>
           <ClearIcon color="white" size={32} />
         </StBlueArea>
         <StWhiteArea>
           <StButtonTextWrapper>
-            <p>2</p>
+            <p>{localDoneCount}</p>
             <p>/</p>
             <p>5</p>
           </StButtonTextWrapper>
