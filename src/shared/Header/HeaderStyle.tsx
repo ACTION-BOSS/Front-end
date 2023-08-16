@@ -21,9 +21,19 @@ export const Wrap = styled.div`
   justify-content: space-between;
 `;
 export const HeaderLeft = styled.div`
-  width: 160px;
-  height: 40px;
-  background-image: url(${LOGO_GARO});
+  display: flex;
+  gap: 30px;
+  .logo {
+    width: 160px;
+    height: 40px;
+    background-image: url(${LOGO_GARO});
+    cursor: pointer;
+  }
+  .mainMenu {
+    font-size: ${(props) => props.theme.fontSizes.h2};
+    font-weight: ${(props) => props.theme.fontWeights.h2};
+    cursor: pointer;
+  }
 `;
 export const HeaderRight = styled.div`
   font-size: ${(props) => props.theme.fontSizes.h2};
@@ -36,6 +46,7 @@ export const HeaderRight = styled.div`
     border: none;
     font-size: ${(props) => props.theme.fontSizes.h2};
     font-weight: ${(props) => props.theme.fontWeights.h2};
+    cursor: pointer;
   }
 `;
 export const PostUploadBtn = styled.div`
