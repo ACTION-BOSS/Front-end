@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import {
   StColumnDiv,
-  StRoundStep,
   StLetterStep,
   StLineWrapper,
   StLine,
@@ -9,6 +8,8 @@ import {
 } from './ShowStepStyle';
 import { EStep } from '../../type';
 import React from 'react';
+import { ClearIcon } from '../../../../assets';
+import { Theme } from '../../../../styles';
 
 type ShowStepProps = {
   step: EStep;
@@ -31,7 +32,11 @@ export const ShowStep: FC<ShowStepProps> = ({ step = EStep.STEP1 }) => {
         return (
           <React.Fragment key={i}>
             <StColumnDiv>
-              <StRoundStep $onProgress={progressByStep(step)} />
+              {progressByStep(step) ? (
+                <ClearIcon color={Theme.colors.pink} size={16} />
+              ) : (
+                <ClearIcon color={Theme.colors.gray3} size={16} />
+              )}
               <StLetterStep $onProgress={progressByStep(step)}>
                 {step}단계
               </StLetterStep>

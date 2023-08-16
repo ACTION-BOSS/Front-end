@@ -6,9 +6,11 @@ import {
 } from 'react-hook-form';
 import { SignupModalFormData } from './SignupModalForm';
 import { api } from '../../../../api';
+import { EModalType, useModal } from '../../../../providers';
 
 export const useSignupModalFormSubmit = () => {
   const { handleSubmit } = useFormContext<SignupModalFormData>();
+  const { openModal, closeModal } = useModal();
 
   const onFormError: SubmitErrorHandler<SignupModalFormData> = useCallback(
     async (error) => {},
@@ -27,7 +29,8 @@ export const useSignupModalFormSubmit = () => {
         });
 
         if (response.status === 200) {
-          console.log(response);
+          closeModal();
+          openModal(EModalType.SIGN_UP_SUCCESS);
         }
       } catch (error) {
         console.error('error', error);

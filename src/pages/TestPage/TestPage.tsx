@@ -37,6 +37,16 @@ export const TestPage: FC<TestPageProps> = ({}) => {
           }}
         />
       </div>
+      <div style={{ width: '100px' }}>
+        <Button
+          label="회원가입성공"
+          $buttonTheme="pink"
+          size="small"
+          onClick={() => {
+            openModal(EModalType.SIGN_UP_SUCCESS);
+          }}
+        />
+      </div>
     </div>
   );
 };

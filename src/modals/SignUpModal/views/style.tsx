@@ -47,7 +47,10 @@ export const StButtonWrapper = styled.div`
   margin-right: 5px;
 `;
 
-export const StGrayInput = styled.input<{ $isError: boolean; width?: string }>`
+export const StGrayInput = styled.input<{
+  $isError: boolean | null;
+  width?: string;
+}>`
   display: flex;
   width: ${(props) => (props.width === 'fluid' ? '100%' : '153px')};
   height: 42px;
@@ -107,10 +110,22 @@ export const StLabelTextWrapper = styled.div`
   display: flex;
   flex: 1;
   justify-content: space-between;
-  padding-top: 11px;
+  padding-top: 8px;
 
   padding-left: 5px;
   padding-right: 5px;
+  padding-bottom: 4px;
+`;
+
+export const StLabelTextWrapper2 = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  padding-top: 4px;
+
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 4px;
 `;
 
 export const StLabel1Text = styled.p<{
@@ -140,7 +155,7 @@ export const StLabel3Text = styled.p`
 
 export const StInputsWrapper = styled.div`
   display: flex;
-  gap: 9.5px;
+  gap: 4px;
   flex-direction: column;
 `;
 
