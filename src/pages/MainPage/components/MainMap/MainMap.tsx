@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import * as s from './MainMapStyle';
 import { MapIcon } from '../../../../shared/MapIcon';
 import { MainModal } from '../MainModal';
-import { Ping, Post } from '../../type';
+import { Coordinates, Ping, Post } from '../../type';
 import { useQuery } from '@tanstack/react-query';
 import { getMapPing, getSelectPost } from '../../../../api';
-import { PingIcon } from '../../../../assets';
+import { BigPingIcon, PingIcon } from '../../../../assets';
 
 declare global {
   interface Window {
@@ -15,9 +15,20 @@ declare global {
 
 interface Props {
   currentOption: string;
+  mapCoordinates: Coordinates;
+  mapCoordinatesChangeHandler: (
+    north: number,
+    east: number,
+    south: number,
+    west: number,
+  ) => void;
 }
 
-export const MainMap = ({ currentOption }: Props) => {
+export const MainMap = ({
+  currentOption,
+  mapCoordinates,
+  mapCoordinatesChangeHandler,
+}: Props) => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [zoomLevel, setZoomLevel] = useState<number>(3);
   const [mapCenter, setMapCenter] = useState({
@@ -33,34 +44,25 @@ export const MainMap = ({ currentOption }: Props) => {
     title: '',
   });
 
-  const { data } = useQuery(['mapPing', currentOption], () =>
-    getMapPing(currentOption),
+  const { data } = useQuery(['mapPing', currentOption, mapCoordinates], () =>
+    getMapPing(currentOption, mapCoordinates),
   );
-
+  console.log(data);
   const onClickPingHandler = async (pingNum: number) => {
     try {
       const postData = await getSelectPost(pingNum);
       setModalData(postData);
-      setIsModal(true); // 모달을 열어주는 부분 추가
-    } catch (e) {
-      console.log(e);
+      setIsModal(true);
+    } catch (error) {
+      console.error(error);
     }
   };
 
-  const mapCenterChangeHandler = (newMapCenter: {
+  const mapCenterChangeHandler = (currentMapCenter: {
     lat: number;
     lng: number;
   }) => {
-    setMapCenter(newMapCenter);
-  };
-
-  // 마커 추가 함수
-  const addMarkerToMap = (position: { lat: number; lng: number }, map: any) => {
-    const marker = new window.kakao.maps.Marker({
-      position: new window.kakao.maps.LatLng(position.lat, position.lng),
-    });
-
-    marker.setMap(map);
+    setMapCenter(currentMapCenter);
   };
 
   useEffect(() => {
@@ -74,25 +76,57 @@ export const MainMap = ({ currentOption }: Props) => {
         };
         const map = new window.kakao.maps.Map(container, options);
 
-        map.setZoomable(false); // 휠 줌 막음
+        map.setZoomable(false);
 
-        window.kakao.maps.event.addListener(map, 'dragend', function () {
+        const mapBounds = map.getBounds();
+        mapCoordinatesChangeHandler(
+          mapBounds.pa,
+          mapBounds.oa,
+          mapBounds.qa,
+          mapBounds.ha,
+        );
+
+        window.kakao.maps.event.addListener(map, 'idle', () => {
           const newCenter = map.getCenter();
           setMapCenter({
             lat: newCenter.getLat(),
             lng: newCenter.getLng(),
           });
+
+          const mapBounds = map.getBounds();
+          mapCoordinatesChangeHandler(
+            mapBounds.pa,
+            mapBounds.oa,
+            mapBounds.qa,
+            mapBounds.ha,
+          );
         });
 
-        // const clusterer = new window.kakao.maps.MarkerClusterer({
-        //   map: map,
-        //   averageCenter: true,
-        //   minLevel: 3,
-        // });
+        const clusterer = new window.kakao.maps.MarkerClusterer({
+          map,
+          averageCenter: true,
+          minLevel: 2,
+          gridSize: 50,
+          styles: [
+            {
+              width: '130px',
+              height: '95px',
+              background: `url(${BigPingIcon(currentOption)})`,
+              backgroundRepeat: 'no-repeat',
+              color: '#fff',
+              backgroundPosition: '15px 1px',
+              textAlign: 'left',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '25px',
+            },
+          ],
+        });
 
         data?.forEach((ping: Ping) => {
           const marker = new window.kakao.maps.Marker({
-            map: map,
+            map,
             image: new window.kakao.maps.MarkerImage(
               PingIcon(currentOption),
               new window.kakao.maps.Size(51, 71),
@@ -106,12 +140,13 @@ export const MainMap = ({ currentOption }: Props) => {
           window.kakao.maps.event.addListener(marker, 'click', () => {
             onClickPingHandler(ping.postId);
           });
+          clusterer.addMarker(marker);
         });
       });
     }
   }, [data, zoomLevel, mapCenter]);
 
-  const onClickModalHandler = () => {
+  const toggleModal = () => {
     setIsModal(!isModal);
   };
 
@@ -131,7 +166,7 @@ export const MainMap = ({ currentOption }: Props) => {
       </s.MainMapIcon>
       {isModal && (
         <s.MainModalContainer>
-          <MainModal onClick={onClickModalHandler} post={modalData} />
+          <MainModal onClick={toggleModal} post={modalData} />
         </s.MainModalContainer>
       )}
     </s.MainMapContainer>
