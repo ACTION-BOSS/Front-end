@@ -41,7 +41,7 @@ export const getSidebarPosts = async (
   mapCoordinates: Coordinates,
 ) => {
   const isdone = sort === '해결순' ? true : false;
-  const sortOption = sort === '불편순' ? 'likeCount' : 'createdAt';
+  const sortOption = sort === '불편순' ? 'agreeCount' : 'createdAt';
   const { northlat, eastlon, southlat, westlon } = mapCoordinates;
   try {
     const response = await axios.get(

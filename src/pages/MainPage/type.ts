@@ -2,7 +2,7 @@ export interface Post {
   postId: number;
   title: string;
   thumbnail: string;
-  likeCount: number;
+  agreeCount: number;
   nickname: string;
   address: string;
 }

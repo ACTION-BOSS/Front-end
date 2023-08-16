@@ -23,7 +23,7 @@ export const MainModal = ({ onClick, post }: Props) => {
         <img src={post.thumbnail} />
         <s.UnLike>
           <UncomBigIcon size={24} />
-          <div>{post.likeCount}</div>
+          <div>{post.agreeCount}</div>
         </s.UnLike>
       </s.MainModalMiddle>
       <s.MainModalBottom>
