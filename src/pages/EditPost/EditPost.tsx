@@ -60,10 +60,10 @@ export const EditPost = () => {
 
   console.log(postData);
 
-  if (postData && !postData.owner) {
-    window.location.replace('javascript:history.back()');
-    return null;
-  }
+  // if (postData && !postData.owner) {
+  //   window.location.replace('javascript:history.back()');
+  //   return null;
+  // }
 
   useEffect(() => {
     if (postData) {
