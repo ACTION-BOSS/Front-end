@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Coordinates } from '../pages/MainPage/type';
 
 export const api = axios.create({
-  baseURL: '/api',
+  baseURL: `${process.env.REACT_APP_API_URI}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
