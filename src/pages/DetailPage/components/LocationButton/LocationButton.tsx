@@ -23,7 +23,6 @@ export const StLocationButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  padding: 12px 20px 12px 20px;
   border: none;
   border-radius: 100px;
 
@@ -35,7 +34,8 @@ export const StLocationButtonLabel = styled.div`
   display: flex;
   gap: 6px;
   align-items: center;
-  padding: 4px;
+
+  padding: 10px;
 
   color: black;
 

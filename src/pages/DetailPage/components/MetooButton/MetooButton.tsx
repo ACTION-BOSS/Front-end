@@ -18,9 +18,12 @@ export const MetooButton: FC<MetooButtonProps> = ({}) => {
 
 export const StButton = styled.button`
   display: flex;
-  justify-content: center;
 
-  padding: 12px 16px;
+  padding: 6px 16px;
+
+  justify-content: center;
+  align-items: center;
+
   border: none;
   border-radius: 10px;
 
@@ -31,7 +34,6 @@ export const StButtonLabel = styled.div`
   display: flex;
   gap: 6px;
   align-items: center;
-  padding: 4px;
 
   color: white;
 

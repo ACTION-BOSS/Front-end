@@ -1,3 +1,3 @@
-export * from './Content/ContentView';
+export * from './UnderButtons/UnderButtonsView';
 export * from './Photos/PhotosView';
-export * from './Title/TitleView';
+export * from './Content/ContentView';

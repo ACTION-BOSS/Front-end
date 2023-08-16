@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { SKYLINE } from '../../../assets';
 
 export const StLayoutWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
 
@@ -16,9 +17,24 @@ export const StChildrenWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
+
+  top: 140px;
   width: 100%;
-  max-width: 890px;
-  padding-top: 140px;
+  max-width: 1020px;
+  padding: 30px 50px;
+  border-radius: 20px;
+
+  background-color: white;
+  box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
+`;
+
+export const StBottomButtonWrapper = styled.div`
+  position: absolute;
+
+  padding-bottom: 127px;
+
+  bottom: -260px;
+  right: 4px;
 `;
 
 export const StBg = styled.div`

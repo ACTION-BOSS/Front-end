@@ -17,7 +17,7 @@ export const StChildrenWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  padding-top: 40px;
+  padding-top: 80px;
   padding-bottom: 40px;
 `;
 
@@ -56,7 +56,7 @@ export const StViewWrapper = styled.div`
 `;
 
 export const StButtonWrapper = styled.div`
-  width: 328px;
+  padding-top: 14px;
 `;
 
 export const StTransparentDiv = styled.div`

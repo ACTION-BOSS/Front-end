@@ -1,13 +1,22 @@
 import { FC } from 'react';
-import { ContentView, PhotosView, TitleView } from '../views';
+import { PhotosView, ContentView, UnderButtonsView } from '../views';
 type DetailContainerProps = {};
 
 export const DetailContainer: FC<DetailContainerProps> = ({}) => {
   return (
     <>
-      <TitleView />
       <PhotosView />
       <ContentView />
+      <UnderButtonsView />
     </>
   );
 };
+
+// <div
+//   style={{
+//     display: 'flex',
+//     overflowY: 'auto',
+//     wordBreak: 'break-word',
+//   }}
+// >
+// </div>

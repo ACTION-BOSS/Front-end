@@ -8,7 +8,6 @@ import {
   StAtText,
   StLabelTextWrapper,
   StLabel1Text,
-  StColumnDiv,
 } from '../../../SignUpModal/views/style';
 import styled from 'styled-components';
 import { Theme } from '../../../../styles';
@@ -43,7 +42,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
     <StWrapper>
       <StColumnDiv>
         <StUpperSpaceDiv>
-          <StUpperText>이메일 인증</StUpperText>
+          <StUpperText>로그인 하기</StUpperText>
         </StUpperSpaceDiv>
         <StFlexRowDiv>
           <StGrayInput
@@ -107,6 +106,13 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
 export const StWrapper = styled.div`
   display: flex;
   gap: 8px;
+  flex-direction: column;
+`;
+
+export const StColumnDiv = styled.div`
+  display: flex;
+  flex: 1;
+
   flex-direction: column;
 `;
 

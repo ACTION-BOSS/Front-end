@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
 import { styled } from 'styled-components';
-import { MANHOLE, SKYLINE, SWING } from '../../../../assets';
+import { MANHOLE, SWING } from '../../../../assets';
 import { Theme } from '../../../../styles';
 type PhotosViewProps = {};
 
-const previewImages = [MANHOLE, SWING, SKYLINE];
+const images = [MANHOLE, SWING];
 
 export const PhotosView: FC<PhotosViewProps> = ({}) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
@@ -13,14 +13,20 @@ export const PhotosView: FC<PhotosViewProps> = ({}) => {
     setSelectedImageIndex(i);
   };
 
+  const previewImages = Array(3)
+    .fill(0)
+    .map((e, i) => {
+      return images[i] || e;
+    });
+
   return (
     <StPhotosWrapper>
       <StMainImageWrapper>
         <StMainImage src={previewImages[selectedImageIndex]} />
       </StMainImageWrapper>
       <StPreviewImagesWrapper>
-        {previewImages.map((e, i) => {
-          return (
+        {previewImages.map((e, i) =>
+          e ? (
             <StPreviewWrapper
               key={i}
               $isSelected={selectedImageIndex === i}
@@ -30,8 +36,12 @@ export const PhotosView: FC<PhotosViewProps> = ({}) => {
             >
               <StPreviewImage src={e} />
             </StPreviewWrapper>
-          );
-        })}
+          ) : (
+            <StNoImages key={i}>
+              <StTitleText>행동대장</StTitleText>
+            </StNoImages>
+          ),
+        )}
       </StPreviewImagesWrapper>
     </StPhotosWrapper>
   );
@@ -40,9 +50,9 @@ export const PhotosView: FC<PhotosViewProps> = ({}) => {
 export const StPhotosWrapper = styled.div`
   display: flex;
   flex: 1;
-  gap: 18px;
+  gap: 32px;
 
-  max-height: 500px;
+  max-height: 468px;
   margin-bottom: 48.5px;
 
   @media (max-width: 650px) {
@@ -60,7 +70,7 @@ export const StMainImageWrapper = styled.div`
   overflow: hidden;
 
   border-radius: 12px;
-  box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
+  // box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
 
   @media (max-width: 650px) {
   }
@@ -71,6 +81,7 @@ export const StMainImage = styled.img`
   aspect-ratio: 900/648;
 
   object-fit: center;
+  background-color: black;
 
   @media (max-width: 650px) {
     aspect-ratio: 900/648;
@@ -78,10 +89,13 @@ export const StMainImage = styled.img`
 `;
 
 export const StPreviewImage = styled.img`
-  width: 100%;
-  height: auto;
+  display: flex;
+  flex: 1;
+  // width: 100%;
+  // height: auto;
+  // aspect-ratio: 900/648;
 
-  background-color: white;
+  background-color: black;
   object-fit: center;
 `;
 
@@ -90,7 +104,7 @@ export const StPreviewImagesWrapper = styled.div`
   gap: 18px;
   flex-direction: column;
 
-  width: 185px;
+  width: 200px;
 
   @media (max-width: 650px) {
     flex-direction: row;
@@ -102,15 +116,17 @@ export const StPreviewWrapper = styled.div<{
   $isSelected: boolean;
 }>`
   display: flex;
-  width: 100%;
-  height: 135px;
+  aspect-ratio: 900/648;
 
   border: ${(props) =>
     props.$isSelected
-      ? `4px solid ${Theme.colors.pink}`
-      : '4px solid transparent'};
+      ? `2px solid ${Theme.colors.white}`
+      : '2px solid transparent'};
   border-radius: 8px;
-  box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
+  box-shadow: ${(props) =>
+    props.$isSelected
+      ? `0px 0px 8px 0px #FF005E`
+      : ' 0px 0px 6px 0px rgba(41, 47, 61, 0.3)'};
 
   overflow: hidden;
   cursor: pointer;
@@ -118,4 +134,29 @@ export const StPreviewWrapper = styled.div<{
   @media (max-width: 650px) {
     width: 150px;
   }
+`;
+
+export const StNoImages = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 900/648;
+
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: rgba(41, 47, 61, 0.4);
+
+  overflow: hidden;
+
+  @media (max-width: 650px) {
+    width: 150px;
+  }
+`;
+
+export const StTitleText = styled.div`
+  font-family: 'GilbeotTG';
+  color: ${Theme.colors.gray1};
+
+  font-size: 26px;
+  letter-spacing: 1px;
 `;
