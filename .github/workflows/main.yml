@@ -3,8 +3,8 @@ name: front-dev-deploy
 on:
   push: # 적용될 액션
     branches: main # 적용될 브랜치
-    paths:
-      - './**' # workflow에서 적용될 path
+    # paths:
+    #   - './**' # workflow에서 적용될 path
 
 # defaults:
 #   run:
