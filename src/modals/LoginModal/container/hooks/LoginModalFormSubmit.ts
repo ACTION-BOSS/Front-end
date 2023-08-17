@@ -34,6 +34,8 @@ export const useLoginModalFormSubmit = () => {
     async (data) => {
       const { password, emailId, emailDomain } = data;
 
+      console.log('asdfasdf');
+
       try {
         const response = await api.post('auth/login', {
           password,
