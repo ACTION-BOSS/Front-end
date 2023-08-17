@@ -3,7 +3,7 @@ import { EStep } from './type';
 
 export const $stepIndex = atom<EStep>({
   key: 'stepIndex',
-  default: EStep.STEP2,
+  default: EStep.STEP1,
 });
 
 export const $isCodeSent = atom<boolean>({

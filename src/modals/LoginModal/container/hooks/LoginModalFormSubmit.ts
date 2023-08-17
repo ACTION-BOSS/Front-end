@@ -34,19 +34,20 @@ export const useLoginModalFormSubmit = () => {
     async (data) => {
       const { password, emailId, emailDomain } = data;
 
-      console.log('asdfasdf');
-
       try {
         const response = await api.post('auth/login', {
           password,
           email: `${emailId}@${emailDomain}`,
         });
 
-        console.log(response);
+        console.log('login response', response);
 
         if (response.status === 200) {
+          console.log('로그인 요청 시 헤더:', response.headers);
           const token = response.headers['authorization'];
-          console.log(token);
+
+          console.log('token: ', token);
+
           const actualToken = token.split(' ')[1];
 
           // global state에 저장 + 만료시간
