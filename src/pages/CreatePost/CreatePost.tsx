@@ -54,7 +54,6 @@ export const CreatePost = () => {
   };
 
   // console.log(post.images);
-  // console.log(post.title);
   // console.log(post.content);
   // console.log(post.latitude);
   // console.log(post.longitude);
