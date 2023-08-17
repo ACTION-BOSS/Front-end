@@ -30,6 +30,11 @@ export const CreatePost = () => {
     setOpenModal(!openModal);
   };
 
+  if (!token) {
+    window.location.replace('javascript:history.back()');
+    return null;
+  }
+
   const onClickHandleModal = () => {
     if (
       post.title &&
@@ -49,7 +54,6 @@ export const CreatePost = () => {
   };
 
   // console.log(post.images);
-  // console.log(post.title);
   // console.log(post.content);
   // console.log(post.latitude);
   // console.log(post.longitude);
@@ -71,7 +75,7 @@ export const CreatePost = () => {
       formData.append(`images`, image);
     });
 
-    return axios.post('/api/posts', formData, {
+    return axios.post(`${process.env.REACT_APP_API_URI}/api/posts`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

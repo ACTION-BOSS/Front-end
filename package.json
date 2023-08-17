@@ -1,7 +1,6 @@
 {
   "name": "front-end",
   "version": "0.1.0",
-  "proxy": "https://actionboss.store:8080",
   "private": true,
   "dependencies": {
     "@tanstack/react-query": "^4.32.1",

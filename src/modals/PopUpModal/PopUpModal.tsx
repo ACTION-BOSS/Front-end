@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Theme } from '../../styles';
-import { EModalType } from '../../providers';
+import { EModalType, useModal } from '../../providers';
 import { Button } from '../../shared';
 import { useDeleteData } from '../../pages/DetailPage/container/hooks';
 
@@ -20,11 +20,17 @@ const getModalMessage = (type: EModalType) => {
 
 const getModalButton = (type: EModalType) => {
   const { handleDeleteData } = useDeleteData();
+  const { closeModal } = useModal();
 
   if (type === EModalType.DELETE) {
     return (
       <>
-        <Button label="취소" $buttonTheme="emptyBlue" size="large" />
+        <Button
+          label="취소"
+          $buttonTheme="emptyBlue"
+          size="large"
+          onClick={closeModal}
+        />
         <Button
           label="삭제"
           $buttonTheme="pink"
@@ -35,7 +41,16 @@ const getModalButton = (type: EModalType) => {
     );
   }
   if (type === EModalType.DONE) {
-    return '해결 완료 처리된 게시물입니다';
+    return (
+      <Button
+        label="메인화면으로"
+        $buttonTheme="emptyBlue"
+        size="large"
+        onClick={() => {
+          location.href = '/main';
+        }}
+      />
+    );
   }
 };
 

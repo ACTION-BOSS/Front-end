@@ -14,6 +14,7 @@ export const StLandingView = styled.div`
 
 export const StLogoFlag = styled.img`
   margin-top: 10vh;
+  margin-left: 4vw;
   width: 62px;
   height: 83px;
 `;
@@ -65,6 +66,10 @@ export const StMapBox = styled.div`
   height: 55vh;
   min-width: 500px;
   background-color: white;
+  background-image: url('https://res.cloudinary.com/dsxqz8qce/image/upload/v1692261954/%E1%84%8F%E1%85%A2%E1%86%B8%E1%84%8E%E1%85%A5_1_p2clht.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 12px;
   box-shadow:
     0 0 2px #93b0ff,
