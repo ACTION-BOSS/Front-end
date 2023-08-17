@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: '/api',
+  baseURL: `${process.env.REACT_APP_API_URI}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -24,7 +24,9 @@ api.interceptors.request.use(
 export const getMapPing = async (sort: string) => {
   const isdone = sort === '해결순' ? true : false;
   try {
-    const response = await axios.get(`/api/main/map?&isdone=${isdone}`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URI}/api/main/map?&isdone=${isdone}`,
+    );
     return response.data;
   } catch (e) {
     console.log(e);
@@ -36,7 +38,7 @@ export const getSidebarPosts = async (page: number, sort: string) => {
   const sortOption = sort === '불편순' ? 'likeCount' : 'createdAt';
   try {
     const response = await axios.get(
-      `/api/main?page=${page}&size=5&sort=${sortOption}&isdone=${isdone}`,
+      `${process.env.REACT_APP_API_URI}/api/main?page=${page}&size=5&sort=${sortOption}&isdone=${isdone}`,
     );
     return response.data;
   } catch (e) {
@@ -46,7 +48,9 @@ export const getSidebarPosts = async (page: number, sort: string) => {
 
 export const getSelectPost = async (postId: number) => {
   try {
-    const response = await axios.get(`/api/main/${postId}`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URI}/api/main/${postId}`,
+    );
     return response.data;
   } catch (e) {
     console.log(e);

@@ -46,9 +46,12 @@ export const EditPost = () => {
         }
       : undefined;
 
-    const response = await axios.get(`/api/posts/${id}`, {
-      headers: headers,
-    });
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URI}/api/posts/${id}`,
+      {
+        headers: headers,
+      },
+    );
     return response.data.data;
   };
 
@@ -73,7 +76,7 @@ export const EditPost = () => {
 
   const mutation = useMutation(
     () =>
-      axios.put(`/api/posts/${id}`, post, {
+      axios.put(`${process.env.REACT_APP_API_URI}/api/posts/${id}`, post, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
