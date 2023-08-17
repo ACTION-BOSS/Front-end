@@ -4,6 +4,8 @@ import { EModalType } from './type';
 import { styled } from 'styled-components';
 import { SignUpModal, LoginModal, PopUpModal } from '../../modals';
 import { SignUpSuccessModal } from '../../modals/SignUpSuccessModal/SignUpSuccessModal';
+import { useRecoilValue } from 'recoil';
+import { $isLoggedInState } from '../login/state';
 
 interface IModalContext {
   openModal: (modalType: EModalType) => void;
@@ -19,6 +21,7 @@ type ModalProviderProps = {
 export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [modalType, setModalType] = useState<EModalType>();
+  const isLoggedInState = useRecoilValue($isLoggedInState);
 
   const openModal = (modalType: EModalType) => {
     setIsModalOpened(true);

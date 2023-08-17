@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { deletePostedData } from '../../../../api';
+import { deletePostedData, toggleDoneData } from '../../../../api';
 
 export const useDeleteData = () => {
   const { postId } = useParams();
@@ -15,4 +15,20 @@ export const useDeleteData = () => {
   };
 
   return { handleDeleteData };
+};
+
+export const useToggleData = () => {
+  const { postId } = useParams();
+  const navigate = useNavigate();
+
+  const handleToggleData = async () => {
+    try {
+      const data = await toggleDoneData(postId);
+      navigate('/main');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { handleToggleData };
 };
