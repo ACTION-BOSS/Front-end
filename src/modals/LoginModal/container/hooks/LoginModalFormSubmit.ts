@@ -44,6 +44,7 @@ export const useLoginModalFormSubmit = () => {
 
         if (response.status === 200) {
           const token = response.headers['authorization'];
+          console.log(token);
           const actualToken = token.split(' ')[1];
 
           // global state에 저장 + 만료시간
@@ -62,9 +63,8 @@ export const useLoginModalFormSubmit = () => {
           }
         }
       } catch (e) {
+        console.log(e);
         const AxiosError = e as AxiosError;
-
-        console.log('error: ', AxiosError);
 
         if (AxiosError.response) {
           if (
