@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 export const useDetailData = () => {
   const { postId } = useParams();
-
   const { getDetailPageData } = fetchDetailPageData(postId);
 
   const { data, isLoading, error } = useQuery({
