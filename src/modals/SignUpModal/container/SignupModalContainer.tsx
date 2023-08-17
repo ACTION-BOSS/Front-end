@@ -4,10 +4,10 @@ import {
   NicknameView,
   PasswordVerificationView,
 } from '../views';
-import { useRecoilValue } from 'recoil';
-import { $stepIndex } from '../state';
 import { EStep } from '../type';
 import { useSignupModalFormController, useVerificationCode } from './hooks';
+import { useRecoilValue } from 'recoil';
+import { $stepIndex } from '../state';
 
 type SignupModalContainerProps = {};
 

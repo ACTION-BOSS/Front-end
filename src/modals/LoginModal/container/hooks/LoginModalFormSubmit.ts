@@ -6,9 +6,24 @@ import {
 } from 'react-hook-form';
 import { api } from '../../../../api';
 import { LoginModalFormData } from './LoginModalForm';
+import { AxiosError } from 'axios';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { $isVerificationFailed } from '../../state';
+import {
+  $isLoggedInState,
+  $tokenExpiryState,
+  $tokenState,
+  useModal,
+} from '../../../../providers';
 
 export const useLoginModalFormSubmit = () => {
   const { handleSubmit } = useFormContext<LoginModalFormData>();
+  const setIsVerificationFailed = useSetRecoilState($isVerificationFailed);
+  const [tokenState, setTokenState] = useRecoilState($tokenState);
+  const [tokenExpiryState, setTokenExpiryState] =
+    useRecoilState($tokenExpiryState);
+  const isLoggedInState = useRecoilValue($isLoggedInState);
+  const { closeModal } = useModal();
 
   const onFormError: SubmitErrorHandler<LoginModalFormData> = useCallback(
     async (error) => {},
@@ -18,26 +33,49 @@ export const useLoginModalFormSubmit = () => {
   const onFormSubmit: SubmitHandler<LoginModalFormData> = useCallback(
     async (data) => {
       const { password, emailId, emailDomain } = data;
+
+      console.log('asdfasdf');
+
       try {
         const response = await api.post('auth/login', {
           password,
           email: `${emailId}@${emailDomain}`,
         });
 
+        console.log(response);
+
         if (response.status === 200) {
-          console.log(response);
-
-          // Authorization 헤더에서 토큰 추출
           const token = response.headers['authorization'];
-
-          // "Bearer "를 제거합니다. (만약 헤더에 "Bearer "가 붙어있다면)
+          console.log(token);
           const actualToken = token.split(' ')[1];
 
-          // 토큰을 localStorage에 저장
+          // global state에 저장 + 만료시간
+          setTokenState(token);
+          const expiryDate = new Date();
+          expiryDate.setMinutes(expiryDate.getMinutes() + 60);
+          setTokenExpiryState(expiryDate);
+
+          // localStorage에 저장
           localStorage.setItem('token', actualToken);
+
+          if (token) {
+            console.log('로그인 성공!');
+            console.log('state', tokenState, tokenExpiryState);
+            closeModal();
+          }
         }
-      } catch (error) {
-        console.error('error', error);
+      } catch (e) {
+        console.log(e);
+        const AxiosError = e as AxiosError;
+
+        if (AxiosError.response) {
+          if (
+            AxiosError.response.status === 401 ||
+            AxiosError.response.status === 403
+          ) {
+            setIsVerificationFailed(true);
+          }
+        }
       }
     },
     [],

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Coordinates } from '../pages/MainPage/type';
 
 export const api = axios.create({
   baseURL: `${process.env.REACT_APP_API_URI}/api`,
@@ -21,11 +22,12 @@ api.interceptors.request.use(
   },
 );
 
-export const getMapPing = async (sort: string) => {
+export const getMapPing = async (sort: string, mapCoordinates: Coordinates) => {
   const isdone = sort === '해결순' ? true : false;
+  const { northlat, eastlon, southlat, westlon } = mapCoordinates;
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URI}/api/main/map?&isdone=${isdone}`,
+      `${process.env.REACT_APP_API_URI}/api/main/map?&isdone=${isdone}&northlatitude=${northlat}&eastlongitude=${eastlon}&southlatitude=${southlat}&westlongitude=${westlon}`,
     );
     return response.data;
   } catch (e) {
@@ -33,12 +35,17 @@ export const getMapPing = async (sort: string) => {
   }
 };
 
-export const getSidebarPosts = async (page: number, sort: string) => {
+export const getSidebarPosts = async (
+  page: number,
+  sort: string,
+  mapCoordinates: Coordinates,
+) => {
   const isdone = sort === '해결순' ? true : false;
-  const sortOption = sort === '불편순' ? 'likeCount' : 'createdAt';
+  const sortOption = sort === '불편순' ? 'agreeCount' : 'createdAt';
+  const { northlat, eastlon, southlat, westlon } = mapCoordinates;
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URI}/api/main?page=${page}&size=5&sort=${sortOption}&isdone=${isdone}`,
+      `${process.env.REACT_APP_API_URI}/api/main?page=${page}&size=5&sort=${sortOption}&isdone=${isdone}&northlatitude=${northlat}&eastlongitude=${eastlon}&southlatitude=${southlat}&westlongitude=${westlon}`,
     );
     return response.data;
   } catch (e) {

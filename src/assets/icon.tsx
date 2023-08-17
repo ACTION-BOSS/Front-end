@@ -107,6 +107,7 @@ export const CheckXIcon: FC<IconProps> = ({ size = 25, color = '#E0E3EB' }) => {
   );
 };
 
+// 해결 완료!
 export const ClearSumIcon: FC<IconProps> = ({
   size = 131,
   color = '#F0F1F5',
@@ -174,6 +175,7 @@ export const ClearSumIcon: FC<IconProps> = ({
   );
 };
 
+// 체크 아이콘
 export const ClearIcon: FC<IconProps> = ({ size = 25, color = '#F0F1F5' }) => {
   return (
     <svg
@@ -226,6 +228,7 @@ export const GPSIcon: FC<IconProps> = ({ size = 25, color = '#454554' }) => {
   );
 };
 
+// i있는 아이콘
 export const HelpIcon: FC<IconProps> = ({ size = 25, color = '#C2C8D6' }) => {
   return (
     <svg
@@ -532,12 +535,8 @@ export const PingIcon = (currentOption: string) => {
     ? 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102437/nc0sornjf4xi7adwqml9.svg'
     : 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102302/kilci9jvo8fxzrshdfbz.svg';
 };
-
-export const pingB =
-  'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102437/nc0sornjf4xi7adwqml9.svg';
-
-export const BigPingA =
-  'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102445/ztckh2owqwlwd2sgjhq8.svg';
-
-export const BigPingB =
-  'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102441/l6cvbmmefjdc50sonkn0.svg';
+export const BigPingIcon = (currentOption: string) => {
+  return currentOption === '해결순'
+    ? 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102441/l6cvbmmefjdc50sonkn0.svg'
+    : 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102445/ztckh2owqwlwd2sgjhq8.svg';
+};

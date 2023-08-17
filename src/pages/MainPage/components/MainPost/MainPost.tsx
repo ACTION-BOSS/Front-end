@@ -2,6 +2,7 @@ import React from 'react';
 import * as s from './MainPostStyle';
 import { ClearSumIcon, MyDirectIcon, UncomSmallIcon } from '../../../../assets';
 import { Post } from '../../type';
+import { useNavigate } from 'react-router-dom';
 
 interface MainPostProps {
   currentOption: string;
@@ -9,8 +10,14 @@ interface MainPostProps {
 }
 
 export const MainPost = ({ post, currentOption }: MainPostProps) => {
+  const navigate = useNavigate();
+
+  const onClickMovePage = (postId: number) => {
+    navigate(`/detail/${postId}`);
+  };
+
   return (
-    <s.MainPostStyle>
+    <s.MainPostStyle onClick={() => onClickMovePage(post.postId)}>
       <s.MainPostImg currentoption={currentOption}>
         <div className="postImg">
           {currentOption === '해결순' && <ClearSumIcon />}
@@ -18,7 +25,7 @@ export const MainPost = ({ post, currentOption }: MainPostProps) => {
         <img src={post.thumbnail} />
         <s.UnLike>
           <UncomSmallIcon size={18} />
-          <div>{post.likeCount}</div>
+          <div>{post.agreeCount}</div>
         </s.UnLike>
       </s.MainPostImg>
       <s.MainPostContent>
