@@ -7,9 +7,10 @@ import {
 import { api } from '../../../../api';
 import { LoginModalFormData } from './LoginModalForm';
 import { AxiosError } from 'axios';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { $isVerificationFailed } from '../../state';
 import {
+  $isLoggedInState,
   $tokenExpiryState,
   $tokenState,
   useModal,
@@ -19,7 +20,9 @@ export const useLoginModalFormSubmit = () => {
   const { handleSubmit } = useFormContext<LoginModalFormData>();
   const setIsVerificationFailed = useSetRecoilState($isVerificationFailed);
   const [tokenState, setTokenState] = useRecoilState($tokenState);
-  const setTokenExpiry = useSetRecoilState($tokenExpiryState);
+  const [tokenExpiryState, setTokenExpiryState] =
+    useRecoilState($tokenExpiryState);
+  const isLoggedInState = useRecoilValue($isLoggedInState);
   const { closeModal } = useModal();
 
   const onFormError: SubmitErrorHandler<LoginModalFormData> = useCallback(
@@ -30,11 +33,14 @@ export const useLoginModalFormSubmit = () => {
   const onFormSubmit: SubmitHandler<LoginModalFormData> = useCallback(
     async (data) => {
       const { password, emailId, emailDomain } = data;
+
       try {
         const response = await api.post('auth/login', {
           password,
           email: `${emailId}@${emailDomain}`,
         });
+
+        console.log(response);
 
         if (response.status === 200) {
           const token = response.headers['authorization'];
@@ -44,13 +50,14 @@ export const useLoginModalFormSubmit = () => {
           setTokenState(token);
           const expiryDate = new Date();
           expiryDate.setMinutes(expiryDate.getMinutes() + 60);
-          setTokenExpiry(expiryDate);
+          setTokenExpiryState(expiryDate);
 
           // localStorage에 저장
           localStorage.setItem('token', actualToken);
 
           if (token) {
             console.log('로그인 성공!');
+            console.log('state', tokenState, tokenExpiryState);
             closeModal();
           }
         }

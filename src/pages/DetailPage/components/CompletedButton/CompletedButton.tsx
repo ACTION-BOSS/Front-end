@@ -6,12 +6,15 @@ import { useDetailData } from '../../container';
 import { useNavigate } from 'react-router-dom';
 import { toggleDoneData } from '../../../../api';
 import { debounce } from 'lodash';
+import { useRecoilValue } from 'recoil';
+import { $isLoggedInState } from '../../../../providers';
 type CompletedButtonProps = {};
 
 export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
   const { data, isLoading, error } = useDetailData();
   const [localDone, setLocalDone] = useState<boolean | null>(null);
   const [localDoneCount, setLocalDoneCount] = useState<number | null>(null);
+  const isLoggedInState = useRecoilValue($isLoggedInState);
   const navigate = useNavigate();
 
   if (isLoading) {
@@ -27,14 +30,20 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
       return;
     }
 
-    await toggleDoneData(postId);
+    console.log('loginstate', isLoggedInState);
 
-    if (localDone) {
-      setLocalDoneCount((prevCount) => (prevCount ? prevCount - 1 : 0));
-      setLocalDone(false);
+    if (isLoggedInState) {
+      await toggleDoneData(postId);
+
+      if (localDone) {
+        setLocalDoneCount((prevCount) => (prevCount ? prevCount - 1 : 0));
+        setLocalDone(false);
+      } else {
+        setLocalDoneCount((prevCount) => (prevCount ? prevCount + 1 : 1));
+        setLocalDone(true);
+      }
     } else {
-      setLocalDoneCount((prevCount) => (prevCount ? prevCount + 1 : 1));
-      setLocalDone(true);
+      alert('로그인 후 이용 가능합니다');
     }
   }, 500);
 

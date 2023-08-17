@@ -5,6 +5,8 @@ import { UncomBigIcon } from '../../../../assets';
 import { useDetailData } from '../../container';
 import { debounce } from 'lodash';
 import { toggleMetooData } from '../../../../api';
+import { useRecoilValue } from 'recoil';
+import { $isLoggedInState } from '../../../../providers';
 type MetooButtonProps = {
   agreeCount: number;
   onClick: () => void;
@@ -21,6 +23,7 @@ export const MetooButton: FC<MetooButtonProps> = ({
   const { isLoading, error } = useDetailData();
   const [localMetoo, setLocalMetoo] = useState<boolean | null>(null);
   const [localMetooCount, setLocalMetooCount] = useState<number | null>(null);
+  const isLoggedInState = useRecoilValue($isLoggedInState);
 
   if (isLoading) {
     return <></>;
@@ -29,12 +32,18 @@ export const MetooButton: FC<MetooButtonProps> = ({
   const handleClickMetooButton = debounce(async () => {
     await toggleMetooData(postId);
 
-    if (localMetoo) {
-      setLocalMetooCount((prevCount) => (prevCount ? prevCount - 1 : 0));
-      setLocalMetoo(false);
+    console.log('login', isLoggedInState);
+
+    if (isLoggedInState) {
+      if (localMetoo) {
+        setLocalMetooCount((prevCount) => (prevCount ? prevCount - 1 : 0));
+        setLocalMetoo(false);
+      } else {
+        setLocalMetooCount((prevCount) => (prevCount ? prevCount + 1 : 1));
+        setLocalMetoo(true);
+      }
     } else {
-      setLocalMetooCount((prevCount) => (prevCount ? prevCount + 1 : 1));
-      setLocalMetoo(true);
+      alert('로그인 후 이용 가능합니다');
     }
   }, 500);
 
