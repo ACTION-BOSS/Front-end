@@ -5,8 +5,6 @@ import { UncomBigIcon } from '../../../../assets';
 import { useDetailData } from '../../container';
 import { debounce } from 'lodash';
 import { toggleMetooData } from '../../../../api';
-import { useRecoilValue } from 'recoil';
-import { $isLoggedInState } from '../../../../providers';
 type MetooButtonProps = {
   agreeCount: number;
   onClick: () => void;
@@ -23,7 +21,6 @@ export const MetooButton: FC<MetooButtonProps> = ({
   const { isLoading, error } = useDetailData();
   const [localMetoo, setLocalMetoo] = useState<boolean | null>(null);
   const [localMetooCount, setLocalMetooCount] = useState<number | null>(null);
-  const isLoggedInState = useRecoilValue($isLoggedInState);
 
   if (isLoading) {
     return <></>;
