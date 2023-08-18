@@ -79,7 +79,6 @@ export const CreatePost = () => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      withCredentials: true,
     });
   };
 

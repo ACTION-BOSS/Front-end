@@ -50,3 +50,13 @@ export const $selectedOptionIndex = atom<number>({
   key: 'selectedOptionIndex',
   default: -1,
 });
+
+export const $isPasswordVerified = atom<boolean | null>({
+  key: 'isPasswordVerified',
+  default: null,
+});
+
+export const $isVerified = atom<boolean | null>({
+  key: 'isVerified',
+  default: null,
+});

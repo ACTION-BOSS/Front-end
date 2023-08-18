@@ -1,6 +1,10 @@
-import { FC, useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { $isReadyStepThree } from '../../state';
+import { FC, useEffect } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import {
+  $isPasswordVerified,
+  $isReadyStepThree,
+  $isVerified,
+} from '../../state';
 import {
   StWrapper,
   StColumnDiv,
@@ -29,14 +33,15 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
 }) => {
   const setIsReadyStepThree = useSetRecoilState($isReadyStepThree);
 
-  const [isPasswordVerified, setIsPasswordVerified] = useState<boolean | null>(
-    null,
-  );
+  const [isPasswordVerified, setIsPasswordVerified] =
+    useRecoilState($isPasswordVerified);
 
-  const [isVerified, setIsVerified] = useState<boolean | null>(null);
+  console.log(123, isPasswordVerified);
+
+  const [isVerified, setIsVerified] = useRecoilState($isVerified);
 
   const checkPasswordVerification = () => {
-    const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
+    const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{7,14}$/;
 
     if (passwordValue.length === 0) {
       setIsPasswordVerified(null);
@@ -50,15 +55,6 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
   const handleChangePassword = (...event: any[]) => {
     checkPasswordVerification();
     onChangePassword(...event);
-  };
-
-  const isVerifiedValue = () => {
-    if (passwordVerificationValue.length === 0) {
-      setIsVerified(null);
-    }
-    if (isPasswordVerified) {
-      return setIsVerified(passwordValue === passwordVerificationValue);
-    }
   };
 
   const verificationInputErrorText = (isVerified: boolean | null) => {
@@ -75,23 +71,51 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
   };
 
   useEffect(() => {
-    isVerifiedValue();
-  }, [passwordValue, passwordVerificationValue]);
-
-  useEffect(() => {
     if (isVerified !== null) {
       // @ts-ignore
       setIsReadyStepThree(() => {
         return isVerified;
       });
+    } else {
+      setIsReadyStepThree(false);
     }
-  }, [isVerified]);
+  }, [isVerified, isPasswordVerified]);
 
   useEffect(() => {
-    if (passwordValue.length === 0) {
-      setIsPasswordVerified(null);
+    if (!isPasswordVerified) {
+      if (passwordVerificationValue.length === 0) {
+        console.log(1);
+        return setIsVerified(null);
+      }
+      if (passwordValue.length === 0) {
+        console.log(2);
+        return setIsPasswordVerified(null);
+      }
+      console.log(3);
+      return setIsPasswordVerified(false);
+    } else {
+      if (passwordValue.length === 0) {
+        console.log(4);
+        setIsPasswordVerified(null);
+      }
+      if (passwordVerificationValue.length === 0) {
+        console.log(5);
+        return setIsVerified(null);
+      }
+      if (passwordValue === passwordVerificationValue) {
+        console.log(6);
+        return setIsVerified(true);
+      } else {
+        console.log(7);
+        return setIsVerified(false);
+      }
     }
-  }, [passwordValue]);
+  }, [
+    passwordValue,
+    passwordVerificationValue,
+    isPasswordVerified,
+    isVerified,
+  ]);
 
   return (
     <StWrapper>
