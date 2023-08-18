@@ -1,6 +1,10 @@
-import { FC, useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { $isReadyStepThree } from '../../state';
+import { FC, useEffect } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import {
+  $isPasswordVerified,
+  $isReadyStepThree,
+  $isVerified,
+} from '../../state';
 import {
   StWrapper,
   StColumnDiv,
@@ -29,36 +33,12 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
 }) => {
   const setIsReadyStepThree = useSetRecoilState($isReadyStepThree);
 
-  const [isPasswordVerified, setIsPasswordVerified] = useState<boolean | null>(
-    null,
-  );
+  const [isPasswordVerified, setIsPasswordVerified] =
+    useRecoilState($isPasswordVerified);
+  const [isVerified, setIsVerified] = useRecoilState($isVerified);
 
-  const [isVerified, setIsVerified] = useState<boolean | null>(null);
-
-  const checkPasswordVerification = () => {
-    const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
-
-    if (passwordValue.length === 0) {
-      setIsPasswordVerified(null);
-    } else {
-      setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
-    }
-
-    setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
-  };
-
-  const handleChangePassword = (...event: any[]) => {
-    checkPasswordVerification();
-    onChangePassword(...event);
-  };
-
-  const isVerifiedValue = () => {
-    if (passwordVerificationValue.length === 0) {
-      setIsVerified(null);
-    }
-    if (isPasswordVerified) {
-      return setIsVerified(passwordValue === passwordVerificationValue);
-    }
+  const handleChangePassword = (event: any) => {
+    onChangePassword(event);
   };
 
   const verificationInputErrorText = (isVerified: boolean | null) => {
@@ -75,23 +55,34 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
   };
 
   useEffect(() => {
-    isVerifiedValue();
-  }, [passwordValue, passwordVerificationValue]);
-
-  useEffect(() => {
     if (isVerified !== null) {
-      // @ts-ignore
-      setIsReadyStepThree(() => {
-        return isVerified;
-      });
+      setIsReadyStepThree(isVerified);
+    } else {
+      setIsReadyStepThree(false);
     }
-  }, [isVerified]);
+  }, [isVerified, isPasswordVerified]);
 
   useEffect(() => {
+    const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
+
+    // 비밀번호 유효성 검사
     if (passwordValue.length === 0) {
       setIsPasswordVerified(null);
+    } else {
+      setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
     }
-  }, [passwordValue]);
+
+    // 비밀번호 일치 검사
+    if (passwordVerificationValue.length === 0) {
+      setIsVerified(null);
+    } else {
+      if (passwordValue === passwordVerificationValue) {
+        setIsVerified(true);
+      } else {
+        setIsVerified(false);
+      }
+    }
+  }, [passwordValue, passwordVerificationValue]);
 
   return (
     <StWrapper>

@@ -2,7 +2,7 @@ name: front-dev-deploy
 
 on:
   push:
-    branches: main
+    branches: develop
 
 jobs:
   deploy:

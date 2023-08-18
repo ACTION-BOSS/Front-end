@@ -6,14 +6,13 @@ export const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true,
 });
 
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers['authorization'] = `Bearer ${token}`;
     }
     return config;
   },
@@ -27,7 +26,7 @@ export const getMapPing = async (sort: string, mapCoordinates: Coordinates) => {
   const { northlat, eastlon, southlat, westlon } = mapCoordinates;
   try {
     const response = await axios.get(
-      `/api/main/map?&isdone=${isdone}&northlatitude=${northlat}&eastlongitude=${eastlon}&southlatitude=${southlat}&westlongitude=${westlon}`,
+      `${process.env.REACT_APP_API_URI}/api/main/map?&isdone=${isdone}&northlatitude=${northlat}&eastlongitude=${eastlon}&southlatitude=${southlat}&westlongitude=${westlon}`,
     );
     return response.data;
   } catch (e) {
@@ -45,7 +44,7 @@ export const getSidebarPosts = async (
   const { northlat, eastlon, southlat, westlon } = mapCoordinates;
   try {
     const response = await axios.get(
-      `/api/main?page=${page}&size=5&sort=${sortOption}&isdone=${isdone}&northlatitude=${northlat}&eastlongitude=${eastlon}&southlatitude=${southlat}&westlongitude=${westlon}`,
+      `${process.env.REACT_APP_API_URI}/api/main?page=${page}&size=5&sort=${sortOption}&isdone=${isdone}&northlatitude=${northlat}&eastlongitude=${eastlon}&southlatitude=${southlat}&westlongitude=${westlon}`,
     );
     return response.data;
   } catch (e) {
@@ -55,7 +54,9 @@ export const getSidebarPosts = async (
 
 export const getSelectPost = async (postId: number) => {
   try {
-    const response = await axios.get(`/api/main/${postId}`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URI}/api/main/${postId}`,
+    );
     return response.data;
   } catch (e) {
     console.log(e);

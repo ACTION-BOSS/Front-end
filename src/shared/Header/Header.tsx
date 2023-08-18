@@ -15,12 +15,14 @@ export const Header = () => {
     token ? setIsLogin(true) : setIsLogin(false);
   }, []);
 
-  const onClickCreateHandler = () => {
-    // 로그인해야 보이게 할것인지 아니면 alert으로 알릴것인지
-  };
   const onClickMovePage = (name: string) => {
     navigate(`${name}`);
   };
+
+  const onClickCreateHandler = () => {
+    isLogin ? navigate('/create') : openModal(EModalType.LOGIN);
+  };
+
   const onClickLogoutHandler = () => {
     localStorage.removeItem('token');
     window.location.reload();

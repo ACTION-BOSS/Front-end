@@ -3,7 +3,7 @@ import { EStep } from './type';
 
 export const $stepIndex = atom<EStep>({
   key: 'stepIndex',
-  default: EStep.STEP2,
+  default: EStep.STEP1,
 });
 
 export const $isCodeSent = atom<boolean>({
@@ -49,4 +49,14 @@ export const $isReadyForSignup = atom<boolean | null>({
 export const $selectedOptionIndex = atom<number>({
   key: 'selectedOptionIndex',
   default: -1,
+});
+
+export const $isPasswordVerified = atom<boolean | null>({
+  key: 'isPasswordVerified',
+  default: null,
+});
+
+export const $isVerified = atom<boolean | null>({
+  key: 'isVerified',
+  default: null,
 });

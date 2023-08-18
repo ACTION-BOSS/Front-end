@@ -1,20 +1,69 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { Theme } from '../../../../styles';
 import { ClearIcon, HelpIcon } from '../../../../assets';
+import { useDetailData } from '../../container';
+import { useNavigate } from 'react-router-dom';
+import { toggleDoneData } from '../../../../api';
+import { debounce } from 'lodash';
+import { useRecoilValue } from 'recoil';
+import { $isLoggedInState } from '../../../../providers';
 type CompletedButtonProps = {};
 
 export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
+  const { data, isLoading, error } = useDetailData();
+  const [localDone, setLocalDone] = useState<boolean | null>(null);
+  const [localDoneCount, setLocalDoneCount] = useState<number | null>(null);
+  const isLoggedInState = useRecoilValue($isLoggedInState);
+  const navigate = useNavigate();
+
+  if (isLoading) {
+    return <></>;
+  }
+
+  const { done, doneCount, postId } = data;
+
+  const handleClickDoneButton = debounce(async () => {
+    if (localDoneCount === 5 && !localDone) {
+      alert('이미 해결된 민원글입니다.');
+      navigate('/main');
+      return;
+    }
+
+    // console.log('loginstate', isLoggedInState);
+    // TODO
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      await toggleDoneData(postId);
+
+      if (localDone) {
+        setLocalDoneCount((prevCount) => (prevCount ? prevCount - 1 : 0));
+        setLocalDone(false);
+      } else {
+        setLocalDoneCount((prevCount) => (prevCount ? prevCount + 1 : 1));
+        setLocalDone(true);
+      }
+    } else {
+      alert('로그인 후 이용 가능합니다');
+    }
+  }, 500);
+
+  useEffect(() => {
+    setLocalDone(done);
+    setLocalDoneCount(doneCount);
+  }, [done, doneCount]);
+
   return (
     <StWrapper>
-      <StButtonWrapper>
+      <StButtonWrapper onClick={handleClickDoneButton}>
         <StBlueArea>
           <div>해결된 민원이에요</div>
           <ClearIcon color="white" size={32} />
         </StBlueArea>
         <StWhiteArea>
           <StButtonTextWrapper>
-            <p>2</p>
+            <p>{localDoneCount}</p>
             <p>/</p>
             <p>5</p>
           </StButtonTextWrapper>
@@ -23,9 +72,7 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
 
       <StInfoWrapper>
         <HelpIcon size={24} />
-        <StInfoText>
-          다섯명 이상 올려주시면 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구
-        </StInfoText>
+        <StInfoText>다섯 개가 채워지면 민원이 완료처리됩니다</StInfoText>
       </StInfoWrapper>
     </StWrapper>
   );

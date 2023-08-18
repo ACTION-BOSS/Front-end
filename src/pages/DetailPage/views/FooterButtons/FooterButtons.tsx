@@ -5,17 +5,19 @@ import { Theme } from '../../../../styles';
 import { CompletedButton } from '../../components';
 import { useDetailData } from '../../container';
 import { EModalType, useModal } from '../../../../providers';
+import { useNavigate } from 'react-router-dom';
 type FooterButtonsProps = {};
 
 export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
   const { data, isLoading, error } = useDetailData();
   const { openModal, closeModal } = useModal();
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <></>;
   }
 
-  const { owner, agree, agreeCount } = data;
+  const { owner, postId } = data;
 
   return (
     <StBottomButtonWrapper>
@@ -27,13 +29,18 @@ export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
               $buttonTheme="emptyPink"
               size="mediumLong"
               fontSize={Theme.fontSizes.h2}
-              onClick={() => openModal(EModalType.DELETE)}
+              onClick={() =>
+                openModal(EModalType.DELETE, {
+                  postId: postId,
+                })
+              }
             />
             <Button
               label="수정"
               $buttonTheme="blue"
               size="mediumLong"
               fontSize={Theme.fontSizes.h2}
+              onClick={() => navigate(`/edit/${postId}`)}
             />
           </>
         )}

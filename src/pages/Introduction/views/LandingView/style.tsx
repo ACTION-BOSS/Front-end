@@ -14,6 +14,7 @@ export const StLandingView = styled.div`
 
 export const StLogoFlag = styled.img`
   margin-top: 10vh;
+  margin-left: 4vw;
   width: 62px;
   height: 83px;
 `;
@@ -59,17 +60,16 @@ export const StNavButton = styled.button`
   cursor: pointer;
 `;
 
-export const StMapBox = styled.div`
-  display: flex;
-  width: 50vw;
-  height: 55vh;
-  min-width: 500px;
-  background-color: white;
+export const StMapBox = styled.img.attrs({
+  src: 'https://res.cloudinary.com/dsxqz8qce/image/upload/v1692261954/%E1%84%8F%E1%85%A2%E1%86%B8%E1%84%8E%E1%85%A5_1_p2clht.png',
+  alt: 'MapBoxImage',
+})`
+  width: 48vw;
+  min-width: 400px;
   border-radius: 12px;
   box-shadow:
     0 0 2px #93b0ff,
     0 0 15px #94aef7;
-
   position: absolute;
   bottom: -20vh;
   z-index: 1;

@@ -9,3 +9,6 @@ export const MANHOLE =
 
 export const SKYLINE =
   'https://res.cloudinary.com/dsxqz8qce/image/upload/v1691899362/skyline_x4_a77ofe.png';
+
+export const NOTFOUNDBG =
+  'https://res.cloudinary.com/dy5pujkzs/image/upload/v1692354895/404png_cdsrzl.png';
