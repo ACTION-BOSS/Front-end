@@ -25,7 +25,7 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
 
   const handleClickDoneButton = debounce(async () => {
     if (localDoneCount === 5 && !localDone) {
-      alert('이미 완료된 민원글입니다.');
+      alert('이미 해결된 민원글입니다.');
       navigate('/main');
       return;
     }
