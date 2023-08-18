@@ -32,9 +32,10 @@ export const MetooButton: FC<MetooButtonProps> = ({
   const handleClickMetooButton = debounce(async () => {
     await toggleMetooData(postId);
 
-    console.log('login', isLoggedInState);
+    // TODO
+    const token = localStorage.getItem('token');
 
-    if (isLoggedInState) {
+    if (token) {
       if (localMetoo) {
         setLocalMetooCount((prevCount) => (prevCount ? prevCount - 1 : 0));
         setLocalMetoo(false);
