@@ -1,46 +1,44 @@
-# Getting Started with Create React App
+![image](https://github.com/ACTION-BOSS/Front-end/assets/56420106/77ec1890-e182-4f4e-b3e2-68c672719eba)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 📌 Table Of Contents
 
-## Available Scripts
+- [📖 Introduction](#-introduction)
+<!-- - [🙋 My Role](#-my-role)
+- [🔎 Detail](#-detail)
+- [💡 Review](#-review)
+- [✔ To Do List](#-to-do-list) -->
 
-In the project directory, you can run:
+<br />
+<br />
 
-### `yarn start`
+# 📖 Introduction
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<br />
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 1. 프로젝트 개요
 
-### `yarn test`
+**행동대장(행복한 동네를 위한 대화의 장소)**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+동네 사건,사고와 문제에 보다 쉽게 접근하고 공유하는 커뮤니티 서비스
 
-### `yarn build`
+  <br />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. 개발 환경
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=efefee"/> ![react](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white) <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=efefee"/> <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white"> ![react-query](https://img.shields.io/badge/react--query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white) <img src="https://img.shields.io/badge/recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=efefee"/> <img src="https://img.shields.io/badge/reactrouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=efefee"/> <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=efefee"/> <img src="https://img.shields.io/badge/route53-E34F26?style=for-the-badge&logo=route53&logoColor=white"> <img src="https://img.shields.io/badge/cloudinary-3578E5?style=for-the-badge&logo=cloudinary&logoColor=efefee"/> <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=vercel&logoColor=efefee"/> ![KakaoMap](https://img.shields.io/badge/kakaomap-ffcd00.svg?style=for-the-badge&logo=GoogleMaps&logoColor=#015ffa) <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  <br />
 
-### `yarn eject`
+### 3. 프로젝트 내용
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- 동네사람들과 불편사항 공유
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  - 불편사항 게시글 작성, 수정
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  - ‘나도 불편해요’ 표시로 공감
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  - ‘해결했어요’ 표시로 불편사항이 해결됨을 공유
 
-## Learn More
+ <br />
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 지도와 핑으로 직관적인 위치 확인
