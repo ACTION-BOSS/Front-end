@@ -24,15 +24,17 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
   const { done, doneCount, postId } = data;
 
   const handleClickDoneButton = debounce(async () => {
-    if (localDoneCount === 6 && !localDone) {
+    if (localDoneCount === 5 && !localDone) {
       alert('이미 완료된 민원글입니다.');
       navigate('/main');
       return;
     }
 
-    console.log('loginstate', isLoggedInState);
+    // console.log('loginstate', isLoggedInState);
+    // TODO
+    const token = localStorage.getItem('token');
 
-    if (isLoggedInState) {
+    if (token) {
       await toggleDoneData(postId);
 
       if (localDone) {
