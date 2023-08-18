@@ -1,5 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { CreatePost, DetailPage, Introduction, MainPage } from '../pages';
+import {
+  CreatePost,
+  DetailPage,
+  Introduction,
+  MainPage,
+  NotFoundPage,
+} from '../pages';
 import { Header } from '../shared/Header';
 import { TestPage } from '../pages/TestPage';
 import { EditPost } from '../pages/EditPost';
@@ -17,6 +23,7 @@ export const RouterProvider = () => {
             <Route path="/edit/:id" element={<EditPost />} />
             <Route path="/detail/:postId" element={<DetailPage />} />
             <Route path="/test" element={<TestPage />} />
+            <Route path="/*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </ModalProvider>
