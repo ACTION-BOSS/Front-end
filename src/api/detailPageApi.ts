@@ -34,7 +34,7 @@ export const fetchDetailPageData = (postId: string | undefined) => {
       console.log(AxiosError);
 
       if (AxiosError.response?.status === 418) {
-        alert('이미 완료된 민원글입니다.');
+        alert('이미 해결된 민원글입니다.');
         location.href = '/main';
         // openModal(EModalType.DONE);
       }
