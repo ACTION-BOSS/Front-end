@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { PingIcon } from '../../../../assets';
 import { postState } from '../../../../providers';
 import { MapIcon } from '../../../../shared/MapIcon';
 import { StContainer, StMapContainer, StMapText, StMainMapIcon } from './style';
@@ -22,7 +23,8 @@ export const MapView = () => {
 
   useEffect(() => {
     if (!map && window.kakao && window.kakao.maps && mapContainerRef.current) {
-      const { Map, services, event, Marker, InfoWindow } = window.kakao.maps;
+      const { Map, services, event, Marker, InfoWindow, MarkerImage } =
+        window.kakao.maps;
       const options = {
         center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lng),
         level: zoomLevel,
@@ -32,8 +34,11 @@ export const MapView = () => {
       setMap(mapInstance);
 
       const geocoder = new services.Geocoder();
-      const marker = new Marker();
-      const infowindow = new InfoWindow({ zindex: 1 });
+      const pingIconSrc = PingIcon('최신순');
+      const imageSize = new window.kakao.maps.Size(40, 40);
+      const imageOption = { offset: new window.kakao.maps.Point(20, 20) };
+      const markerImage = new MarkerImage(pingIconSrc, imageSize, imageOption);
+      const marker = new Marker({ image: markerImage });
 
       event.addListener(mapInstance, 'click', (mouseEvent: any) => {
         searchDetailAddrFromCoords(
@@ -53,8 +58,6 @@ export const MapView = () => {
 
               marker.setPosition(mouseEvent.latLng);
               marker.setMap(mapInstance);
-              infowindow.setContent(address);
-              infowindow.open(mapInstance, marker);
             }
           },
         );
@@ -89,15 +92,12 @@ export const MapView = () => {
   const zoomChangeHandler = (newZoomLevel: number) => {
     setZoomLevel(newZoomLevel);
 
-    // 지도의 현재 중심 가져오기
     if (map) {
       const currentCenter = map.getCenter();
       const newMapCenter = {
         lat: currentCenter.getLat(),
         lng: currentCenter.getLng(),
       };
-
-      // 상태 업데이트
       mapCenterChangeHandler(newMapCenter);
     }
   };
