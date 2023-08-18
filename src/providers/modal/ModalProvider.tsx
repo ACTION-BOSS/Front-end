@@ -8,9 +8,13 @@ import { useRecoilValue } from 'recoil';
 import { $isLoggedInState } from '../login/state';
 
 interface IModalContext {
-  openModal: (modalType: EModalType) => void;
+  openModal: (modalType: EModalType, params?: IParamsForPopUpModal) => void;
   closeModal: () => void;
 }
+
+export type IParamsForPopUpModal = {
+  postId: string;
+};
 
 export const ModalContext = createContext<IModalContext | null>(null);
 
@@ -21,9 +25,15 @@ type ModalProviderProps = {
 export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [modalType, setModalType] = useState<EModalType>();
+  const [params, setParams] = useState<IParamsForPopUpModal>({
+    postId: '',
+  });
   const isLoggedInState = useRecoilValue($isLoggedInState);
 
-  const openModal = (modalType: EModalType) => {
+  const openModal = (modalType: EModalType, params?: IParamsForPopUpModal) => {
+    if (params) {
+      setParams(params);
+    }
     setIsModalOpened(true);
     setModalType(modalType);
   };
@@ -43,7 +53,7 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
       return <SignUpSuccessModal />;
     }
     if (modalType === EModalType.DELETE || modalType === EModalType.DONE) {
-      return <PopUpModal type={modalType} />;
+      return <PopUpModal type={modalType} params={params} />;
     }
   };
 

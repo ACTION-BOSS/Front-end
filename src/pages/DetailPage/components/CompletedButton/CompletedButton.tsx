@@ -25,7 +25,7 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
 
   const handleClickDoneButton = debounce(async () => {
     if (localDoneCount === 5 && !localDone) {
-      alert('이미 완료된 민원글입니다.');
+      alert('이미 해결된 민원글입니다.');
       navigate('/main');
       return;
     }
@@ -72,9 +72,7 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
 
       <StInfoWrapper>
         <HelpIcon size={24} />
-        <StInfoText>
-          다섯명 이상 올려주시면 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구
-        </StInfoText>
+        <StInfoText>다섯 개가 채워지면 민원이 완료처리됩니다</StInfoText>
       </StInfoWrapper>
     </StWrapper>
   );

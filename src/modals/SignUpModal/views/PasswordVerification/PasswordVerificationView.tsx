@@ -35,26 +35,10 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
 
   const [isPasswordVerified, setIsPasswordVerified] =
     useRecoilState($isPasswordVerified);
-
-  console.log(123, isPasswordVerified);
-
   const [isVerified, setIsVerified] = useRecoilState($isVerified);
 
-  const checkPasswordVerification = () => {
-    const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{7,14}$/;
-
-    if (passwordValue.length === 0) {
-      setIsPasswordVerified(null);
-    } else {
-      setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
-    }
-
-    setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
-  };
-
-  const handleChangePassword = (...event: any[]) => {
-    checkPasswordVerification();
-    onChangePassword(...event);
+  const handleChangePassword = (event: any) => {
+    onChangePassword(event);
   };
 
   const verificationInputErrorText = (isVerified: boolean | null) => {
@@ -72,50 +56,33 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
 
   useEffect(() => {
     if (isVerified !== null) {
-      // @ts-ignore
-      setIsReadyStepThree(() => {
-        return isVerified;
-      });
+      setIsReadyStepThree(isVerified);
     } else {
       setIsReadyStepThree(false);
     }
   }, [isVerified, isPasswordVerified]);
 
   useEffect(() => {
-    if (!isPasswordVerified) {
-      if (passwordVerificationValue.length === 0) {
-        console.log(1);
-        return setIsVerified(null);
-      }
-      if (passwordValue.length === 0) {
-        console.log(2);
-        return setIsPasswordVerified(null);
-      }
-      console.log(3);
-      return setIsPasswordVerified(false);
+    const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
+
+    // 비밀번호 유효성 검사
+    if (passwordValue.length === 0) {
+      setIsPasswordVerified(null);
     } else {
-      if (passwordValue.length === 0) {
-        console.log(4);
-        setIsPasswordVerified(null);
-      }
-      if (passwordVerificationValue.length === 0) {
-        console.log(5);
-        return setIsVerified(null);
-      }
+      setIsPasswordVerified(PASSWORD_VERIFICATION_REGEX.test(passwordValue));
+    }
+
+    // 비밀번호 일치 검사
+    if (passwordVerificationValue.length === 0) {
+      setIsVerified(null);
+    } else {
       if (passwordValue === passwordVerificationValue) {
-        console.log(6);
-        return setIsVerified(true);
+        setIsVerified(true);
       } else {
-        console.log(7);
-        return setIsVerified(false);
+        setIsVerified(false);
       }
     }
-  }, [
-    passwordValue,
-    passwordVerificationValue,
-    isPasswordVerified,
-    isVerified,
-  ]);
+  }, [passwordValue, passwordVerificationValue]);
 
   return (
     <StWrapper>

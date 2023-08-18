@@ -114,7 +114,7 @@ export const MainMap = ({
         const clusterer = new window.kakao.maps.MarkerClusterer({
           map,
           averageCenter: true,
-          minLevel: 2,
+          minLevel: 3,
           gridSize: 50,
           styles: [
             {
