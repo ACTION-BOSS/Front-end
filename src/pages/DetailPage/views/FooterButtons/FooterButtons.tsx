@@ -29,7 +29,11 @@ export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
               $buttonTheme="emptyPink"
               size="mediumLong"
               fontSize={Theme.fontSizes.h2}
-              onClick={() => openModal(EModalType.DELETE)}
+              onClick={() =>
+                openModal(EModalType.DELETE, {
+                  postId: postId,
+                })
+              }
             />
             <Button
               label="수정"

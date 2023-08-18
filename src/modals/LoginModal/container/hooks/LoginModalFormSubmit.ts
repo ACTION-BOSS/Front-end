@@ -7,23 +7,24 @@ import {
 import { api } from '../../../../api';
 import { LoginModalFormData } from './LoginModalForm';
 import { AxiosError } from 'axios';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { $isVerificationFailed } from '../../state';
-import {
-  $isLoggedInState,
-  $tokenExpiryState,
-  $tokenState,
-  useModal,
-} from '../../../../providers';
+import { useModal } from '../../../../providers';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const useLoginModalFormSubmit = () => {
   const { handleSubmit } = useFormContext<LoginModalFormData>();
   const setIsVerificationFailed = useSetRecoilState($isVerificationFailed);
-  const [tokenState, setTokenState] = useRecoilState($tokenState);
-  const [tokenExpiryState, setTokenExpiryState] =
-    useRecoilState($tokenExpiryState);
-  const isLoggedInState = useRecoilValue($isLoggedInState);
   const { closeModal } = useModal();
+
+  // TODO
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // 내 페이지로 다시 렌덜잉
+  const reloadPage = () => {
+    navigate(location.pathname);
+  };
 
   const onFormError: SubmitErrorHandler<LoginModalFormData> = useCallback(
     async (error) => {},
@@ -50,19 +51,14 @@ export const useLoginModalFormSubmit = () => {
 
           const actualToken = token.split(' ')[1];
 
-          // global state에 저장 + 만료시간
-          setTokenState(token);
-          const expiryDate = new Date();
-          expiryDate.setMinutes(expiryDate.getMinutes() + 60);
-          setTokenExpiryState(expiryDate);
-
           // localStorage에 저장
           localStorage.setItem('token', actualToken);
 
           if (token) {
             console.log('로그인 성공!');
-            console.log('state', tokenState, tokenExpiryState);
             closeModal();
+            // 아예 새로고침
+            window.location.reload();
           }
         }
       } catch (e) {

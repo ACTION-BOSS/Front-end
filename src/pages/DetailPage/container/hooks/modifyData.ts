@@ -1,13 +1,16 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { deletePostedData, toggleDoneData } from '../../../../api';
+import { useModal } from '../../../../providers';
 
-export const useDeleteData = () => {
-  const { postId } = useParams();
+export const useDeleteData = (postId?: string) => {
+  const navigate = useNavigate();
+  const { closeModal } = useModal();
 
   const handleDeleteData = async () => {
     try {
       const data = await deletePostedData(postId);
-      location.href = '/main';
+      closeModal();
+      navigate('/main');
     } catch (error) {
       console.log(error);
     }

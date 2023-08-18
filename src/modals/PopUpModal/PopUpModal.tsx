@@ -1,12 +1,14 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Theme } from '../../styles';
-import { EModalType, useModal } from '../../providers';
+import { EModalType, IParamsForPopUpModal, useModal } from '../../providers';
 import { Button } from '../../shared';
+import { useNavigate } from 'react-router-dom';
 import { useDeleteData } from '../../pages/DetailPage/container/hooks';
 
 type PopUpModalProps = {
   type: EModalType;
+  params?: IParamsForPopUpModal;
 };
 
 const getModalMessage = (type: EModalType) => {
@@ -18,9 +20,10 @@ const getModalMessage = (type: EModalType) => {
   }
 };
 
-const getModalButton = (type: EModalType) => {
-  const { handleDeleteData } = useDeleteData();
+const getModalButton = (type: EModalType, postId?: string) => {
+  const { handleDeleteData } = useDeleteData(postId);
   const { closeModal } = useModal();
+  const navigate = useNavigate();
 
   if (type === EModalType.DELETE) {
     return (
@@ -47,18 +50,20 @@ const getModalButton = (type: EModalType) => {
         $buttonTheme="emptyBlue"
         size="large"
         onClick={() => {
-          location.href = '/main';
+          navigate('/main');
         }}
       />
     );
   }
 };
 
-export const PopUpModal: FC<PopUpModalProps> = ({ type }) => {
+export const PopUpModal: FC<PopUpModalProps> = ({ type, ...props }) => {
   return (
     <StModalWrapper>
       <StText>{getModalMessage(type)}</StText>
-      <StButtonWrapper>{getModalButton(type)}</StButtonWrapper>
+      <StButtonWrapper>
+        {getModalButton(type, props.params?.postId)}
+      </StButtonWrapper>
     </StModalWrapper>
   );
 };
