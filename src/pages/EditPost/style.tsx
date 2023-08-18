@@ -6,7 +6,7 @@ export const StEditPostContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 170vh;
+  height: 100vh;
   overflow-y: auto;
   margin-top: 85px;
 `;
