@@ -47,6 +47,26 @@ export const TestPage: FC<TestPageProps> = ({}) => {
           }}
         />
       </div>
+      <div style={{ width: '100px' }}>
+        <Button
+          label="민원완료모달"
+          $buttonTheme="blueGray"
+          size="small"
+          onClick={() => {
+            openModal(EModalType.POP_UP, {
+              title: '삭제할랭려?',
+              cancelButton: false,
+              functionButton: {
+                label: '삭제???',
+                onClick: () => {
+                  alert('hi');
+                },
+                theme: 'emptyBlue',
+              },
+            });
+          }}
+        />
+      </div>
     </div>
   );
 };

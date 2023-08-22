@@ -3,21 +3,24 @@ import styled from 'styled-components';
 import { Button } from '../../../../shared';
 import { Theme } from '../../../../styles';
 import { CompletedButton } from '../../components';
-import { useDetailData } from '../../container';
+import { useDeleteData, useDetailData } from '../../container';
 import { EModalType, useModal } from '../../../../providers';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 type FooterButtonsProps = {};
 
 export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
-  const { data, isLoading, error } = useDetailData();
-  const { openModal, closeModal } = useModal();
+  const { postId } = useParams();
+  const { data, isLoading, error, owner } = useDetailData();
+  const { openModal } = useModal();
   const navigate = useNavigate();
+  const { deleteData } = useDeleteData();
+  const handleCickDeleteButton = () => {
+    deleteData();
+  };
 
   if (isLoading) {
     return <></>;
   }
-
-  const { owner, postId } = data;
 
   return (
     <StBottomButtonWrapper>
@@ -30,8 +33,14 @@ export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
               size="mediumLong"
               fontSize={Theme.fontSizes.h2}
               onClick={() =>
-                openModal(EModalType.DELETE, {
-                  postId: postId,
+                openModal(EModalType.POP_UP, {
+                  title: '작성한 게시물을 삭제할까요?',
+                  cancelButton: true,
+                  functionButton: {
+                    theme: 'pink',
+                    label: '삭제',
+                    onClick: handleCickDeleteButton,
+                  },
                 })
               }
             />

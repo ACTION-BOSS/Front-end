@@ -19,5 +19,7 @@ export const useDetailData = () => {
     };
   }
 
-  return { data, isLoading, error };
+  const { owner } = data;
+
+  return { data, isLoading, error, postId, owner };
 };
