@@ -1,69 +1,68 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Theme } from '../../styles';
-import { EModalType, IParamsForPopUpModal, useModal } from '../../providers';
+import { IParamsForPopUpModal, useModal } from '../../providers';
 import { Button } from '../../shared';
 import { useNavigate } from 'react-router-dom';
-import { useDeleteData } from '../../pages/DetailPage/container/hooks';
 
 type PopUpModalProps = {
-  type: EModalType;
-  params?: IParamsForPopUpModal;
+  params: IParamsForPopUpModal;
 };
 
-const getModalMessage = (type: EModalType) => {
-  if (type === EModalType.DELETE) {
-    return '작성한 게시물을 삭제할까요?';
-  }
-  if (type === EModalType.DONE) {
-    return '해결 완료 처리된 게시물입니다';
-  }
-};
+const getModalButton = (params: IParamsForPopUpModal) => {
+  const { title, functionButton, cancelButton } = params;
 
-const getModalButton = (type: EModalType, postId?: string) => {
-  const { handleDeleteData } = useDeleteData(postId);
   const { closeModal } = useModal();
   const navigate = useNavigate();
 
-  if (type === EModalType.DELETE) {
+  const {
+    label: functionLabel,
+    onClick: functionOnclick,
+    theme: functionTheme,
+  } = functionButton;
+
+  if (!cancelButton && functionButton) {
+    return (
+      <Button
+        label={functionLabel}
+        $buttonTheme={functionTheme}
+        size="large"
+        onClick={() => {
+          functionOnclick();
+        }}
+      />
+    );
+  } else {
     return (
       <>
         <Button
           label="취소"
           $buttonTheme="emptyBlue"
           size="large"
-          onClick={closeModal}
+          onClick={() => {
+            closeModal();
+          }}
         />
         <Button
-          label="삭제"
-          $buttonTheme="pink"
+          label={functionLabel}
+          $buttonTheme={functionTheme}
           size="large"
-          onClick={handleDeleteData}
+          onClick={() => {
+            functionOnclick();
+          }}
         />
       </>
     );
   }
-  if (type === EModalType.DONE) {
-    return (
-      <Button
-        label="메인화면으로"
-        $buttonTheme="emptyBlue"
-        size="large"
-        onClick={() => {
-          navigate('/main');
-        }}
-      />
-    );
-  }
 };
 
-export const PopUpModal: FC<PopUpModalProps> = ({ type, ...props }) => {
+export const PopUpModal: FC<PopUpModalProps> = ({ ...props }) => {
+  const title = props.params?.title;
+
   return (
     <StModalWrapper>
-      <StText>{getModalMessage(type)}</StText>
-      <StButtonWrapper>
-        {getModalButton(type, props.params?.postId)}
-      </StButtonWrapper>
+      <StText>{title}</StText>
+      <StButtonWrapper>{getModalButton(props.params)}</StButtonWrapper>
     </StModalWrapper>
   );
 };

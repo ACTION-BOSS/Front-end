@@ -6,15 +6,12 @@ import { useDetailData } from '../../container';
 import { useNavigate } from 'react-router-dom';
 import { toggleDoneData } from '../../../../api';
 import { debounce } from 'lodash';
-import { useRecoilValue } from 'recoil';
-import { $isLoggedInState } from '../../../../providers';
 type CompletedButtonProps = {};
 
 export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
   const { data, isLoading, error } = useDetailData();
   const [localDone, setLocalDone] = useState<boolean | null>(null);
   const [localDoneCount, setLocalDoneCount] = useState<number | null>(null);
-  const isLoggedInState = useRecoilValue($isLoggedInState);
   const navigate = useNavigate();
 
   if (isLoading) {

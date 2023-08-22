@@ -4,8 +4,7 @@ import { EModalType } from './type';
 import { styled } from 'styled-components';
 import { SignUpModal, LoginModal, PopUpModal } from '../../modals';
 import { SignUpSuccessModal } from '../../modals/SignUpSuccessModal/SignUpSuccessModal';
-import { useRecoilValue } from 'recoil';
-import { $isLoggedInState } from '../login/state';
+import { ThemeType } from '../../shared/Button/type';
 
 interface IModalContext {
   openModal: (modalType: EModalType, params?: IParamsForPopUpModal) => void;
@@ -13,7 +12,13 @@ interface IModalContext {
 }
 
 export type IParamsForPopUpModal = {
-  postId: string;
+  title: string;
+  functionButton: {
+    theme: ThemeType;
+    label: string;
+    onClick: () => void;
+  };
+  cancelButton: boolean;
 };
 
 export const ModalContext = createContext<IModalContext | null>(null);
@@ -26,9 +31,14 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [modalType, setModalType] = useState<EModalType>();
   const [params, setParams] = useState<IParamsForPopUpModal>({
-    postId: '',
+    title: '',
+    functionButton: {
+      theme: 'empty',
+      label: '',
+      onClick: () => {},
+    },
+    cancelButton: true,
   });
-  const isLoggedInState = useRecoilValue($isLoggedInState);
 
   const openModal = (modalType: EModalType, params?: IParamsForPopUpModal) => {
     if (params) {
@@ -52,8 +62,8 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
     if (modalType === EModalType.SIGN_UP_SUCCESS) {
       return <SignUpSuccessModal />;
     }
-    if (modalType === EModalType.DELETE || modalType === EModalType.DONE) {
-      return <PopUpModal type={modalType} params={params} />;
+    if (modalType === EModalType.POP_UP) {
+      return <PopUpModal params={params} />;
     }
   };
 

@@ -4,6 +4,7 @@ import { LoginModalContainer, useLoginModalForm } from './container';
 import { LoginLayout } from './layout';
 import { useSetRecoilState } from 'recoil';
 import { $isVerificationFailed } from './state';
+import { RecoilProvider } from '../../providers';
 
 type LoginModalProps = {};
 
@@ -18,10 +19,12 @@ export const LoginModal: FC<LoginModalProps> = ({}) => {
   }, []);
 
   return (
-    <FormProvider {...form}>
-      <LoginLayout>
-        <LoginModalContainer />
-      </LoginLayout>
-    </FormProvider>
+    <RecoilProvider>
+      <FormProvider {...form}>
+        <LoginLayout>
+          <LoginModalContainer />
+        </LoginLayout>
+      </FormProvider>
+    </RecoilProvider>
   );
 };
