@@ -15,6 +15,7 @@ export const Theme: ThemeType = {
     gray8: '#292F3D',
     white: '#FEFEFE',
     black: '#14171F',
+    deem: 'rgba(41, 47, 61, 0.40)',
   },
   fontSizes: {
     h1: '25px',
