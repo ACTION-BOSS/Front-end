@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-import { postState } from '../../providers';
 import { Button } from '../../shared';
 import { Portal, PostModal } from '../../shared/PostModal';
 import { MODAL_ATTRIBUTES } from './const';
@@ -17,10 +16,12 @@ import {
 } from './style';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { RecoilProvider } from '../../providers';
+import { createPostState } from './state';
 
 export const CreatePost = () => {
   const token = localStorage.getItem('token');
-  const post = useRecoilValue(postState);
+  const post = useRecoilValue(createPostState);
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('default');
   const navigate = useNavigate();
@@ -52,12 +53,6 @@ export const CreatePost = () => {
       setOpenModal(!openModal);
     }
   };
-
-  // console.log(post.images);
-  // console.log(post.content);
-  // console.log(post.latitude);
-  // console.log(post.longitude);
-  // console.log(post.address);
 
   const sendPostRequest = async () => {
     const formData = new FormData();
@@ -92,43 +87,45 @@ export const CreatePost = () => {
   });
 
   return (
-    <StCreatePostContainer>
-      <CreateFormView />
-      <MapView />
-      <StBtnContainer>
-        <StBtnBox1>
-          <Button
-            onClick={onClickCancle}
-            label="취소"
-            $buttonTheme="empty"
-            size="small"
-          />
-        </StBtnBox1>
-        <StBtnBox2>
-          <Button
-            onClick={onClickHandleModal}
-            label="게시물 작성"
-            $buttonTheme="blue"
-            size="small"
-          />
-        </StBtnBox2>
-      </StBtnContainer>
+    <RecoilProvider>
+      <StCreatePostContainer>
+        <CreateFormView />
+        <MapView />
+        <StBtnContainer>
+          <StBtnBox1>
+            <Button
+              onClick={onClickCancle}
+              label="취소"
+              $buttonTheme="empty"
+              size="small"
+            />
+          </StBtnBox1>
+          <StBtnBox2>
+            <Button
+              onClick={onClickHandleModal}
+              label="게시물 작성"
+              $buttonTheme="blue"
+              size="small"
+            />
+          </StBtnBox2>
+        </StBtnContainer>
 
-      <StBg>
-        <StSkyline></StSkyline>
-        <StGrayBg></StGrayBg>
-      </StBg>
+        <StBg>
+          <StSkyline></StSkyline>
+          <StGrayBg></StGrayBg>
+        </StBg>
 
-      {openModal && (
-        <Portal>
-          <PostModal
-            onClickHandleModal={onClickHandleModal}
-            sendPostRequest={() => mutation.mutate()}
-            attribute={MODAL_ATTRIBUTES.UPLOAD}
-            modalType={modalType}
-          />
-        </Portal>
-      )}
-    </StCreatePostContainer>
+        {openModal && (
+          <Portal>
+            <PostModal
+              onClickHandleModal={onClickHandleModal}
+              sendPostRequest={() => mutation.mutate()}
+              attribute={MODAL_ATTRIBUTES.UPLOAD}
+              modalType={modalType}
+            />
+          </Portal>
+        )}
+      </StCreatePostContainer>
+    </RecoilProvider>
   );
 };

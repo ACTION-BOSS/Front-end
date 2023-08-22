@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MODAL_ATTRIBUTES } from '../CreatePost/const';
 import { EditFormView } from './views';
-import { useRecoilState } from 'recoil';
-import { postState } from '../../providers';
 import {
   StEditPostContainer,
   StBtnContainer,
@@ -21,10 +19,11 @@ import {
 import { Button } from '../../shared';
 import { Portal, PostModal } from '../../shared/PostModal';
 import { MyDirectIcon } from '../../assets';
+import { EditPostType } from './type';
 
 export const EditPost = () => {
   const token = localStorage.getItem('token');
-  const [post, setPost] = useRecoilState(postState);
+  const [post, setPost] = useState<EditPostType | null>(null);
 
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('default');
@@ -55,24 +54,22 @@ export const EditPost = () => {
     return response.data.data;
   };
 
-  const {
-    data: postData,
-    isError,
-    isLoading,
-  } = useQuery(['postDetail', id], () => getPostDetail(id));
+  const { data, isError, isLoading } = useQuery(['postDetail', id], () =>
+    getPostDetail(id),
+  );
 
-  console.log(postData);
+  console.log(data);
 
-  if (postData && !postData.owner) {
+  if (data && !data.owner) {
     window.location.replace('javascript:history.back()');
     return null;
   }
 
   useEffect(() => {
-    if (postData) {
-      setPost(postData);
+    if (data) {
+      setPost(data);
     }
-  }, [postData, setPost]);
+  }, [data, setPost]);
 
   const mutation = useMutation(
     () =>
@@ -96,7 +93,7 @@ export const EditPost = () => {
   };
 
   const onClickHandleModal = () => {
-    if (post.title && post.content) {
+    if (data.title && data.content) {
       setModalType('edit');
       setOpenModal(!openModal);
     } else {
@@ -115,12 +112,12 @@ export const EditPost = () => {
 
   return (
     <StEditPostContainer>
-      <EditFormView />
+      <EditFormView data={data} setPost={setPost} />
 
       <StAddressContainer>
         <StIconText>
           <MyDirectIcon />
-          <StAddressText>{post.address}</StAddressText>
+          <StAddressText>{data.address}</StAddressText>
         </StIconText>
       </StAddressContainer>
 

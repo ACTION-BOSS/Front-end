@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { PingIcon } from '../../../../assets';
-import { postState } from '../../../../providers';
 import { MapIcon } from '../../../../shared/MapIcon';
+import { createPostState } from '../../state';
 import { StContainer, StMapContainer, StMapText, StMainMapIcon } from './style';
 
 declare global {
@@ -14,7 +14,7 @@ declare global {
 export const MapView = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const [map, setMap] = useState<any>(null);
-  const [post, setPost] = useRecoilState(postState);
+  const [post, setPost] = useRecoilState(createPostState);
   const [zoomLevel, setZoomLevel] = useState<number>(3);
   const [mapCenter, setMapCenter] = useState({
     lat: 37.565869791860365,

@@ -13,10 +13,10 @@ import {
 import React, { useState } from 'react';
 import { HelpIcon } from '../../../../assets';
 import { useRecoilState } from 'recoil';
-import { postState } from '../../../../providers';
+import { createPostState } from '../../state';
 
 export const CreateFormView = () => {
-  const [post, setPost] = useRecoilState(postState);
+  const [post, setPost] = useRecoilState(createPostState);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
