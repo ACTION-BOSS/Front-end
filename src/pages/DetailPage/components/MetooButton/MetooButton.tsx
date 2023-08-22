@@ -3,7 +3,6 @@ import { styled } from 'styled-components';
 import { Theme } from '../../../../styles';
 import { UncomBigIcon } from '../../../../assets';
 import { useDetailData } from '../../container';
-import { debounce } from 'lodash';
 import { toggleMetooData } from '../../../../api';
 type MetooButtonProps = {
   agreeCount: number;
@@ -26,7 +25,7 @@ export const MetooButton: FC<MetooButtonProps> = ({
     return <></>;
   }
 
-  const handleClickMetooButton = debounce(async () => {
+  const handleClickMetooButton = async () => {
     await toggleMetooData(postId);
 
     // TODO
@@ -43,7 +42,7 @@ export const MetooButton: FC<MetooButtonProps> = ({
     } else {
       alert('로그인 후 이용 가능합니다');
     }
-  }, 500);
+  };
 
   useEffect(() => {
     setLocalMetoo(agree);

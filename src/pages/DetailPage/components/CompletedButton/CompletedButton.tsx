@@ -5,7 +5,6 @@ import { ClearIcon, HelpIcon } from '../../../../assets';
 import { useDetailData } from '../../container';
 import { useNavigate } from 'react-router-dom';
 import { toggleDoneData } from '../../../../api';
-import { debounce } from 'lodash';
 type CompletedButtonProps = {};
 
 export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
@@ -20,7 +19,7 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
 
   const { done, doneCount, postId } = data;
 
-  const handleClickDoneButton = debounce(async () => {
+  const handleClickDoneButton = async () => {
     if (localDoneCount === 5 && !localDone) {
       alert('이미 해결된 민원글입니다.');
       navigate('/main');
@@ -44,7 +43,7 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
     } else {
       alert('로그인 후 이용 가능합니다');
     }
-  }, 500);
+  };
 
   useEffect(() => {
     setLocalDone(done);
