@@ -18,7 +18,7 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
     owner,
   } = useDetailData();
 
-  const { handleClickMetooButton, localMetooCount } = useMetoo(
+  const { handleClickMetooButton, localMetoo, localMetooCount } = useMetoo(
     agree,
     agreeCount,
   );
@@ -40,6 +40,7 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
         address={address}
         owner={owner}
         handleClickMetooButton={handleClickMetooButton}
+        localMetoo={localMetoo}
         localMetooCount={localMetooCount}
       />
     </>

@@ -33,6 +33,7 @@ export const useMetoo = (agree: boolean, agreeCount: number) => {
 
   return {
     handleClickMetooButton,
+    localMetoo,
     localMetooCount,
   };
 };
