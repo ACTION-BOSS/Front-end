@@ -21,12 +21,14 @@ api.interceptors.request.use(
   },
 );
 
-export const getMapPing = async (sort: string, mapCoordinates: Coordinates) => {
-  const isdone = sort === '해결순' ? true : false;
+export const getMapPing = async (
+  isDone: boolean,
+  mapCoordinates: Coordinates,
+) => {
   const { northlat, eastlon, southlat, westlon } = mapCoordinates;
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URI}/api/main/map?&isdone=${isdone}&northlatitude=${northlat}&eastlongitude=${eastlon}&southlatitude=${southlat}&westlongitude=${westlon}`,
+      `${process.env.REACT_APP_API_URI}/api/main/map?&isdone=${isDone}&northlatitude=${northlat}&eastlongitude=${eastlon}&southlatitude=${southlat}&westlongitude=${westlon}`,
     );
     return response.data;
   } catch (e) {
@@ -37,14 +39,15 @@ export const getMapPing = async (sort: string, mapCoordinates: Coordinates) => {
 export const getSidebarPosts = async (
   page: number,
   sort: string,
+  isDone: boolean,
   mapCoordinates: Coordinates,
 ) => {
-  const isdone = sort === '해결순' ? true : false;
   const sortOption = sort === '불편순' ? 'agreeCount' : 'createdAt';
   const { northlat, eastlon, southlat, westlon } = mapCoordinates;
+
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URI}/api/main?page=${page}&size=5&sort=${sortOption}&isdone=${isdone}&northlatitude=${northlat}&eastlongitude=${eastlon}&southlatitude=${southlat}&westlongitude=${westlon}`,
+      `${process.env.REACT_APP_API_URI}/api/main?page=${page}&size=5&sort=${sortOption}&isdone=${isDone}&northlatitude=${northlat}&eastlongitude=${eastlon}&southlatitude=${southlat}&westlongitude=${westlon}`,
     );
     return response.data;
   } catch (e) {

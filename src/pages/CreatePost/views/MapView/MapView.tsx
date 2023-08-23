@@ -34,7 +34,7 @@ export const MapView = () => {
       setMap(mapInstance);
 
       const geocoder = new services.Geocoder();
-      const pingIconSrc = PingIcon('최신순');
+      const pingIconSrc = PingIcon(false);
       const imageSize = new window.kakao.maps.Size(40, 40);
       const imageOption = { offset: new window.kakao.maps.Point(20, 20) };
       const markerImage = new MarkerImage(pingIconSrc, imageSize, imageOption);

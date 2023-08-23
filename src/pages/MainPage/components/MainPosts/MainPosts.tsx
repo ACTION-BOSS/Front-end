@@ -3,6 +3,7 @@ import * as s from './MainPostsStyle';
 import {
   CheckIcon,
   CheckXIcon,
+  ClearIcon,
   Toggle2Icon,
   ToggleIcon,
 } from '../../../../assets';
@@ -13,18 +14,19 @@ import { MainPost } from '../MainPost/MainPost';
 import { MainPostSkeleton } from '../MainPostSkeleton';
 
 interface Props {
-  currentOption: string;
-  optionChangeHandler: (option: string) => void;
   mapCoordinates: Coordinates;
+  isDone: boolean;
+  isDoneChangeHandler: () => void;
 }
 
 export const MainPosts = ({
-  currentOption,
-  optionChangeHandler,
   mapCoordinates,
+  isDone,
+  isDoneChangeHandler,
 }: Props) => {
   const [isToggle, setIsToggle] = useState(false);
-  const OPTIONS = ['최신순', '불편순', '해결순'];
+  const [currentOption, setCurrentOption] = useState('최신순');
+  const OPTIONS = ['최신순', '불편순'];
   const observerElem = useRef<HTMLDivElement>(null);
 
   const onClickToggleHandler = () => {
@@ -32,7 +34,7 @@ export const MainPosts = ({
   };
 
   const onClickOptionHandler = (option: string) => {
-    optionChangeHandler(option);
+    setCurrentOption(option);
     onClickToggleHandler();
   };
   //isLoading과 isFetching을 나누어 생각해봐야할듯
@@ -45,9 +47,9 @@ export const MainPosts = ({
     isLoading,
     isError,
   } = useInfiniteQuery(
-    ['sideBarPosts', currentOption, mapCoordinates],
+    ['sideBarPosts', currentOption, isDone, mapCoordinates],
     ({ pageParam = 0 }) =>
-      getSidebarPosts(pageParam, currentOption, mapCoordinates),
+      getSidebarPosts(pageParam, currentOption, isDone, mapCoordinates),
     {
       getNextPageParam: (lastPage) => {
         return lastPage.data.presentPage < lastPage.data.totalPage
@@ -102,6 +104,10 @@ export const MainPosts = ({
           </div>
         </div>
       </s.MainPostHeader>
+      <s.IsDoneButton isDone={isDone} onClick={isDoneChangeHandler}>
+        {isDone ? <ClearIcon color="white" /> : <ClearIcon color="#5782FA" />}
+        <div>해결된 민원 모아보기</div>
+      </s.IsDoneButton>
       <s.MainPosts>
         {isLoading &&
           Array(5)
@@ -110,11 +116,7 @@ export const MainPosts = ({
         {/* isLoading 처음에 서버에 데이터 요청, isFetching 서버에 데이터를 다시 요청할때  */}
         {isError && <div>에러</div>}
         {allPosts.map((post: Post) => (
-          <MainPost
-            key={post.postId}
-            post={post}
-            currentOption={currentOption}
-          />
+          <MainPost key={post.postId} post={post} isDone={isDone} />
         ))}
         <div ref={observerElem} />
       </s.MainPosts>
