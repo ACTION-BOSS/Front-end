@@ -4,6 +4,10 @@ interface OptionProps {
   active: string;
 }
 
+interface isDoneProps {
+  isDone: boolean;
+}
+
 export const MainPostsConatiner = styled.div`
   width: 330px;
   box-sizing: border-box;
@@ -53,7 +57,7 @@ export const OptionList = styled.ul<OptionProps>`
   gap: 14px;
   box-sizing: border-box;
   border-radius: 10px;
-  box-shadow: 0px 2px 5px 0px ${(props) => props.theme.colors.gray8};
+  box-shadow: 0px 2px 5px 0px rgba(41, 47, 61, 0.3);
   font-size: ${(props) => props.theme.fontSizes.body3};
   z-index: 999;
   li {
@@ -63,11 +67,32 @@ export const OptionList = styled.ul<OptionProps>`
     cursor: pointer;
   }
 `;
+export const IsDoneButton = styled.div<isDoneProps>`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 13px 0;
+  margin: 10px 30px 16px;
+  border-radius: 12px;
+  box-shadow: 0px 2px 5px 0px rgba(41, 47, 61, 0.3);
+  font-size: ${(props) => props.theme.fontSizes.h3};
+  font-weight: ${(props) => props.theme.fontWeights.h3};
+  color: ${(props) =>
+    props.isDone ? props.theme.colors.white : props.theme.colors.black};
+  background-color: ${(props) =>
+    props.isDone ? props.theme.colors.blue : props.theme.colors.white};
+`;
 export const MainPosts = styled.div`
   padding: 0 45px;
-  height: calc(100vh - 151px);
+  height: calc(100vh - 228px);
   overflow-y: auto;
+  /* &::-webkit-scrollbar {
+    display: none;
+  } */
   &::-webkit-scrollbar {
+    //스크롤 css
     width: 10px;
   }
 

@@ -5,23 +5,20 @@ import { Post } from '../../type';
 import { useNavigate } from 'react-router-dom';
 
 interface MainPostProps {
-  currentOption: string;
   post: Post;
+  isDone: boolean;
 }
 
-export const MainPost = ({ post, currentOption }: MainPostProps) => {
+export const MainPost = ({ post, isDone }: MainPostProps) => {
   const navigate = useNavigate();
 
   const onClickMovePage = (postId: number) => {
     navigate(`/detail/${postId}`);
   };
-
   return (
     <s.MainPostStyle onClick={() => onClickMovePage(post.postId)}>
-      <s.MainPostImg currentoption={currentOption}>
-        <div className="postImg">
-          {currentOption === '해결순' && <ClearSumIcon />}
-        </div>
+      <s.MainPostImg isDone={isDone}>
+        <div className="postImg">{isDone && <ClearSumIcon />}</div>
         <img src={post.thumbnail} />
         <s.UnLike>
           <UncomSmallIcon size={18} />

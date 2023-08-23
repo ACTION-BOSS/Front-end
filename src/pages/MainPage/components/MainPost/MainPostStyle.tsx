@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
 
 interface OptionProps {
-  currentoption: string;
+  isDone: boolean;
 }
 
 export const MainPostStyle = styled.div`
-  margin: 20px 0;
+  margin: 0 0 30px;
   cursor: pointer;
 `;
 
@@ -23,7 +23,7 @@ export const MainPostImg = styled.div<OptionProps>`
     width: 100%;
     height: 100%;
     background-color: ${(props) =>
-      props.currentoption === '해결순' ? 'rgba(41, 47, 61, 0.40)' : 'none'};
+      props.isDone ? 'rgba(41, 47, 61, 0.40)' : 'none'};
     z-index: 9;
     display: flex;
     align-items: center;
