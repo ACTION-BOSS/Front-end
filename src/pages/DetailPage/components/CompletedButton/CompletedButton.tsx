@@ -7,10 +7,8 @@ type CompletedButtonProps = {};
 
 export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
   const { isLoading, error, done, doneCount } = useDetailData();
-  const { handleClickDoneButton, localDoneCount } = useCompleted(
-    done,
-    doneCount,
-  );
+  const { handleClickDoneButton, localDone, localDoneCount, isReallyDone } =
+    useCompleted(done, doneCount);
 
   if (isLoading || error) {
     return <></>;
@@ -19,12 +17,15 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
   return (
     <StWrapper>
       <StButtonWrapper onClick={handleClickDoneButton}>
-        <StBlueArea>
+        <StBlueArea $localDone={localDone}>
           <div>해결된 민원이에요</div>
-          <ClearIcon color="white" size={32} />
+          <ClearIcon
+            color={localDone ? Theme.colors.blueGray : Theme.colors.blue}
+            size={32}
+          />
         </StBlueArea>
-        <StWhiteArea>
-          <StButtonTextWrapper>
+        <StWhiteArea $localDone={localDone}>
+          <StButtonTextWrapper $isReallyDone={isReallyDone}>
             <p>{localDoneCount}</p>
             <p>/</p>
             <p>5</p>
@@ -72,7 +73,7 @@ export const StButtonWrapper = styled.button`
   align-items: stretch;
 `;
 
-export const StBlueArea = styled.div`
+export const StBlueArea = styled.div<{ $localDone: boolean | null }>`
   display: flex;
   width: 210px;
   justify-content: center;
@@ -81,14 +82,18 @@ export const StBlueArea = styled.div`
   border-bottom-left-radius: 10px;
   gap: 10px;
   padding: 11px 0px;
-  color: ${Theme.colors.white};
+  color: ${({ $localDone }) =>
+    $localDone ? Theme.colors.white : Theme.colors.blue};
   font-size: ${Theme.fontSizes.h2};
   font-weight: ${Theme.fontWeights.h2};
 
-  background-color: ${Theme.colors.blue};
+  background-color: ${({ $localDone }) =>
+    $localDone ? Theme.colors.blue : Theme.colors.white};
+
+  box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
 `;
 
-export const StWhiteArea = styled.div`
+export const StWhiteArea = styled.div<{ $localDone: boolean | null }>`
   display: flex;
   width: 70px;
   height: 100%;
@@ -96,15 +101,19 @@ export const StWhiteArea = styled.div`
   align-items: center;
   border-radius: 0px 100px 100px 0px;
   padding: 11px 36px;
-  box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
 
-  background-color: ${Theme.colors.white};
+  background-color: ${({ $localDone }) =>
+    $localDone ? Theme.colors.white : Theme.colors.blueGray};
+
+  box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
 `;
 
-export const StButtonTextWrapper = styled.div`
+export const StButtonTextWrapper = styled.div<{ $isReallyDone: boolean }>`
   display: flex;
 
-  color: ${Theme.colors.black};
+  color: ${({ $isReallyDone }) =>
+    $isReallyDone ? Theme.colors.blue : Theme.colors.black};
+
   font-size: ${Theme.fontSizes.h2};
   font-weight: ${Theme.fontWeights.h2};
 `;

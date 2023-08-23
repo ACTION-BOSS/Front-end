@@ -17,11 +17,11 @@ export const MetooButton: FC<MetooButtonProps> = ({
 
   return (
     <StButton
-      localMetoo={localMetoo}
-      isDisable={isDisable}
+      $localMetoo={localMetoo}
+      $isDisable={isDisable}
       onClick={isDisable ? undefined : handleClickMetooButton}
     >
-      <StButtonLabel localMetoo={localMetoo} isDisable={isDisable}>
+      <StButtonLabel $localMetoo={localMetoo} $isDisable={isDisable}>
         <div>나도 불편해요</div>
         <UncomBigIcon
           color={
@@ -40,11 +40,11 @@ export const MetooButton: FC<MetooButtonProps> = ({
 };
 
 export const StButton = styled.button<{
-  localMetoo: boolean | null;
-  isDisable: boolean;
+  $localMetoo: boolean | null;
+  $isDisable: boolean;
 }>`
   display: flex;
-  cursor: ${({ isDisable }) => (isDisable ? 'default' : 'pointer')};
+  cursor: ${({ $isDisable }) => ($isDisable ? 'default' : 'pointer')};
 
   padding: 6px 16px;
 
@@ -55,23 +55,23 @@ export const StButton = styled.button<{
   border-radius: 10px;
   box-shadow: 0px 0px 5px 0px rgba(41, 47, 61, 0.25);
 
-  background-color: ${({ localMetoo, isDisable }) => {
-    if (isDisable) return Theme.colors.gray2;
-    return localMetoo ? Theme.colors.pink : Theme.colors.white;
+  background-color: ${({ $localMetoo, $isDisable }) => {
+    if ($isDisable) return Theme.colors.gray2;
+    return $localMetoo ? Theme.colors.pink : Theme.colors.white;
   }};
 `;
 
 export const StButtonLabel = styled.div<{
-  localMetoo: boolean | null;
-  isDisable: boolean;
+  $localMetoo: boolean | null;
+  $isDisable: boolean;
 }>`
   display: flex;
   gap: 6px;
   align-items: center;
 
-  color: ${({ localMetoo, isDisable }) => {
-    if (isDisable) return Theme.colors.gray6;
-    return localMetoo ? Theme.colors.white : Theme.colors.pink;
+  color: ${({ $localMetoo, $isDisable }) => {
+    if ($isDisable) return Theme.colors.gray6;
+    return $localMetoo ? Theme.colors.white : Theme.colors.pink;
   }};
 
   font-size: ${Theme.fontSizes.h2};

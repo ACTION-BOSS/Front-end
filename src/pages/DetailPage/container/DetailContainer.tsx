@@ -5,6 +5,7 @@ type DetailContainerProps = {};
 
 export const DetailContainer: FC<DetailContainerProps> = ({}) => {
   const {
+    data,
     isLoading,
     error,
     agree,
@@ -26,6 +27,8 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
   if (isLoading || error) {
     return <></>;
   }
+
+  console.log('dp data', data);
 
   return (
     <>
