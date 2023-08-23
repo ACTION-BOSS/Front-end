@@ -12,6 +12,7 @@ export type ColorsType = {
   gray8: string;
   white: string;
   black: string;
+  deem: string;
 };
 
 export type FontSizesType = {

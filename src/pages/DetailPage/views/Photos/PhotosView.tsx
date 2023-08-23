@@ -51,7 +51,7 @@ export const StPhotosWrapper = styled.div`
   flex: 1;
   gap: 32px;
 
-  max-height: 468px;
+  max-height: 560px;
   margin-bottom: 48.5px;
 
   @media (max-width: 650px) {
@@ -64,23 +64,21 @@ export const StPhotosWrapper = styled.div`
 
 export const StMainImageWrapper = styled.div`
   display: flex;
-  flex: 1;
-
+  flex: 3;
   overflow: hidden;
-
   border-radius: 12px;
-  // box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
 
   @media (max-width: 650px) {
   }
 `;
 
 export const StMainImage = styled.img`
-  width: 100%;
-  aspect-ratio: 900/648;
-
-  object-fit: center;
+  display: flex;
+  flex: 1;
   background-color: black;
+
+  width: 100%;
+  height: 100%;
 
   @media (max-width: 650px) {
     aspect-ratio: 900/648;
@@ -90,9 +88,7 @@ export const StMainImage = styled.img`
 export const StPreviewImage = styled.img`
   display: flex;
   flex: 1;
-  // width: 100%;
-  // height: auto;
-  // aspect-ratio: 900/648;
+  width: 100%;
 
   background-color: black;
   object-fit: center;
@@ -100,10 +96,10 @@ export const StPreviewImage = styled.img`
 
 export const StPreviewImagesWrapper = styled.div`
   display: flex;
+  flex: 1;
   gap: 18px;
   flex-direction: column;
-
-  width: 200px;
+  justify-content: space-between;
 
   @media (max-width: 650px) {
     flex-direction: row;

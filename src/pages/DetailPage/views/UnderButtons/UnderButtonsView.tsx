@@ -4,27 +4,26 @@ import { LocationButton, MetooButton } from '../../components';
 type UnderButtonsViewProps = {
   address: string;
   owner: boolean;
-  agree: boolean;
-  agreeCount: number;
-  postId: string;
+  handleClickMetooButton: () => void;
+  localMetooCount: number | null;
+  localMetoo: boolean | null;
 };
 
 export const UnderButtonsView: FC<UnderButtonsViewProps> = ({
   address,
   owner = false,
-  agree,
-  agreeCount,
-  postId,
+  handleClickMetooButton,
+  localMetooCount,
+  localMetoo,
 }) => {
   return (
     <StWrapper>
       <StButtonWrapper>
         <LocationButton address={address} />
         <MetooButton
-          onClick={() => {}}
-          agree={agree}
-          agreeCount={agreeCount}
-          postId={postId}
+          handleClickMetooButton={handleClickMetooButton}
+          localMetooCount={localMetooCount}
+          localMetoo={localMetoo}
         />
       </StButtonWrapper>
     </StWrapper>
