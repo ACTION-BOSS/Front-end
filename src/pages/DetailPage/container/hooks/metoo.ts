@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { toggleMetooData } from '../../../../api';
 import { useParams } from 'react-router-dom';
-import { getToken } from '../../../../shared';
+import { getAccessToken } from '../../../../shared';
 
 export const useMetoo = (agree: boolean, agreeCount: number) => {
   const [localMetoo, setLocalMetoo] = useState<boolean | null>(null);
@@ -11,9 +11,9 @@ export const useMetoo = (agree: boolean, agreeCount: number) => {
   const handleClickMetooButton = async () => {
     await toggleMetooData(postId);
 
-    const token = getToken();
+    const accessToken = getAccessToken();
 
-    if (token) {
+    if (accessToken) {
       if (localMetoo) {
         setLocalMetooCount((prevCount) => (prevCount ? prevCount - 1 : 0));
         setLocalMetoo(false);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toggleDoneData } from '../../../../api';
+import { getAccessToken } from '../../../../shared';
 import { EModalType, useModal } from '../../../../providers';
 import { useRecoilState } from 'recoil';
 import { $isDoneAlertedFamily } from '../../state';
@@ -16,15 +17,9 @@ export const useCompleted = (done: boolean, doneCount: number) => {
   const { openModal, closeModal } = useModal();
 
   const handleClickDoneButton = async () => {
-    if (localDoneCount === 5 && !localDone) {
-      alert('이미 해결된 민원글입니다.');
-      navigate('/main');
-      return;
-    }
+    const accessToken = getAccessToken();
 
-    const token = getToken();
-
-    if (token) {
+    if (accessToken) {
       await toggleDoneData(postId);
 
       if (localDone) {
