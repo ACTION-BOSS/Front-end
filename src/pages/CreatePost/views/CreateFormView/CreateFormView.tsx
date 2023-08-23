@@ -13,10 +13,10 @@ import {
 import React, { useState } from 'react';
 import { HelpIcon } from '../../../../assets';
 import { useRecoilState } from 'recoil';
-import { postState } from '../../../../providers';
+import { createPostState } from '../../state';
 
 export const CreateFormView = () => {
-  const [post, setPost] = useRecoilState(postState);
+  const [post, setPost] = useRecoilState(createPostState);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,8 +25,11 @@ export const CreateFormView = () => {
       const fileArray = Array.from(files);
       const imagesArray = fileArray.map((file) => URL.createObjectURL(file));
 
-      setPreviewImages(imagesArray.slice(0, 3));
-      setPost({ ...post, images: fileArray.slice(0, 3) });
+      const newPreviewImages = [...previewImages, ...imagesArray].slice(0, 3);
+      const newFiles = [...(post?.images || []), ...fileArray].slice(0, 3);
+
+      setPreviewImages(newPreviewImages);
+      setPost({ ...post, images: newFiles });
     }
   };
 

@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MODAL_ATTRIBUTES } from '../CreatePost/const';
 import { EditFormView } from './views';
-import { useRecoilState } from 'recoil';
-import { postState } from '../../providers';
 import {
   StEditPostContainer,
   StBtnContainer,
@@ -14,17 +12,16 @@ import {
   StBg,
   StSkyline,
   StGrayBg,
-  StAddressContainer,
-  StIconText,
-  StAddressText,
 } from './style';
 import { Button } from '../../shared';
 import { Portal, PostModal } from '../../shared/PostModal';
-import { MyDirectIcon } from '../../assets';
+import { EditPostType } from './type';
+import { Theme } from '../../styles';
+import { EditMapView } from './views/EditMapView/EditMapView';
 
 export const EditPost = () => {
   const token = localStorage.getItem('token');
-  const [post, setPost] = useRecoilState(postState);
+  const [post, setPost] = useState<EditPostType | null>(null);
 
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('default');
@@ -55,24 +52,22 @@ export const EditPost = () => {
     return response.data.data;
   };
 
-  const {
-    data: postData,
-    isError,
-    isLoading,
-  } = useQuery(['postDetail', id], () => getPostDetail(id));
+  const { data, isError, isLoading } = useQuery(['postDetail', id], () =>
+    getPostDetail(id),
+  );
 
-  console.log(postData);
+  console.log(data);
 
-  if (postData && !postData.owner) {
+  if (data && !data.owner) {
     window.location.replace('javascript:history.back()');
     return null;
   }
 
   useEffect(() => {
-    if (postData) {
-      setPost(postData);
+    if (data) {
+      setPost(data);
     }
-  }, [postData, setPost]);
+  }, [data, setPost]);
 
   const mutation = useMutation(
     () =>
@@ -96,7 +91,7 @@ export const EditPost = () => {
   };
 
   const onClickHandleModal = () => {
-    if (post.title && post.content) {
+    if (data.title && data.content) {
       setModalType('edit');
       setOpenModal(!openModal);
     } else {
@@ -115,14 +110,8 @@ export const EditPost = () => {
 
   return (
     <StEditPostContainer>
-      <EditFormView />
-
-      <StAddressContainer>
-        <StIconText>
-          <MyDirectIcon />
-          <StAddressText>{post.address}</StAddressText>
-        </StIconText>
-      </StAddressContainer>
+      <EditFormView data={data} setPost={setPost} />
+      <EditMapView data={data} />
 
       <StBtnContainer>
         <StBtnBox1>
@@ -130,7 +119,8 @@ export const EditPost = () => {
             onClick={onClickCancle}
             label="취소"
             $buttonTheme="empty"
-            size="small"
+            size="mediumLong"
+            fontSize={Theme.fontSizes.h2}
           />
         </StBtnBox1>
         <StBtnBox2>
@@ -138,7 +128,8 @@ export const EditPost = () => {
             onClick={onClickHandleModal}
             label="수정 완료"
             $buttonTheme="blue"
-            size="small"
+            size="mediumLong"
+            fontSize={Theme.fontSizes.h2}
           />
         </StBtnBox2>
       </StBtnContainer>
