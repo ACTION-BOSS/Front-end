@@ -133,7 +133,7 @@ export const StPhotoBox = styled.div<{ image?: string }>`
   color: transparent;
   background-color: ${Theme.colors.gray1};
   background-image: ${({ image }) => (image ? `url(${image})` : 'none')};
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 8px;

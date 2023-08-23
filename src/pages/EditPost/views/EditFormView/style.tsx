@@ -109,21 +109,22 @@ export const StPhotoBox = styled.div<{ image?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 60px;
-  font-weight: 250;
   width: 100%;
   height: 130px;
-  color: transparent;
-  background-color: ${Theme.colors.gray1};
+  background-color: ${Theme.colors.gray8};
+  opacity: ${({ image }) => (image ? '1' : '0.4')};
   background-image: ${({ image }) => (image ? `url(${image})` : 'none')};
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+`;
 
-  &:hover {
-    background-color: ${({ image }) => (image ? '' : '#A9ACB1')};
-    color: white;
-  }
+export const StTitleText = styled.div`
+  font-family: 'GilbeotTG';
+  color: ${Theme.colors.gray1};
+
+  font-size: 26px;
+  letter-spacing: 1px;
 `;
