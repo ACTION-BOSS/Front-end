@@ -12,3 +12,7 @@ export interface EditFormViewProps {
   data: EditPostType;
   setPost: React.Dispatch<React.SetStateAction<EditPostType | null>>;
 }
+
+export interface EditMapViewProps {
+  data: EditPostType;
+}

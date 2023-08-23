@@ -18,6 +18,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { RecoilProvider } from '../../providers';
 import { createPostState } from './state';
+import { Theme } from '../../styles';
 
 export const CreatePost = () => {
   const token = localStorage.getItem('token');
@@ -97,7 +98,8 @@ export const CreatePost = () => {
               onClick={onClickCancle}
               label="취소"
               $buttonTheme="empty"
-              size="small"
+              size="mediumLong"
+              fontSize={Theme.fontSizes.h2}
             />
           </StBtnBox1>
           <StBtnBox2>
@@ -105,7 +107,8 @@ export const CreatePost = () => {
               onClick={onClickHandleModal}
               label="게시물 작성"
               $buttonTheme="blue"
-              size="small"
+              size="mediumLong"
+              fontSize={Theme.fontSizes.h2}
             />
           </StBtnBox2>
         </StBtnContainer>

@@ -12,14 +12,12 @@ import {
   StBg,
   StSkyline,
   StGrayBg,
-  StAddressContainer,
-  StIconText,
-  StAddressText,
 } from './style';
 import { Button } from '../../shared';
 import { Portal, PostModal } from '../../shared/PostModal';
-import { MyDirectIcon } from '../../assets';
 import { EditPostType } from './type';
+import { Theme } from '../../styles';
+import { EditMapView } from './views/EditMapView/EditMapView';
 
 export const EditPost = () => {
   const token = localStorage.getItem('token');
@@ -113,13 +111,7 @@ export const EditPost = () => {
   return (
     <StEditPostContainer>
       <EditFormView data={data} setPost={setPost} />
-
-      <StAddressContainer>
-        <StIconText>
-          <MyDirectIcon />
-          <StAddressText>{data.address}</StAddressText>
-        </StIconText>
-      </StAddressContainer>
+      <EditMapView data={data} />
 
       <StBtnContainer>
         <StBtnBox1>
@@ -127,7 +119,8 @@ export const EditPost = () => {
             onClick={onClickCancle}
             label="취소"
             $buttonTheme="empty"
-            size="small"
+            size="mediumLong"
+            fontSize={Theme.fontSizes.h2}
           />
         </StBtnBox1>
         <StBtnBox2>
@@ -135,7 +128,8 @@ export const EditPost = () => {
             onClick={onClickHandleModal}
             label="수정 완료"
             $buttonTheme="blue"
-            size="small"
+            size="mediumLong"
+            fontSize={Theme.fontSizes.h2}
           />
         </StBtnBox2>
       </StBtnContainer>

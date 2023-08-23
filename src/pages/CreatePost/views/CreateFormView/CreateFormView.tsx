@@ -25,8 +25,11 @@ export const CreateFormView = () => {
       const fileArray = Array.from(files);
       const imagesArray = fileArray.map((file) => URL.createObjectURL(file));
 
-      setPreviewImages(imagesArray.slice(0, 3));
-      setPost({ ...post, images: fileArray.slice(0, 3) });
+      const newPreviewImages = [...previewImages, ...imagesArray].slice(0, 3);
+      const newFiles = [...(post?.images || []), ...fileArray].slice(0, 3);
+
+      setPreviewImages(newPreviewImages);
+      setPost({ ...post, images: newFiles });
     }
   };
 

@@ -1,9 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { PingIcon } from '../../../../assets';
+import { MyDirectIcon, PingIcon } from '../../../../assets';
 import { MapIcon } from '../../../../shared/MapIcon';
 import { createPostState } from '../../state';
-import { StContainer, StMapContainer, StMapText, StMainMapIcon } from './style';
+import {
+  StContainer,
+  StMapContainer,
+  StMapText,
+  StMainMapIcon,
+  StAddressContainer,
+  StIconText,
+  StAddressText,
+} from './style';
 
 declare global {
   interface Window {
@@ -121,6 +129,12 @@ export const MapView = () => {
               mapCenterChangeHandler={mapCenterChangeHandler}
             />
           </StMainMapIcon>
+          <StAddressContainer>
+            <StIconText>
+              <MyDirectIcon />
+              <StAddressText>{post.address}</StAddressText>
+            </StIconText>
+          </StAddressContainer>
         </StMapContainer>
       </StContainer>
     </>

@@ -28,6 +28,7 @@ export const StMapContainer = styled.div`
   width: 100%;
   height: 98%;
   border-radius: 12px;
+  position: relative;
 `;
 
 export const StMainMapIcon = styled.div`
@@ -36,3 +37,22 @@ export const StMainMapIcon = styled.div`
   top: 15px;
   right: 15px;
 `;
+
+export const StAddressContainer = styled.div`
+  position: absolute;
+  display: flex;
+  z-index: 2;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+export const StIconText = styled.div`
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 2px 5px 0px ${(props) => props.theme.gray8};
+  border-radius: 100rem;
+  padding: 10px 23px 10px 20px;
+  gap: 5px;
+  background-color: ${Theme.colors.white};
+`;
+export const StAddressText = styled.div``;

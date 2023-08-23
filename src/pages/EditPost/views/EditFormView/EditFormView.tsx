@@ -9,6 +9,7 @@ import {
   StIconBox,
   StPhotoBox,
   StPhotoText,
+  StTitleText,
 } from './style';
 
 export const EditFormView: React.FC<EditFormViewProps> = ({
@@ -54,9 +55,18 @@ export const EditFormView: React.FC<EditFormViewProps> = ({
             <HelpIcon />
             <StPhotoText>사진을 삭제, 수정할 수 없습니다</StPhotoText>
           </StIconBox>
-          {data?.imageUrlList &&
-            data.imageUrlList.map((imageUrl, index) => (
-              <StPhotoBox key={index} image={imageUrl} />
+
+          {Array(3)
+            .fill(null)
+            .map((_, index) => (
+              <StPhotoBox
+                key={index}
+                image={data.imageUrlList?.[index] || undefined}
+              >
+                {!data.imageUrlList?.[index] && (
+                  <StTitleText>행동대장</StTitleText>
+                )}
+              </StPhotoBox>
             ))}
         </StPhotoBoxContainer>
       </StContentContainer>
