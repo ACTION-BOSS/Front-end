@@ -1,17 +1,15 @@
 import { FC } from 'react';
 import { PhotosView, ContentView, UnderButtonsView } from '../views';
-import { useDetailData } from './hooks';
+import { useDetailData, useMetoo } from './hooks';
 type DetailContainerProps = {};
 
 export const DetailContainer: FC<DetailContainerProps> = ({}) => {
-  const { data, isLoading, error } = useDetailData();
-
-  if (isLoading || error) {
-    return <></>;
-  }
-
-  console.log(data);
   const {
+    data,
+    isLoading,
+    error,
+    agree,
+    agreeCount,
     imageUrlList,
     title,
     content,
@@ -19,10 +17,18 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
     address,
     nickname,
     owner,
+  } = useDetailData();
+
+  const { handleClickMetooButton, localMetoo, localMetooCount } = useMetoo(
     agree,
     agreeCount,
-    postId,
-  } = data;
+  );
+
+  if (isLoading || error) {
+    return <></>;
+  }
+
+  console.log('dp data', data);
 
   return (
     <>
@@ -36,9 +42,9 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
       <UnderButtonsView
         address={address}
         owner={owner}
-        agree={agree}
-        agreeCount={agreeCount}
-        postId={postId}
+        handleClickMetooButton={handleClickMetooButton}
+        localMetoo={localMetoo}
+        localMetooCount={localMetooCount}
       />
     </>
   );

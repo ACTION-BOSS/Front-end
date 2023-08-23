@@ -11,6 +11,7 @@ import { useSetRecoilState } from 'recoil';
 import { $isVerificationFailed } from '../../state';
 import { useModal } from '../../../../providers';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { saveAccessToken, saveRefreshToken } from '../../../../shared';
 
 export const useLoginModalFormSubmit = () => {
   const { handleSubmit } = useFormContext<LoginModalFormData>();
@@ -45,16 +46,17 @@ export const useLoginModalFormSubmit = () => {
 
         if (response.status === 200) {
           console.log('로그인 요청 시 헤더:', response.headers);
-          const token = response.headers['authorization'];
+          const accessToken = response.headers['access'].split(' ')[1];
+          const refreshToken = response.headers['refresh'].split(' ')[1];
 
-          console.log('token: ', token);
-
-          const actualToken = token.split(' ')[1];
+          console.log('access_token: ', accessToken);
+          console.log('refresh_token: ', refreshToken);
 
           // localStorage에 저장
-          localStorage.setItem('token', actualToken);
+          accessToken && saveAccessToken(accessToken);
+          refreshToken && saveRefreshToken(refreshToken);
 
-          if (token) {
+          if (accessToken && refreshToken) {
             console.log('로그인 성공!');
             closeModal();
             // 아예 새로고침
@@ -66,11 +68,10 @@ export const useLoginModalFormSubmit = () => {
         const AxiosError = e as AxiosError;
 
         if (AxiosError.response) {
-          if (
-            AxiosError.response.status === 401 ||
-            AxiosError.response.status === 403
-          ) {
+          if (AxiosError.response.status === 401) {
             setIsVerificationFailed(true);
+          } else if (AxiosError.response.status === 403) {
+            // access token 만료했을 떄
           }
         }
       }

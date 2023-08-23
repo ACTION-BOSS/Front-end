@@ -19,5 +19,35 @@ export const useDetailData = () => {
     };
   }
 
-  return { data, isLoading, error };
+  const {
+    owner,
+    agree,
+    agreeCount,
+    imageUrlList,
+    title,
+    content,
+    createdAt,
+    address,
+    nickname,
+    done,
+    doneCount,
+  } = data;
+
+  return {
+    data,
+    isLoading,
+    error,
+    postId,
+    owner,
+    agree,
+    agreeCount,
+    imageUrlList,
+    title,
+    content,
+    createdAt,
+    address,
+    nickname,
+    done,
+    doneCount,
+  };
 };

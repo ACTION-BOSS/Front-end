@@ -20,8 +20,8 @@ export const StChildrenWrapper = styled.div`
 
   top: 140px;
   width: 100%;
-  max-width: 1020px;
-  padding: 30px 50px;
+  max-width: 1200px;
+  padding: 40px 50px;
   border-radius: 20px;
 
   background-color: white;
