@@ -4,15 +4,16 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import { WriteIcon } from '../../assets';
 import { EModalType, useModal } from '../../providers';
+import { getAccessToken, handleLogout } from '../TokenUtils/tokenUtils';
 
 export const Header = () => {
   const { openModal } = useModal();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
-  const token = localStorage.getItem('token');
+  const accessToken = getAccessToken();
 
   useEffect(() => {
-    token ? setIsLogin(true) : setIsLogin(false);
+    accessToken ? setIsLogin(true) : setIsLogin(false);
   }, []);
 
   const onClickMovePage = (name: string) => {
@@ -24,7 +25,7 @@ export const Header = () => {
   };
 
   const onClickLogoutHandler = () => {
-    localStorage.removeItem('token');
+    handleLogout();
     window.location.reload();
   };
 
