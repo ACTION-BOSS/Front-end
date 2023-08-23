@@ -34,6 +34,7 @@ export const useDetailData = () => {
   } = data;
 
   return {
+    data,
     isLoading,
     error,
     postId,

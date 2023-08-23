@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { toggleDoneData } from '../../../../api';
-import { getToken } from '../../../../shared';
+import { EModalType, useModal } from '../../../../providers';
+import { useRecoilState } from 'recoil';
+import { $isDoneAlertedFamily } from '../../state';
 
 export const useCompleted = (done: boolean, doneCount: number) => {
+  const { postId } = useParams();
   const [localDone, setLocalDone] = useState<boolean | null>(null);
   const [localDoneCount, setLocalDoneCount] = useState<number | null>(null);
-  const { postId } = useParams();
-  const navigate = useNavigate();
+  const [isReallyDone, setIsReallyDone] = useState<boolean>(false);
+  const [isDoneAlerted, setisDoneAlerted] = useRecoilState(
+    $isDoneAlertedFamily(postId),
+  );
+  const { openModal, closeModal } = useModal();
 
   const handleClickDoneButton = async () => {
     if (localDoneCount === 5 && !localDone) {
@@ -38,8 +44,28 @@ export const useCompleted = (done: boolean, doneCount: number) => {
     setLocalDoneCount(doneCount);
   }, [done, doneCount]);
 
+  useEffect(() => {
+    if (localDoneCount === 5 && !isDoneAlerted) {
+      setIsReallyDone(true);
+      setisDoneAlerted(true);
+      openModal(EModalType.POP_UP, {
+        title: '해결 완료 처리된 게시물입니다',
+        cancelButton: false,
+        functionButton: {
+          label: '닫기',
+          onClick: () => {
+            closeModal();
+          },
+          theme: 'emptyBlue',
+        },
+      });
+    }
+  }, [localDoneCount, isReallyDone]);
+
   return {
     handleClickDoneButton,
+    localDone,
     localDoneCount,
+    isReallyDone,
   };
 };
