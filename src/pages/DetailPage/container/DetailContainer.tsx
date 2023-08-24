@@ -49,12 +49,3 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
     </>
   );
 };
-
-// <div
-//   style={{
-//     display: 'flex',
-//     overflowY: 'auto',
-//     wordBreak: 'break-word',
-//   }}
-// >
-// </div>

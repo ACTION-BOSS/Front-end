@@ -1,7 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import { api } from './api';
 import { AxiosError } from 'axios';
+import { EModalType, useModal } from '../providers';
 
-export const fetchDetailPageData = (postId: string | undefined) => {
+export const useFetchDetailPageData = (postId: string | undefined) => {
+  const navigate = useNavigate();
+  const { openModal, closeModal } = useModal();
+
   const getDetailPageData = async () => {
     try {
       const response = await api.get(`/posts/${postId}`);
@@ -16,8 +21,18 @@ export const fetchDetailPageData = (postId: string | undefined) => {
       console.log(AxiosError);
 
       if (AxiosError.response?.status === 404) {
-        alert('존재하지 않는 게시글입니다.');
-        location.href = '/main';
+        navigate('/notfound');
+        openModal(EModalType.POP_UP, {
+          title: '존재하지 않는 게시글입니다',
+          cancelButton: false,
+          functionButton: {
+            label: '닫기',
+            onClick: () => {
+              closeModal();
+            },
+            theme: 'emptyBlue',
+          },
+        });
       }
 
       return AxiosError;

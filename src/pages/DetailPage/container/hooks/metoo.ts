@@ -9,11 +9,10 @@ export const useMetoo = (agree: boolean, agreeCount: number) => {
   const { postId } = useParams();
 
   const handleClickMetooButton = async () => {
-    await toggleMetooData(postId);
-
     const accessToken = getAccessToken();
 
     if (accessToken) {
+      await toggleMetooData(postId);
       if (localMetoo) {
         setLocalMetooCount((prevCount) => (prevCount ? prevCount - 1 : 0));
         setLocalMetoo(false);
