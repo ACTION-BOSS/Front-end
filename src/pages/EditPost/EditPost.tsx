@@ -20,7 +20,7 @@ import { Theme } from '../../styles';
 import { EditMapView } from './views/EditMapView/EditMapView';
 
 export const EditPost = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
   const [post, setPost] = useState<EditPostType | null>(null);
 
   const [openModal, setOpenModal] = useState(false);

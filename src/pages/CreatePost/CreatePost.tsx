@@ -21,7 +21,7 @@ import { createPostState } from './state';
 import { Theme } from '../../styles';
 
 export const CreatePost = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
   const post = useRecoilValue(createPostState);
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('default');
