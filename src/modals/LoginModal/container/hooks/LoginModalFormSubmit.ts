@@ -10,22 +10,12 @@ import { AxiosError } from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { $isVerificationFailed } from '../../state';
 import { useModal } from '../../../../providers';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { saveAccessToken, saveRefreshToken } from '../../../../shared';
+import { saveAccessToken } from '../../../../shared';
 
 export const useLoginModalFormSubmit = () => {
   const { handleSubmit } = useFormContext<LoginModalFormData>();
   const setIsVerificationFailed = useSetRecoilState($isVerificationFailed);
   const { closeModal } = useModal();
-
-  // TODO
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  // 내 페이지로 다시 렌덜잉
-  const reloadPage = () => {
-    navigate(location.pathname);
-  };
 
   const onFormError: SubmitErrorHandler<LoginModalFormData> = useCallback(
     async (error) => {},
@@ -46,20 +36,14 @@ export const useLoginModalFormSubmit = () => {
 
         if (response.status === 200) {
           console.log('로그인 요청 시 헤더:', response.headers);
-          const accessToken = response.headers['access'].split(' ')[1];
-          const refreshToken = response.headers['refresh'].split(' ')[1];
 
+          const accessToken = response.headers['authorization'].split(' ')[1];
           console.log('access_token: ', accessToken);
-          console.log('refresh_token: ', refreshToken);
-
-          // localStorage에 저장
           accessToken && saveAccessToken(accessToken);
-          refreshToken && saveRefreshToken(refreshToken);
 
-          if (accessToken && refreshToken) {
+          if (accessToken) {
             console.log('로그인 성공!');
             closeModal();
-            // 아예 새로고침
             window.location.reload();
           }
         }
@@ -68,10 +52,11 @@ export const useLoginModalFormSubmit = () => {
         const AxiosError = e as AxiosError;
 
         if (AxiosError.response) {
-          if (AxiosError.response.status === 401) {
+          if (
+            AxiosError.response.status === 401 ||
+            AxiosError.response.status === 403
+          ) {
             setIsVerificationFailed(true);
-          } else if (AxiosError.response.status === 403) {
-            // access token 만료했을 떄
           }
         }
       }
