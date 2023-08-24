@@ -13,7 +13,7 @@ import {
 } from './style';
 
 export const EditFormView: React.FC<EditFormViewProps> = ({
-  data,
+  post,
   setPost,
 }) => {
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,17 +37,17 @@ export const EditFormView: React.FC<EditFormViewProps> = ({
   return (
     <StFormContainer>
       <StInputContainer>
-        <input value={data.title} onChange={onChangeTitle} maxLength={50} />
-        <div>{data.title.length}/50자</div>
+        <input value={post.title} onChange={onChangeTitle} maxLength={50} />
+        <div>{post.title.length}/50자</div>
       </StInputContainer>
       <StContentContainer>
         <StTextContainer>
           <textarea
-            value={data.content}
+            value={post.content}
             onChange={onChangeContent}
             maxLength={500}
           />
-          <div>{data.content.length}/500자</div>
+          <div>{post.content.length}/500자</div>
         </StTextContainer>
 
         <StPhotoBoxContainer>
@@ -61,9 +61,9 @@ export const EditFormView: React.FC<EditFormViewProps> = ({
             .map((_, index) => (
               <StPhotoBox
                 key={index}
-                image={data.imageUrlList?.[index] || undefined}
+                image={post.imageUrlList?.[index] || undefined}
               >
-                {!data.imageUrlList?.[index] && (
+                {!post.imageUrlList?.[index] && (
                   <StTitleText>행동대장</StTitleText>
                 )}
               </StPhotoBox>
