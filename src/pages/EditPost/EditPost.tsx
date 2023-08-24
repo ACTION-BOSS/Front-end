@@ -110,8 +110,8 @@ export const EditPost = () => {
 
   return (
     <StEditPostContainer>
-      <EditFormView data={data} setPost={setPost} />
-      <EditMapView data={data} />
+      {post && <EditFormView post={post} setPost={setPost} />}
+      {post && <EditMapView post={post} />}
 
       <StBtnContainer>
         <StBtnBox1>

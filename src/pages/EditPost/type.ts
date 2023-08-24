@@ -9,10 +9,10 @@ export interface EditPostType {
 }
 
 export interface EditFormViewProps {
-  data: EditPostType;
+  post: EditPostType;
   setPost: React.Dispatch<React.SetStateAction<EditPostType | null>>;
 }
 
 export interface EditMapViewProps {
-  data: EditPostType;
+  post: EditPostType;
 }

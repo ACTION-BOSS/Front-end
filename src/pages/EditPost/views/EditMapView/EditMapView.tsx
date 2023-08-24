@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-export const EditMapView: React.FC<EditMapViewProps> = ({ data }) => {
+export const EditMapView: React.FC<EditMapViewProps> = ({ post }) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const [map, setMap] = useState<any>(null);
 
@@ -26,7 +26,7 @@ export const EditMapView: React.FC<EditMapViewProps> = ({ data }) => {
 
       // 지도의 초기 위치 및 줌 레벨 설정
       const options = {
-        center: new window.kakao.maps.LatLng(data.latitude, data.longitude),
+        center: new window.kakao.maps.LatLng(post.latitude, post.longitude),
         scrollwheel: true,
         draggable: false,
       };
@@ -40,14 +40,14 @@ export const EditMapView: React.FC<EditMapViewProps> = ({ data }) => {
       const imageOption = { offset: new window.kakao.maps.Point(20, 20) };
       const markerImage = new MarkerImage(pingIconSrc, imageSize, imageOption);
       const marker = new Marker({
-        position: new window.kakao.maps.LatLng(data.latitude, data.longitude),
+        position: new window.kakao.maps.LatLng(post.latitude, post.longitude),
         image: markerImage,
       });
 
       // 마커를 지도에 추가
       marker.setMap(mapInstance);
     }
-  }, [data.latitude, data.longitude]);
+  }, [post.latitude, post.longitude]);
 
   return (
     <>
@@ -57,7 +57,7 @@ export const EditMapView: React.FC<EditMapViewProps> = ({ data }) => {
           <StAddressContainer>
             <StIconText>
               <MyDirectIcon />
-              <StAddressText>{data.address}</StAddressText>
+              <StAddressText>{post.address}</StAddressText>
             </StIconText>
           </StAddressContainer>
         </StMapContainer>
