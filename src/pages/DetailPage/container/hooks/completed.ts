@@ -50,6 +50,7 @@ export const useCompleted = (done: boolean, doneCount: number) => {
           label: '닫기',
           onClick: () => {
             closeModal();
+            window.location.reload();
           },
           theme: 'emptyBlue',
         },

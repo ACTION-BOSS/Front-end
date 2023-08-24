@@ -35,10 +35,12 @@ export const PhotosView: FC<PhotosViewProps> = ({ imageUrlList, postDone }) => {
     <StPhotosWrapper>
       <StMainImageWrapper $postDone={postDone}>
         <StMainImage src={previewImages[selectedImageIndex]} />
-        <StClearIconWrapper>
-          <ClearIcon color={Theme.colors.blueGray} size={100} />
-          <StClearText>해결 완료!</StClearText>
-        </StClearIconWrapper>
+        {postDone && (
+          <StClearIconWrapper>
+            <ClearIcon color={Theme.colors.blueGray} size={100} />
+            <StClearText>해결 완료!</StClearText>
+          </StClearIconWrapper>
+        )}
       </StMainImageWrapper>
       <StPreviewImagesWrapper>
         {previewImages.map((e, i) =>
