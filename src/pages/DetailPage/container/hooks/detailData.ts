@@ -31,6 +31,7 @@ export const useDetailData = () => {
     nickname,
     done,
     doneCount,
+    postDone,
   } = data;
 
   return {
@@ -49,5 +50,6 @@ export const useDetailData = () => {
     nickname,
     done,
     doneCount,
+    postDone,
   };
 };

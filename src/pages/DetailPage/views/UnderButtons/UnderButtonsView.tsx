@@ -7,6 +7,7 @@ type UnderButtonsViewProps = {
   handleClickMetooButton: () => void;
   localMetooCount: number | null;
   localMetoo: boolean | null;
+  postDone: boolean;
 };
 
 export const UnderButtonsView: FC<UnderButtonsViewProps> = ({
@@ -15,6 +16,7 @@ export const UnderButtonsView: FC<UnderButtonsViewProps> = ({
   handleClickMetooButton,
   localMetooCount,
   localMetoo,
+  postDone,
 }) => {
   return (
     <StWrapper>
@@ -24,6 +26,7 @@ export const UnderButtonsView: FC<UnderButtonsViewProps> = ({
           handleClickMetooButton={handleClickMetooButton}
           localMetooCount={localMetooCount}
           localMetoo={localMetoo}
+          postDone={postDone}
         />
       </StButtonWrapper>
     </StWrapper>
