@@ -1,3 +1,19 @@
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useModal } from '../../../../providers';
+import { styled } from 'styled-components';
+import { Theme } from '../../../../styles';
+import { KakaoIcon } from '../../../../assets';
+type KakaoLoginViewProps = {};
+
+export const KakaoLoginView: FC<KakaoLoginViewProps> = ({}) => {
+  const navigate = useNavigate();
+  const { closeModal } = useModal();
+  const handleClickKakaoIcon = () => {
+    navigate('/oauth');
+    closeModal();
+  };
+
   return (
     <StKakaoButton onClick={handleClickKakaoIcon}>
       <StKakaoIconWrapper>
