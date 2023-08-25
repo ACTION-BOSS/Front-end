@@ -12,3 +12,6 @@ export const SKYLINE =
 
 export const NOTFOUNDBG =
   'https://res.cloudinary.com/dy5pujkzs/image/upload/v1692354895/404png_cdsrzl.png';
+
+export const BAG =
+  'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692968353/d90ghp4zantkr1edxuxf.png';
