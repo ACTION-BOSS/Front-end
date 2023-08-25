@@ -1,11 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, FC } from 'react';
 import * as s from './MainMapStyle';
 import { Coordinates, Ping, Post } from '../../type';
 import { MapIcon } from '../../../../shared/MapIcon';
-import { useQuery } from '@tanstack/react-query';
-import { getMapPing, getSelectPost } from '../../../../api';
-import { BigPingIcon, PingIcon } from '../../../../assets';
-import { MainModal } from '../MainModal';
+import { getSelectPost } from '../../../../api';
+import {
+  DefaultMarkerImage,
+  EnlargedMarkerImage,
+  createClusterer,
+} from '../../../../assets';
+import { MainModal } from '../../components';
+import { useMapDataQuery } from '../../hook';
 
 declare global {
   interface Window {
@@ -13,7 +17,7 @@ declare global {
   }
 }
 
-interface Props {
+type MainMapProps = {
   isDone: boolean;
   mapCoordinates: Coordinates;
   mapCoordinatesChangeHandler: (
@@ -22,13 +26,13 @@ interface Props {
     south: number,
     west: number,
   ) => void;
-}
+};
 
-export const MainMap = ({
+export const MainMap: FC<MainMapProps> = ({
   isDone,
   mapCoordinates,
   mapCoordinatesChangeHandler,
-}: Props) => {
+}) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const clustererRef = useRef<any>(null);
   const [currentClickedMarker, setCurrentClickedMarker] = useState<any | null>(
@@ -51,9 +55,7 @@ export const MainMap = ({
     title: '',
   });
 
-  const { data } = useQuery(['mapPing', isDone, mapCoordinates], () =>
-    getMapPing(isDone, mapCoordinates),
-  );
+  const { data } = useMapDataQuery(isDone, mapCoordinates);
 
   const updateMapBounds = () => {
     if (map) {
@@ -62,48 +64,18 @@ export const MainMap = ({
     }
   };
 
-  const defaultMarkerImage = new window.kakao.maps.MarkerImage(
-    PingIcon(isDone),
-    new window.kakao.maps.Size(51, 71),
-  );
-
-  const enlargedMarkerImage = new window.kakao.maps.MarkerImage(
-    PingIcon(isDone), // 확대된 마커용 다른 아이콘이 필요할 수 있습니다.
-    new window.kakao.maps.Size(61, 81), // 필요에 따라 크기 조정
-  );
-
   const renderPingMarkers = (pingData: Ping[], map: any) => {
     if (clustererRef.current) {
       clustererRef.current.clear();
     }
-    const clusterer = new window.kakao.maps.MarkerClusterer({
-      map,
-      averageCenter: true,
-      minLevel: 5,
-      gridSize: 70,
-      styles: [
-        {
-          width: '130px',
-          height: '95px',
-          background: `url(${BigPingIcon(isDone)})`,
-          backgroundRepeat: 'no-repeat',
-          color: '#fff',
-          backgroundPosition: '15px 1px',
-          textAlign: 'left',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '25px',
-        },
-      ],
-    });
+    const clusterer = createClusterer(map, isDone);
 
     const markers: any[] = [];
 
     pingData.forEach((ping: Ping) => {
       const marker = new window.kakao.maps.Marker({
         map,
-        image: defaultMarkerImage,
+        image: DefaultMarkerImage(isDone),
         position: new window.kakao.maps.LatLng(ping.latitude, ping.longitude),
         id: ping.postId,
       });
@@ -111,21 +83,29 @@ export const MainMap = ({
       markers.push(marker);
 
       window.kakao.maps.event.addListener(marker, 'click', () => {
-        markers.forEach((m: any) => {
-          m.setImage(defaultMarkerImage);
-        });
+        markers.forEach(
+          (m: any) => {
+            m.setImage(DefaultMarkerImage(isDone));
+          },
+          { passive: true },
+        );
 
         onClickPingHandler(ping.postId);
-        marker.setImage(enlargedMarkerImage);
+        marker.setImage(EnlargedMarkerImage(isDone));
         setCurrentClickedMarker(marker);
       });
 
       clusterer.addMarker(marker);
     });
 
-    window.kakao.maps.event.addListener(clusterer, 'clusterclick', () => {
-      setZoomLevel(map.getLevel());
-    });
+    window.kakao.maps.event.addListener(
+      clusterer,
+      'clusterclick',
+      () => {
+        setZoomLevel(map.getLevel());
+      },
+      { passive: true },
+    );
 
     clustererRef.current = clusterer;
   };
@@ -160,8 +140,11 @@ export const MainMap = ({
         map,
         'zoom_changed',
         handleZoomChanged,
+        { passive: true },
       );
-      window.kakao.maps.event.addListener(map, 'dragend', handleDragEnd);
+      window.kakao.maps.event.addListener(map, 'dragend', handleDragEnd, {
+        passive: true,
+      });
 
       return () => {
         window.kakao.maps.event.removeListener(
@@ -176,7 +159,7 @@ export const MainMap = ({
 
   useEffect(() => {
     if (!isModal && currentClickedMarker) {
-      currentClickedMarker.setImage(defaultMarkerImage);
+      currentClickedMarker.setImage(DefaultMarkerImage(isDone));
       setCurrentClickedMarker(null);
     }
   }, [isModal]);
