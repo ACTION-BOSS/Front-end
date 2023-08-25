@@ -70,14 +70,7 @@ export const toggleDoneData = async (postId: string | undefined) => {
     }
   } catch (e) {
     const AxiosError = e as AxiosError;
-
     console.log(AxiosError);
-
-    if (AxiosError.response?.status === 404) {
-      alert('존재하지 않는 게시글입니다.');
-      location.href = '/main';
-    }
-
     return AxiosError;
   }
 };
@@ -94,9 +87,7 @@ export const toggleMetooData = async (postId: string | undefined) => {
     }
   } catch (e) {
     const AxiosError = e as AxiosError;
-
     console.log(AxiosError);
-
     return AxiosError;
   }
 };

@@ -5,6 +5,7 @@ import { getAccessToken } from '../../../../shared';
 import { EModalType, useModal } from '../../../../providers';
 import { useRecoilState } from 'recoil';
 import { $isDoneAlertedFamily } from '../../state';
+import { toast } from 'react-toastify';
 
 export const useCompleted = (done: boolean, doneCount: number) => {
   const { postId } = useParams();
@@ -30,7 +31,16 @@ export const useCompleted = (done: boolean, doneCount: number) => {
         setLocalDone(true);
       }
     } else {
-      alert('로그인 후 이용 가능합니다');
+      toast.error('로그인 후 이용 가능합니다', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     }
   };
 
