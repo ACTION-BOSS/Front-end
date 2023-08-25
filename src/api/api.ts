@@ -12,7 +12,6 @@ export const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const accessToken = getAccessToken();
-    console.log(123, accessToken);
     if (accessToken) {
       config.headers['authorization'] = `Bearer ${accessToken}`;
     }
