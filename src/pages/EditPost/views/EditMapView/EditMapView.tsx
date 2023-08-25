@@ -35,7 +35,7 @@ export const EditMapView: React.FC<EditMapViewProps> = ({ post }) => {
       setMap(mapInstance);
 
       // 마커 설정
-      const pingIconSrc = PingIcon('최신순');
+      const pingIconSrc = PingIcon(false);
       const imageSize = new window.kakao.maps.Size(40, 40);
       const imageOption = { offset: new window.kakao.maps.Point(20, 20) };
       const markerImage = new MarkerImage(pingIconSrc, imageSize, imageOption);

@@ -1,34 +1,41 @@
-import React from 'react';
-import { MyDirectIcon, UncomBigIcon, XButtonBigIcon } from '../../../../assets';
+import React, { FC } from 'react';
+import {
+  ClearSumIcon,
+  MyDirectIcon,
+  UncomBigIcon,
+  XButtonBigIcon,
+} from '../../../../assets';
 import * as s from './MainModalStyle';
 import { Post } from '../../type';
 
-interface Props {
+type MainModalProps = {
   onClick(): void;
   post: Post;
-}
-export const MainModal = ({ onClick, post }: Props) => {
+};
+export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
+  const { address, done, thumbnail, agreeCount, title, nickname } = post;
   return (
     <s.MainModalContainer>
       <s.MainModalTop>
         <div className="address">
           <MyDirectIcon />
-          <div>(민원위치) {post.address}</div>
+          <div>(민원위치) {address}</div>
         </div>
         <div className="xButton" onClick={onClick}>
           <XButtonBigIcon />
         </div>
       </s.MainModalTop>
-      <s.MainModalMiddle>
-        <img src={post.thumbnail} />
+      <s.MainModalMiddle $isDone={done}>
+        <div className="postImg">{done && <ClearSumIcon />}</div>
+        <img src={thumbnail} />
         <s.UnLike>
           <UncomBigIcon size={24} />
-          <div>{post.agreeCount}</div>
+          <div>{agreeCount}</div>
         </s.UnLike>
       </s.MainModalMiddle>
       <s.MainModalBottom>
-        <div className="title">{post.title}</div>
-        <div className="nickname">{post.nickname}</div>
+        <div className="title">{title}</div>
+        <div className="nickname">{nickname}</div>
       </s.MainModalBottom>
     </s.MainModalContainer>
   );
