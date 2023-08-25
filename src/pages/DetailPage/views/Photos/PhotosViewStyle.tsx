@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
 
 export const StClearIconWrapper = styled.div`
   position: absolute;
@@ -28,12 +28,16 @@ export const StPhotosWrapper = styled.div`
   max-height: 560px;
   margin-bottom: 48.5px;
 
-  @media (max-width: 650px) {
+  @media (max-width: 800px) {
     flex-direction: column;
-
-    padding-left: 36px;
-    padding-right: 36px;
   }
+
+  ${media.tablet`
+    background-color: yellow`}
+
+  ${media.mobile`
+    background-color: red;
+  `}
 `;
 
 export const StMainImageWrapper = styled.div<{ $postDone: boolean }>`
@@ -72,7 +76,7 @@ export const StMainImage = styled.img`
   width: 100%;
   height: 100%;
 
-  @media (max-width: 650px) {
+  @media (max-width: 800px) {
     aspect-ratio: 900/648;
   }
 `;
@@ -93,7 +97,7 @@ export const StPreviewImagesWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  @media (max-width: 650px) {
+  @media (max-width: 800px) {
     flex-direction: row;
     width: 100%;
   }
@@ -136,7 +140,7 @@ export const StPreviewWrapper = styled.div<{
 }
 `}
 
-  @media (max-width: 650px) {
+  @media (max-width: 800px) {
     width: 150px;
   }
 `;
@@ -153,7 +157,7 @@ export const StNoImages = styled.div`
 
   overflow: hidden;
 
-  @media (max-width: 650px) {
+  @media (max-width: 800px) {
     width: 150px;
   }
 `;
