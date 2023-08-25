@@ -16,12 +16,12 @@ import {
 } from './style';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { RecoilProvider } from '../../providers';
+
 import { createPostState } from './state';
 import { Theme } from '../../styles';
 
 export const CreatePost = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
   const post = useRecoilValue(createPostState);
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('default');
@@ -55,6 +55,8 @@ export const CreatePost = () => {
     }
   };
 
+  console.log(post)
+
   const sendPostRequest = async () => {
     const formData = new FormData();
     const postJSON = JSON.stringify({
@@ -87,8 +89,7 @@ export const CreatePost = () => {
     },
   });
 
-  return (
-    <RecoilProvider>
+  return (   
       <StCreatePostContainer>
         <CreateFormView />
         <MapView />
@@ -128,7 +129,6 @@ export const CreatePost = () => {
             />
           </Portal>
         )}
-      </StCreatePostContainer>
-    </RecoilProvider>
+      </StCreatePostContainer>   
   );
 };

@@ -184,6 +184,7 @@ export const MainMap = ({
   useEffect(() => {
     if (map && data) {
       renderPingMarkers(data.data, map);
+      setIsModal(false);
     }
   }, [map, data]);
 
