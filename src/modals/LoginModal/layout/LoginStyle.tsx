@@ -3,31 +3,54 @@ import { Theme } from '../../../styles';
 
 export const StHeader = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
   height: 60px;
-
   padding-left: 14px;
   padding-right: 14px;
+  align-self: flex-end;
 `;
 
-export const StChildrenWrapper = styled.div`
+export const StTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+export const StTextL1 = styled.div`
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  color: ${Theme.colors.gray4};
+`;
+
+export const StTextL3 = styled.div`
+  color: ${Theme.colors.gray7};
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration-line: underline;
+  cursor: pointer;
+`;
+
+//
+export const StLogoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 `;
 
-export const SampleLogo = styled.div`
-  width: 117px;
-  height: 61px;
+export const StChildrenWrapper = styled(StLogoWrapper)``;
 
-  background-color: ${Theme.colors.gray1};
-`;
-
+//
 export const StModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,6 +65,7 @@ export const StModalWrapper = styled.div`
   overflow: hidden;
 `;
 
+//
 export const StViewWrapper = styled.div`
   display: flex;
   flex: 1;
@@ -55,16 +79,7 @@ export const StViewWrapper = styled.div`
   align-items: center;
 `;
 
-export const StButtonWrapper = styled.div`
-  width: 328px;
-`;
-
-export const StTransparentDiv = styled.div`
-  width: 24px;
-  height: 24px;
-  background-color: transparent;
-`;
-
+//
 export const StFooter = styled.div`
   display: flex;
   justify-content: center;

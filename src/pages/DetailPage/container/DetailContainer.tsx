@@ -17,6 +17,7 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
     address,
     nickname,
     owner,
+    postDone,
   } = useDetailData();
 
   const { handleClickMetooButton, localMetoo, localMetooCount } = useMetoo(
@@ -28,11 +29,11 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
     return <></>;
   }
 
-  console.log('dp data', data);
+  console.log('detail', data);
 
   return (
     <>
-      <PhotosView imageUrlList={imageUrlList} />
+      <PhotosView imageUrlList={imageUrlList} postDone={postDone} />
       <ContentView
         title={title}
         content={content}
@@ -45,16 +46,8 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
         handleClickMetooButton={handleClickMetooButton}
         localMetoo={localMetoo}
         localMetooCount={localMetooCount}
+        postDone={postDone}
       />
     </>
   );
 };
-
-// <div
-//   style={{
-//     display: 'flex',
-//     overflowY: 'auto',
-//     wordBreak: 'break-word',
-//   }}
-// >
-// </div>

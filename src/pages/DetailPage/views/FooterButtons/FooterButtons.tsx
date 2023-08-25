@@ -1,16 +1,16 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Button } from '../../../../shared';
-import { Theme } from '../../../../styles';
-import { CompletedButton } from '../../components';
 import { useDeleteData, useDetailData } from '../../container';
 import { EModalType, useModal } from '../../../../providers';
 import { useNavigate, useParams } from 'react-router-dom';
+import { CompletedButton } from '../../components';
+import { Button } from '../../../../shared';
+import { Theme } from '../../../../styles';
 type FooterButtonsProps = {};
 
 export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
   const { postId } = useParams();
-  const { data, isLoading, error, owner } = useDetailData();
+  const { isLoading, error, owner, postDone } = useDetailData();
   const { openModal } = useModal();
   const navigate = useNavigate();
   const { deleteData } = useDeleteData();
@@ -18,11 +18,11 @@ export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
     deleteData();
   };
 
-  if (isLoading) {
+  if (isLoading || error) {
     return <></>;
   }
 
-  return (
+  return !postDone ? (
     <StBottomButtonWrapper>
       <StButtonsWrapper>
         {owner && (
@@ -56,10 +56,12 @@ export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
       </StButtonsWrapper>
       <CompletedButton />
     </StBottomButtonWrapper>
+  ) : (
+    <StBottomButtonWrapper $postDone={postDone} />
   );
 };
 
-export const StBottomButtonWrapper = styled.div`
+export const StBottomButtonWrapper = styled.div<{ $postDone?: boolean }>`
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -67,7 +69,7 @@ export const StBottomButtonWrapper = styled.div`
 
   padding-bottom: 127px;
 
-  bottom: -260px;
+  bottom: ${({ $postDone }) => ($postDone ? '-100px' : '-260px')};
   right: 4px;
 `;
 

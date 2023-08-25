@@ -1,3 +1,8 @@
+export type MediaType = {
+  mobile: string;
+  tablet: string;
+};
+
 export type ColorsType = {
   pink: string;
   blue: string;
@@ -42,6 +47,7 @@ export type FontWeightsType = {
 };
 
 export interface ThemeType {
+  media: MediaType;
   colors: ColorsType;
   fontSizes: FontSizesType;
   fontWeights: FontWeightsType;
