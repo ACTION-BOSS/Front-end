@@ -8,7 +8,7 @@ import {
   EnlargedMarkerImage,
   createClusterer,
 } from '../../../../assets';
-import { MainModal } from '../../components';
+import { LocationBox, MainModal } from '../../components';
 import { useMapDataQuery } from '../../hook';
 
 declare global {
@@ -224,6 +224,9 @@ export const MainMap: FC<MainMapProps> = ({
           mapCenterChangeHandler={mapCenterChangeHandler}
         />
       </s.MainMapIcon>
+      <s.MainLocationBox>
+        <LocationBox />
+      </s.MainLocationBox>
       {isModal && (
         <s.MainModalContainer>
           <MainModal onClick={toggleModal} post={modalData} />

@@ -14,12 +14,14 @@ type MainModalProps = {
 };
 export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
   const { address, done, thumbnail, agreeCount, title, nickname } = post;
+  let croppedAddress = address.split(' ').slice(0, 3).join(' ');
+
   return (
     <s.MainModalContainer>
       <s.MainModalTop>
         <div className="address">
           <MyDirectIcon />
-          <div>(민원위치) {address}</div>
+          <div>(민원위치) {croppedAddress}</div>
         </div>
         <div className="xButton" onClick={onClick}>
           <XButtonBigIcon />

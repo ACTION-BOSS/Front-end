@@ -21,9 +21,10 @@ export const MainPosts: FC<MainPostsProps> = ({
   isDone,
   handleClickDoneButton,
 }) => {
-  const [option, setOption] = useState('최신순');
+  const [sizeControl, setSizeControl] = useState<boolean>(false);
+  const [option, setOption] = useState<string>('최신순');
   const observerElem = useRef<HTMLDivElement>(null);
-  
+
   const { data, isSuccess, fetchNextPage, hasNextPage, isLoading, isError } =
     useMainPostsQuery(option, isDone, mapCoordinates);
 
@@ -31,6 +32,10 @@ export const MainPosts: FC<MainPostsProps> = ({
 
   const handleClickOptionButton = (option: string) => {
     setOption(option);
+  };
+
+  const handleClickSizeToggle = () => {
+    setSizeControl(!sizeControl);
   };
 
   useEffect(() => {
@@ -47,7 +52,10 @@ export const MainPosts: FC<MainPostsProps> = ({
   const allPosts =
     (isSuccess && data.pages.flatMap((page) => page.data.postList)) || [];
   return (
-    <s.MainPostsConatiner>
+    <s.MainPostsConatiner $sizeControl={sizeControl}>
+      <s.MainPostsShortLine onClick={handleClickSizeToggle}>
+        <div />
+      </s.MainPostsShortLine>
       <s.MainPostHeader>
         <div>우리동네 민원들</div>
         <DoneButton
@@ -55,27 +63,29 @@ export const MainPosts: FC<MainPostsProps> = ({
           handleClickDoneButton={handleClickDoneButton}
         />
       </s.MainPostHeader>
-      {allPosts.length === 0 ? (
-        <s.NoPosts>
-          <NoPost />
-        </s.NoPosts>
-      ) : (
-        <OptionButtons
-          option={option}
-          handleClickOptionButton={handleClickOptionButton}
-        />
-      )}
-      <s.MainPosts $noPost={allPosts.length === 0}>
-        {isLoading &&
-          Array(5)
-            .fill(0)
-            .map((_, index) => <MainPostSkeleton key={index} />)}
-        {isError && <div>에러</div>}
-        {allPosts.map((post: Post) => (
-          <MainPost key={post.postId} post={post} isDone={isDone} />
-        ))}
-        <div ref={observerElem} />
-      </s.MainPosts>
+      <s.MainPostsContent $sizeControl={sizeControl}>
+        {!isLoading && allPosts.length === 0 ? (
+          <s.NoPosts>
+            <NoPost />
+          </s.NoPosts>
+        ) : (
+          <OptionButtons
+            option={option}
+            handleClickOptionButton={handleClickOptionButton}
+          />
+        )}
+        <s.MainPosts>
+          {isLoading &&
+            Array(5)
+              .fill(0)
+              .map((_, index) => <MainPostSkeleton key={index} />)}
+          {isError && <div>에러</div>}
+          {allPosts.map((post: Post) => (
+            <MainPost key={post.postId} post={post} isDone={isDone} />
+          ))}
+          <div ref={observerElem} />
+        </s.MainPosts>
+      </s.MainPostsContent>
     </s.MainPostsConatiner>
   );
 };

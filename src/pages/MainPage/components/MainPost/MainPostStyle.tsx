@@ -1,9 +1,14 @@
 import { styled } from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
 
 export const MainPostStyle = styled.div`
   margin: 0 0 30px;
   cursor: pointer;
+  ${media.tablet`
+  width: calc((100% / 3) - 10px);
+  height: 260px;
+  margin: 5px 0;
+`}
 `;
 
 export const MainPostImg = styled.div<{ $isDone: boolean }>`
