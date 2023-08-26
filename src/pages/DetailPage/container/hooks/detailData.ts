@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchDetailPageData } from '../../../../api';
 import { useParams } from 'react-router-dom';
 
 export const useDetailData = () => {
+  const queryClient = useQueryClient();
   const { postId } = useParams();
   const { getDetailPageData } = fetchDetailPageData(postId);
 
@@ -31,6 +32,7 @@ export const useDetailData = () => {
     nickname,
     done,
     doneCount,
+    comments,
   } = data;
 
   return {
@@ -49,5 +51,7 @@ export const useDetailData = () => {
     nickname,
     done,
     doneCount,
+    comments,
+    queryClient,
   };
 };

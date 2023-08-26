@@ -9,7 +9,7 @@ export const StModalContainer = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: 9999;
 `;
 
 export const StModalBg = styled.div`
