@@ -16,6 +16,8 @@ export const MainPost: FC<MainPostProps> = ({ post, isDone }) => {
   };
 
   const { postId, thumbnail, agreeCount, title, address, nickname } = post;
+  let croppedAddress = address.split(' ').slice(0, 3).join(' ');
+
   return (
     <s.MainPostStyle onClick={() => onClickMovePage(postId)}>
       <s.MainPostImg $isDone={isDone}>
@@ -31,7 +33,7 @@ export const MainPost: FC<MainPostProps> = ({ post, isDone }) => {
         <div className="content">
           <div className="address">
             <MyDirectIcon size={20} />
-            <div>{address}</div>
+            <div>{croppedAddress}</div>
           </div>
           <div className="nickname">{nickname}</div>
         </div>

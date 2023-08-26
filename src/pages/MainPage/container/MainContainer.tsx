@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MainMap, MainPosts } from '../views';
+import * as s from './MainContainerStyle';
 
 export const MainContainer = () => {
   const [isDone, setIsDone] = useState(false);
@@ -28,7 +29,7 @@ export const MainContainer = () => {
     setIsDone(!isDone);
   };
   return (
-    <div style={{ display: 'flex', width: '100%', height: '100%' }}>
+    <s.MainContainer>
       <MainMap
         mapCoordinates={mapCoordinates}
         mapCoordinatesChangeHandler={mapCoordinatesChangeHandler}
@@ -39,6 +40,6 @@ export const MainContainer = () => {
         isDone={isDone}
         handleClickDoneButton={handleClickDoneButton}
       />
-    </div>
+    </s.MainContainer>
   );
 };

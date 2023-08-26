@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 import * as s from './MapIconStyle';
 import { GPSIcon, MinusIcon, PlusIcon } from '../../assets';
-import { useGetCurrentLocation } from '../../pages/MainPage/hook';
+import {
+  useGetCurrentLocation,
+  useWindowSize,
+} from '../../pages/MainPage/hook';
 
 type MapIconProps = {
   zoomLevel: number;
@@ -25,21 +28,22 @@ export const MapIcon: FC<MapIconProps> = ({
       onZoomChange(zoomLevel + 1);
     }
   };
-
+  const windowWidth = useWindowSize();
+  const width = windowWidth !== null ? windowWidth : 1000;
   const getCurrentLocation = useGetCurrentLocation(mapCenterChangeHandler);
 
   return (
     <s.IconContainer>
       <div className="gpsIcon" onClick={getCurrentLocation}>
-        <GPSIcon size={24} />
+        <GPSIcon size={width > 576 ? 24 : 18} />
       </div>
       <div className="mapSizeIcon">
         <div className="plusIcon" onClick={zoomInHandler}>
-          <PlusIcon size={24} />
+          <PlusIcon size={width > 576 ? 24 : 18} />
         </div>
         <div className="line"></div>
         <div className="minusIcon" onClick={zoomOutHandler}>
-          <MinusIcon size={24} />
+          <MinusIcon size={width > 576 ? 24 : 18} />
         </div>
       </div>
     </s.IconContainer>
