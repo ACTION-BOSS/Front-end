@@ -1,11 +1,12 @@
+
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetchDetailPageData } from '../../../../api';
+import { useFetchDetailPageData } from '../../../../api';
 import { useParams } from 'react-router-dom';
 
 export const useDetailData = () => {
   const queryClient = useQueryClient();
   const { postId } = useParams();
-  const { getDetailPageData } = fetchDetailPageData(postId);
+  const { getDetailPageData } = useFetchDetailPageData(postId);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['postDetail', postId],
@@ -33,6 +34,7 @@ export const useDetailData = () => {
     done,
     doneCount,
     comments,
+    postDone,
   } = data;
 
   return {
@@ -53,5 +55,6 @@ export const useDetailData = () => {
     doneCount,
     comments,
     queryClient,
+    postDone,
   };
 };

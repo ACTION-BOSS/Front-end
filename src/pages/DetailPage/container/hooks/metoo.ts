@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { toggleMetooData } from '../../../../api';
 import { useParams } from 'react-router-dom';
 import { getAccessToken } from '../../../../shared';
+import { toast } from 'react-toastify';
 
 export const useMetoo = (agree: boolean, agreeCount: number) => {
   const [localMetoo, setLocalMetoo] = useState<boolean | null>(null);
@@ -9,11 +10,10 @@ export const useMetoo = (agree: boolean, agreeCount: number) => {
   const { postId } = useParams();
 
   const handleClickMetooButton = async () => {
-    await toggleMetooData(postId);
-
     const accessToken = getAccessToken();
 
     if (accessToken) {
+      await toggleMetooData(postId);
       if (localMetoo) {
         setLocalMetooCount((prevCount) => (prevCount ? prevCount - 1 : 0));
         setLocalMetoo(false);
@@ -22,7 +22,16 @@ export const useMetoo = (agree: boolean, agreeCount: number) => {
         setLocalMetoo(true);
       }
     } else {
-      alert('로그인 후 이용 가능합니다');
+      toast.error('로그인 후 이용 가능합니다', {
+        position: 'bottom-center',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     }
   };
 

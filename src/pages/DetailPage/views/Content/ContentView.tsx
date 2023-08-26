@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import {
-  StContentWord,
-  StContentWrapper,
-  StHowManyLetters,
-  StHowManyWrapper,
-  StTitle,
-  StTitleWrapper,
   StWrapper,
+  StTitleWrapper,
+  StTitle,
   StWriterInfo,
-} from './ContentStyle';
+  StContentWrapper,
+  StContentWord,
+  StHowManyWrapper,
+  StHowManyLetters,
+} from './ContentViewStyle';
 
 type ContentViewProps = {
   title: string;

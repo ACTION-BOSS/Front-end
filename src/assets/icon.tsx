@@ -7,6 +7,26 @@ interface IconProps {
   color3?: string;
 }
 
+export const KakaoIcon: FC<IconProps> = ({ size = 32, color = '#000000' }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 32 33"
+      fill="none"
+    >
+      <g id="kakao">
+        <path
+          id="Vector"
+          d="M16 8.12891C11.0269 8.12891 7 11.3072 7 15.226C7 17.6792 8.57886 19.8443 10.9806 21.1146L10.3017 24.3649C10.2246 24.7403 10.6411 25.0129 10.9549 24.7969L15.2286 21.8038L14.3131 22.1895C14.8583 22.2718 15.424 22.3181 16 22.3181C20.9731 22.3181 25 19.1398 25 15.2209C25 11.302 20.9731 8.12891 16 8.12891Z"
+          fill={color}
+        />
+      </g>
+    </svg>
+  );
+};
+
 export const BackIcon: FC<IconProps> = ({ size = 25, color = '#C2C8D6' }) => {
   return (
     <svg
@@ -530,13 +550,13 @@ export const XButtonIcon: FC<IconProps> = ({
   );
 };
 
-export const PingIcon = (currentOption: string) => {
-  return currentOption === '해결순'
+export const PingIcon = (isDone: boolean) => {
+  return isDone
     ? 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102437/nc0sornjf4xi7adwqml9.svg'
     : 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102302/kilci9jvo8fxzrshdfbz.svg';
 };
-export const BigPingIcon = (currentOption: string) => {
-  return currentOption === '해결순'
+export const BigPingIcon = (isDone: boolean) => {
+  return isDone
     ? 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102441/l6cvbmmefjdc50sonkn0.svg'
     : 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102445/ztckh2owqwlwd2sgjhq8.svg';
 };

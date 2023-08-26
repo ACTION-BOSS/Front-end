@@ -3,3 +3,6 @@ export * from './Introduction/Introduction';
 export * from './MainPage';
 export * from './DetailPage';
 export * from './NotFoundPage/NotFoundPage';
+export * from './OAuthPage/OAuthPage';
+export * from './TestPage/TestPage';
+export * from './OAuthPage/OAuthCallbackPage';

@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as s from './MapIconStyle';
 import { GPSIcon, MinusIcon, PlusIcon } from '../../assets';
 import { useGetCurrentLocation } from '../../pages/MainPage/hook';
 
-interface Props {
+type MapIconProps = {
   zoomLevel: number;
   onZoomChange: (newZoomLevel: number) => void;
-  mapCenterChangeHandler: (userLocation: { lat: number; lng: number }) => void; // Remove the ": void" part
-}
+  mapCenterChangeHandler: (userLocation: { lat: number; lng: number }) => void;
+};
 
-export const MapIcon = ({
+export const MapIcon: FC<MapIconProps> = ({
   zoomLevel,
   onZoomChange,
   mapCenterChangeHandler,
-}: Props) => {
+}) => {
   const zoomInHandler = () => {
     if (zoomLevel > 1) {
       onZoomChange(zoomLevel - 1);
