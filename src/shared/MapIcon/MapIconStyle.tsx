@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { media } from '../../styles';
 
 export const IconContainer = styled.div`
   display: flex;
@@ -15,6 +16,9 @@ export const IconContainer = styled.div`
     width: 54px;
     box-shadow: 0px 2px 5px 0px ${(props) => props.theme.colors.gray8};
     cursor: pointer;
+    ${media.mobile`
+    height: 40px;
+    width: 40px;`}
   }
   .mapSizeIcon {
     width: 48px;
@@ -27,6 +31,9 @@ export const IconContainer = styled.div`
     justify-content: center;
     gap: 5px;
     box-shadow: 0px 2px 5px 0px ${(props) => props.theme.gray8};
+    ${media.mobile`
+    width: 38px;
+    height: 85px;`}
   }
   .plusIcon {
     cursor: pointer;

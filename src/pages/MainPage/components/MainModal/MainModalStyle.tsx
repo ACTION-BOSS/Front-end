@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
 
 export const MainModalContainer = styled.div`
   height: 420px;
@@ -8,6 +8,10 @@ export const MainModalContainer = styled.div`
   border-radius: 20px;
   box-shadow: 0px 0px 15px 0px ${Theme.colors.gray8};
   padding: 16px;
+  ${media.mobile`
+  height: 240px;
+  width:100%;
+  padding: 12px 16px;`}
 `;
 
 export const MainModalTop = styled.div`
@@ -15,6 +19,8 @@ export const MainModalTop = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 15px;
+  ${media.mobile`
+  margin-bottom: 5px;`}
   .address {
     display: flex;
     align-items: center;
@@ -33,6 +39,9 @@ export const MainModalMiddle = styled.div<{ $isDone: boolean | undefined }>`
   background-color: #d9d9d9;
   border-radius: 12px;
   position: relative;
+  ${media.mobile`
+  height: 160px;
+  width:100%;`}
   .postImg {
     position: absolute;
     width: 100%;
@@ -65,6 +74,11 @@ export const UnLike = styled.div`
   font-size: ${Theme.fontSizes.body1};
   font-weight: ${Theme.fontWeights.body1};
   color: ${Theme.colors.gray8};
+  ${media.mobile`
+  width: 54px;
+  height: 26px;
+  font-size: ${Theme.fontSizes.body3};
+  font-weight: ${Theme.fontWeights.body3};`}
   div {
     padding-right: 4px;
   }
@@ -74,6 +88,8 @@ export const MainModalBottom = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${media.mobile`
+  margin-top: 10px;`}
   .title {
     font-size: ${Theme.fontSizes.h3};
     font-weight: ${Theme.fontWeights.h3};

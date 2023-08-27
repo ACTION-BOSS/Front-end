@@ -27,6 +27,8 @@ export const MainLocationBox = styled.div`
   ${media.tablet`
   bottom: 96px;
   right: 15px;`}
+  ${media.mobile`
+  display:none`}
 `;
 
 export const MainModalContainer = styled.div`
@@ -37,4 +39,8 @@ export const MainModalContainer = styled.div`
   ${media.tablet`
   bottom: 96px;
   left:15px;`}
+  ${media.mobile`
+  left: 15px;
+  right: 15px;
+  `}
 `;
