@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Theme, media } from '../../../../styles';
 
-export const MainPostsConatiner = styled.div<{ $sizeControl: boolean }>`
+export const MainPostsConatiner = styled.div<{ $isBottomContente: boolean }>`
   width: 330px;
   height: calc(100vh - 225px);
   box-sizing: border-box;
@@ -13,16 +13,16 @@ z-index:999;
 padding-top: 15px;
 position:absolute;
   `}
-  ${({ $sizeControl }) =>
-    !$sizeControl &&
+  ${({ $isBottomContente }) =>
+    !$isBottomContente &&
     media.tablet`
   position: fixed;
-  height:84px;
+  height:83px;
   bottom: 0;
   transition: height 0.2s ease-in-out;
   `};
-  ${({ $sizeControl }) =>
-    $sizeControl &&
+  ${({ $isBottomContente }) =>
+    $isBottomContente &&
     media.tablet`
     transition: height 0.2s ease-in-out;
     position: fixed;
@@ -65,10 +65,10 @@ export const MainPostHeader = styled.div`
   margin: 0 15px;
 `}
 `;
-export const MainPostsContent = styled.div<{ $sizeControl: boolean }>`
+export const MainPostsContent = styled.div<{ $isBottomContente: boolean }>`
   height: 100%;
-  ${({ $sizeControl }) =>
-    !$sizeControl &&
+  ${({ $isBottomContente }) =>
+    !$isBottomContente &&
     media.tablet`
     display:none;
   `};
