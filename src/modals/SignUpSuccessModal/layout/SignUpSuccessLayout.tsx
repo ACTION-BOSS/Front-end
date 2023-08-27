@@ -11,6 +11,8 @@ import { LOGO_SERO, XButtonIcon } from '../../../assets';
 import { EModalType, useModal } from '../../../providers';
 import { Button, Pressable } from '../../../shared';
 import styled from 'styled-components';
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'rooks';
 
 type SignUpSuccessLayoutProps = {
   children: ReactNode;
@@ -30,8 +32,19 @@ export const SignUpSuccessLayout: FC<SignUpSuccessLayoutProps> = ({
     openModal(EModalType.LOGIN);
   };
 
+  const { innerWidth, innerHeight } = useWindowSize();
+
+  const windowWidth = innerWidth as number | undefined;
+  const windowHeight = innerHeight as number | undefined;
+
   return (
     <StModalWrapper>
+      <Confetti
+        gravity={0.5}
+        recycle={false}
+        width={windowWidth}
+        height={windowHeight}
+      />
       <StHeader>
         <Pressable onClick={handleCloseIconClick}>
           <XButtonIcon size={24} />
