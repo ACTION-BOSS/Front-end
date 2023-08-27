@@ -1,10 +1,13 @@
 import { styled } from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
 
 export const OptionButtons = styled.div`
   margin: 15px 30px 20px;
   display: flex;
   height: 35px;
+  ${media.tablet`
+  margin: 15px 15px 20px;
+`}
 `;
 export const NewlestButton = styled.button<{ $option: string }>`
   flex: 1;

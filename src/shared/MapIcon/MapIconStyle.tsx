@@ -1,5 +1,22 @@
 import { styled } from 'styled-components';
 import { media } from '../../styles';
+import { ReactComponent as plus } from '../../assets/svgIcon/plus.svg';
+import { ReactComponent as minus } from '../../assets/svgIcon/minus.svg';
+
+export const PlusIcon = styled(plus)`
+  width: 24px;
+  height: 24px;
+  ${media.mobile`
+  width: 20px;
+  height: 20px;`}
+`;
+export const MinusIcon = styled(minus)`
+  width: 24px;
+  height: 24px;
+  ${media.mobile`
+  width: 20px;
+  height: 20px;`};
+`;
 
 export const IconContainer = styled.div`
   display: flex;

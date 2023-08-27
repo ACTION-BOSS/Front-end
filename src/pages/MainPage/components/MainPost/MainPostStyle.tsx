@@ -5,9 +5,16 @@ export const MainPostStyle = styled.div`
   margin: 0 0 30px;
   cursor: pointer;
   ${media.tablet`
-  width: calc((100% / 3) - 10px);
+  width: calc((100% / 3) - 14px);
   height: 260px;
   margin: 5px 0;
+`}
+  ${media.mobile`
+  width: 100%;
+  height: 130px;
+  display: flex;
+  margin: 10px 0;
+  gap: 25px;
 `}
 `;
 
@@ -20,6 +27,11 @@ export const MainPostImg = styled.div<{ $isDone: boolean }>`
   justify-content: center;
   border-radius: 12px;
   overflow: hidden;
+  ${media.mobile`
+    flex: 6;
+    /* width:170px; */
+    height: 130px;
+`}
   .postImg {
     position: absolute;
     width: 100%;
@@ -54,6 +66,11 @@ export const UnLike = styled.div`
 `;
 export const MainPostContent = styled.div`
   padding-top: 10px;
+  overflow: hidden;
+  ${media.mobile`
+  flex:6;
+  position: relative;
+`}
   .title {
     font-size: ${Theme.fontSizes.h3};
     font-weight: ${Theme.fontWeights.h3};
@@ -65,6 +82,9 @@ export const MainPostContent = styled.div`
     padding-top: 5px;
     font-size: ${Theme.fontSizes.label1};
     font-weight: ${Theme.fontWeights.label1};
+    ${media.mobile`
+      flex-direction: column;
+    `}
   }
   .address {
     color: #5c5c70;
@@ -77,5 +97,11 @@ export const MainPostContent = styled.div`
     display: flex;
     align-items: center;
     color: ${Theme.colors.gray3};
+    ${media.mobile`
+      flex-direction: column;
+      position: absolute;
+      bottom: 6px;
+      right: 0px;
+    `}
   }
 `;
