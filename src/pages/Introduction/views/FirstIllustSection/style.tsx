@@ -1,16 +1,26 @@
 import { styled } from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
 
 export const StFirstIllustSection = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  min-width: 375px;
+  height: 1010px;
   background-color: ${Theme.colors.white};
+
+  ${media.tablet`
+    height: 600px;
+  `}
+
+  ${media.mobile`
+    height: 575px;
+  `}
 `;
 
 export const StGradation = styled.div`
   width: 100vw;
+  min-width: 375px;
   height: 20vh;
   background: linear-gradient(#afbff0, ${Theme.colors.white});
 `;
@@ -20,8 +30,17 @@ export const StContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
+  min-width: 375px;
   height: 80vh;
-  gap: 10vw;
+  gap: 50px;
+
+  ${media.tablet`
+  gap: 20px;
+  `}
+
+  ${media.mobile`    
+    flex-direction: column;
+  `}
 `;
 
 export const StTextContainer = styled.div`
@@ -31,21 +50,48 @@ export const StTextContainer = styled.div`
 
 export const StTitle = styled.div`
   font-family: 'GilbeotTG';
-  font-size: 42px;
+  font-size: 50px;
   font-weight: 400;
   color: ${Theme.colors.black};
   margin-bottom: 6vh;
+
+  ${media.tablet`
+  font-size: 40px;
+  `}
+
+  ${media.mobile`
+  font-size: 30px;
+  `}
 `;
 
 export const StContent = styled.div`
-  font-size: 19px;
+  font-size: 22px;
   font-weight: ${Theme.fontWeights.body1};
   color: ${Theme.colors.gray5};
   margin-bottom: 1vh;
+
+  ${media.tablet`
+  font-size: 18px;
+  `}
+
+  ${media.mobile`
+  font-size: 12px;
+  text-align: center;
+  `}
 `;
 
 export const StSwing = styled.img`
-  width: 26vw;
-  height: 62vh;
+  width: 500px;
+  height: 637px;
   object-fit: contain;
+
+  ${media.tablet`
+  width: 306px;
+  height: 373px;
+  `}
+
+  ${media.mobile`
+  width: 244px;
+  height: 312px;
+  `}
 `;
