@@ -60,7 +60,7 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
       return <LoginModal />;
     }
     if (modalType === EModalType.SIGN_UP_SUCCESS) {
-      return <SignUpSuccessModal />;
+      return <SignUpSuccessModal showConfetti={true} />;
     }
     if (modalType === EModalType.POP_UP) {
       return <PopUpModal params={params} />;
