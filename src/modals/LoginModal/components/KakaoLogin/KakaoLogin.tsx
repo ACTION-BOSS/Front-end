@@ -4,9 +4,9 @@ import { useModal } from '../../../../providers';
 import { styled } from 'styled-components';
 import { Theme } from '../../../../styles';
 import { KakaoIcon } from '../../../../assets';
-type KakaoLoginViewProps = {};
+type KakaoLoginProps = {};
 
-export const KakaoLoginView: FC<KakaoLoginViewProps> = ({}) => {
+export const KakaoLogin: FC<KakaoLoginProps> = ({}) => {
   const navigate = useNavigate();
   const { closeModal } = useModal();
   const handleClickKakaoIcon = () => {
@@ -29,7 +29,7 @@ export const StKakaoButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 328px;
+  width: 100%;
   padding-top: 15px;
   padding-bottom: 15px;
   margin-top: 16px;

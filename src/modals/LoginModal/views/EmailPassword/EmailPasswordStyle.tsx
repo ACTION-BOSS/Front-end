@@ -1,20 +1,94 @@
 import styled from 'styled-components';
-import { Theme } from '../../../styles';
+import { Theme, media } from '../../../../styles';
 
 export const StWrapper = styled.div`
   display: flex;
   width: 100%;
-  gap: 50px;
-
+  gap: 8px;
   flex-direction: column;
+
+  ${media.mobile`
+  height: 100%;
+  justify-content: space-between;
+  `}
 `;
 
-export const StColumnDiv = styled.div`
+export const StAtWrapper = styled.div`
   display: flex;
-  flex: 1;
-  margin-bottom: 12px;
+  flex: 0;
+  padding: 8px;
+`;
 
+export const StVerificationInput = styled.input<{
+  $isVerificated: boolean | null;
+}>`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 42px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: ${Theme.colors.blueGray};
+  color: ${Theme.colors.black};
+
+  font-size: ${Theme.fontSizes.body3};
+  font-weight: ${Theme.fontWeights.body3};
+
+  border: ${(props) => {
+    return props.$isVerificated === false
+      ? `1px solid ${Theme.colors.blue}`
+      : props.$isVerificated === true
+      ? `1px solid ${Theme.colors.pink}`
+      : 'none';
+  }};
+  outline: none;
+  &::placeholder {
+    color: ${Theme.colors.gray4};
+    font-size: ${Theme.fontSizes.label1};
+    font-weight: 100;
+  }
+`;
+
+export const StBottomWrapper = styled.div`
+  display: flex;
   flex-direction: column;
+  width: 100%;
+  padding-top: 24px;
+
+  ${media.mobile`
+  flex-direction: column-reverse;
+  `}
+`;
+
+export const StTextL1 = styled.div`
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  color: ${Theme.colors.gray4};
+`;
+
+export const StTextL3 = styled.div`
+  color: ${Theme.colors.gray7};
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration-line: underline;
+  cursor: pointer;
+`;
+
+export const StTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+
+  ${media.mobile`
+  `}
 `;
 
 export const StUpperDiv = styled.div`
@@ -39,13 +113,6 @@ export const StUpperText = styled.div`
 
   padding-left: 5px;
   padding-right: 5px;
-`;
-
-export const StButtonWrapper = styled.div`
-  width: 88px;
-
-  margin-left: 5px;
-  margin-right: 5px;
 `;
 
 export const StGrayInput = styled.input<{
@@ -81,36 +148,10 @@ export const StFlexRowDiv = styled.div`
   justify-content: space-between;
 `;
 
-export const StRelativeDiv = styled(StFlexRowDiv)`
-  display: flex;
-  position: relative;
-  align-items: center;
-`;
-
 export const StAtText = styled.p`
   color: ${Theme.colors.black};
   font-size: 12px;
   font-weight: 500;
-`;
-
-export const StAtWrapper = styled.div`
-  display: flex;
-  flex: 0;
-  padding: 8px;
-`;
-
-export const StTimerText = styled.div`
-  right: 80px;
-  position: absolute;
-  text-align: center;
-  color: ${Theme.colors.gray6};
-  font-size: ${Theme.fontSizes.label2};
-  font-weight: ${Theme.fontWeights.label2};
-`;
-
-export const StVerificationButtonWrapper = styled.div`
-  position: absolute;
-  right: 12px;
 `;
 
 export const StLabelTextWrapper = styled.div`
@@ -118,17 +159,6 @@ export const StLabelTextWrapper = styled.div`
   flex: 1;
   justify-content: space-between;
   padding-top: 8px;
-
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 4px;
-`;
-
-export const StLabelTextWrapper2 = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  padding-top: 4px;
 
   padding-left: 5px;
   padding-right: 5px;
@@ -149,59 +179,16 @@ export const StLabel1Text = styled.p<{
       : Theme.colors.gray7};
 `;
 
-export const StLabel3Text = styled.p`
-  font-size: ${Theme.fontSizes.label3};
-  font-weight: ${Theme.fontWeights.label3};
-
-  text-decoration-line: underline;
-
-  color: ${Theme.colors.gray7};
-
-  cursor: pointer;
-`;
-
-export const StInputsWrapper = styled.div`
+export const StColumnDiv = styled.div`
   display: flex;
-  gap: 4px;
+  flex: 1;
+  margin-bottom: 12px;
+
   flex-direction: column;
 `;
 
-export const StInputWrapper = styled.div`
-  display: flex;
-`;
-
-export const StVerificationInput = styled.input<{
-  $isVerificated: boolean | null;
-}>`
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  height: 42px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  background-color: ${Theme.colors.blueGray};
-  color: ${Theme.colors.black};
-
-  font-size: ${Theme.fontSizes.body3};
-  font-weight: ${Theme.fontWeights.body3};
-
-  border: ${(props) => {
-    return props.$isVerificated === true
-      ? `1px solid ${Theme.colors.blue}`
-      : props.$isVerificated === false
-      ? `1px solid ${Theme.colors.pink}`
-      : 'none';
-  }};
-  outline: none;
-
-  &::placeholder {
-    color: ${Theme.colors.gray4};
-    font-size: ${Theme.fontSizes.label1};
-    font-weight: 100;
-  }
-`;
-
-export const StFlexDiv = styled.div`
-  display: flex;
-  flex: 1;
+export const StKakaoWrapper = styled.div`
+  ${media.mobile`
+  margin-bottom: 12px;
+`}
 `;

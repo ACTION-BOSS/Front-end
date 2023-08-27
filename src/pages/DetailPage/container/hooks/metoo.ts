@@ -23,7 +23,7 @@ export const useMetoo = (agree: boolean, agreeCount: number) => {
       }
     } else {
       toast.error('로그인 후 이용 가능합니다', {
-        position: 'bottom-center',
+        position: 'top-right',
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: false,
