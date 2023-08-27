@@ -1,14 +1,26 @@
 import { styled } from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
 
 export const StContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 60vw;
-  height: 50vh;
+  /* min-width: 375px; */
+  height: 462px;
   border-radius: 12px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
   margin-top: 3vh;
+
+  ${media.tablet`
+  width: 88vw;
+  height: 383px;
+  `}
+
+  ${media.mobile`
+  width: 91vw;
+  height: 200px;
+  margin-top: 10px;
+  `}
 `;
 
 export const StMapText = styled.div`
@@ -36,6 +48,10 @@ export const StMainMapIcon = styled.div`
   position: absolute;
   top: 15px;
   right: 15px;
+
+  ${media.mobile`
+  display:none;
+  `}
 `;
 
 export const StAddressContainer = styled.div`
@@ -45,6 +61,10 @@ export const StAddressContainer = styled.div`
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
+
+  ${media.mobile`
+  display:none;
+  `}
 `;
 export const StIconText = styled.div`
   display: flex;

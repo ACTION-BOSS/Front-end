@@ -5,6 +5,7 @@ import {
   StTextContainer,
   StPhotoBoxContainer,
   StIconBox,
+  StPhotoContainer,
   StPhotoBox,
   StPhotoText,
   StPhotoBoxInput,
@@ -77,30 +78,31 @@ export const CreateFormView = () => {
               <HelpIcon />
               <StPhotoText>최소 한 장의 사진을 올려주세요</StPhotoText>
             </StIconBox>
-
-            {Array(3)
-              .fill(null)
-              .map((_, index) => (
-                <StPhotoBox key={index} image={previewImages[index]}>
-                  {previewImages[index] && (
-                    <StCloseButton onClick={() => removeImage(index)}>
-                      X
-                    </StCloseButton>
-                  )}
-                  {!previewImages[index] && (
-                    <StPhotoBoxInput>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={handleImageUpload}
-                        style={{ display: 'none' }}
-                      />
-                      +
-                    </StPhotoBoxInput>
-                  )}
-                </StPhotoBox>
-              ))}
+            <StPhotoContainer>
+              {Array(3)
+                .fill(null)
+                .map((_, index) => (
+                  <StPhotoBox key={index} image={previewImages[index]}>
+                    {previewImages[index] && (
+                      <StCloseButton onClick={() => removeImage(index)}>
+                        X
+                      </StCloseButton>
+                    )}
+                    {!previewImages[index] && (
+                      <StPhotoBoxInput>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={handleImageUpload}
+                          style={{ display: 'none' }}
+                        />
+                        +
+                      </StPhotoBoxInput>
+                    )}
+                  </StPhotoBox>
+                ))}
+            </StPhotoContainer>
           </StPhotoBoxContainer>
         </StContentContainer>
       </StFormContainer>
