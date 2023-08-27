@@ -8,7 +8,6 @@ import {
   NotFoundPage,
   TestPage,
   OAuthCallbackPage,
-  OAuthLogout,
 } from '../pages';
 import { Header } from '../shared/Header';
 import { EditPost } from '../pages/EditPost';
@@ -30,7 +29,6 @@ export const RouterProvider = () => {
           </Route>
           <Route path="/oauth" element={<OAuthPage />} />
           <Route path="/oauth/callback" element={<OAuthCallbackPage />} />
-          <Route path="/oauth/logout" element={<OAuthLogout />} />
         </Routes>
       </ModalProvider>
     </BrowserRouter>
