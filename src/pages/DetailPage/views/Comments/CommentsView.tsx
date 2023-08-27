@@ -1,5 +1,4 @@
-import { useState, FC, ChangeEvent } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { ChangeEvent, FC } from 'react';
 import {
   StCommentWrapper,
   StCommentBox,
@@ -11,8 +10,6 @@ import {
   StTextArea,
 } from './CommentsStyle';
 import { EModalType, useModal } from '../../../../providers';
-import { useDetailData } from '../../container';
-import { createComment, deleteComment } from '../../../../api/commentsApi';
 
 type Comment = {
   id: string;
@@ -27,56 +24,21 @@ type CommentsViewProps = {
   comments: Comment[];
   postId: string | undefined;
   nickname: string;
-};
-
-type CreateCommentArgs = {
-  postId: string;
-  newComment: string;
+  handleCreateComment: () => void;
+  onChangeComment: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  handleDeleteComment: (commentId: string) => void;
+  body: string;
 };
 
 export const CommentsView: FC<CommentsViewProps> = ({
   comments,
-  postId,
   nickname,
+  onChangeComment,
+  handleCreateComment,
+  handleDeleteComment,
+  body,
 }) => {
-  const { queryClient } = useDetailData();
-
-  const [body, setBody] = useState('');
-
-  const { openModal } = useModal();
-
-  const deleteCommentMutation = useMutation<void, unknown, string>(
-    deleteComment,
-    {
-      onSuccess: () => {
-        queryClient?.invalidateQueries(['postDetail', postId]);
-      },
-    },
-  );
-
-  const createCommentMutation = useMutation<void, unknown, CreateCommentArgs>(
-    createComment,
-    {
-      onSuccess: () => {
-        queryClient?.invalidateQueries(['postDetail', postId]);
-      },
-    },
-  );
-
-  const onChangeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setBody(e.target.value);
-  };
-
-  const handleDeleteComment = (commentId: string) => {
-    deleteCommentMutation.mutate(commentId);
-  };
-
-  const handleCreateComment = () => {
-    if (typeof postId === 'string') {
-      createCommentMutation.mutate({ postId, newComment: body });
-      setBody('');
-    }
-  };
+  const { openModal, closeModal } = useModal();
 
   return (
     <>
@@ -100,7 +62,10 @@ export const CommentsView: FC<CommentsViewProps> = ({
                         functionButton: {
                           theme: 'pink',
                           label: '삭제',
-                          onClick: () => handleDeleteComment(comment.id),
+                          onClick: () => {
+                            handleDeleteComment(comment.id);
+                            closeModal();
+                          },
                         },
                       })
                     }
@@ -123,7 +88,7 @@ export const CommentsView: FC<CommentsViewProps> = ({
             maxLength={200}
             onChange={onChangeComment}
           />
-          <div>{body.length}/200자</div>
+          <div>{body.trim().length}/200자</div>
         </StTextArea>
         <button onClick={handleCreateComment}>작성</button>
       </StInputBox>

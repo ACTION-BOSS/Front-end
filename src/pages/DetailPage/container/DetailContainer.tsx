@@ -5,7 +5,8 @@ import {
   UnderButtonsView,
   CommentsView,
 } from '../views';
-import { useDetailData, useMetoo } from './hooks';
+import { useComments, useDetailData, useMetoo } from './hooks';
+
 type DetailContainerProps = {};
 
 export const DetailContainer: FC<DetailContainerProps> = ({}) => {
@@ -32,6 +33,9 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
     agreeCount,
   );
 
+  const { onChangeComment, handleCreateComment, handleDeleteComment, body } =
+    useComments();
+
   if (isLoading || error) {
     return <></>;
   }
@@ -55,7 +59,15 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
         localMetooCount={localMetooCount}
         postDone={postDone}
       />
-      <CommentsView comments={comments} postId={postId} nickname={nickname} />
+      <CommentsView
+        comments={comments}
+        postId={postId}
+        nickname={nickname}
+        onChangeComment={onChangeComment}
+        handleCreateComment={handleCreateComment}
+        handleDeleteComment={handleDeleteComment}
+        body={body}
+      />
     </>
   );
 };

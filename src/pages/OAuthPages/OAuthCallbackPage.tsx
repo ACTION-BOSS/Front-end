@@ -29,7 +29,7 @@ export const OAuthCallbackPage: FC<OAuthCallbackPageProps> = ({}) => {
 
         if (accessToken) {
           console.log('카카오 로그인 성공!');
-          navigate('/main');
+          navigate(-2);
         }
       }
     } catch (e) {
