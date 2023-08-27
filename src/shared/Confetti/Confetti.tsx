@@ -1,6 +1,8 @@
 import { ComponentType } from 'react';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'rooks';
+import { styled } from 'styled-components';
+import { media } from '../../styles';
 
 const withConfetti = (
   Component: ComponentType<{
@@ -15,7 +17,7 @@ const withConfetti = (
 
     if (props.showConfetti) {
       return (
-        <div>
+        <ConfettiWrapper>
           <Confetti
             gravity={0.5}
             recycle={false}
@@ -23,11 +25,19 @@ const withConfetti = (
             height={windowHeight}
           />
           <Component {...props} />;
-        </div>
+        </ConfettiWrapper>
       );
     }
     return <Component {...props} />;
   };
 };
+
+const ConfettiWrapper = styled.div`
+  ${media.mobile`
+    width: 100%;
+    height: 100%;
+    border-radius:0;
+  `}
+`;
 
 export default withConfetti;
