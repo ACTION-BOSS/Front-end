@@ -1,5 +1,10 @@
 import { FC } from 'react';
-import { PhotosView, ContentView, UnderButtonsView } from '../views';
+import {
+  PhotosView,
+  ContentView,
+  UnderButtonsView,
+  CommentsView,
+} from '../views';
 import { useDetailData, useMetoo } from './hooks';
 type DetailContainerProps = {};
 
@@ -17,6 +22,8 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
     address,
     nickname,
     owner,
+    comments,
+    postId,
     postDone,
   } = useDetailData();
 
@@ -48,6 +55,7 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
         localMetooCount={localMetooCount}
         postDone={postDone}
       />
+      <CommentsView comments={comments} postId={postId} nickname={nickname} />
     </>
   );
 };

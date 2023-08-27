@@ -5,6 +5,7 @@ export interface Post {
   agreeCount: number;
   nickname: string;
   address: string;
+  done?: boolean;
 }
 
 export interface Ping {
