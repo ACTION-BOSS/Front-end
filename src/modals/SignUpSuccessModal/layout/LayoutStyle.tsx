@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Theme } from '../../../styles';
+import { Theme, media } from '../../../styles';
 
 export const StHeader = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ export const StHeader = styled.div`
   padding-right: 14px;
 `;
 
-export const StChildrenWrapper = styled.div`
+export const StLogoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,19 +32,24 @@ export const StModalWrapper = styled.div`
   box-shadow: 0px 2px 15px 0px rgba(41, 47, 61, 0.25);
 
   overflow: hidden;
+
+  ${media.mobile`
+    width: 100%;
+    height: 100%;
+    border-radius:0;
+  `}
 `;
 
-export const StViewWrapper = styled.div`
+export const StChildrenWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  align-items: center;
 
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 36px;
   padding-right: 36px;
-
-  align-items: center;
 `;
 
 export const StButtonWrapper = styled.div`

@@ -5,6 +5,7 @@ import {
   StSelectList,
   StSelectOption,
   StSelectTriggerWrapper,
+  StWrapper,
 } from './SelectStyle';
 import { ToggleIcon } from '../../../../assets';
 
@@ -31,7 +32,7 @@ export const SelectBox: FC<SelectBoxProps> = memo(
     }, [selectedOptionIndex]);
 
     return (
-      <div style={{ position: 'relative' }}>
+      <StWrapper>
         <StSelectTriggerWrapper
           onBlur={() => setIsSelectOpen(false)}
           onClick={() => setIsSelectOpen((prev: boolean) => !prev)}
@@ -57,7 +58,7 @@ export const SelectBox: FC<SelectBoxProps> = memo(
             ))}
           </StSelectList>
         )}
-      </div>
+      </StWrapper>
     );
   },
 );

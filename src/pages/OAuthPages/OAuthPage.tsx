@@ -9,5 +9,5 @@ export const OAuthPage: FC<OAuthPageProps> = ({}) => {
     window.location.href = redirectURL;
   }, []);
 
-  return <div>s</div>;
+  return <div></div>;
 };

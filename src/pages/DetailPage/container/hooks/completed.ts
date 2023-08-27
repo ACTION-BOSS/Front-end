@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toggleDoneData } from '../../../../api';
-import { getAccessToken } from '../../../../shared';
+import { getAccessToken, useToast } from '../../../../shared';
 import { EModalType, useModal } from '../../../../providers';
 import { useRecoilState } from 'recoil';
 import { $isDoneAlertedFamily } from '../../state';
-import { toast } from 'react-toastify';
 
 export const useCompleted = (done: boolean, doneCount: number) => {
   const { postId } = useParams();
@@ -16,11 +15,13 @@ export const useCompleted = (done: boolean, doneCount: number) => {
     $isDoneAlertedFamily(postId),
   );
   const { openModal, closeModal } = useModal();
+  const { openToast } = useToast();
 
   const handleClickDoneButton = async () => {
     const accessToken = getAccessToken();
+    const isLoggedIn = !!accessToken;
 
-    if (accessToken) {
+    if (isLoggedIn) {
       await toggleDoneData(postId);
 
       if (localDone) {
@@ -31,16 +32,7 @@ export const useCompleted = (done: boolean, doneCount: number) => {
         setLocalDone(true);
       }
     } else {
-      toast.error('로그인 후 이용 가능합니다', {
-        position: 'top-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      openToast('로그인 후 이용 가능합니다');
     }
   };
 

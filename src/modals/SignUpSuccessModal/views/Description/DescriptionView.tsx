@@ -1,15 +1,17 @@
 import { FC } from 'react';
 import { SIGNUP } from '../../../../assets';
 import styled from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
 type DescriptionProps = {};
 
 export const DescriptionView: FC<DescriptionProps> = ({}) => {
   return (
     <StDescriptionWrapper>
       <StLogo src={SIGNUP} />
-      <StTextH2>회원가입 완료!</StTextH2>
-      <StTextL1>환영합니다 우리동네 행동대장님!</StTextL1>
+      <StTextWrapper>
+        <StTextH2>회원가입 완료!</StTextH2>
+        <StTextL1>환영합니다 우리동네 행동대장님!</StTextL1>
+      </StTextWrapper>
     </StDescriptionWrapper>
   );
 };
@@ -17,9 +19,20 @@ export const DescriptionView: FC<DescriptionProps> = ({}) => {
 const StLogo = styled.img`
   width: 200px;
   padding: 20px;
+
+  ${media.mobile`
+    width: 30vh;
+  `}
 `;
 
 const StDescriptionWrapper = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: 30px;
+`;
+
+const StTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -28,11 +41,8 @@ const StDescriptionWrapper = styled.div`
 const StTextH2 = styled.div`
   color: ${Theme.colors.black};
   text-align: center;
-  /* H2,button */
-  font-family: Pretendard;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
+  font-size: ${Theme.fontSizes.h2};
+  font-weight: ${Theme.fontWeights.h2};
   line-height: normal;
   margin-bottom: -6px;
 `;
@@ -40,10 +50,8 @@ const StTextH2 = styled.div`
 const StTextL1 = styled.div`
   color: ${Theme.colors.gray7};
   text-align: center;
-  /* L1 */
-  font-family: Pretendard;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 300;
+
+  font-size: ${Theme.fontSizes.label1};
+  font-weight: ${Theme.fontWeights.label1};
   line-height: normal;
 `;

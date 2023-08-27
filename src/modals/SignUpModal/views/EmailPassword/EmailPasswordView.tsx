@@ -25,6 +25,8 @@ import {
   StVerificationInput,
   StVerificationButtonWrapper,
   StLabel3Text,
+  StAtWrapper,
+  StFlexDiv,
 } from '../style';
 
 type EmailPasswordViewProps = {
@@ -93,32 +95,41 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
           </StButtonWrapper>
         </StUpperSpaceDiv>
         <StFlexRowDiv>
-          <StGrayInput
-            value={emailIdValue}
-            onChange={onChangeEmailId}
-            placeholder="example"
-            $isError={isEmailSendFailed}
-          />
-          <StAtText>@</StAtText>
-
-          {isSelfTypeMode ? (
+          <StFlexDiv>
             <StGrayInput
-              value={emailDomainValue}
-              onChange={onChangeEmailDomain}
+              value={emailIdValue}
+              onChange={onChangeEmailId}
+              placeholder="example"
               $isError={isEmailSendFailed}
+              width="fluid"
             />
-          ) : (
-            <SelectBox
-              setToSelfTypeMode={setToSelfTypeMode}
-              initialOptions={[
-                '직접입력',
-                'naver.com',
-                'gmail.com',
-                'hanmail.com',
-              ]}
-              $isError={isEmailSendFailed}
-            />
-          )}
+          </StFlexDiv>
+
+          <StAtWrapper>
+            <StAtText>@</StAtText>
+          </StAtWrapper>
+
+          <StFlexDiv>
+            {isSelfTypeMode ? (
+              <StGrayInput
+                value={emailDomainValue}
+                onChange={onChangeEmailDomain}
+                $isError={isEmailSendFailed}
+                width="fluid"
+              />
+            ) : (
+              <SelectBox
+                setToSelfTypeMode={setToSelfTypeMode}
+                initialOptions={[
+                  '직접입력',
+                  'naver.com',
+                  'gmail.com',
+                  'hanmail.com',
+                ]}
+                $isError={isEmailSendFailed}
+              />
+            )}
+          </StFlexDiv>
         </StFlexRowDiv>
         {isEmailSendFailed && (
           <StLabelTextWrapper>
