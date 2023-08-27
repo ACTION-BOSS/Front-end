@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { Theme } from '../../styles';
+import { Theme, media } from '../../styles';
 
 export const StWrapper = styled.div`
   display: flex;
@@ -9,6 +9,14 @@ export const StWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: ${Theme.colors.blue};
+
+  ${media.tablet`
+  height: 1180px;  
+    `}
+
+  ${media.mobile`
+  height: 1033px; 
+    `}
 `;
 
 export const move = keyframes`
@@ -23,32 +31,58 @@ export const StContentWrapper = styled.div`
   align-items: center;
   gap: 22px;
   margin-top: 20px;
+
+  ${media.tablet`
+    flex-direction: column;    
+    `}
 `;
 
 export const StNotfoundImage = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: contain;
 `;
 
 export const StNotfoundImageWrapper = styled.div`
   display: flex;
-  width: 18vw;
-  height: 42vh;
-  aspect-ratio: 18/42;
+  width: 310px;
+  height: 400px;
 
   animation: ${move} 3s ease-in-out infinite;
+
+  ${media.tablet`
+  width: 396px;
+  height: 500px;  
+    `}
+
+  ${media.mobile`
+    width: 200px;
+  height: 252px; 
+    `}
 `;
 
 export const StText = styled.div`
   display: flex;
   font-family: 'GilbeotTG';
-  color: ${Theme.colors.white};
-  font-size: 70px;
+  color: ${Theme.colors.gray1};
+  font-size: 53px;
   font-weight: 400;
   line-height: 55px;
+
+  ${media.tablet`
+  order: 2;
+  font-size: 50px;
+    `}
+
+  ${media.mobile`
+  line-height: 15px;
+  font-size: 28px;
+    `}
 `;
 
 export const StText2 = styled(StText)`
   margin-left: -44px;
+
+  ${media.tablet`
+  margin: 0;
+    `}
 `;
