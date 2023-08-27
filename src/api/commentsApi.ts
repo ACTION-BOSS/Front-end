@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { getAccessToken } from '../shared';
 
 type CreateCommentArgs = {
   postId: string;
   newComment: string;
 };
 
-const token = localStorage.getItem('accessToken');
+const token = getAccessToken();
 
 export const deleteComment = async (commentId: string): Promise<void> => {
   try {
