@@ -26,11 +26,11 @@ export const Theme: ThemeType = {
     h2: '18px',
     h3: '15px',
     body1: '18px',
-    body2: '15px',
+    body2: '16px',
     body3: '13px',
     body4: '15px',
     label1: '12px',
-    label2: '10px',
+    label2: '11px',
     label3: '12px',
   },
   fontWeights: {

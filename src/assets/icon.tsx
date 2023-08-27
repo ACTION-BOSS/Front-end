@@ -221,7 +221,7 @@ export const GPSIcon: FC<IconProps> = ({ size = 25, color = '#454554' }) => {
     <svg
       width={size}
       height={size}
-      viewBox="0 0 25 25"
+      viewBox={`0 0 ${size} ${size}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -238,7 +238,7 @@ export const GPSIcon: FC<IconProps> = ({ size = 25, color = '#454554' }) => {
         <clipPath id="clip0_244_4231">
           <rect
             width={size2}
-            height={size2}
+            height={size}
             fill="white"
             transform="translate(0.357422 0.431763)"
           />
