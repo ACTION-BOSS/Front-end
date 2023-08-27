@@ -1,12 +1,15 @@
 import { FC, ReactNode } from 'react';
 import {
   StModalWrapper,
-  StHeader,
-  StChildrenWrapper,
+  StLogoWrapper,
   StViewWrapper,
   StFooter,
   StButtonWrapper,
   StTransparentDiv,
+  StHeader,
+  StStepWrapper,
+  StLogoText,
+  StLogoImage,
 } from './LayoutStyle';
 import { ShowStep } from '../components';
 import { EStep } from '../type';
@@ -85,15 +88,18 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
             <BackIcon size={24} />
           </Pressable>
         )}
-        <ShowStep step={stepIndex} />
+        <StStepWrapper>
+          <StLogoText>회원가입</StLogoText>
+          <ShowStep step={stepIndex} />
+        </StStepWrapper>
         <Pressable onClick={handleCloseIconClick}>
           <XButtonIcon size={24} />
         </Pressable>
       </StHeader>
 
-      <StChildrenWrapper>
-        <img src={LOGO_SERO} />
-      </StChildrenWrapper>
+      <StLogoWrapper>
+        <StLogoImage src={LOGO_SERO} />
+      </StLogoWrapper>
 
       <StViewWrapper>{children}</StViewWrapper>
 

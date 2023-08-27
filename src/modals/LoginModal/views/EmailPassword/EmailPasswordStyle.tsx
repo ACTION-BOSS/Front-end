@@ -85,6 +85,7 @@ export const StTextWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 12px;
+  padding-top: 16px;
 
   ${media.mobile`
   `}
