@@ -7,22 +7,22 @@ export const StLandingView = styled.div`
   align-items: center;
   width: 100vw;
   min-width: 375px;
-  height: 900px;
+  height: 1000px;
   background-color: ${Theme.colors.blue};
   margin-top: 30px;
   position: relative;
 
   ${media.tablet`
-    height: 640px;
+    height: 845px;
   `}
 
   ${media.mobile`
-    height: 670px;
+    height: 770px;
   `}
 `;
 
 export const StLogoFlag = styled.img`
-  margin-top: 10vh;
+  margin-top: 12vh;
   margin-left: 30px;
   width: 62px;
   height: 83px;
@@ -59,7 +59,7 @@ export const StSlogan = styled.div`
   font-size: 40px;
   font-weight: 400;
   color: ${Theme.colors.white};
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 
   ${media.tablet`
   font-size: 25px;
@@ -124,7 +124,7 @@ export const StNavButton = styled.button`
   ${media.tablet`
   width: 180px;
   height: 60px;
-  font-size: 18px;
+  font-size: ${Theme.fontSizes.h2}
   `}
 
   ${media.mobile`
@@ -137,22 +137,19 @@ export const StNavButton = styled.button`
 `;
 
 export const StMapBox = styled.img.attrs({
-  src: 'https://res.cloudinary.com/dsxqz8qce/image/upload/v1692261954/%E1%84%8F%E1%85%A2%E1%86%B8%E1%84%8E%E1%85%A5_1_p2clht.png',
+  src: 'https://res.cloudinary.com/dsxqz8qce/image/upload/v1693212239/web2_r5m8iy.png',
   alt: 'MapBoxImage',
 })`
   width: 780px;
-  border-radius: 12px;
-  box-shadow:
-    0 0 2px #93b0ff,
-    0 0 15px #94aef7;
+  filter: drop-shadow(0 0 2px #5782fa5c) drop-shadow(0 0 15px #5782fa5c);
   z-index: 1;
   position: absolute;
-  top: 500px;
+  top: 570px;
 
   ${media.tablet`
   width: 432px;
   height: 349px;
-  top: 450px;
+  top: 400px;
   `}
 
   ${media.mobile`

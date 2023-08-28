@@ -21,7 +21,6 @@ export const StCommentBox = styled.div`
   hr {
     width: 100%;
     border: 1px solid ${Theme.colors.gray1};
-    margin-top: 30px;
   }
 `;
 
@@ -65,6 +64,7 @@ export const StCommentContent = styled.div`
   color: ${Theme.colors.gray8};
   font-weight: ${Theme.fontWeights.body2};
   font-size: ${Theme.fontSizes.body2};
+  margin-bottom: 32px;
 `;
 
 export const StInputBox = styled.div`
