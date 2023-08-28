@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MODAL_ATTRIBUTES } from '../CreatePost/const';
 import { EditFormView } from './views';
 import {
   StEditPostContainer,
@@ -13,25 +12,18 @@ import {
   StSkyline,
   StGrayBg,
 } from './style';
-import { Button } from '../../shared';
-import { Portal, PostModal } from '../../shared/PostModal';
+import { Button, getAccessToken } from '../../shared';
 import { EditPostType } from './type';
 import { Theme } from '../../styles';
 import { EditMapView } from './views/EditMapView/EditMapView';
+import { EModalType, useModal } from '../../providers';
 
 export const EditPost = () => {
-  const token = localStorage.getItem('accessToken');
+  const { openModal, closeModal } = useModal();
+  const token = getAccessToken();
   const [post, setPost] = useState<EditPostType | null>(null);
 
-  const [openModal, setOpenModal] = useState(false);
-  const [modalType, setModalType] = useState('default');
-
   const navigate = useNavigate();
-
-  const onClickCancle = () => {
-    setModalType('cancle');
-    setOpenModal(!openModal);
-  };
 
   const { id: stringId } = useParams();
   const id = Number(stringId);
@@ -86,20 +78,6 @@ export const EditPost = () => {
     },
   );
 
-  const sendEditRequest = () => {
-    mutation.mutate();
-  };
-
-  const onClickHandleModal = () => {
-    if (data.title && data.content) {
-      setModalType('edit');
-      setOpenModal(!openModal);
-    } else {
-      setModalType('warning');
-      setOpenModal(!openModal);
-    }
-  };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -116,20 +94,45 @@ export const EditPost = () => {
       <StBtnContainer>
         <StBtnBox1>
           <Button
-            onClick={onClickCancle}
             label="취소"
             $buttonTheme="empty"
             size="mediumLong"
             fontSize={Theme.fontSizes.h2}
+            onClick={() =>
+              openModal(EModalType.POP_UP, {
+                title: '작업을 중단하고 나가시겠습니까?',
+                cancelButton: true,
+                functionButton: {
+                  theme: 'pink',
+                  label: '나가기',
+                  onClick: () => {
+                    navigate(-1);
+                    closeModal();
+                  },
+                },
+              })
+            }
           />
         </StBtnBox1>
         <StBtnBox2>
           <Button
-            onClick={onClickHandleModal}
             label="수정 완료"
             $buttonTheme="blue"
             size="mediumLong"
             fontSize={Theme.fontSizes.h2}
+            onClick={() =>
+              openModal(EModalType.POP_UP, {
+                title: '수정한 게시물을 업로드 할까요?',
+                cancelButton: true,
+                functionButton: {
+                  theme: 'blue',
+                  label: '확인',
+                  onClick: () => {
+                    mutation.mutate(), closeModal();
+                  },
+                },
+              })
+            }
           />
         </StBtnBox2>
       </StBtnContainer>
@@ -138,17 +141,6 @@ export const EditPost = () => {
         <StSkyline></StSkyline>
         <StGrayBg></StGrayBg>
       </StBg>
-
-      {openModal && (
-        <Portal>
-          <PostModal
-            onClickHandleModal={onClickHandleModal}
-            sendEditRequest={sendEditRequest}
-            attribute={MODAL_ATTRIBUTES.EDIT}
-            modalType={modalType}
-          />
-        </Portal>
-      )}
     </StEditPostContainer>
   );
 };

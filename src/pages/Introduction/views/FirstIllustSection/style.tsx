@@ -23,6 +23,10 @@ export const StGradation = styled.div`
   min-width: 375px;
   height: 20vh;
   background: linear-gradient(#afbff0, ${Theme.colors.white});
+
+  ${media.mobile`
+    height: 10vh;
+  `}
 `;
 
 export const StContainer = styled.div`
@@ -40,6 +44,7 @@ export const StContainer = styled.div`
 
   ${media.mobile`    
     flex-direction: column;
+    height: 90vh;
   `}
 `;
 
