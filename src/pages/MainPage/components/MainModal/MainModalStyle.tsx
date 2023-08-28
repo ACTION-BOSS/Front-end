@@ -9,7 +9,7 @@ export const MainModalContainer = styled.div`
   width: 432px;
   background-color: #ffffff;
   border-radius: 20px;
-  box-shadow: 0px 0px 15px 0px ${Theme.colors.gray8};
+  box-shadow: 0px 0px 15px 0px rgba(41, 47, 61, 0.25);
   padding: 16px;
   ${media.mobile`
   height: 240px;
@@ -53,8 +53,8 @@ export const MainModalTop = styled.div`
     font-size: ${Theme.fontSizes.h3};
     font-weight: ${Theme.fontWeights.h3};
     ${media.mobile` 
-    font-size: 14px;  //MH2로 변경 필요
-    font-weight: 600;`}
+    font-size: ${Theme.fontSizes.mH2};
+    font-weight: ${Theme.fontWeights.mH2};`}
   }
   .xButton {
     cursor: pointer;
@@ -76,7 +76,7 @@ export const MainModalMiddle = styled.div<{ $isDone: boolean | undefined }>`
     width: 100%;
     height: 100%;
     background-color: ${({ $isDone }) =>
-      $isDone ? 'rgba(41, 47, 61, 0.40)' : 'none'};
+      $isDone ? `${Theme.colors.deem}` : 'none'};
     z-index: 9;
     display: flex;
     align-items: center;
@@ -99,7 +99,7 @@ export const UnLike = styled.div`
   justify-content: center;
   gap: 4px;
   background-color: white;
-  box-shadow: 0px 0px 10px 0px rgba(41, 47, 61, 0.2);
+  box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
   border-radius: 100px;
   font-size: ${Theme.fontSizes.body1};
   font-weight: ${Theme.fontWeights.body1};
@@ -127,7 +127,9 @@ export const MainModalBottom = styled.div`
     font-size: ${Theme.fontSizes.body3};
     font-weight: ${Theme.fontWeights.body3};
     ${media.mobile` 
-    font-size: 12px;  //MB1으로 변경 필요
+    font-size: ${Theme.fontSizes.mH1};
+    font-weight: ${Theme.fontWeights.mH1};
+    font-size: 12px; 
     font-weight: 500;`}
   }
   .nickname {
