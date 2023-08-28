@@ -58,13 +58,14 @@ export const StTitle = styled.div`
   font-size: 50px;
   font-weight: 400;
   color: ${Theme.colors.black};
-  margin-bottom: 6vh;
+  margin-bottom: 4vh;
 
   ${media.tablet`
+  margin-bottom: 2vh;
   font-size: 40px;
   `}
 
-  ${media.mobile`
+  ${media.mobile`  
   font-size: 30px;
   `}
 `;
