@@ -24,8 +24,9 @@ export const StContainer = styled.div`
   align-items: center;
   width: 100vw;
   min-width: 375px;
-  height: 90vh;
-  margin-top: 10vh;
+  margin-top: 5vh;
+  height: 100vh;
+
   gap: 50px;
 
   ${media.tablet`
