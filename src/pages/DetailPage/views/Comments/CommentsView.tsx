@@ -43,7 +43,7 @@ export const CommentsView: FC<CommentsViewProps> = ({
   return (
     <>
       <StCommentWrapper>
-        {comments?.map((comment) => (
+        {comments?.map((comment, index) => (
           <StCommentBox key={comment.id}>
             <StWriterTime>
               <StWriter isSame={comment.nickname === nickname}>
@@ -76,7 +76,7 @@ export const CommentsView: FC<CommentsViewProps> = ({
               </StTimeContainer>
             </StWriterTime>
             <StCommentContent>{comment.content}</StCommentContent>
-            <hr />
+            {index !== comments.length - 1 && <hr />}
           </StCommentBox>
         ))}
       </StCommentWrapper>

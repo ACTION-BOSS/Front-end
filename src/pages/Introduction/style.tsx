@@ -13,6 +13,6 @@ export const StIntroduction = styled.div`
   `}
 
   ${media.mobile`
-  height: 2056px;
+  height: 2156px;
   `}
 `;
