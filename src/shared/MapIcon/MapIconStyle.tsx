@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import { media } from '../../styles';
 import { ReactComponent as plus } from '../../assets/svgIcon/plus.svg';
 import { ReactComponent as minus } from '../../assets/svgIcon/minus.svg';
+import { ReactComponent as gps } from '../../assets/svgIcon/GPS.svg';
 
 export const PlusIcon = styled(plus)`
   width: 24px;
@@ -14,8 +15,15 @@ export const MinusIcon = styled(minus)`
   width: 24px;
   height: 24px;
   ${media.mobile`
-  width: 20px;
-  height: 20px;`};
+  width: 18px;
+  height: 18px;`};
+`;
+export const GPSIcon = styled(gps)`
+  width: 24px;
+  height: 24px;
+  ${media.mobile`
+  width: 18px;
+  height: 18px;`};
 `;
 
 export const IconContainer = styled.div`
@@ -31,11 +39,11 @@ export const IconContainer = styled.div`
     justify-content: center;
     height: 54px;
     width: 54px;
-    box-shadow: 0px 2px 5px 0px ${(props) => props.theme.colors.gray8};
+    box-shadow: 0px 2px 5px 0px rgba(41, 47, 61, 0.3);
     cursor: pointer;
     ${media.mobile`
-    height: 40px;
-    width: 40px;`}
+    height: 35px;
+    width: 36px;`}
   }
   .mapSizeIcon {
     width: 48px;
@@ -47,10 +55,10 @@ export const IconContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 5px;
-    box-shadow: 0px 2px 5px 0px ${(props) => props.theme.gray8};
+    box-shadow: 0px 2px 5px 0px rgba(41, 47, 61, 0.3);
     ${media.mobile`
-    width: 38px;
-    height: 85px;`}
+    width: 32px;
+    height: 80px;`}
   }
   .plusIcon {
     cursor: pointer;

@@ -7,8 +7,9 @@ export const LogoIcon = styled(Logo)`
   height: 28px;
   cursor: pointer;
   ${media.mobile`
-  width: 113px;
-  height: 20px;`}
+  width: 123px;
+  height: 20px;
+  padding-left: 10px;`}
 `;
 export const Wrap = styled.div`
   position: fixed;
@@ -30,6 +31,7 @@ export const Wrap = styled.div`
   }
   ${media.tablet`
   padding: 0px 30px;
+  height: 68px;
 `}
 `;
 export const HeaderLeft = styled.div`
@@ -70,6 +72,10 @@ export const HeaderRight = styled.div`
     border: none;
     font-size: ${Theme.fontSizes.h2};
     font-weight: ${Theme.fontWeights.h2};
+    background-color: ${Theme.colors.blueGray};
+    &:hover {
+      background-color: ${Theme.colors.blueGray};
+    }
     cursor: pointer;
   }
 `;

@@ -761,3 +761,14 @@ export const BigPingIcon = (isDone: boolean) => {
     ? 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102441/l6cvbmmefjdc50sonkn0.svg'
     : 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692102445/ztckh2owqwlwd2sgjhq8.svg';
 };
+
+export const PingSmallIcon = (isDone: boolean) => {
+  return isDone
+    ? 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1693211403/t4ftwe6t5hacfozgvylp.png'
+    : 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1693211400/xdqny3hd5fzlmvctyyfj.png';
+};
+export const BigPingSmallIcon = (isDone: boolean) => {
+  return isDone
+    ? 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1693211407/a4ezhjrpe1amfxo0tpuf.png'
+    : 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1693211409/prpzfooj4og8e14by5xa.png';
+};

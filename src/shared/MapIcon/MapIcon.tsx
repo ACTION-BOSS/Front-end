@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import * as s from './MapIconStyle';
-import { GPSIcon, MinusIcon, PlusIcon } from '../../assets';
 import { useGetCurrentLocation } from '../../pages/MainPage/hook';
 
 type MapIconProps = {
@@ -31,15 +30,15 @@ export const MapIcon: FC<MapIconProps> = ({
   return (
     <s.IconContainer>
       <div className="gpsIcon" onClick={getCurrentLocation}>
-        <GPSIcon size={24} />
+        <s.GPSIcon />
       </div>
       <div className="mapSizeIcon">
         <div className="plusIcon" onClick={zoomInHandler}>
-          <PlusIcon />
+          <s.PlusIcon />
         </div>
         <div className="line"></div>
         <div className="minusIcon" onClick={zoomOutHandler}>
-          <MinusIcon />
+          <s.MinusIcon />
         </div>
       </div>
     </s.IconContainer>
