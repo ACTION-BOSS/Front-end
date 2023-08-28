@@ -12,7 +12,7 @@ z-index:999;
 padding-top: 15px;
 position:absolute;
 height: 100%;
-height: calc(100vh - 225px);
+height: calc(100vh - 210px);
   `}
   ${({ $isBottomContente }) =>
     !$isBottomContente &&
