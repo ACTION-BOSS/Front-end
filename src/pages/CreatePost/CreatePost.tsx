@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-import { Button } from '../../shared';
-import { Portal, PostModal } from '../../shared/PostModal';
-import { MODAL_ATTRIBUTES } from './const';
+import { Button, getAccessToken } from '../../shared';
 import { CreateFormView, MapView } from './views';
 import {
   StCreatePostContainer,
@@ -19,26 +16,21 @@ import { useNavigate } from 'react-router-dom';
 
 import { createPostState } from './state';
 import { Theme } from '../../styles';
+import { EModalType, useModal } from '../../providers';
 
 export const CreatePost = () => {
-  const token = localStorage.getItem('accessToken');
+  const { openModal, closeModal } = useModal();
+  const token = getAccessToken();
   const post = useRecoilValue(createPostState);
-  const [openModal, setOpenModal] = useState(false);
-  const [modalType, setModalType] = useState('default');
   const navigate = useNavigate();
-
-  const onClickCancle = () => {
-    setModalType('cancle');
-    setOpenModal(!openModal);
-  };
 
   if (!token) {
     window.location.replace('javascript:history.back()');
     return null;
   }
 
-  const onClickHandleModal = () => {
-    if (
+  const isFormValid = () => {
+    return (
       post.title &&
       post.content &&
       post.address &&
@@ -46,16 +38,36 @@ export const CreatePost = () => {
       post.longitude &&
       post.images &&
       post.images.length > 0
-    ) {
-      setModalType('default');
-      setOpenModal(!openModal);
+    );
+  };
+
+  const handleCreatePostClick = () => {
+    if (isFormValid()) {
+      openModal(EModalType.POP_UP, {
+        title: '작성한 게시물을 업로드 할까요?',
+        cancelButton: true,
+        functionButton: {
+          theme: 'blue',
+          label: '확인',
+          onClick: () => {
+            mutation.mutate(), closeModal();
+          },
+        },
+      });
     } else {
-      setModalType('warning');
-      setOpenModal(!openModal);
+      openModal(EModalType.POP_UP, {
+        title: '양식을 모두 입력해주세요',
+        cancelButton: false,
+        functionButton: {
+          theme: 'emptyBlue',
+          label: '확인',
+          onClick: () => closeModal(),
+        },
+      });
     }
   };
 
-  console.log(post)
+  console.log(post);
 
   const sendPostRequest = async () => {
     const formData = new FormData();
@@ -89,46 +101,48 @@ export const CreatePost = () => {
     },
   });
 
-  return (   
-      <StCreatePostContainer>
-        <CreateFormView />
-        <MapView />
-        <StBtnContainer>
-          <StBtnBox1>
-            <Button
-              onClick={onClickCancle}
-              label="취소"
-              $buttonTheme="empty"
-              size="mediumLong"
-              fontSize={Theme.fontSizes.h2}
-            />
-          </StBtnBox1>
-          <StBtnBox2>
-            <Button
-              onClick={onClickHandleModal}
-              label="게시물 작성"
-              $buttonTheme="blue"
-              size="mediumLong"
-              fontSize={Theme.fontSizes.h2}
-            />
-          </StBtnBox2>
-        </StBtnContainer>
+  return (
+    <StCreatePostContainer>
+      <CreateFormView />
+      <MapView />
+      <StBtnContainer>
+        <StBtnBox1>
+          <Button
+            label="취소"
+            $buttonTheme="empty"
+            size="mediumLong"
+            fontSize={Theme.fontSizes.h2}
+            onClick={() =>
+              openModal(EModalType.POP_UP, {
+                title: '작업을 중단하고 나가시겠습니까?',
+                cancelButton: true,
+                functionButton: {
+                  theme: 'pink',
+                  label: '나가기',
+                  onClick: () => {
+                    navigate(-1);
+                    closeModal();
+                  },
+                },
+              })
+            }
+          />
+        </StBtnBox1>
+        <StBtnBox2>
+          <Button
+            label="게시물 작성"
+            $buttonTheme="blue"
+            size="mediumLong"
+            fontSize={Theme.fontSizes.h2}
+            onClick={handleCreatePostClick}
+          />
+        </StBtnBox2>
+      </StBtnContainer>
 
-        <StBg>
-          <StSkyline></StSkyline>
-          <StGrayBg></StGrayBg>
-        </StBg>
-
-        {openModal && (
-          <Portal>
-            <PostModal
-              onClickHandleModal={onClickHandleModal}
-              sendPostRequest={() => mutation.mutate()}
-              attribute={MODAL_ATTRIBUTES.UPLOAD}
-              modalType={modalType}
-            />
-          </Portal>
-        )}
-      </StCreatePostContainer>   
+      <StBg>
+        <StSkyline></StSkyline>
+        <StGrayBg></StGrayBg>
+      </StBg>
+    </StCreatePostContainer>
   );
 };
