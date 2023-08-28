@@ -1,5 +1,5 @@
 import { ReactNode, FC } from 'react';
-import { LOGO_SERO, XButtonIcon } from '../../../assets';
+import { XButtonIcon } from '../../../assets';
 import { useModal } from '../../../providers';
 
 import {
@@ -7,9 +7,9 @@ import {
   StLogoWrapper,
   StHeader,
   StChildrenWrapper,
-  StLogoImage,
   StLogoText,
   StXButtonWrapper,
+  StyledLogo,
 } from './LoginStyle';
 import { Pressable } from '../../../shared';
 
@@ -35,7 +35,7 @@ export const LoginLayout: FC<LoginLayoutProps> = ({ children }) => {
         </Pressable>
       </StHeader>
       <StLogoWrapper>
-        <StLogoImage src={LOGO_SERO} />
+        <StyledLogo />
       </StLogoWrapper>
       <StChildrenWrapper>{children}</StChildrenWrapper>
     </StModalWrapper>
