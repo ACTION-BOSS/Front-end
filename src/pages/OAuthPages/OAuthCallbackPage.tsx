@@ -28,8 +28,13 @@ export const OAuthCallbackPage: FC<OAuthCallbackPageProps> = ({}) => {
         accessToken && saveAccessToken(accessToken);
 
         if (accessToken) {
-          console.log('카카오 로그인 성공!');
-          navigate(-2);
+          const redirectURL = sessionStorage.getItem('previousURL');
+          if (redirectURL) {
+            navigate(new URL(redirectURL).pathname);
+            sessionStorage.removeItem('previousURL');
+          } else {
+            navigate('/main');
+          }
         }
       }
     } catch (e) {
@@ -39,7 +44,6 @@ export const OAuthCallbackPage: FC<OAuthCallbackPageProps> = ({}) => {
 
   useEffect(() => {
     if (code) {
-      console.log('Code:', code);
       getAccessTokenByCode(code);
     }
   }, [code]);
