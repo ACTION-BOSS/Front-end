@@ -5,6 +5,7 @@ import { styled } from 'styled-components';
 import { SignUpModal, LoginModal, PopUpModal } from '../../modals';
 import { SignUpSuccessModal } from '../../modals/SignUpSuccessModal/SignUpSuccessModal';
 import { ThemeType } from '../../shared/Button/type';
+import { media } from '../../styles';
 
 interface IModalContext {
   openModal: (modalType: EModalType, params?: IParamsForPopUpModal) => void;
@@ -98,4 +99,11 @@ export const StModalBackground = styled.div`
   width: 100%;
   z-index: 99999;
   height: 100vh;
+
+  ${media.mobile`
+  width: 100%;
+  height: 100dvh;
+  border-radius: 0;
+  align-items: normal;
+`}
 `;

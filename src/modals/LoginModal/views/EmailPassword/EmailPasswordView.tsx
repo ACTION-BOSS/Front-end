@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { $isVerificationFailed } from '../../state';
 import { useRecoilValue } from 'recoil';
-import { KakaoLogin } from '../../components';
 import { EModalType, useModal } from '../../../../providers';
 import { SelectBox } from '../../../SignUpModal';
 import { Button } from '../../../../shared';
@@ -118,24 +117,24 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
         )}
       </div>
 
-      <StBottomWrapper>
-        <Button
-          label={'로그인'}
-          $buttonTheme="blue"
-          size="large"
-          $bold
-          onClick={onPressLoginButton}
-          disabled={isReadyForLogin}
-        />
-        <StKakaoWrapper>
-          <KakaoLogin />
-        </StKakaoWrapper>
+      <div style={{ paddingTop: '32px' }}>
+        <StBottomWrapper>
+          <Button
+            label={'로그인'}
+            $buttonTheme="blue"
+            size="large"
+            $bold
+            onClick={onPressLoginButton}
+            disabled={isReadyForLogin}
+          />
+          <StKakaoWrapper>{/* <KakaoLogin /> */}</StKakaoWrapper>
 
-        <StTextWrapper>
-          <StTextL1>아직 행동대장의 회원이 아니신가요?</StTextL1>
-          <StTextL3 onClick={handleClickSignup}>회원가입</StTextL3>
-        </StTextWrapper>
-      </StBottomWrapper>
+          <StTextWrapper>
+            <StTextL1>아직 행동대장의 회원이 아니신가요?</StTextL1>
+            <StTextL3 onClick={handleClickSignup}>회원가입</StTextL3>
+          </StTextWrapper>
+        </StBottomWrapper>
+      </div>
     </StWrapper>
   );
 };
