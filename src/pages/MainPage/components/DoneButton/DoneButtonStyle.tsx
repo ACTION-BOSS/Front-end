@@ -1,9 +1,9 @@
 import { styled } from 'styled-components';
-import { Theme, media } from '../../../../styles';
+import { Theme } from '../../../../styles';
 
 export const DoneButton = styled.button<{ $isDone: boolean }>`
-  width: 88px;
-  height: 32px;
+  width: 99px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,11 +19,4 @@ export const DoneButton = styled.button<{ $isDone: boolean }>`
     $isDone ? Theme.colors.blue : Theme.colors.white};
   color: ${({ $isDone }) =>
     $isDone ? Theme.colors.white : Theme.colors.black};
-
-  ${media.tablet`
-  font-size: ${Theme.fontSizes.h3};
-  font-weight: ${Theme.fontWeights.h3};
-  width: 100px;
-  height: 35px;
-  `}
 `;
