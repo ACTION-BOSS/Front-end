@@ -3,15 +3,16 @@ import { Theme, media } from '../../../../styles';
 
 export const MainPostsConatiner = styled.div<{ $isBottomContente: boolean }>`
   width: 330px;
-  height: calc(100vh - 225px);
+  height: calc(100vh - 218px);
   box-sizing: border-box;
   ${media.tablet`
 width:100%;
-display: hidden;
 background-color: ${Theme.colors.white};
 z-index:999;
 padding-top: 15px;
 position:absolute;
+height: 100%;
+height: calc(100vh - 225px);
   `}
   ${({ $isBottomContente }) =>
     !$isBottomContente &&
@@ -20,13 +21,6 @@ position:absolute;
   height:83px;
   bottom: 0;
   transition: height 0.2s ease-in-out;
-  `};
-  ${({ $isBottomContente }) =>
-    $isBottomContente &&
-    media.tablet`
-    transition: height 0.2s ease-in-out;
-    position: fixed;
-    bottom:139px;;
   `};
 `;
 export const MainPostsShortLine = styled.div`

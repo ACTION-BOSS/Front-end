@@ -31,7 +31,7 @@ export const IconContainer = styled.div`
     justify-content: center;
     height: 54px;
     width: 54px;
-    box-shadow: 0px 2px 5px 0px ${(props) => props.theme.colors.gray8};
+    box-shadow: 0px 2px 5px 0px rgba(41, 47, 61, 0.3);
     cursor: pointer;
     ${media.mobile`
     height: 40px;
@@ -47,7 +47,7 @@ export const IconContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 5px;
-    box-shadow: 0px 2px 5px 0px ${(props) => props.theme.gray8};
+    box-shadow: 0px 2px 5px 0px rgba(41, 47, 61, 0.3);
     ${media.mobile`
     width: 38px;
     height: 85px;`}

@@ -68,7 +68,7 @@ export const Header = () => {
         </s.HeaderLeft>
         <s.HeaderRight>
           <s.PostUploadBtn onClick={onClickCreateHandler}>
-            <div>게시물작성</div>
+            <div>게시물 작성</div>
             <WriteIcon />
           </s.PostUploadBtn>
           <div>

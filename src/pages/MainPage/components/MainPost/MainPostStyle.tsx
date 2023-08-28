@@ -29,7 +29,6 @@ export const MainPostImg = styled.div<{ $isDone: boolean }>`
   overflow: hidden;
   ${media.mobile`
     flex: 6;
-    /* width:170px; */
     height: 130px;
 `}
   .postImg {
@@ -37,7 +36,7 @@ export const MainPostImg = styled.div<{ $isDone: boolean }>`
     width: 100%;
     height: 100%;
     background-color: ${({ $isDone }) =>
-      $isDone ? 'rgba(41, 47, 61, 0.40)' : 'none'};
+      $isDone ? `${Theme.colors.deem}` : 'none'};
     z-index: 9;
     display: flex;
     align-items: center;

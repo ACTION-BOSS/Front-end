@@ -70,6 +70,10 @@ export const HeaderRight = styled.div`
     border: none;
     font-size: ${Theme.fontSizes.h2};
     font-weight: ${Theme.fontWeights.h2};
+    background-color: ${Theme.colors.blueGray};
+    &:hover {
+      background-color: ${Theme.colors.blueGray};
+    }
     cursor: pointer;
   }
 `;
