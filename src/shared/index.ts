@@ -5,3 +5,4 @@ export * from './TokenUtils/tokenUtils';
 export * from './Toast/toast';
 export * from './Confetti/Confetti';
 export { default as withConfetti } from './Confetti/Confetti';
+export { default as withPreventScroll } from './PreventScroll/PreventScroll';
