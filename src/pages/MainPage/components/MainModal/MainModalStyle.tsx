@@ -14,7 +14,8 @@ export const MainModalContainer = styled.div`
   ${media.mobile`
   height: 240px;
   width:100%;
-  padding: 12px 16px;`}
+  padding: 12px 16px;
+  border-radius: 12px;`}
 `;
 
 export const XIcon = styled(xIcon)`
@@ -34,11 +35,11 @@ export const UncomIcon = styled(uncomIcon)`
 `;
 
 export const DirectIcon = styled(directIcon)`
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
   ${media.mobile`
-  width: 18px;
-  height: 18px;`};
+  width: 16px;
+  height: 16px;`};
 `;
 
 export const MainModalTop = styled.div`
@@ -47,13 +48,13 @@ export const MainModalTop = styled.div`
   justify-content: space-between;
   margin-bottom: 15px;
   ${media.mobile`
-  margin-bottom: 10px;`}
-  .address {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: ${Theme.fontSizes.body3};
-    font-weight: ${Theme.fontWeights.body3};
+  margin-bottom: 6px;`}
+  .title {
+    font-size: ${Theme.fontSizes.h3};
+    font-weight: ${Theme.fontWeights.h3};
+    ${media.mobile` 
+    font-size: 14px;  //MH2로 변경 필요
+    font-weight: 600;`}
   }
   .xButton {
     cursor: pointer;
@@ -68,7 +69,8 @@ export const MainModalMiddle = styled.div<{ $isDone: boolean | undefined }>`
   position: relative;
   ${media.mobile`
   height: 160px;
-  width:100%;`}
+  width:100%;
+  border-radius: 8px;`}
   .postImg {
     position: absolute;
     width: 100%;
@@ -112,19 +114,25 @@ export const UnLike = styled.div`
   }
 `;
 export const MainModalBottom = styled.div`
-  margin-top: 20px;
+  margin-top: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   ${media.mobile`
   margin-top: 10px;`}
-  .title {
-    font-size: ${Theme.fontSizes.h3};
-    font-weight: ${Theme.fontWeights.h3};
+  .address {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: ${Theme.fontSizes.body3};
+    font-weight: ${Theme.fontWeights.body3};
+    ${media.mobile` 
+    font-size: 12px;  //MB1으로 변경 필요
+    font-weight: 500;`}
   }
   .nickname {
     font-size: ${Theme.fontSizes.label1};
     font-weight: ${Theme.fontWeights.label1};
-    color: ${Theme.colors.black};
+    color: ${Theme.colors.gray7};
   }
 `;

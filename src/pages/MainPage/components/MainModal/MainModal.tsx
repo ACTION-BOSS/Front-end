@@ -13,10 +13,7 @@ export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
   return (
     <s.MainModalContainer>
       <s.MainModalTop>
-        <div className="address">
-          <s.DirectIcon />
-          <div>(민원위치) {croppedAddress}</div>
-        </div>
+        <div className="title">{title}</div>
         <div className="xButton" onClick={onClick}>
           <s.XIcon />
         </div>
@@ -30,7 +27,10 @@ export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
         </s.UnLike>
       </s.MainModalMiddle>
       <s.MainModalBottom>
-        <div className="title">{title}</div>
+        <div className="address">
+          <s.DirectIcon />
+          <div>(민원위치) {croppedAddress}</div>
+        </div>
         <div className="nickname">{nickname}</div>
       </s.MainModalBottom>
     </s.MainModalContainer>

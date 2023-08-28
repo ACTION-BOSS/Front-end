@@ -1,12 +1,12 @@
-import { BigPingIcon, PingIcon } from './icon';
+import { BigPingIcon, BigPingSmallIcon, PingIcon, PingSmallIcon } from './icon';
 
 const WINDOWSIZE = window.innerWidth <= 576;
 
 export const DefaultMarkerImage = (isDone: boolean) => {
   return new window.kakao.maps.MarkerImage(
-    PingIcon(isDone),
+    WINDOWSIZE ? PingSmallIcon(isDone) : PingIcon(isDone),
     WINDOWSIZE
-      ? new window.kakao.maps.Size(40, 60)
+      ? new window.kakao.maps.Size(38, 55)
       : new window.kakao.maps.Size(45, 65),
   );
 };
@@ -28,12 +28,14 @@ export const createClusterer = (map: any, isDone: boolean) => {
     gridSize: 70,
     styles: [
       {
-        width: '130px',
-        height: '95px',
-        background: `url(${BigPingIcon(isDone)})`,
+        width: WINDOWSIZE ? '93px' : '130px',
+        height: WINDOWSIZE ? '67px' : '95px',
+        background: WINDOWSIZE
+          ? `url(${BigPingSmallIcon(isDone)})`
+          : `url(${BigPingIcon(isDone)})`,
         backgroundRepeat: 'no-repeat',
         color: '#fff',
-        backgroundPosition: '15px 1px',
+        backgroundPosition: WINDOWSIZE ? '6px 1px' : '15px 1px',
         textAlign: 'left',
         display: 'flex',
         alignItems: 'center',
