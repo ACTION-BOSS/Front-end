@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Theme, media } from '../../../../styles';
 
-export const MainPostsConatiner = styled.div<{ $sizeControl: boolean }>`
+export const MainPostsConatiner = styled.div<{ $isBottomContente: boolean }>`
   width: 330px;
   height: calc(100vh - 225px);
   box-sizing: border-box;
@@ -13,16 +13,16 @@ z-index:999;
 padding-top: 15px;
 position:absolute;
   `}
-  ${({ $sizeControl }) =>
-    !$sizeControl &&
+  ${({ $isBottomContente }) =>
+    !$isBottomContente &&
     media.tablet`
   position: fixed;
-  height:84px;
+  height:83px;
   bottom: 0;
   transition: height 0.2s ease-in-out;
   `};
-  ${({ $sizeControl }) =>
-    $sizeControl &&
+  ${({ $isBottomContente }) =>
+    $isBottomContente &&
     media.tablet`
     transition: height 0.2s ease-in-out;
     position: fixed;
@@ -62,10 +62,23 @@ export const MainPostHeader = styled.div`
   padding: 0 0 10px 0;
   font-size: ${Theme.fontSizes.h2};
   font-weight: ${Theme.fontWeights.h2};
+  margin: 0 15px;
 `}
 `;
-export const MainPostsContent = styled.div<{ $sizeControl: boolean }>`
+export const MainPostsContent = styled.div<{ $isBottomContente: boolean }>`
   height: 100%;
+  ${({ $isBottomContente }) =>
+    !$isBottomContente &&
+    media.tablet`
+    display:none;
+  `};
+`;
+export const NoPosts = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80%;
 `;
 export const MainPosts = styled.div`
   padding: 0 45px;
@@ -74,6 +87,9 @@ export const MainPosts = styled.div`
   background-color: ${Theme.colors.white};
   &::-webkit-scrollbar {
     width: 10px;
+    ${media.tablet`
+    display: none;
+    `}
   }
 
   &::-webkit-scrollbar-thumb {
@@ -84,19 +100,19 @@ export const MainPosts = styled.div`
 
   &::-webkit-scrollbar-track {
     background: #84848447;
+    flex-wrap: nowrap;
   }
   ${media.tablet`
   display:flex;
   flex-wrap: wrap;
-  gap: 10px;
-  align-content: flex-start
+  gap: 20px;
+  align-content: flex-start;
+  padding: 0 18px;
 `}
-`;
-
-export const NoPosts = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 80%;
+  ${media.mobile`
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0px;
+  padding: 0 15px;
+`}
 `;

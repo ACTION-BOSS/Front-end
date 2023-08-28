@@ -5,3 +5,4 @@ export * from './NoPost';
 export * from './DoneButton';
 export * from './OptionButtons';
 export * from './LocationBox';
+export * from './HeaderMenu';

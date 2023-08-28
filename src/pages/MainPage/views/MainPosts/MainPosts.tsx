@@ -21,8 +21,8 @@ export const MainPosts: FC<MainPostsProps> = ({
   isDone,
   handleClickDoneButton,
 }) => {
-  const [sizeControl, setSizeControl] = useState<boolean>(false);
   const [option, setOption] = useState<string>('최신순');
+  const [isBottomContente, setIsBottomContente] = useState<boolean>(false);
   const observerElem = useRef<HTMLDivElement>(null);
 
   const { data, isSuccess, fetchNextPage, hasNextPage, isLoading, isError } =
@@ -34,8 +34,8 @@ export const MainPosts: FC<MainPostsProps> = ({
     setOption(option);
   };
 
-  const handleClickSizeToggle = () => {
-    setSizeControl(!sizeControl);
+  const handleToggleBottomContent = () => {
+    setIsBottomContente(!isBottomContente);
   };
 
   useEffect(() => {
@@ -52,8 +52,8 @@ export const MainPosts: FC<MainPostsProps> = ({
   const allPosts =
     (isSuccess && data.pages.flatMap((page) => page.data.postList)) || [];
   return (
-    <s.MainPostsConatiner $sizeControl={sizeControl}>
-      <s.MainPostsShortLine onClick={handleClickSizeToggle}>
+    <s.MainPostsConatiner $isBottomContente={isBottomContente}>
+      <s.MainPostsShortLine onClick={handleToggleBottomContent}>
         <div />
       </s.MainPostsShortLine>
       <s.MainPostHeader>
@@ -63,7 +63,7 @@ export const MainPosts: FC<MainPostsProps> = ({
           handleClickDoneButton={handleClickDoneButton}
         />
       </s.MainPostHeader>
-      <s.MainPostsContent $sizeControl={sizeControl}>
+      <s.MainPostsContent $isBottomContente={isBottomContente}>
         {!isLoading && allPosts.length === 0 ? (
           <s.NoPosts>
             <NoPost />

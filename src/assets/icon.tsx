@@ -7,6 +7,65 @@ interface IconProps {
   color3?: string;
 }
 
+export const HumanIcon: FC<IconProps> = ({ size = 24, color = '#454554' }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size - 1}
+      viewBox="0 0 24 25"
+      fill="none"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12.0007 14.0762C15.5894 14.0762 18.4987 11.1669 18.4987 7.57812C18.4987 3.98935 15.5894 1.08008 12.0007 1.08008C8.4119 1.08008 5.50262 3.98935 5.50262 7.57812C5.50262 11.1669 8.4119 14.0762 12.0007 14.0762ZM12.0017 11.2481C14.028 11.2481 15.6706 9.60545 15.6706 7.57918C15.6706 5.5529 14.028 3.91028 12.0017 3.91028C9.97545 3.91028 8.33283 5.5529 8.33283 7.57918C8.33283 9.60545 9.97545 11.2481 12.0017 11.2481Z"
+        fill="#454554"
+      />
+      <path
+        d="M20.2957 22.142C20.2957 19.9419 19.4217 17.832 17.866 16.2763C16.3103 14.7206 14.2003 13.8466 12.0002 13.8466C9.80013 13.8466 7.69015 14.7206 6.13445 16.2763C4.57875 17.832 3.70477 19.942 3.70477 22.142"
+        stroke={color}
+        strokeWidth="3"
+      />
+    </svg>
+  );
+};
+
+export const HomeIcon: FC<IconProps> = ({ size = 24, color = '#454554' }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M21.91 13.8021L20.0337 11.9258C20.0342 11.9606 20.0344 11.9955 20.0344 12.0304V20.8818C20.0344 22.2803 18.9007 23.4141 17.5021 23.4141H6.5059C5.10737 23.4141 3.97363 22.2803 3.97363 20.8818V12.0304C3.97363 11.9894 3.97394 11.9485 3.97455 11.9077L2.08999 13.7922L0 11.7022L10.5852 1.11704C11.3665 0.335761 12.6333 0.336021 13.4142 1.11762L24 11.7121L21.91 13.8021ZM12.0002 19.6283C13.8171 19.6283 15.29 18.1555 15.29 16.3386C15.29 14.5217 13.8171 13.0488 12.0002 13.0488C10.1833 13.0488 8.71045 14.5217 8.71045 16.3386C8.71045 18.1555 10.1833 19.6283 12.0002 19.6283Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+export const ListIcon: FC<IconProps> = ({ size = 20, color = '#454554' }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size - 2}
+      viewBox="0 0 20 18"
+      fill="none"
+    >
+      <rect x="0.5" y="0.554688" width="19" height="2.4127" fill={color} />
+      <rect x="0.5" y="7.79297" width="19" height="2.4127" fill={color} />
+      <rect x="0.5" y="15.0312" width="19" height="2.4127" fill={color} />
+    </svg>
+  );
+};
+
 export const KakaoIcon: FC<IconProps> = ({ size = 32, color = '#000000' }) => {
   return (
     <svg
@@ -221,7 +280,7 @@ export const GPSIcon: FC<IconProps> = ({ size = 25, color = '#454554' }) => {
     <svg
       width={size}
       height={size}
-      viewBox="0 0 25 25"
+      viewBox={`0 0 ${size} ${size}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -238,7 +297,7 @@ export const GPSIcon: FC<IconProps> = ({ size = 25, color = '#454554' }) => {
         <clipPath id="clip0_244_4231">
           <rect
             width={size2}
-            height={size2}
+            height={size}
             fill="white"
             transform="translate(0.357422 0.431763)"
           />

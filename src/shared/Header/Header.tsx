@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import * as s from './HeaderStyle';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Button } from '../Button/Button';
-import { WriteIcon } from '../../assets';
+import { HomeIcon, ListIcon, WriteIcon } from '../../assets';
 import { EModalType, useModal } from '../../providers';
 import { getAccessToken, handleLogout } from '../TokenUtils/tokenUtils';
+import { HeaderMenu } from '../../pages/MainPage/components';
 
 export const Header = () => {
   const { openModal } = useModal();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
+  const [isMenu, setIsMenu] = useState(false);
   const accessToken = getAccessToken();
 
   useEffect(() => {
@@ -22,6 +24,7 @@ export const Header = () => {
 
   const onClickCreateHandler = () => {
     isLogin ? navigate('/create') : openModal(EModalType.LOGIN);
+    setIsMenu(false);
   };
 
   const onClickLogoutHandler = () => {
@@ -31,13 +34,34 @@ export const Header = () => {
 
   const onClickLoginButton = () => {
     openModal(EModalType.LOGIN);
+    setIsMenu(false);
+  };
+
+  const onToggleMenu = () => {
+    setIsMenu(!isMenu);
   };
 
   return (
     <>
+      {isMenu && (
+        <HeaderMenu
+          onToggleMenu={onToggleMenu}
+          onClickLogoutHandler={onClickLogoutHandler}
+          onClickCreateHandler={onClickCreateHandler}
+          onClickLoginButton={onClickLoginButton}
+        />
+      )}
       <s.Wrap>
         <s.HeaderLeft>
-          <div className="logo" onClick={() => onClickMovePage('/')}></div>
+          <div className="mobileIcon" onClick={() => onClickMovePage('/main')}>
+            <HomeIcon />
+          </div>
+          <div onClick={() => onClickMovePage('/')}>
+            <s.LogoIcon />
+          </div>
+          <div className="mobileIcon" onClick={onToggleMenu}>
+            <ListIcon />
+          </div>
           <div className="mainMenu" onClick={() => onClickMovePage('/main')}>
             민원 지도
           </div>

@@ -7,6 +7,7 @@ import {
   StTextContainer,
   StPhotoBoxContainer,
   StIconBox,
+  StPhotoContainer,
   StPhotoBox,
   StPhotoText,
   StTitleText,
@@ -55,19 +56,20 @@ export const EditFormView: React.FC<EditFormViewProps> = ({
             <HelpIcon />
             <StPhotoText>사진을 삭제, 수정할 수 없습니다</StPhotoText>
           </StIconBox>
-
-          {Array(3)
-            .fill(null)
-            .map((_, index) => (
-              <StPhotoBox
-                key={index}
-                image={post.imageUrlList?.[index] || undefined}
-              >
-                {!post.imageUrlList?.[index] && (
-                  <StTitleText>행동대장</StTitleText>
-                )}
-              </StPhotoBox>
-            ))}
+          <StPhotoContainer>
+            {Array(3)
+              .fill(null)
+              .map((_, index) => (
+                <StPhotoBox
+                  key={index}
+                  image={post.imageUrlList?.[index] || undefined}
+                >
+                  {!post.imageUrlList?.[index] && (
+                    <StTitleText>행동대장</StTitleText>
+                  )}
+                </StPhotoBox>
+              ))}
+          </StPhotoContainer>
         </StPhotoBoxContainer>
       </StContentContainer>
     </StFormContainer>
