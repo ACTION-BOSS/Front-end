@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 import Confetti from 'react-confetti';
-import { useWindowSize } from 'rooks';
+import { useDidMount, useWillUnmount, useWindowSize } from 'rooks';
 import { styled } from 'styled-components';
 import { media } from '../../styles';
 
@@ -15,11 +15,19 @@ const withConfetti = (
     const windowWidth = innerWidth as number | undefined;
     const windowHeight = innerHeight as number | undefined;
 
+    useDidMount(() => {
+      document.body.style.overflow = 'hidden';
+    });
+
+    useWillUnmount(() => {
+      document.body.style.overflow = 'scroll';
+    });
+
     if (props.showConfetti) {
       return (
         <ConfettiWrapper>
           <Confetti
-            gravity={0.5}
+            gravity={0.6}
             recycle={false}
             width={windowWidth}
             height={windowHeight}
