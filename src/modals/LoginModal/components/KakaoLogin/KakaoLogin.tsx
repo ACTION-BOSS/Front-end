@@ -10,6 +10,8 @@ export const KakaoLogin: FC<KakaoLoginProps> = ({}) => {
   const navigate = useNavigate();
   const { closeModal } = useModal();
   const handleClickKakaoIcon = () => {
+    const currentURL = window.location.href;
+    sessionStorage.setItem('previousURL', currentURL);
     navigate('/oauth');
     closeModal();
   };
