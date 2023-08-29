@@ -30,7 +30,7 @@ export const StPhotosWrapper = styled.div`
 
   ${media.tablet`
   flex-direction: column;
-  max-height: 700px;
+  max-height: 800px;
   `}
 
   ${media.mobile`
@@ -66,13 +66,12 @@ export const StMainImageWrapper = styled.div<{ $postDone: boolean }>`
 
   ${media.tablet`
   width: 100%;
-  height: 100px;
+  aspect-ratio: 900/648;
 `}
 
   ${media.mobile`
     background-color: white;
     border-radius: 0px;
-    max-height: 281px;
   `}
 `;
 
@@ -89,12 +88,12 @@ export const StMainImage = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 12px;
+  aspect-ratio: 900/648;
   `}
 
   ${media.mobile`
-  width: 100%;
-  height: 100%;
   border-radius: 0;
+  aspect-ratio: 900/648;
 `}
 `;
 
