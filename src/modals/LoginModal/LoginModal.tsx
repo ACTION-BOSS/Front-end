@@ -5,10 +5,11 @@ import { LoginLayout } from './layout';
 import { useSetRecoilState } from 'recoil';
 import { $isVerificationFailed } from './state';
 import { RecoilProvider } from '../../providers';
+import { withPreventScroll } from '../../shared';
 
 type LoginModalProps = {};
 
-export const LoginModal: FC<LoginModalProps> = ({}) => {
+export const LoginModal: FC<LoginModalProps> = withPreventScroll(({}) => {
   const { form } = useLoginModalForm();
   const setIsVerificationFailed = useSetRecoilState($isVerificationFailed);
 
@@ -27,4 +28,4 @@ export const LoginModal: FC<LoginModalProps> = ({}) => {
       </FormProvider>
     </RecoilProvider>
   );
-};
+});

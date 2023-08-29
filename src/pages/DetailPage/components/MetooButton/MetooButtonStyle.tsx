@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
 
 export const StButton = styled.button<{
   $localMetoo: boolean | null;
@@ -21,6 +21,27 @@ export const StButton = styled.button<{
     if ($isDisable) return Theme.colors.gray2;
     return $localMetoo ? Theme.colors.pink : Theme.colors.white;
   }};
+
+  ${({ $localMetoo, $isDisable }) => {
+    if ($isDisable) {
+      return media.mobile`
+        background-color : ${Theme.colors.gray2}; 
+          padding: 4px 8px;
+      `;
+    }
+
+    if ($localMetoo) {
+      return media.mobile`
+        background-color : ${Theme.colors.pink}; 
+          padding: 4px 8px;
+      `;
+    } else {
+      return media.mobile`
+      background-color : ${Theme.colors.white}; 
+        padding: 4px 8px;
+    `;
+    }
+  }}
 `;
 
 export const StButtonLabel = styled.div<{
@@ -38,4 +59,10 @@ export const StButtonLabel = styled.div<{
 
   font-size: ${Theme.fontSizes.h2};
   font-weight: ${Theme.fontWeights.h2};
+
+  ${media.mobile`
+    font-size: ${Theme.fontSizes.mH3};
+    font-weight: ${Theme.fontWeights.mH3};
+    gap : 2px;
+  `}
 `;

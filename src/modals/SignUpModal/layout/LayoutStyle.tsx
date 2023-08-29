@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { Theme, media } from '../../../styles';
+import { LogoSeroSvg } from '../../../assets';
 
 export const StHeader = styled.div`
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-
   height: 60px;
 
   padding-top: 20px;
@@ -17,11 +18,32 @@ export const StHeader = styled.div`
   `}
 `;
 
+export const StBackIconWrapper = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+`;
+
+export const StCloseIconWrapper = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+`;
+
 export const StStepWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+`;
+
+export const StyledLogo = styled(LogoSeroSvg)`
+  width: 120px;
+  height: auto;
+
+  ${media.mobile`
+    width: 124px;
+`}
 `;
 
 export const StLogoText = styled.div`
@@ -32,12 +54,6 @@ export const StLogoText = styled.div`
   font-size: 15px;
   font-weight: 600;
   padding: 10px;
-`}
-`;
-
-export const StLogoImage = styled.img`
-  ${media.mobile`
-width: 130px;
 `}
 `;
 
@@ -99,8 +115,10 @@ export const StButtonWrapper = styled.div`
 `;
 
 export const StTransparentDiv = styled.div`
-  width: 24px;
-  height: 24px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+
   background-color: transparent;
 `;
 

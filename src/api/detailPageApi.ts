@@ -47,7 +47,7 @@ export const deletePostedData = async (postId: string | undefined) => {
     const response = await api.delete(`/posts/${postId}`);
 
     if (response.status === 200) {
-      console.log('민원글 삭제에 성공');
+      console.log('게시글 삭제에 성공');
       return response.data;
     } else {
       throw new Error(`게시글 삭제 실패 / status: ${response.status}`);

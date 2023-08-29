@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
 
 export const StInfoWrapper = styled.div`
   display: flex;
@@ -19,6 +19,10 @@ export const StWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+
+  ${media.mobile`
+  width:100%;
+  `}
 `;
 
 export const StButtonWrapper = styled.button`
@@ -31,11 +35,16 @@ export const StButtonWrapper = styled.button`
   border: none;
   cursor: pointer;
   align-items: stretch;
+  background-color: transparent;
+
+  ${media.mobile`
+    justify-content: stretch;
+  `}
 `;
 
 export const StBlueArea = styled.div<{ $localDone: boolean | null }>`
   display: flex;
-  width: 210px;
+  width: 180px;
   justify-content: center;
   align-items: center;
   border-top-left-radius: 10px;
@@ -51,6 +60,10 @@ export const StBlueArea = styled.div<{ $localDone: boolean | null }>`
     $localDone ? Theme.colors.blue : Theme.colors.white};
 
   box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
+
+  ${media.mobile`
+    flex:1;
+  `}
 `;
 
 export const StWhiteArea = styled.div<{ $localDone: boolean | null }>`
@@ -70,7 +83,6 @@ export const StWhiteArea = styled.div<{ $localDone: boolean | null }>`
 
 export const StButtonTextWrapper = styled.div<{ $isReallyDone: boolean }>`
   display: flex;
-
   color: ${({ $isReallyDone }) =>
     $isReallyDone ? Theme.colors.blue : Theme.colors.black};
 

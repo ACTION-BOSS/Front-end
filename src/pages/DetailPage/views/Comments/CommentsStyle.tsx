@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
+import { BinIcon } from '../../../../assets';
 
 export const StCommentWrapper = styled.div`
   display: flex;
@@ -11,17 +12,29 @@ export const StCommentWrapper = styled.div`
   border-radius: 12px;
   margin-top: 32px;
   overflow-y: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  ${media.mobile`
+    background-color: white;
+    margin-top: 24px;
+  `}
 `;
 
 export const StCommentBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 30px 20px 0px 20px;
+  border-bottom: 1px solid ${Theme.colors.gray1};
 
-  hr {
-    width: 100%;
-    border: 1px solid ${Theme.colors.gray1};
+  &:last-child {
+    border-bottom: none;
   }
+
+  ${media.mobile`
+    padding: 20px 0px;
+    width: 100%;
+  `}
 `;
 
 export const StWriterTime = styled.div`
@@ -29,10 +42,15 @@ export const StWriterTime = styled.div`
   justify-content: space-between;
 `;
 
-export const StWriter = styled.div<{ isSame: boolean }>`
-  color: ${(props) => (props.isSame ? Theme.colors.blue : Theme.colors.black)};
+export const StWriter = styled.div<{ $isSame: boolean }>`
+  color: ${(props) => (props.$isSame ? Theme.colors.blue : Theme.colors.black)};
   font-size: ${Theme.fontSizes.h2};
   font-weight: ${Theme.fontWeights.h2};
+
+  ${media.mobile`
+  font-size : ${Theme.fontSizes.mBody1};
+  font-weight : ${Theme.fontWeights.mBody1};
+  `}
 `;
 
 export const StTimeContainer = styled.div`
@@ -44,6 +62,11 @@ export const StTimeContainer = styled.div`
     color: ${Theme.colors.gray6};
     font-size: ${Theme.fontSizes.body4};
     font-weight: ${Theme.fontWeights.body4};
+
+    ${media.mobile`
+    font-size : ${Theme.fontSizes.mL1};
+    font-weight : ${Theme.fontWeights.mL1};
+    `}
   }
 
   button {
@@ -65,9 +88,16 @@ export const StCommentContent = styled.div`
   font-weight: ${Theme.fontWeights.body2};
   font-size: ${Theme.fontSizes.body2};
   margin-bottom: 32px;
+  margin-top: 8px;
+
+  ${media.mobile`
+  font-size : ${Theme.fontSizes.mBody2};
+  font-weight : ${Theme.fontWeights.mBody2};
+  color: ${Theme.colors.gray7};
+  `}
 `;
 
-export const StInputBox = styled.div`
+export const StInputBox = styled.div<{ $postDone: boolean }>`
   display: flex;
   gap: 19px;
   align-items: center;
@@ -75,7 +105,6 @@ export const StInputBox = styled.div`
   margin-top: 32px;
 
   button {
-    background-color: ${Theme.colors.white};
     font-size: ${Theme.fontSizes.h2};
     font-weight: ${Theme.fontWeights.h2};
     color: #ff005e;
@@ -83,8 +112,15 @@ export const StInputBox = styled.div`
     height: 100%;
     border-radius: 8px;
     border: 2px solid #ff005e;
-    cursor: pointer;
+    cursor: ${({ $postDone }) => ($postDone ? `default` : `pointer`)};
+
+    background-color: ${({ $postDone }) =>
+      $postDone ? `${Theme.colors.gray2}` : `${Theme.colors.white}`};
   }
+
+  ${media.mobile`
+    height: 68px;
+  `}
 `;
 
 export const StTextArea = styled.div`
@@ -109,7 +145,20 @@ export const StTextArea = styled.div`
       font-size: ${Theme.fontSizes.body2};
       font-weight: 100;
       color: ${Theme.colors.gray6};
+
+      ${media.mobile`
+      font-size : ${Theme.fontSizes.mL1};
+      font-weight : ${Theme.fontWeights.mL1};
+      color: ${Theme.colors.gray7};
+      `}
     }
+
+    ${media.mobile`
+      font-size : ${Theme.fontSizes.mL1};
+      font-weight : ${Theme.fontWeights.mL1};
+      color: ${Theme.colors.gray7};
+      height: 65px;
+    `}
   }
 
   div {
@@ -119,5 +168,17 @@ export const StTextArea = styled.div`
     color: ${Theme.colors.gray6};
     font-weight: ${Theme.fontWeights.body4};
     font-size: ${Theme.fontSizes.body4};
+
+    ${media.mobile`
+    font-size : ${Theme.fontSizes.mL1};
+    font-weight : ${Theme.fontWeights.mL1};
+    color: ${Theme.colors.gray7};
+    `}
   }
+`;
+
+export const StyledBinIcon = styled(BinIcon)`
+  width: 18px;
+  height: auto;
+  cursor: pointer;
 `;

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Theme, media } from '../../../styles';
+import { LogoSeroSvg } from '../../../assets';
 
 export const StHeader = styled.div`
   position: relative;
@@ -7,6 +8,8 @@ export const StHeader = styled.div`
   justify-content: center;
   align-items: center;
   height: 60px;
+
+  padding-top: 20px;
   padding-left: 14px;
   padding-right: 14px;
 
@@ -17,9 +20,12 @@ export const StHeader = styled.div`
   `}
 `;
 
-export const StLogoImage = styled.img`
+export const StyledLogo = styled(LogoSeroSvg)`
+  width: 120px;
+  height: auto;
+
   ${media.mobile`
-width: 168px;
+    width: 168px;
 `}
 `;
 
@@ -38,7 +44,6 @@ export const StChildrenWrapper = styled(StLogoWrapper)`
   padding-right: 36px;
 
   ${media.mobile`
-    height: 100%;
   `}
 `;
 
@@ -57,7 +62,7 @@ export const StModalWrapper = styled.div`
 
   ${media.mobile`
   width: 100%;
-  height: 100%;
+  height: 100vh;
 
   border-radius: 0;
 `}
@@ -89,10 +94,11 @@ export const StLogoText = styled.div`
 export const StXButtonWrapper = styled.div`
   position: absolute;
 
-  top: 50%;
-  right: 32px;
+  top: 20px;
+  right: 20px;
 
   ${media.mobile`
+  top: 45%;
   transform: translateY(-50%);
   `}
 `;

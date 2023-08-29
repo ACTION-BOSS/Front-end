@@ -38,6 +38,7 @@ export const Theme: ThemeType = {
     mBody1: '12px',
     mBody2: '12px',
     mBody3: '12px',
+    mL1 : '10px',
   },
   fontWeights: {
     h1: '600',
@@ -56,6 +57,7 @@ export const Theme: ThemeType = {
     mBody1: '500',
     mBody2: '400',
     mBody3: '300',
+    mL1 : '300'
   },
   textDecoration: {
     label3: 'underline',

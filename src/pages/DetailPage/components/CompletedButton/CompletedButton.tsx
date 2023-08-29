@@ -26,7 +26,7 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
     <StWrapper>
       <StButtonWrapper onClick={handleClickDoneButton}>
         <StBlueArea $localDone={localDone}>
-          <div>해결된 민원이에요</div>
+          <div>해결됐어요</div>
           <ClearIcon
             color={localDone ? Theme.colors.blueGray : Theme.colors.blue}
             size={32}
@@ -43,7 +43,7 @@ export const CompletedButton: FC<CompletedButtonProps> = ({}) => {
 
       <StInfoWrapper>
         <HelpIcon size={24} />
-        <StInfoText>다섯 개가 채워지면 민원이 완료처리됩니다</StInfoText>
+        <StInfoText>다섯 개가 채워지면 게시글이 완료처리됩니다</StInfoText>
       </StInfoWrapper>
     </StWrapper>
   );
