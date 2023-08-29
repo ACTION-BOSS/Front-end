@@ -26,7 +26,7 @@ export const LandingView = () => {
       <StText>당신의 행동으로 채우는 우리 동네, 우리 지도</StText>
       <StText className="wide">어쩌면 우리가 더 안전하고 행복해질 지도</StText>
       <StMobileImg />
-      <StNavButton onClick={onClickToMain}>동네민원 보러가기</StNavButton>
+      <StNavButton onClick={onClickToMain}>우리 동네 보러가기</StNavButton>
       <StMapBox />
     </StLandingView>
   );
