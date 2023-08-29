@@ -31,15 +31,15 @@ export const StPhotosWrapper = styled.div`
   ${media.tablet`
   flex-direction: column;
   max-height: 800px;
-  aspect-ratio: 1
+  aspect-ratio: 1;
   `}
 
   ${media.mobile`
+  width: 100%;
   gap: 18px;
   flex-direction: column;
   max-height: 500px;
-  aspect-ratio: 1;
-  background-color: red;
+  margin-bottom: 20px;
 `}
 `;
 
@@ -76,6 +76,7 @@ export const StMainImageWrapper = styled.div<{ $postDone: boolean }>`
     background-color: white;
     border-radius: 0px;
     max-height: 281px;
+    flex: 3;
   `}
 `;
 
@@ -132,6 +133,8 @@ export const StPreviewImagesWrapper = styled.div`
   padding-left:24px;
   padding-right:24px;
   gap:9px;
+  width: 100%;
+  max-height: 100px;
 `}
 `;
 
