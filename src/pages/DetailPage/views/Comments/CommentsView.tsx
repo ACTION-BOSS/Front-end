@@ -47,57 +47,46 @@ export const CommentsView: FC<CommentsViewProps> = ({
   const { innerWidth } = useWindowSize();
   const isMobileView = innerWidth! < 576;
 
+  const openDeleteModal = (commentId: string) => {
+    openModal(EModalType.POP_UP, {
+      title: '작성한 댓글을 삭제할까요?',
+      cancelButton: true,
+      functionButton: {
+        theme: 'pink',
+        label: '삭제',
+        onClick: () => {
+          handleDeleteComment(commentId);
+          closeModal();
+        },
+      },
+    });
+  };
+
   return (
     <>
       <StCommentWrapper>
         {comments?.map((comment, index) => (
           <StCommentBox key={comment.id}>
             <StWriterTime>
-              <StWriter $isSame={comment.nickname === nickname}>
+              <StWriter $isSame={comment.commentOwner}>
                 {comment.nickname}
               </StWriter>
               <StTimeContainer>
                 <div>{comment.createdDay}</div>
                 <div>l</div>
                 <div>{comment.createdTime}</div>
-                {comment.commentOwner && isMobileView ? (
-                  <div
-                    onClick={() =>
-                      openModal(EModalType.POP_UP, {
-                        title: '작성한 댓글을 삭제할까요?',
-                        cancelButton: true,
-                        functionButton: {
-                          theme: 'pink',
-                          label: '삭제',
-                          onClick: () => {
-                            handleDeleteComment(comment.id);
-                            closeModal();
-                          },
-                        },
-                      })
-                    }
-                  >
-                    <StyledBinIcon />
-                  </div>
-                ) : (
-                  <button
-                    onClick={() =>
-                      openModal(EModalType.POP_UP, {
-                        title: '작성한 댓글을 삭제할까요?',
-                        cancelButton: true,
-                        functionButton: {
-                          theme: 'pink',
-                          label: '삭제',
-                          onClick: () => {
-                            handleDeleteComment(comment.id);
-                            closeModal();
-                          },
-                        },
-                      })
-                    }
-                  >
-                    삭제
-                  </button>
+                {comment.commentOwner && (
+                  <>
+                    {isMobileView ? (
+                      <div onClick={() => openDeleteModal(comment.id)}>
+                        <StyledBinIcon />
+                      </div>
+                    ) : (
+                      <button onClick={() => openDeleteModal(comment.id)}>
+                        삭제
+                      </button>
+                    )}
+                  </>
                 )}
               </StTimeContainer>
             </StWriterTime>

@@ -17,7 +17,7 @@ export const StCommentWrapper = styled.div`
 
   ${media.mobile`
     background-color: white;
-    margin-top: 24px;
+    margin-top: 24px;;
   `}
 `;
 
@@ -34,6 +34,7 @@ export const StCommentBox = styled.div`
   ${media.mobile`
     padding: 20px 0px;
     width: 100%;
+    
   `}
 `;
 
@@ -57,6 +58,10 @@ export const StTimeContainer = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
+
+  ${media.mobile`
+  gap: 6px;
+  `}
 
   div {
     color: ${Theme.colors.gray6};
@@ -120,6 +125,7 @@ export const StInputBox = styled.div<{ $postDone: boolean }>`
 
   ${media.mobile`
     height: 68px;
+    margin-top: 0px;
   `}
 `;
 

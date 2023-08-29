@@ -21,6 +21,7 @@ import {
   StTextL3,
   StAtWrapper,
   StKakaoWrapper,
+  StPaddingDiv,
 } from './EmailPasswordStyle';
 
 type EmailPasswordViewProps = {
@@ -117,7 +118,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
         )}
       </div>
 
-      <div style={{ paddingTop: '32px' }}>
+      <StPaddingDiv>
         <StBottomWrapper>
           <Button
             label={'로그인'}
@@ -134,7 +135,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
             <StTextL3 onClick={handleClickSignup}>회원가입</StTextL3>
           </StTextWrapper>
         </StBottomWrapper>
-      </div>
+      </StPaddingDiv>
     </StWrapper>
   );
 };
