@@ -141,7 +141,7 @@ export const StMapBox = styled.img.attrs({
   filter: drop-shadow(0 0 2px #5782fa5c) drop-shadow(0 0 15px #5782fa5c);
   z-index: 1;
   position: absolute;
-  top: 585px;
+  top: 630px;
 
   ${media.tablet`
   width: 432px;
