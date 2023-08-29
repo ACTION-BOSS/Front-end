@@ -3,7 +3,7 @@ import { Theme, media } from '../../../../styles';
 
 export const MainPostsConatiner = styled.div<{ $isBottomContente: boolean }>`
   width: 330px;
-  height: calc(100vh - 218px);
+  height: calc(100vh - 222px);
   box-sizing: border-box;
   ${media.tablet`
 width:100%;
@@ -12,7 +12,10 @@ z-index:999;
 padding-top: 15px;
 position:absolute;
 height: 100%;
-height: calc(100vh - 210px);
+height: calc(100vh - 225px);
+  `}
+  ${media.mobile`
+  height: calc(100vh - 208px);
   `}
   ${({ $isBottomContente }) =>
     !$isBottomContente &&
@@ -72,7 +75,8 @@ export const NoPosts = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 80%;
+  height: calc(100% + 70px);
+  background-color: ${Theme.colors.white};
 `;
 export const MainPosts = styled.div`
   padding: 0 45px;

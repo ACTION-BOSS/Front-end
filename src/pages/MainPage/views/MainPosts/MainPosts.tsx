@@ -74,17 +74,19 @@ export const MainPosts: FC<MainPostsProps> = ({
             handleClickOptionButton={handleClickOptionButton}
           />
         )}
-        <s.MainPosts>
-          {isLoading &&
-            Array(5)
-              .fill(0)
-              .map((_, index) => <MainPostSkeleton key={index} />)}
-          {isError && <div>에러</div>}
-          {allPosts.map((post: Post) => (
-            <MainPost key={post.postId} post={post} isDone={isDone} />
-          ))}
-          <div ref={observerElem} />
-        </s.MainPosts>
+        {allPosts.length !== 0 && (
+          <s.MainPosts>
+            {isLoading &&
+              Array(5)
+                .fill(0)
+                .map((_, index) => <MainPostSkeleton key={index} />)}
+            {isError && <div>에러</div>}
+            {allPosts.map((post: Post) => (
+              <MainPost key={post.postId} post={post} isDone={isDone} />
+            ))}
+            <div ref={observerElem} />
+          </s.MainPosts>
+        )}
       </s.MainPostsContent>
     </s.MainPostsConatiner>
   );

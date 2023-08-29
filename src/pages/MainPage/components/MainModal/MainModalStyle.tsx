@@ -1,8 +1,6 @@
 import { styled } from 'styled-components';
 import { Theme, media } from '../../../../styles';
-import { ReactComponent as xIcon } from '../../../../assets/svgIcon/xGrayButton.svg';
-import { ReactComponent as uncomIcon } from '../../../../assets/svgIcon/uncom.svg';
-import { ReactComponent as directIcon } from '../../../../assets/svgIcon/mydirect.svg';
+import { MyDirectIcon, UncomBigIcon, XButtonBigIcon } from '../../../../assets';
 
 export const MainModalContainer = styled.div`
   height: 420px;
@@ -18,7 +16,7 @@ export const MainModalContainer = styled.div`
   border-radius: 12px;`}
 `;
 
-export const XIcon = styled(xIcon)`
+export const GrayX = styled(XButtonBigIcon)`
   width: 32px;
   height: 32px;
   ${media.mobile`
@@ -26,7 +24,7 @@ export const XIcon = styled(xIcon)`
   height: 18px;`}
 `;
 
-export const UncomIcon = styled(uncomIcon)`
+export const Uncom = styled(UncomBigIcon)`
   width: 20px;
   height: 20px;
   ${media.mobile`
@@ -34,7 +32,7 @@ export const UncomIcon = styled(uncomIcon)`
   height: 18px;`};
 `;
 
-export const DirectIcon = styled(directIcon)`
+export const Direct = styled(MyDirectIcon)`
   width: 24px;
   height: 24px;
   ${media.mobile`

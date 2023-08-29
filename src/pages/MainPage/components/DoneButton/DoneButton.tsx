@@ -18,7 +18,7 @@ export const DoneButton: FC<DoneButtonProps> = ({
         color={isDone ? Theme.colors.blueGray : Theme.colors.blue}
         size={16}
       />
-      <div>해결 민원</div>
+      <div>해결 완료</div>
     </s.DoneButton>
   );
 };

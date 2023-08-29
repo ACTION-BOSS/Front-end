@@ -66,3 +66,25 @@ export const getSelectPost = async (postId: number) => {
     console.log(e);
   }
 };
+
+export const getSearchList = async (keyword: string) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URI}/api/search/example?keyword=${keyword}`,
+    );
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getSearchCoordinates = async (keyword: string) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URI}/api/search?keyword=${keyword}`,
+    );
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};

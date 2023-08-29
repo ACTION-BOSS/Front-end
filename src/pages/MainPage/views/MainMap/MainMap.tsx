@@ -8,7 +8,7 @@ import {
   EnlargedMarkerImage,
   createClusterer,
 } from '../../../../assets';
-import { LocationBox, MainModal } from '../../components';
+import { LocationBox, MainModal, SearchBox } from '../../components';
 import { useMapDataQuery } from '../../hook';
 
 declare global {
@@ -217,6 +217,9 @@ export const MainMap: FC<MainMapProps> = ({
   return (
     <s.MainMapContainer>
       <div className="map" ref={mapRef} />
+      <s.SearchBox>
+        <SearchBox />
+      </s.SearchBox>
       <s.MainMapIcon>
         <MapIcon
           zoomLevel={zoomLevel}
@@ -225,6 +228,7 @@ export const MainMap: FC<MainMapProps> = ({
         />
       </s.MainMapIcon>
       <s.MainLocationBox>
+        {/* display:none */}
         <LocationBox />
       </s.MainLocationBox>
       {isModal && (

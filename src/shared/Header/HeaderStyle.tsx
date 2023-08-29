@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 import { Theme, media } from '../../styles';
-import { ReactComponent as Logo } from '../../assets/svgIcon/logoGaro.svg';
+import { LogoGaroIcon } from '../../assets';
 
-export const LogoIcon = styled(Logo)`
+export const Logo = styled(LogoGaroIcon)`
   width: 151px;
   height: 28px;
   cursor: pointer;
@@ -16,7 +16,7 @@ export const Wrap = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 85px;
+  height: 84px;
   display: flex;
   box-sizing: border-box;
   padding: 0px 40px;
@@ -29,8 +29,8 @@ export const Wrap = styled.div`
     display: flex;
     align-items: center;
   }
-  ${media.tablet`
-  padding: 0px 30px;
+  ${media.mobile`
+  padding: 10px 30px 0px;
   height: 68px;
 `}
 `;
@@ -58,25 +58,30 @@ export const HeaderLeft = styled.div`
   }
 `;
 export const HeaderRight = styled.div`
-  font-size: ${Theme.fontSizes.h2};
-  font-weight: ${Theme.fontWeights.h2};
-  gap: 20px;
+  font-size: ${Theme.fontSizes.h3};
+  font-weight: ${Theme.fontWeights.h3};
+  gap: 40px;
+  ${media.tablet`
+  gap: 28px;`}
   ${media.mobile`
   position: absolute;
-  visibility: hidden;;
+  visibility: hidden;
 `}
+  .headerLine {
+    border-right: 1px solid ${Theme.colors.gray1};
+    height: 30px;
+    width: 16px;
+  }
   button {
     color: black;
     height: 45px;
-    padding: 15px 30px;
     border: none;
     font-size: ${Theme.fontSizes.h2};
     font-weight: ${Theme.fontWeights.h2};
-    background-color: ${Theme.colors.blueGray};
-    &:hover {
-      background-color: ${Theme.colors.blueGray};
-    }
     cursor: pointer;
+    &:hover {
+      background-color: ${Theme.colors.white};
+    }
   }
 `;
 export const PostUploadBtn = styled.div`

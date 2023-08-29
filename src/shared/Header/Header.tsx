@@ -45,6 +45,7 @@ export const Header = () => {
     <>
       {isMenu && (
         <HeaderMenu
+          isLogin={isLogin}
           onToggleMenu={onToggleMenu}
           onClickLogoutHandler={onClickLogoutHandler}
           onClickCreateHandler={onClickCreateHandler}
@@ -57,13 +58,13 @@ export const Header = () => {
             <HomeIcon />
           </div>
           <div onClick={() => onClickMovePage('/')}>
-            <s.LogoIcon />
+            <s.Logo />
           </div>
           <div className="mobileIcon" onClick={onToggleMenu}>
             <ListIcon />
           </div>
           <div className="mainMenu" onClick={() => onClickMovePage('/main')}>
-            민원 지도
+            동네 지도
           </div>
         </s.HeaderLeft>
         <s.HeaderRight>
@@ -71,20 +72,21 @@ export const Header = () => {
             <div>게시물 작성</div>
             <WriteIcon />
           </s.PostUploadBtn>
+          <div className="headerLine" />
           <div>
             {isLogin ? (
               <Button
                 onClick={onClickLogoutHandler}
                 size={'small'}
                 label={'로그아웃'}
-                $buttonTheme={'gray'}
+                $buttonTheme={'empty'}
                 $bold={true}
               />
             ) : (
               <Button
                 size={'small'}
                 label={'로그인'}
-                $buttonTheme={'gray'}
+                $buttonTheme={'empty'}
                 $bold={true}
                 onClick={onClickLoginButton}
               />

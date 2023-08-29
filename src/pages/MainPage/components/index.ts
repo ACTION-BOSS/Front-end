@@ -6,3 +6,4 @@ export * from './DoneButton';
 export * from './OptionButtons';
 export * from './LocationBox';
 export * from './HeaderMenu';
+export * from './SearchBox';

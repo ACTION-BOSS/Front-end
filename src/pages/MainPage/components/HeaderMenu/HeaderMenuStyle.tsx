@@ -15,7 +15,7 @@ export const MenuText = styled.div`
   justify-content: space-between;
   height: 60px;
   flex-direction: column;
-  top: 87px;
+  top: 80px;
   right: 85px;
   color: ${Theme.colors.white};
   font-size: ${Theme.fontSizes.h3};
@@ -29,7 +29,7 @@ export const MenuIcon = styled.div`
   background-color: ${Theme.colors.white};
   border-radius: 100px;
   box-shadow: 0px 0px 6px 0px rgba(41, 47, 61, 0.3);
-  top: 8px;
+  top: 5px;
   right: 15px;
   display: flex;
   flex-direction: column;
