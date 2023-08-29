@@ -31,12 +31,15 @@ export const StPhotosWrapper = styled.div`
   ${media.tablet`
   flex-direction: column;
   max-height: 800px;
+  aspect-ratio: 1;
   `}
 
   ${media.mobile`
+  width: 100%;
   gap: 18px;
   flex-direction: column;
   max-height: 500px;
+  margin-bottom: 20px;
 `}
 `;
 
@@ -66,12 +69,14 @@ export const StMainImageWrapper = styled.div<{ $postDone: boolean }>`
 
   ${media.tablet`
   width: 100%;
-  aspect-ratio: 900/648;
+  height: 100px;
 `}
 
   ${media.mobile`
     background-color: white;
     border-radius: 0px;
+    max-height: 281px;
+    flex: 3;
   `}
 `;
 
@@ -88,12 +93,12 @@ export const StMainImage = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 12px;
-  aspect-ratio: 900/648;
   `}
 
   ${media.mobile`
+  width: 100%;
+  height: 100%;
   border-radius: 0;
-  aspect-ratio: 900/648;
 `}
 `;
 
@@ -128,6 +133,8 @@ export const StPreviewImagesWrapper = styled.div`
   padding-left:24px;
   padding-right:24px;
   gap:9px;
+  width: 100%;
+  max-height: 100px;
 `}
 `;
 
