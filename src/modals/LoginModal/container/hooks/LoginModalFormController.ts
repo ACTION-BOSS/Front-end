@@ -4,7 +4,7 @@ import { LoginModalFormData } from './LoginModalForm';
 export const useLoginModalFormController = () => {
   const { control, watch } = useFormContext<LoginModalFormData>();
 
-  console.log(watch());
+  // console.log(watch());
 
   const {
     field: { value: passwordValue, onChange: onChangePassword },

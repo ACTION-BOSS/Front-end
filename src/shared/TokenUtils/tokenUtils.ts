@@ -38,14 +38,14 @@ export const getRemainingMinutesForAccessToken = (): number | null => {
 
 export const checkTokenExpiration = (): void => {
   if (isAccessTokenExpired()) {
-    console.log('토큰이 만료되어 삭제되었거나 로그인 상태가 아닙니다.');
+    // console.log('토큰이 만료되어 삭제되었거나 로그인 상태가 아닙니다.');
     handleLogout();
   } else {
     const token = getAccessToken();
     const payload = JSON.parse(atob(token!.split('.')[1]));
     const remainingTime = payload.exp * 1000 - Date.now();
     const remainingMinutes = Math.round(remainingTime / 1000 / 60);
-    console.log(`토큰 만료까지 남은 시간: ${remainingMinutes}분`);
+    // console.log(`토큰 만료까지 남은 시간: ${remainingMinutes}분`);
   }
 };
 

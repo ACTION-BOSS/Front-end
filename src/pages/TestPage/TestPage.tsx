@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Button } from '../../shared';
 import { EModalType, useModal } from '../../providers';
+import { UncomBigIcon } from '../../assets';
 
 type TestPageProps = {};
 
@@ -17,6 +18,7 @@ export const TestPage: FC<TestPageProps> = ({}) => {
         alignItems: 'center',
       }}
     >
+      <UncomBigIcon color="red" />
       <div style={{ width: '100px' }}>
         <Button
           label="회원가입"

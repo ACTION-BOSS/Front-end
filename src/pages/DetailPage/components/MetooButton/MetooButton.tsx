@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Theme } from '../../../../styles';
-import { UncomBigIcon } from '../../../../assets';
 import { StButton, StButtonLabel } from './MetooButtonStyle';
 import { useWindowSize } from 'rooks';
+import { UncomBigIcon } from '../../../../assets';
 type MetooButtonProps = {
   handleClickMetooButton: () => void;
   localMetooCount: number | null;
@@ -27,7 +27,6 @@ export const MetooButton: FC<MetooButtonProps> = ({
     >
       <StButtonLabel $localMetoo={localMetoo} $isDisable={postDone}>
         {!isMobileView && <div>나도 불편해요</div>}
-
         <UncomBigIcon
           color={
             isMobileView

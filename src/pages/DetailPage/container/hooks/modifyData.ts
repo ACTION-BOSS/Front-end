@@ -13,7 +13,7 @@ export const useDeleteData = () => {
       closeModal();
       navigate('/main');
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
