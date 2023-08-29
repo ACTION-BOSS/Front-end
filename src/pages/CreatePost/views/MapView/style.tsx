@@ -27,20 +27,34 @@ export const StMapText = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 12%;
+  height: 58px;
   padding: 20px;
   border-radius: 12px;
   background-color: ${Theme.colors.white};
   font-size: ${Theme.fontSizes.h2};
   font-weight: ${Theme.fontWeights.h2};
   color: ${Theme.colors.black};
+
+  ${media.mobile`
+  height: 36px;
+  font-size: ${Theme.fontSizes.mH3};
+  font-weight: ${Theme.fontWeights.mH3};
+  `}
 `;
 
 export const StMapContainer = styled.div`
   width: 100%;
-  height: 98%;
+  height: 400px;
   border-radius: 12px;
   position: relative;
+
+  ${media.tablet`
+  height: 325px;
+  `}
+
+  ${media.mobile`
+  height: 150px;
+  `}
 `;
 
 export const StMainMapIcon = styled.div`

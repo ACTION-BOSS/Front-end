@@ -1,4 +1,5 @@
 import { HelpIcon } from '../../../../assets';
+import { useEditForm } from '../../container';
 import { EditFormViewProps } from '../../type';
 import {
   StFormContainer,
@@ -14,26 +15,13 @@ import {
 } from './style';
 
 export const EditFormView: React.FC<EditFormViewProps> = ({
-  post,
+  post: initialPost,
   setPost,
 }) => {
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPost((prev) => {
-      if (prev) {
-        return { ...prev, title: e.target.value };
-      }
-      return null;
-    });
-  };
-
-  const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPost((prev) => {
-      if (prev) {
-        return { ...prev, content: e.target.value };
-      }
-      return null;
-    });
-  };
+  const { post, onChangeTitle, onChangeContent } = useEditForm({
+    initialPost,
+    setPost,
+  });
 
   return (
     <StFormContainer>
