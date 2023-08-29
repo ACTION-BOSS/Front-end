@@ -57,7 +57,7 @@ export const MainPosts: FC<MainPostsProps> = ({
         <div />
       </s.MainPostsShortLine>
       <s.MainPostHeader>
-        <div>우리동네 민원들</div>
+        <div>우리동네 게시물</div>
         <DoneButton
           isDone={isDone}
           handleClickDoneButton={handleClickDoneButton}
