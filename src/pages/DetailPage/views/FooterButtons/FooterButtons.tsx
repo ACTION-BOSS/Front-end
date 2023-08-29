@@ -5,7 +5,8 @@ import { EModalType, useModal } from '../../../../providers';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CompletedButton } from '../../components';
 import { Button } from '../../../../shared';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
+import { useWindowSize } from 'rooks';
 type FooterButtonsProps = {};
 
 export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
@@ -18,42 +19,47 @@ export const FooterButtons: FC<FooterButtonsProps> = ({}) => {
     deleteData();
   };
 
+  const { innerWidth } = useWindowSize();
+  const isMobileView = innerWidth! < 576;
+
   if (isLoading || error) {
     return <></>;
   }
 
   return !postDone ? (
     <StBottomButtonWrapper>
-      <StButtonsWrapper>
-        {owner && (
-          <>
-            <Button
-              label="삭제"
-              $buttonTheme="emptyPink"
-              size="mediumLong"
-              fontSize={Theme.fontSizes.h2}
-              onClick={() =>
-                openModal(EModalType.POP_UP, {
-                  title: '작성한 게시물을 삭제할까요?',
-                  cancelButton: true,
-                  functionButton: {
-                    theme: 'pink',
-                    label: '삭제',
-                    onClick: handleCickDeleteButton,
-                  },
-                })
-              }
-            />
-            <Button
-              label="수정"
-              $buttonTheme="blue"
-              size="mediumLong"
-              fontSize={Theme.fontSizes.h2}
-              onClick={() => navigate(`/edit/${postId}`)}
-            />
-          </>
-        )}
-      </StButtonsWrapper>
+      {!isMobileView && (
+        <StButtonsWrapper>
+          {owner && (
+            <>
+              <Button
+                label="삭제"
+                $buttonTheme="emptyPink"
+                size="mediumLong"
+                fontSize={Theme.fontSizes.h2}
+                onClick={() =>
+                  openModal(EModalType.POP_UP, {
+                    title: '작성한 게시물을 삭제할까요?',
+                    cancelButton: true,
+                    functionButton: {
+                      theme: 'pink',
+                      label: '삭제',
+                      onClick: handleCickDeleteButton,
+                    },
+                  })
+                }
+              />
+              <Button
+                label="수정"
+                $buttonTheme="blue"
+                size="mediumLong"
+                fontSize={Theme.fontSizes.h2}
+                onClick={() => navigate(`/edit/${postId}`)}
+              />
+            </>
+          )}
+        </StButtonsWrapper>
+      )}
       <CompletedButton />
     </StBottomButtonWrapper>
   ) : (
@@ -71,6 +77,12 @@ export const StBottomButtonWrapper = styled.div<{ $postDone?: boolean }>`
 
   bottom: ${({ $postDone }) => ($postDone ? '-100px' : '-260px')};
   right: 4px;
+
+  ${media.mobile`
+    padding-right: 24px;
+    padding-left : 24px;
+    padding-bottom: 127px;
+  `}
 `;
 
 export const StButtonsWrapper = styled.div`

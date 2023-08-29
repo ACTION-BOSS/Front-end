@@ -9,11 +9,13 @@ import {
   StHeader,
   StStepWrapper,
   StLogoText,
-  StLogoImage,
+  StBackIconWrapper,
+  StCloseIconWrapper,
+  StyledLogo,
 } from './LayoutStyle';
 import { ShowStep } from '../components';
 import { EStep } from '../type';
-import { BackIcon, LOGO_SERO, XButtonIcon } from '../../../assets';
+import { BackIcon, XButtonIcon } from '../../../assets';
 import {
   $isReadyForSignup,
   $isReadyStepThree,
@@ -84,21 +86,25 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
         {stepIndex === EStep.STEP1 ? (
           <StTransparentDiv />
         ) : (
-          <Pressable onClick={handleBackIconClick}>
-            <BackIcon size={24} />
-          </Pressable>
+          <StBackIconWrapper>
+            <Pressable onClick={handleBackIconClick}>
+              <BackIcon size={24} />
+            </Pressable>
+          </StBackIconWrapper>
         )}
         <StStepWrapper>
           <StLogoText>회원가입</StLogoText>
           <ShowStep step={stepIndex} />
         </StStepWrapper>
-        <Pressable onClick={handleCloseIconClick}>
-          <XButtonIcon size={24} />
-        </Pressable>
+        <StCloseIconWrapper>
+          <Pressable onClick={handleCloseIconClick}>
+            <XButtonIcon size={24} />
+          </Pressable>
+        </StCloseIconWrapper>
       </StHeader>
 
       <StLogoWrapper>
-        <StLogoImage src={LOGO_SERO} />
+        <StyledLogo />
       </StLogoWrapper>
 
       <StViewWrapper>{children}</StViewWrapper>

@@ -3,11 +3,17 @@ import { MyDirectIcon } from '../../../../assets';
 import {
   StLocationButton,
   StLocationButtonLabel,
+  StLocationDetailText,
+  StLocationText,
   StTextWrapper,
 } from './LocationButtonStyle';
+import { useWindowSize } from 'rooks';
+import { Theme } from '../../../../styles';
 type LocationButtonProps = { address: string };
 
 export const LocationButton: FC<LocationButtonProps> = ({ address }) => {
+  const { innerWidth } = useWindowSize();
+  const isMobileView = innerWidth! < 576;
   const getFirstThreeWords = (address: string) => {
     return address.split(' ').slice(0, 3).join(' ');
   };
@@ -15,10 +21,15 @@ export const LocationButton: FC<LocationButtonProps> = ({ address }) => {
   return (
     <StLocationButton>
       <StLocationButtonLabel>
-        <MyDirectIcon color="black" size={32} />
+        <MyDirectIcon
+          color={Theme.colors.gray7}
+          size={isMobileView ? 18 : 32}
+        />
         <StTextWrapper>
-          <p>(민원 위치)</p>
-          <p>{getFirstThreeWords(address) || '주소 불러오기 실패'}</p>
+          <StLocationText>(위치)</StLocationText>
+          <StLocationDetailText>
+            {getFirstThreeWords(address) || '주소 불러오기 실패'}
+          </StLocationDetailText>
         </StTextWrapper>
       </StLocationButtonLabel>
     </StLocationButton>

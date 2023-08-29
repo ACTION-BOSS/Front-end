@@ -55,15 +55,16 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
   };
 
   useEffect(() => {
-    if (isVerified !== null) {
-      setIsReadyStepThree(isVerified);
+    if (isPasswordVerified === true && isVerified === true) {
+      setIsReadyStepThree(true);
     } else {
       setIsReadyStepThree(false);
     }
-  }, [isVerified, isPasswordVerified]);
+  }, [isPasswordVerified, isVerified]);
 
   useEffect(() => {
-    const PASSWORD_VERIFICATION_REGEX = /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
+    const PASSWORD_VERIFICATION_REGEX =
+      /^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z0-9]{8,15}$/;
 
     // 비밀번호 유효성 검사
     if (passwordValue.length === 0) {
@@ -106,7 +107,7 @@ export const PasswordVerificationView: FC<PasswordVerificationViewProps> = ({
               <StLabel1Text $isCorrect={isPasswordVerified}>
                 {isPasswordVerified
                   ? '사용가능한 비밀번호입니다'
-                  : '비밀번호는 영어+숫자 8~15자리로 입력할 수 있어요'}
+                  : '영어 + 숫자로만 입력해주세요. (8~15자, 특수문자 불가)'}
               </StLabel1Text>
             </StLabelTextWrapper2>
           )}

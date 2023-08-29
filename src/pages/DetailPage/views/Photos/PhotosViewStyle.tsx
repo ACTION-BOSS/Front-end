@@ -28,16 +28,19 @@ export const StPhotosWrapper = styled.div`
   max-height: 560px;
   margin-bottom: 48.5px;
 
-  @media (max-width: 800px) {
-    flex-direction: column;
-  }
-
   ${media.tablet`
-    background-color: yellow`}
+  flex-direction: column;
+  max-height: 800px;
+  aspect-ratio: 1
+  `}
 
   ${media.mobile`
-    background-color: red;
-  `}
+  gap: 18px;
+  flex-direction: column;
+  max-height: 500px;
+  aspect-ratio: 1;
+  background-color: red;
+`}
 `;
 
 export const StMainImageWrapper = styled.div<{ $postDone: boolean }>`
@@ -46,6 +49,7 @@ export const StMainImageWrapper = styled.div<{ $postDone: boolean }>`
   flex: 3;
   overflow: hidden;
   border-radius: 12px;
+  object-fit: cover;
 
   ${({ $postDone }) =>
     $postDone &&
@@ -63,8 +67,16 @@ export const StMainImageWrapper = styled.div<{ $postDone: boolean }>`
   }
 `}
 
-  @media (max-width: 650px) {
-  }
+  ${media.tablet`
+  width: 100%;
+  height: 100px;
+`}
+
+  ${media.mobile`
+    background-color: white;
+    border-radius: 0px;
+    max-height: 281px;
+  `}
 `;
 
 export const StMainImage = styled.img`
@@ -76,9 +88,17 @@ export const StMainImage = styled.img`
   width: 100%;
   height: 100%;
 
-  @media (max-width: 800px) {
-    aspect-ratio: 900/648;
-  }
+  ${media.tablet`
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  `}
+
+  ${media.mobile`
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+`}
 `;
 
 export const StPreviewImage = styled.img`
@@ -88,6 +108,11 @@ export const StPreviewImage = styled.img`
 
   background-color: black;
   object-fit: center;
+
+  ${media.mobile`
+  background-color: white;
+  border-radius: 0px;
+`}
 `;
 
 export const StPreviewImagesWrapper = styled.div`
@@ -97,10 +122,17 @@ export const StPreviewImagesWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  @media (max-width: 800px) {
-    flex-direction: row;
-    width: 100%;
-  }
+  ${media.tablet`
+  width: 100%;
+  flex-direction: row;
+  `}
+
+  ${media.mobile`
+  flex-direction: row;
+  padding-left:24px;
+  padding-right:24px;
+  gap:9px;
+`}
 `;
 
 export const StPreviewWrapper = styled.div<{
@@ -111,37 +143,51 @@ export const StPreviewWrapper = styled.div<{
   position: relative;
   aspect-ratio: 900/648;
 
-  border: ${(props) =>
-    props.$isSelected
-      ? `2px solid ${Theme.colors.white}`
-      : '2px solid transparent'};
+  border: 4px solid transparent;
+  background: none;
   border-radius: 8px;
-  box-shadow: ${(props) =>
-    props.$isSelected
-      ? `0px 0px 8px 0px #FF005E`
-      : ' 0px 0px 6px 0px rgba(41, 47, 61, 0.3)'};
-
   overflow: hidden;
   cursor: pointer;
+
+  ${({ $isSelected }) =>
+    $isSelected &&
+    `
+    border: 4px solid #FF005E;
+    background: rgba(41, 47, 61, 0.40);
+    box-shadow: 0 0 8px var(--red-pink, #FF005E);
+  `}
 
   ${({ $postDone }) =>
     $postDone &&
     `
-&::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--deem, rgba(41, 47, 61, 0.40));
-  pointer-events: none;
-}
-`}
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--deem, rgba(41, 47, 61, 0.40));
+      pointer-events: none;
+    }
+  `}
 
-  @media (max-width: 800px) {
+  ${media.tablet`
+    width: 250px;
+  `}
+
+  ${media.mobile`
     width: 150px;
+  `}
+
+  @media (max-width: 576px) {
+    ${({ $isSelected }) =>
+      $isSelected &&
+      `
+        border: 2px solid #FF005E;
+        box-shadow: 0 0 4px var(--red-pink, #FF005E);
+    `}
   }
 `;
 
@@ -151,21 +197,33 @@ export const StNoImages = styled.div`
   align-items: center;
   aspect-ratio: 900/648;
 
-  border: 2px solid transparent;
+  margin: 2px;
   border-radius: 8px;
   background: rgba(41, 47, 61, 0.4);
 
   overflow: hidden;
 
-  @media (max-width: 800px) {
-    width: 150px;
-  }
+  ${media.tablet`
+  width: 250px;
+  `}
+
+  ${media.mobile`
+  width: 150px;
+`}
 `;
 
 export const StTitleText = styled.div`
   font-family: 'GilbeotTG';
   color: ${Theme.colors.gray1};
 
-  font-size: 26px;
+  font-size: 36px;
   letter-spacing: 1px;
+
+  ${media.tablet`
+  font-size: 28px;
+  `}
+
+  ${media.mobile`
+  font-size: 20px;
+`}
 `;

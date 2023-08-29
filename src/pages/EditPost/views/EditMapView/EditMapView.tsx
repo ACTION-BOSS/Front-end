@@ -52,7 +52,7 @@ export const EditMapView: React.FC<EditMapViewProps> = ({ post }) => {
   return (
     <>
       <StContainer>
-        <StMapText>민원 위치</StMapText>
+        <StMapText>사건 위치</StMapText>
         <StMapContainer ref={mapContainerRef}>
           <StAddressContainer>
             <StIconText>

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Theme } from '../../styles';
+import { Theme, media } from '../../styles';
 import { IParamsForPopUpModal, useModal } from '../../providers';
 import { Button } from '../../shared';
-import { useNavigate } from 'react-router-dom';
+import { useWindowSize } from 'rooks';
 
 type PopUpModalProps = {
   params: IParamsForPopUpModal;
@@ -13,7 +13,8 @@ const getModalButton = (params: IParamsForPopUpModal) => {
   const { title, functionButton, cancelButton } = params;
 
   const { closeModal } = useModal();
-  const navigate = useNavigate();
+  const { innerWidth } = useWindowSize();
+  const isMobileView = innerWidth! < 576;
 
   const {
     label: functionLabel,
@@ -26,7 +27,9 @@ const getModalButton = (params: IParamsForPopUpModal) => {
       <Button
         label={functionLabel}
         $buttonTheme={functionTheme}
-        size="large"
+        size={isMobileView ? 'large' : 'large'}
+        fontSize={isMobileView ? '13px' : '16px'}
+        fontWeight={isMobileView ? '500' : '700'}
         onClick={() => {
           functionOnclick();
         }}
@@ -38,7 +41,9 @@ const getModalButton = (params: IParamsForPopUpModal) => {
         <Button
           label="취소"
           $buttonTheme="emptyBlue"
-          size="large"
+          size="small"
+          fontSize={isMobileView ? '13px' : '16px'}
+          fontWeight={isMobileView ? '500' : '700'}
           onClick={() => {
             closeModal();
           }}
@@ -46,7 +51,9 @@ const getModalButton = (params: IParamsForPopUpModal) => {
         <Button
           label={functionLabel}
           $buttonTheme={functionTheme}
-          size="large"
+          size="medium"
+          fontSize={isMobileView ? '13px' : '16px'}
+          fontWeight={isMobileView ? '500' : '700'}
           onClick={() => {
             functionOnclick();
           }}
@@ -70,6 +77,7 @@ export const PopUpModal: FC<PopUpModalProps> = ({ ...props }) => {
 export const StModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
   width: 500px;
@@ -80,8 +88,15 @@ export const StModalWrapper = styled.div`
   border-radius: 24px;
   background-color: ${Theme.colors.white};
   box-shadow: 0px 2px 15px 0px rgba(41, 47, 61, 0.25);
-
   overflow: hidden;
+
+  ${media.mobile`
+    width: 280px;
+    height: 165px;
+    padding: 0px 21.5px 0px 21.5px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 15px 0px rgba(41, 47, 61, 0.25);
+`}
 `;
 
 export const StText = styled.div`
@@ -93,6 +108,11 @@ export const StText = styled.div`
   font-size: ${Theme.fontSizes.h2};
   font-weight: ${Theme.fontWeights.h2};
   color: ${Theme.colors.black};
+
+  ${media.mobile`
+  font-size: ${Theme.fontSizes.mBody1};
+  font-weight: ${Theme.fontWeights.mBody1};
+`}
 `;
 
 export const StButtonWrapper = styled.div`
@@ -105,4 +125,9 @@ export const StButtonWrapper = styled.div`
   height: 68px;
 
   gap: 12px;
+
+  ${media.mobile`
+  height: 32px;
+  gap: 8px;
+`}
 `;

@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { SignUpSuccessLayout } from './layout';
-
 import { SignUpSuccessModalContainer } from './container';
-import withConfetti from '../../shared/Confetti/Confetti';
+import { withConfetti } from '../../shared';
 
 type SignUpSuccessModalProps = {
   showConfetti?: boolean;

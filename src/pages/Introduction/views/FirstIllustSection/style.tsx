@@ -35,7 +35,7 @@ export const StContainer = styled.div`
   align-items: center;
   width: 100vw;
   min-width: 375px;
-  height: 80vh;
+  height: 100%;
   gap: 50px;
 
   ${media.tablet`
@@ -58,13 +58,14 @@ export const StTitle = styled.div`
   font-size: 50px;
   font-weight: 400;
   color: ${Theme.colors.black};
-  margin-bottom: 6vh;
+  margin-bottom: 4vh;
 
   ${media.tablet`
+  margin-bottom: 2vh;
   font-size: 40px;
   `}
 
-  ${media.mobile`
+  ${media.mobile`  
   font-size: 30px;
   `}
 `;
@@ -87,16 +88,13 @@ export const StContent = styled.div`
 
 export const StSwing = styled.img`
   width: 500px;
-  height: 637px;
   object-fit: contain;
 
   ${media.tablet`
   width: 306px;
-  height: 373px;
   `}
 
   ${media.mobile`
   width: 244px;
-  height: 312px;
   `}
 `;

@@ -4,12 +4,12 @@ import { useDidMount, useWillUnmount, useWindowSize } from 'rooks';
 import { styled } from 'styled-components';
 import { media } from '../../styles';
 
-const withConfetti = (
+const withPreventScroll = (
   Component: ComponentType<{
-    showConfetti?: boolean;
+    preventScroll?: boolean;
   }>,
 ) => {
-  return (props: { showConfetti?: boolean }) => {
+  return (props: { preventScroll?: boolean }) => {
     const { innerWidth, innerHeight } = useWindowSize();
 
     const windowWidth = innerWidth as number | undefined;
@@ -23,7 +23,7 @@ const withConfetti = (
       document.body.style.overflow = 'scroll';
     });
 
-    if (props.showConfetti) {
+    if (props.preventScroll) {
       return (
         <ConfettiWrapper>
           <Confetti
@@ -48,4 +48,4 @@ const ConfettiWrapper = styled.div`
   `}
 `;
 
-export default withConfetti;
+export default withPreventScroll;

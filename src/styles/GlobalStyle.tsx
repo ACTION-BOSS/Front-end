@@ -5,6 +5,8 @@ export const GlobalStyle = createGlobalStyle`
     ${reset}
 
     :root {
+        --red-pink: #FF005E;
+        --deem: rgba(41, 47, 61, 0.40);
     }
 
     *, *::before, *::after {

@@ -23,19 +23,16 @@ export const StLandingView = styled.div`
 
 export const StLogoFlag = styled.img`
   margin-top: 12vh;
-  margin-left: 30px;
-  width: 62px;
-  height: 83px;
+  margin-bottom: 2px;
+  width: 140px;
 
   ${media.tablet`
-    width: 34px;
-    height: 45px;
+  margin-top: 10vh;
+    width: 90px; 
   `}
 
   ${media.mobile`
-    width: 30px;
-    height: 40px;
-    
+    width: 75px;    
   `}
 `;
 

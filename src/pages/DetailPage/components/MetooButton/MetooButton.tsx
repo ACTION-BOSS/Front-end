@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Theme } from '../../../../styles';
 import { UncomBigIcon } from '../../../../assets';
 import { StButton, StButtonLabel } from './MetooButtonStyle';
+import { useWindowSize } from 'rooks';
 type MetooButtonProps = {
   handleClickMetooButton: () => void;
   localMetooCount: number | null;
@@ -15,6 +16,9 @@ export const MetooButton: FC<MetooButtonProps> = ({
   localMetoo,
   postDone,
 }) => {
+  const { innerWidth } = useWindowSize();
+  const isMobileView = innerWidth! < 576;
+
   return (
     <StButton
       $localMetoo={localMetoo}
@@ -22,18 +26,41 @@ export const MetooButton: FC<MetooButtonProps> = ({
       onClick={postDone ? undefined : handleClickMetooButton}
     >
       <StButtonLabel $localMetoo={localMetoo} $isDisable={postDone}>
-        <div>나도 불편해요</div>
+        {!isMobileView && <div>나도 불편해요</div>}
+
         <UncomBigIcon
           color={
-            postDone
+            isMobileView
+              ? postDone
+                ? Theme.colors.gray6
+                : localMetoo
+                ? Theme.colors.white
+                : Theme.colors.pink
+              : postDone
               ? Theme.colors.gray6
               : localMetoo
               ? Theme.colors.white
               : Theme.colors.pink
           }
-          size={32}
+          size={isMobileView ? 18 : 32}
         />
-        <div>{localMetooCount}</div>
+        <div
+          style={{
+            color: isMobileView
+              ? postDone
+                ? Theme.colors.gray6
+                : localMetoo
+                ? Theme.colors.white
+                : Theme.colors.pink
+              : postDone
+              ? Theme.colors.gray6
+              : localMetoo
+              ? Theme.colors.white
+              : Theme.colors.pink,
+          }}
+        >
+          {localMetooCount}
+        </div>
       </StButtonLabel>
     </StButton>
   );

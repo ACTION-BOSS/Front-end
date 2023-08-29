@@ -17,7 +17,7 @@ export const FlowText = styled.div`
   overflow: hidden;
   transition: 0.3s;
   font-size: 38px;
-  padding: 20px 0 20px 0;
+  padding: 20px 0 15px 0;
 `;
 
 export const FlowWrap = styled.div`
@@ -33,4 +33,5 @@ export const LogoSymbol = styled.img`
   width: 55px;
   height: 40px;
   margin-left: 12px;
+  margin-bottom: 10px;
 `;
