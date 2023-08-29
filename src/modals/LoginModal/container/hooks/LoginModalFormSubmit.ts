@@ -32,23 +32,23 @@ export const useLoginModalFormSubmit = () => {
           email: `${emailId}@${emailDomain}`,
         });
 
-        console.log('login response', response);
+        // console.log('login response', response);
 
         if (response.status === 200) {
-          console.log('로그인 요청 시 헤더:', response.headers);
+          // console.log('로그인 요청 시 헤더:', response.headers);
 
           const accessToken = response.headers['authorization'].split(' ')[1];
-          console.log('access_token: ', accessToken);
+          // console.log('access_token: ', accessToken);
           accessToken && saveAccessToken(accessToken);
 
           if (accessToken) {
-            console.log('로그인 성공!');
+            // console.log('로그인 성공!');
             closeModal();
             window.location.reload();
           }
         }
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         const AxiosError = e as AxiosError;
 
         if (AxiosError.response) {

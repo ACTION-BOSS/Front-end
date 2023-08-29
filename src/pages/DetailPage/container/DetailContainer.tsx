@@ -42,7 +42,7 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
     return <></>;
   }
 
-  console.log('detail', data);
+  // console.log('detail', data);
 
   return (
     <>
