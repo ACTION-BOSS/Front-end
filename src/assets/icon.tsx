@@ -685,37 +685,38 @@ export const UncomSmallIcon: FC<IconProps> = ({
   );
 };
 
-export const WriteIcon: FC<IconProps> = ({ size = 25, color = '#454554' }) => {
+export const WriteIcon: FC<IconProps> = ({ className }) => {
   return (
     <svg
-      width={size}
-      height={size}
-      viewBox="0 0 25 25"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      width="23"
+      height="22"
+      viewBox="0 0 23 22"
+      fill="none"
+      className={className}
     >
-      <rect x="2.37744" y="20.3766" width="20" height="3" fill={color} />
+      <rect x="2.01953" y="18.9448" width="20" height="3" fill="#454554" />
       <rect
-        x="13.1694"
-        y="3.60828"
+        x="12.8115"
+        y="2.17651"
         width="3"
         height="7.05544"
-        transform="rotate(-45 13.1694 3.60828)"
-        fill={color}
+        transform="rotate(-45 12.8115 2.17651)"
+        fill="#454554"
       />
       <rect
-        x="3.71143"
-        y="13.0662"
+        x="3.35352"
+        y="11.6343"
         width="11.5767"
         height="7.05544"
-        transform="rotate(-45 3.71143 13.0662)"
-        fill={color}
+        transform="rotate(-45 3.35352 11.6343)"
+        fill="#454554"
       />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M3.97412 12.8033L2.39285 14.3846L2.40086 14.3926L2.38484 14.3926V17.7843H2.38389C2.38389 18.186 2.53217 18.553 2.77698 18.8337C3.06979 19.17 3.50107 19.3826 3.982 19.3826V19.3815H7.37383L7.37383 19.3656L7.3818 19.3736L8.96307 17.7923L3.97412 12.8033Z"
-        fill={color}
+        d="M3.61621 11.3716L2.03494 12.9529L2.04295 12.9609L2.02693 12.9609L2.02693 16.3525H2.02598C2.02598 16.7542 2.17426 17.1213 2.41907 17.4019C2.71188 17.7382 3.14316 17.9508 3.62409 17.9508V17.9497H7.01592L7.01592 17.9338L7.02389 17.9418L8.60516 16.3605L3.61621 11.3716Z"
+        fill="#454554"
       />
     </svg>
   );

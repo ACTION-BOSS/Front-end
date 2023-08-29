@@ -72,20 +72,21 @@ export const Header = () => {
             <div>게시물 작성</div>
             <WriteIcon />
           </s.PostUploadBtn>
+          <div className="headerLine" />
           <div>
             {isLogin ? (
               <Button
                 onClick={onClickLogoutHandler}
                 size={'small'}
                 label={'로그아웃'}
-                $buttonTheme={'gray'}
+                $buttonTheme={'empty'}
                 $bold={true}
               />
             ) : (
               <Button
                 size={'small'}
                 label={'로그인'}
-                $buttonTheme={'gray'}
+                $buttonTheme={'empty'}
                 $bold={true}
                 onClick={onClickLoginButton}
               />
