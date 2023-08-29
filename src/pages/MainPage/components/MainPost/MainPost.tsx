@@ -12,7 +12,7 @@ type MainPostProps = {
 export const MainPost: FC<MainPostProps> = ({ post, isDone }) => {
   const navigate = useNavigate();
   const onClickMovePage = (postId: number) => {
-    navigate(`/detail/${postId}`);
+    window.open(`/detail/${postId}`, '_blank', 'noopener, noreferrer');
   };
 
   const { postId, thumbnail, agreeCount, title, address, nickname } = post;

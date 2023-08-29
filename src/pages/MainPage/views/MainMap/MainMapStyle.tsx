@@ -17,6 +17,7 @@ export const SearchBox = styled.div`
   position: absolute;
   top: 15px;
   left: 30px;
+  display: none;
   ${media.mobile`
   top: 10px;
   left: 50%;

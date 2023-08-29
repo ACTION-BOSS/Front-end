@@ -57,7 +57,7 @@ export const MainPosts: FC<MainPostsProps> = ({
         <div />
       </s.MainPostsShortLine>
       <s.MainPostHeader>
-        <div>우리동네 민원들</div>
+        <div>우리동네 게시물</div>
         <DoneButton
           isDone={isDone}
           handleClickDoneButton={handleClickDoneButton}
@@ -84,7 +84,7 @@ export const MainPosts: FC<MainPostsProps> = ({
             {allPosts.map((post: Post) => (
               <MainPost key={post.postId} post={post} isDone={isDone} />
             ))}
-            <div ref={observerElem} />
+            <div ref={observerElem} className='observerElem'/>
           </s.MainPosts>
         )}
       </s.MainPostsContent>

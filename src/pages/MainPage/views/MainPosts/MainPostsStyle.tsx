@@ -83,6 +83,9 @@ export const MainPosts = styled.div`
   height: 100%;
   overflow-y: auto;
   background-color: ${Theme.colors.white};
+  .observerElem {
+    width: 100%;
+  }
   &::-webkit-scrollbar {
     width: 10px;
     ${media.tablet`

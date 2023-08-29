@@ -65,6 +65,7 @@ export const MainModalMiddle = styled.div<{ $isDone: boolean | undefined }>`
   background-color: #d9d9d9;
   border-radius: 12px;
   position: relative;
+  cursor: pointer;
   ${media.mobile`
   height: 160px;
   width:100%;
