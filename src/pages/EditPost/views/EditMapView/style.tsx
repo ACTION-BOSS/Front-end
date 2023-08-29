@@ -43,7 +43,7 @@ export const StMapText = styled.div`
 
 export const StMapContainer = styled.div`
   width: 100%;
-  height: 400px;
+  height: 410px;
   border-radius: 12px;
   position: relative;
 
