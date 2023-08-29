@@ -34,13 +34,21 @@ export const StFormContainer = styled.div`
   `}
 
     ${media.mobile`
-  
+    padding-bottom: 0;
+    font-size: ${Theme.fontSizes.mH2};
+    font-weight: ${Theme.fontWeights.mH2};
   `}
 
     &::placeholder {
       font-size: 25px;
       font-weight: ${Theme.fontWeights.h1};
       color: ${Theme.colors.gray6};
+
+      ${media.mobile`
+    padding-bottom: 0;
+    font-size: ${Theme.fontSizes.mH2};
+    font-weight: ${Theme.fontWeights.mH2};
+  `}
     }
   }
 `;
@@ -57,6 +65,11 @@ export const StInputContainer = styled.div`
     color: ${Theme.colors.gray7};
     right: 10px;
     top: 40px;
+
+    ${media.mobile`
+    font-size: 10px;
+    font-weight: 300;
+  `}
   }
 `;
 
@@ -88,11 +101,13 @@ export const StContentContainer = styled.div`
     color: ${Theme.colors.black};
 
     ${media.tablet`
- height: 381px;
+    height: 381px;
 `}
 
     ${media.mobile`
-height: 255px;
+    height: 255px;
+    font-size: ${Theme.fontSizes.mBody2};
+    font-weight: ${Theme.fontWeights.mBody2};
   `}
 
 
@@ -100,6 +115,11 @@ height: 255px;
       font-size: ${Theme.fontSizes.body2};
       font-weight: ${Theme.fontWeights.body2};
       color: ${Theme.colors.gray4};
+
+      ${media.mobile`
+      font-size: ${Theme.fontSizes.mBody2};
+      font-weight: ${Theme.fontWeights.mBody2};
+      `}
     }
   }
 `;
@@ -116,6 +136,11 @@ export const StTextContainer = styled.div`
     color: ${Theme.colors.gray7};
     right: 20px;
     bottom: 20px;
+
+    ${media.mobile`
+    font-size: 10px;
+    font-weight: 300;
+  `}
   }
 `;
 

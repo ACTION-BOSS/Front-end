@@ -24,15 +24,15 @@ export const StFormContainer = styled.div`
     padding: 15px;
     padding-right: 80px;
     margin-bottom: 28px;
-    font-size: 25px;
+    font-size: ${Theme.fontSizes.h1};
     font-weight: ${Theme.fontWeights.h1};
     color: ${Theme.colors.black};
 
-    &::placeholder {
-      font-size: 25px;
-      font-weight: ${Theme.fontWeights.h1};
-      color: ${Theme.colors.gray6};
-    }
+    ${media.mobile`
+    padding-bottom: 0;
+    font-size: ${Theme.fontSizes.mH2};
+    font-weight: ${Theme.fontWeights.mH2};
+  `}
   }
 `;
 
@@ -48,6 +48,11 @@ export const StInputContainer = styled.div`
     color: ${Theme.colors.gray7};
     right: 10px;
     top: 40px;
+
+    ${media.mobile`
+    font-size: 10px;
+    font-weight: 300;
+  `}
   }
 `;
 
@@ -84,14 +89,9 @@ export const StContentContainer = styled.div`
 
     ${media.mobile`
 height: 255px;
+font-size: ${Theme.fontSizes.mBody2};
+    font-weight: ${Theme.fontWeights.mBody2};
   `}
-
-
-    &::placeholder {
-      font-size: ${Theme.fontSizes.body2};
-      font-weight: ${Theme.fontWeights.body2};
-      color: ${Theme.colors.gray4};
-    }
   }
 `;
 
@@ -107,6 +107,11 @@ export const StTextContainer = styled.div`
     color: ${Theme.colors.gray7};
     right: 20px;
     bottom: 20px;
+
+    ${media.mobile`
+    font-size: 10px;
+    font-weight: 300;
+  `}
   }
 `;
 
