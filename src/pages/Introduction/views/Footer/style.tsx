@@ -4,11 +4,19 @@ import { Theme, media } from '../../../../styles';
 export const StFooter = styled.div`
   width: 100vw;
   min-width: 375px;
-  height: 35vh;
+  height: 323px;
   background-color: ${Theme.colors.white};
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${media.tablet`
+  height: 140px;
+  `}
+
+  ${media.mobile`
+  height: 110px;
+  `}
 `;
 
 export const StLogo = styled.img`
