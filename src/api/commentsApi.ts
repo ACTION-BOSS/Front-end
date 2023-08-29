@@ -19,10 +19,10 @@ export const deleteComment = async (commentId: string): Promise<void> => {
     });
 
     if (res.status === 200) {
-      console.log('댓글 삭제 성공');
+      // console.log('댓글 삭제 성공');
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };
 
@@ -41,9 +41,9 @@ export const createComment = async ({
     });
 
     if (res.status === 201) {
-      console.log('댓글 작성 성공');
+      // console.log('댓글 작성 성공');
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };

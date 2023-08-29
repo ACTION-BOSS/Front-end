@@ -24,7 +24,7 @@ export const OAuthCallbackPage: FC<OAuthCallbackPageProps> = ({}) => {
 
       if (response.status === 200) {
         const accessToken = response.headers['authorization'].split(' ')[1];
-        console.log('access_token: ', accessToken);
+        // console.log('access_token: ', accessToken);
         accessToken && saveAccessToken(accessToken);
 
         if (accessToken) {
@@ -38,7 +38,7 @@ export const OAuthCallbackPage: FC<OAuthCallbackPageProps> = ({}) => {
         }
       }
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 

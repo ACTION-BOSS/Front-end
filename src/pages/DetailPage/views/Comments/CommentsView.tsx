@@ -102,7 +102,7 @@ export const CommentsView: FC<CommentsViewProps> = ({
             maxLength={200}
             onChange={onChangeComment}
           />
-          <div>{body.trim().length}/200자</div>
+          <div>{body.length}/200자</div>
         </StTextArea>
         <button onClick={postDone ? undefined : handleCreateComment}>
           작성
