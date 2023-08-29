@@ -6,7 +6,7 @@ import {
   StFooter,
   StButtonWrapper,
 } from './LayoutStyle';
-import { LOGO_SERO, XButtonIcon } from '../../../assets';
+import { LogoSeroSvg, XButtonIcon } from '../../../assets';
 
 import { EModalType, useModal } from '../../../providers';
 import { Button, Pressable } from '../../../shared';
@@ -39,7 +39,7 @@ export const SignUpSuccessLayout: FC<SignUpSuccessLayoutProps> = ({
         </Pressable>
       </StHeader>
       <StLogoWrapper>
-        <StLogoImage src={LOGO_SERO} />
+        <StyledLogo />
       </StLogoWrapper>
       <StChildrenWrapper>{children}</StChildrenWrapper>
       <StFooter>
@@ -73,5 +73,14 @@ const StHeader = styled.div`
 export const StLogoImage = styled.img`
   ${media.mobile`
 width: 180px;
+`}
+`;
+
+export const StyledLogo = styled(LogoSeroSvg)`
+  width: 120px;
+  height: auto;
+
+  ${media.mobile`
+    width: 168px;
 `}
 `;
