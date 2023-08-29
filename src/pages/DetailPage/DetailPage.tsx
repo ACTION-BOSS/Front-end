@@ -18,12 +18,8 @@ export const DetailPage: FC<DetailPageProps> = ({}) => {
   const { openModal, closeModal } = useModal();
   const { postDone } = useDetailData();
 
-  console.log(postDone);
-
   useEffect(() => {
-    console.log('as');
     if (postDone && !isDoneAlerted) {
-      console.log('asdfasdf');
       setisDoneAlerted(true);
       openModal(EModalType.POP_UP, {
         title: '해결 완료 처리된 게시물입니다',

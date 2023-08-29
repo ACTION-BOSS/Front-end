@@ -192,3 +192,7 @@ export const StKakaoWrapper = styled.div`
   margin-bottom: 12px;
 `}
 `;
+
+export const StPaddingDiv = styled.div`
+  padding-top: 32px;
+`;
