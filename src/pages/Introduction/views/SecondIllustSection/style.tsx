@@ -24,8 +24,7 @@ export const StContainer = styled.div`
   align-items: center;
   width: 100vw;
   min-width: 375px;
-  margin-top: 5vh;
-  height: 100vh;
+  height: 100%;
 
   gap: 50px;
 
@@ -82,16 +81,13 @@ export const StContent = styled.div`
 
 export const StManhole = styled.img`
   width: 500px;
-  height: 637px;
   object-fit: contain;
 
   ${media.tablet`
   width: 306px;
-  height: 373px;
   `}
 
   ${media.mobile`
   width: 244px;
-  height: 312px;
   `}
 `;

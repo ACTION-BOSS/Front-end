@@ -35,7 +35,7 @@ export const StContainer = styled.div`
   align-items: center;
   width: 100vw;
   min-width: 375px;
-  height: 80vh;
+  height: 100%;
   gap: 50px;
 
   ${media.tablet`
@@ -88,16 +88,13 @@ export const StContent = styled.div`
 
 export const StSwing = styled.img`
   width: 500px;
-  height: 637px;
   object-fit: contain;
 
   ${media.tablet`
   width: 306px;
-  height: 373px;
   `}
 
   ${media.mobile`
   width: 244px;
-  height: 312px;
   `}
 `;
