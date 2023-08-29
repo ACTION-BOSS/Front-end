@@ -4,7 +4,6 @@ import {
   StLocationButton,
   StLocationButtonLabel,
   StLocationDetailText,
-  StLocationText,
   StTextWrapper,
 } from './LocationButtonStyle';
 import { useWindowSize } from 'rooks';
@@ -14,9 +13,9 @@ type LocationButtonProps = { address: string };
 export const LocationButton: FC<LocationButtonProps> = ({ address }) => {
   const { innerWidth } = useWindowSize();
   const isMobileView = innerWidth! < 576;
-  const getFirstThreeWords = (address: string) => {
-    return address.split(' ').slice(0, 3).join(' ');
-  };
+  // const getFirstThreeWords = (address: string) => {
+  //   return address.split(' ').slice(0, 3).join(' ');
+  // };
 
   return (
     <StLocationButton>
@@ -26,9 +25,9 @@ export const LocationButton: FC<LocationButtonProps> = ({ address }) => {
           size={isMobileView ? 18 : 32}
         />
         <StTextWrapper>
-          <StLocationText>(위치)</StLocationText>
+          {/* <StLocationText></StLocationText> */}
           <StLocationDetailText>
-            {getFirstThreeWords(address) || '주소 불러오기 실패'}
+            {address || '주소 불러오기 실패'}
           </StLocationDetailText>
         </StTextWrapper>
       </StLocationButtonLabel>
