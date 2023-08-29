@@ -57,7 +57,7 @@ export const StAddressContainer = styled.div`
 export const StIconText = styled.div`
   display: flex;
   align-items: center;
-  box-shadow: 0px 2px 5px 0px ${(props) => props.theme.gray8};
+  box-shadow: 0px 2px 5px 0px rgba(41, 47, 61, 0.3);
   border-radius: 100rem;
   padding: 10px 23px 10px 20px;
   gap: 5px;
