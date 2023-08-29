@@ -84,7 +84,7 @@ export const MainPosts: FC<MainPostsProps> = ({
             {allPosts.map((post: Post) => (
               <MainPost key={post.postId} post={post} isDone={isDone} />
             ))}
-            <div ref={observerElem} />
+            <div ref={observerElem} className='observerElem'/>
           </s.MainPosts>
         )}
       </s.MainPostsContent>
