@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 import { Theme, media } from '../../styles';
-import { ReactComponent as Logo } from '../../assets/svgIcon/logoGaro.svg';
+import { LogoGaroIcon } from '../../assets';
 
-export const LogoIcon = styled(Logo)`
+export const Logo = styled(LogoGaroIcon)`
   width: 151px;
   height: 28px;
   cursor: pointer;
@@ -30,7 +30,7 @@ export const Wrap = styled.div`
     align-items: center;
   }
   ${media.tablet`
-  padding: 0px 30px;
+  padding: 10px 30px 0px;
   height: 68px;
 `}
 `;

@@ -1,24 +1,22 @@
 import { styled } from 'styled-components';
 import { media } from '../../styles';
-import { ReactComponent as plus } from '../../assets/svgIcon/plus.svg';
-import { ReactComponent as minus } from '../../assets/svgIcon/minus.svg';
-import { ReactComponent as gps } from '../../assets/svgIcon/GPS.svg';
+import { GPSIcon, MinusIcon, PlusIcon } from '../../assets';
 
-export const PlusIcon = styled(plus)`
+export const Plus = styled(PlusIcon)`
   width: 24px;
-  height: 24px;
+  height: auto;
   ${media.mobile`
-  width: 20px;
-  height: 20px;`}
+  width: 18px;
+  height: 18px;`}
 `;
-export const MinusIcon = styled(minus)`
+export const Minus = styled(MinusIcon)`
   width: 24px;
   height: 24px;
   ${media.mobile`
   width: 18px;
   height: 18px;`};
 `;
-export const GPSIcon = styled(gps)`
+export const GPS = styled(GPSIcon)`
   width: 24px;
   height: 24px;
   ${media.mobile`

@@ -30,15 +30,15 @@ export const MapIcon: FC<MapIconProps> = ({
   return (
     <s.IconContainer>
       <div className="gpsIcon" onClick={getCurrentLocation}>
-        <s.GPSIcon />
+        <s.GPS />
       </div>
       <div className="mapSizeIcon">
         <div className="plusIcon" onClick={zoomInHandler}>
-          <s.PlusIcon />
+          <s.Plus />
         </div>
         <div className="line"></div>
         <div className="minusIcon" onClick={zoomOutHandler}>
-          <s.MinusIcon />
+          <s.Minus />
         </div>
       </div>
     </s.IconContainer>

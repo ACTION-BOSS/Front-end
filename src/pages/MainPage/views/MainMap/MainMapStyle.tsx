@@ -12,6 +12,18 @@ export const MainMapContainer = styled.div`
   }
 `;
 
+export const SearchBox = styled.div`
+  z-index: 999;
+  position: absolute;
+  top: 15px;
+  left: 30px;
+  ${media.mobile`
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  `}
+`;
+
 export const MainMapIcon = styled.div`
   z-index: 999;
   position: absolute;
@@ -20,6 +32,7 @@ export const MainMapIcon = styled.div`
 `;
 
 export const MainLocationBox = styled.div`
+  display: none;
   z-index: 999;
   position: absolute;
   right: 40%;

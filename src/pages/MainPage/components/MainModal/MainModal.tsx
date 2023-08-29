@@ -15,20 +15,20 @@ export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
       <s.MainModalTop>
         <div className="title">{title}</div>
         <div className="xButton" onClick={onClick}>
-          <s.XIcon />
+          <s.GrayX />
         </div>
       </s.MainModalTop>
       <s.MainModalMiddle $isDone={done}>
         <div className="postImg">{done && <ClearSumIcon />}</div>
         <img src={thumbnail} />
         <s.UnLike>
-          <s.UncomIcon />
+          <s.Uncom />
           <div>{agreeCount}</div>
         </s.UnLike>
       </s.MainModalMiddle>
       <s.MainModalBottom>
         <div className="address">
-          <s.DirectIcon />
+          <s.Direct />
           <div>(민원위치) {croppedAddress}</div>
         </div>
         <div className="nickname">{nickname}</div>

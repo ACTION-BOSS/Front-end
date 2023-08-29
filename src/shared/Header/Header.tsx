@@ -45,6 +45,7 @@ export const Header = () => {
     <>
       {isMenu && (
         <HeaderMenu
+          isLogin={isLogin}
           onToggleMenu={onToggleMenu}
           onClickLogoutHandler={onClickLogoutHandler}
           onClickCreateHandler={onClickCreateHandler}
@@ -57,13 +58,13 @@ export const Header = () => {
             <HomeIcon />
           </div>
           <div onClick={() => onClickMovePage('/')}>
-            <s.LogoIcon />
+            <s.Logo />
           </div>
           <div className="mobileIcon" onClick={onToggleMenu}>
             <ListIcon />
           </div>
           <div className="mainMenu" onClick={() => onClickMovePage('/main')}>
-            민원 지도
+            동네 지도
           </div>
         </s.HeaderLeft>
         <s.HeaderRight>

@@ -3,7 +3,7 @@ import { Theme, media } from '../../../../styles';
 
 export const MainPostsConatiner = styled.div<{ $isBottomContente: boolean }>`
   width: 330px;
-  height: calc(100vh - 218px);
+  height: calc(100vh - 222px);
   box-sizing: border-box;
   ${media.tablet`
 width:100%;
