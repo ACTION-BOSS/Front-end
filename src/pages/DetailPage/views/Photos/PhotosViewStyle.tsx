@@ -30,13 +30,16 @@ export const StPhotosWrapper = styled.div`
 
   ${media.tablet`
   flex-direction: column;
-  max-height: 700px;
+  max-height: 800px;
+  aspect-ratio: 1
   `}
 
   ${media.mobile`
   gap: 18px;
   flex-direction: column;
   max-height: 500px;
+  aspect-ratio: 1;
+  background-color: red;
 `}
 `;
 
