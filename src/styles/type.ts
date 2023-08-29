@@ -37,6 +37,7 @@ export type FontSizesType = {
   mBody1: string;
   mBody2: string;
   mBody3: string;
+  mL1: string;
 };
 
 export type FontWeightsType = {
@@ -56,6 +57,7 @@ export type FontWeightsType = {
   mBody1: string;
   mBody2: string;
   mBody3: string;
+  mL1 : string;
 };
 
 export interface ThemeType {

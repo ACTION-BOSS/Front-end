@@ -8,6 +8,102 @@ interface IconProps {
   className?: string;
 }
 
+export const BinIcon: FC<IconProps> = ({ className, size }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 19 19"
+      fill="none"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M6.26454 5.73374C6.26454 5.24868 6.65775 4.85547 7.14281 4.85547H11.0521C11.5371 4.85547 11.9303 5.24868 11.9303 5.73374H13.9303C13.9303 4.14411 12.6417 2.85547 11.0521 2.85547H7.14281C5.55319 2.85547 4.26454 4.14411 4.26454 5.73374H6.26454ZM2.96484 6.62781H15.2301V8.16096H13.9428C13.991 8.36036 14.0091 8.57096 13.9922 8.78741L13.5375 14.6197C13.4563 15.6608 12.5878 16.4642 11.5436 16.4642H6.6278C5.58352 16.4642 4.71502 15.6608 4.63385 14.6197L4.17913 8.78741C4.16226 8.57095 4.18038 8.36036 4.2286 8.16096H2.96484V6.62781ZM6.79762 14.2306L6.79762 8.86456H7.94748V14.2306H6.79762ZM10.2472 8.86456L10.2472 14.2306H11.3971V8.86456H10.2472Z"
+        fill="#FF005E"
+      />
+    </svg>
+  );
+};
+
+export const PenceilIcon: FC<IconProps> = ({ className }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="15"
+      height="15"
+      viewBox="0 0 15 15"
+      fill="none"
+      className={className}
+    >
+      <rect
+        x="9.12256"
+        y="2.09375"
+        width="2.13087"
+        height="5.01142"
+        transform="rotate(-45 9.12256 2.09375)"
+        fill="#454554"
+      />
+      <rect
+        x="2.4043"
+        y="8.81055"
+        width="8.22281"
+        height="5.01142"
+        transform="rotate(-45 2.4043 8.81055)"
+        fill="#454554"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M2.59148 8.62322L1.46832 9.74638L1.47391 9.75198L1.46238 9.75198L1.46238 12.1612H1.46166C1.46166 12.5028 1.61263 12.8091 1.85148 13.0171C2.05083 13.191 2.31153 13.2963 2.59683 13.2963V13.2957L5.00597 13.2957L5.00597 13.284L5.01193 13.29L6.13509 12.1668L2.59148 8.62322Z"
+        fill="#454554"
+      />
+    </svg>
+  );
+};
+
+export const KebobIcon: FC<IconProps> = ({ className }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="31"
+      height="31"
+      viewBox="0 0 31 31"
+      fill="none"
+      className={className}
+    >
+      <g id="ì¼ë°¥ë©ë´">
+        <g id="Group 141">
+          <circle
+            id="Ellipse 22"
+            cx="15.4116"
+            cy="7.4375"
+            r="2.25"
+            fill="#C2C8D6"
+          />
+          <circle
+            id="Ellipse 23"
+            cx="15.4116"
+            cy="24.4375"
+            r="2.25"
+            fill="#C2C8D6"
+          />
+          <ellipse
+            id="Ellipse 24"
+            cx="15.4116"
+            cy="15.9375"
+            rx="2.25"
+            ry="2.25"
+            fill="#C2C8D6"
+          />
+        </g>
+      </g>
+    </svg>
+  );
+};
+
 export const LogoSeroSvg: FC<IconProps> = ({ size, className }) => {
   return (
     <svg
