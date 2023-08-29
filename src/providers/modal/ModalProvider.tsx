@@ -75,7 +75,11 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
         closeModal,
       }}
     >
-      {isModalOpened && <StModalBackground>{renderModal()}</StModalBackground>}
+      {isModalOpened && (
+        <StModalBackground $isPopUpModal={modalType === EModalType.POP_UP}>
+          {renderModal()}
+        </StModalBackground>
+      )}
       {children}
     </ModalContext.Provider>
   );
@@ -90,7 +94,9 @@ export const useModal = () => {
   return context;
 };
 
-export const StModalBackground = styled.div`
+export const StModalBackground = styled.div<{
+  $isPopUpModal: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,10 +106,10 @@ export const StModalBackground = styled.div`
   z-index: 99999;
   height: 100vh;
 
-  ${media.mobile`
+  ${({ $isPopUpModal }) => media.mobile`
   width: 100%;
   height: 100dvh;
   border-radius: 0;
-  align-items: normal;
+  align-items: ${$isPopUpModal ? 'center' : 'normal'}
 `}
 `;
