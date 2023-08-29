@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -9,13 +9,8 @@ import { EModalType, useModal } from '../../../providers';
 export const useCreatePost = () => {
   const { openModal, closeModal } = useModal();
   const token = getAccessToken();
-  const post = useRecoilValue(createPostState);
+  const [post, setPost] = useRecoilState(createPostState);
   const navigate = useNavigate();
-
-  if (!token) {
-    window.location.replace('javascript:history.back()');
-    return null;
-  }
 
   const isFormValid = () => {
     return (
@@ -54,6 +49,14 @@ export const useCreatePost = () => {
 
   const mutation = useMutation(sendPostRequest, {
     onSuccess: (data) => {
+      setPost({
+        title: '',
+        content: '',
+        address: '',
+        latitude: 0,
+        longitude: 0,
+        images: [],
+      });
       navigate(`/detail/${data.data.data.postId}`);
     },
     onError: (error) => {
