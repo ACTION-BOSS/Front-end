@@ -1,4 +1,3 @@
-
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useFetchDetailPageData } from '../../../../api';
 import { useParams } from 'react-router-dom';
