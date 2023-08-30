@@ -21,6 +21,7 @@ export const useSelect = (initialOptions: string[]) => {
       onChangeEmailDomain('');
     } else {
       onChangeEmailDomain(initialOptions[selectedOptionIndex]);
+      setIsSelectOpen(false);
     }
   }, [selectedOptionIndex]);
 
