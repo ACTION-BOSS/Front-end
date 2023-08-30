@@ -58,7 +58,7 @@ export const useVerificationCode = () => {
       } catch (e) {
         const AxiosError = e as AxiosError;
 
-        console.log('error: ', AxiosError);
+        // console.log('error: ', AxiosError);
 
         if (AxiosError.response) {
           if (AxiosError.response.status === 400) {
@@ -94,7 +94,7 @@ export const useVerificationCode = () => {
         }
       } catch (e) {
         const AxiosError = e as AxiosError;
-        console.log('err', AxiosError);
+        // console.log('err', AxiosError);
 
         if (AxiosError.response) {
           if (AxiosError.response.status === 400) {
@@ -121,7 +121,7 @@ export const useVerificationCode = () => {
 
         if (AxiosError.response) {
           if (AxiosError.response.status === 400) {
-            console.log('error: ', AxiosError);
+            // console.log('error: ', AxiosError);
           }
         }
       }

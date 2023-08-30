@@ -1,4 +1,28 @@
 import { styled } from 'styled-components';
+import { media } from '../../styles';
+import { GPSIcon, MinusIcon, PlusIcon } from '../../assets';
+
+export const Plus = styled(PlusIcon)`
+  width: 24px;
+  height: auto;
+  ${media.mobile`
+  width: 18px;
+  height: 18px;`}
+`;
+export const Minus = styled(MinusIcon)`
+  width: 24px;
+  height: 24px;
+  ${media.mobile`
+  width: 18px;
+  height: 18px;`};
+`;
+export const GPS = styled(GPSIcon)`
+  width: 24px;
+  height: 24px;
+  ${media.mobile`
+  width: 18px;
+  height: 18px;`};
+`;
 
 export const IconContainer = styled.div`
   display: flex;
@@ -13,8 +37,11 @@ export const IconContainer = styled.div`
     justify-content: center;
     height: 54px;
     width: 54px;
-    box-shadow: 0px 2px 5px 0px ${(props) => props.theme.colors.gray8};
+    box-shadow: 0px 2px 5px 0px rgba(41, 47, 61, 0.3);
     cursor: pointer;
+    ${media.mobile`
+    height: 35px;
+    width: 36px;`}
   }
   .mapSizeIcon {
     width: 48px;
@@ -26,7 +53,10 @@ export const IconContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 5px;
-    box-shadow: 0px 2px 5px 0px ${(props) => props.theme.gray8};
+    box-shadow: 0px 2px 5px 0px rgba(41, 47, 61, 0.3);
+    ${media.mobile`
+    width: 32px;
+    height: 80px;`}
   }
   .plusIcon {
     cursor: pointer;

@@ -1,16 +1,17 @@
 import { FC, ReactNode } from 'react';
 import {
   StModalWrapper,
+  StLogoWrapper,
   StChildrenWrapper,
-  StViewWrapper,
   StFooter,
   StButtonWrapper,
 } from './LayoutStyle';
-import { LOGO_SERO, XButtonIcon } from '../../../assets';
+import { LogoSeroSvg, XButtonIcon } from '../../../assets';
 
 import { EModalType, useModal } from '../../../providers';
 import { Button, Pressable } from '../../../shared';
 import styled from 'styled-components';
+import { media } from '../../../styles';
 
 type SignUpSuccessLayoutProps = {
   children: ReactNode;
@@ -37,10 +38,10 @@ export const SignUpSuccessLayout: FC<SignUpSuccessLayoutProps> = ({
           <XButtonIcon size={24} />
         </Pressable>
       </StHeader>
-      <StChildrenWrapper>
-        <img src={LOGO_SERO} />
-      </StChildrenWrapper>
-      <StViewWrapper>{children}</StViewWrapper>
+      <StLogoWrapper>
+        <StyledLogo />
+      </StLogoWrapper>
+      <StChildrenWrapper>{children}</StChildrenWrapper>
       <StFooter>
         <StButtonWrapper>
           <Button
@@ -63,4 +64,23 @@ const StHeader = styled.div`
   padding-left: 14px;
   padding-right: 14px;
   align-self: flex-end;
+
+  ${media.mobile`
+    height: 80px;
+  `}
+`;
+
+export const StLogoImage = styled.img`
+  ${media.mobile`
+width: 180px;
+`}
+`;
+
+export const StyledLogo = styled(LogoSeroSvg)`
+  width: 120px;
+  height: auto;
+
+  ${media.mobile`
+    width: 168px;
+`}
 `;

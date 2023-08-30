@@ -34,6 +34,8 @@ export const NicknameView: FC<NicknameViewProps> = ({
   };
 
   const validationCheck = (nickname: string) => {
+    const regex = /^[a-zA-Z가-힣0-9]+$/;
+
     if (nickname.length === 0) {
       return {
         verification: null,
@@ -47,6 +49,12 @@ export const NicknameView: FC<NicknameViewProps> = ({
         text: '2글자 이상 15글자 이하의 닉네임만 가능합니다',
       };
     } else {
+      if (!regex.test(nickname)) {
+        return {
+          verification: false,
+          text: '한글 (자음∙모음 제외), 영어, 숫자만 가능합니다',
+        };
+      }
       if (isDuplicatedNickname) {
         return {
           verification: false,
@@ -70,7 +78,7 @@ export const NicknameView: FC<NicknameViewProps> = ({
           nickname: nicknameValue,
         });
 
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 201) {
           setIsDuplicatedNickname(false);
@@ -78,7 +86,7 @@ export const NicknameView: FC<NicknameViewProps> = ({
       } catch (e) {
         const AxiosError = e as AxiosError;
 
-        console.log('err', AxiosError);
+        // console.log('err', AxiosError);
 
         if (AxiosError.response?.status === 400) {
           setIsDuplicatedNickname(true);

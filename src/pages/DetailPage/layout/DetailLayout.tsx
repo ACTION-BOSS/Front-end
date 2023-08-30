@@ -30,3 +30,7 @@ export const DetailLayout: FC<DetailLayoutProps> = ({ children }) => {
     </StLayoutWrapper>
   );
 };
+
+export const DetailMobileLayout: FC<DetailLayoutProps> = ({ children }) => {
+  return <div></div>;
+};

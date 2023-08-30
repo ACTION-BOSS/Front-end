@@ -1,15 +1,24 @@
 import { styled } from 'styled-components';
-
-interface OptionProps {
-  currentoption: string;
-}
+import { Theme, media } from '../../../../styles';
 
 export const MainPostStyle = styled.div`
-  margin: 20px 0;
+  margin: 0 0 30px;
   cursor: pointer;
+  ${media.tablet`
+  width: calc((100% / 3) - 14px);
+  height: 260px;
+  margin: 5px 0;
+`}
+  ${media.mobile`
+  width: 100%;
+  height: 130px;
+  display: flex;
+  margin: 10px 0;
+  gap: 25px;
+`}
 `;
 
-export const MainPostImg = styled.div<OptionProps>`
+export const MainPostImg = styled.div<{ $isDone: boolean }>`
   width: 100%;
   height: 180px;
   position: relative;
@@ -18,12 +27,16 @@ export const MainPostImg = styled.div<OptionProps>`
   justify-content: center;
   border-radius: 12px;
   overflow: hidden;
+  ${media.mobile`
+    flex: 6;
+    height: 130px;
+`}
   .postImg {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: ${(props) =>
-      props.currentoption === '해결순' ? 'rgba(41, 47, 61, 0.40)' : 'none'};
+    background-color: ${({ $isDone }) =>
+      $isDone ? `${Theme.colors.deem}` : 'none'};
     z-index: 9;
     display: flex;
     align-items: center;
@@ -46,34 +59,48 @@ export const UnLike = styled.div`
   background-color: white;
   box-shadow: 0px 0px 2px 0px rgba(41, 47, 61, 0.25);
   border-radius: 100px;
-  font-size: ${(props) => props.theme.fontSizes.body3};
-  font-weight: ${(props) => props.theme.fontWeights.body3};
-  color: ${(props) => props.theme.colors.gray8};
+  font-size: ${Theme.fontSizes.body3};
+  font-weight: ${Theme.fontWeights.body3};
+  color: ${Theme.colors.gray8};
 `;
 export const MainPostContent = styled.div`
   padding-top: 10px;
+  overflow: hidden;
+  ${media.mobile`
+  flex:6;
+  position: relative;
+`}
   .title {
-    font-size: ${(props) => props.theme.fontSizes.h3};
-    font-weight: ${(props) => props.theme.fontWeights.h3};
+    font-size: ${Theme.fontSizes.h3};
+    font-weight: ${Theme.fontWeights.h3};
     line-height: 25px;
   }
   .content {
     display: flex;
     justify-content: space-between;
     padding-top: 5px;
-    font-size: ${(props) => props.theme.fontSizes.label1};
-    font-weight: ${(props) => props.theme.fontWeights.label1};
+    font-size: ${Theme.fontSizes.label1};
+    font-weight: ${Theme.fontWeights.label1};
+    ${media.mobile`
+      flex-direction: column;
+    `}
   }
   .address {
     color: #5c5c70;
     display: flex;
     align-items: center;
     gap: 5px;
-    color: ${(props) => props.theme.colors.gray7};
+    color: ${Theme.colors.gray7};
   }
   .nickname {
     display: flex;
     align-items: center;
-    color: ${(props) => props.theme.colors.gray3};
+    color: ${Theme.colors.gray3};
+    ${media.mobile`
+      flex-direction: column;
+      position: absolute;
+      bottom: 6px;
+      right: 0px;
+    `}
   }
 `;

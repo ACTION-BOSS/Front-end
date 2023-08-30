@@ -1,27 +1,15 @@
-import { useModal } from '../providers';
+import { useNavigate } from 'react-router-dom';
 import { api } from './api';
 import { AxiosError } from 'axios';
+import { EModalType, useModal } from '../providers';
 
-const getHeaderWithToken = () => {
-  const token = localStorage.getItem('token');
-  const headers = token
-    ? {
-        Authorization: `Bearer ${token}`,
-      }
-    : undefined;
-
-  return headers;
-};
-
-export const fetchDetailPageData = (postId: string | undefined) => {
-  const headers = getHeaderWithToken();
-  const { openModal } = useModal();
+export const useFetchDetailPageData = (postId: string | undefined) => {
+  const navigate = useNavigate();
+  const { openModal, closeModal } = useModal();
 
   const getDetailPageData = async () => {
     try {
-      const response = await api.get(`/posts/${postId}`, {
-        headers: headers,
-      });
+      const response = await api.get(`/posts/${postId}`);
 
       if (response.status === 200) {
         return response.data.data;
@@ -30,19 +18,21 @@ export const fetchDetailPageData = (postId: string | undefined) => {
       }
     } catch (e) {
       const AxiosError = e as AxiosError;
-
-      console.log(AxiosError);
-
-      if (AxiosError.response?.status === 418) {
-        alert('이미 해결된 민원글입니다.');
-        location.href = '/main';
-        // openModal(EModalType.DONE);
-      }
+      // console.log(AxiosError);
 
       if (AxiosError.response?.status === 404) {
-        alert('존재하지 않는 게시글입니다.');
-        location.href = '/main';
-        // openModal(EModalType.DONE);
+        navigate('/notfound');
+        openModal(EModalType.POP_UP, {
+          title: '존재하지 않는 게시글입니다',
+          cancelButton: false,
+          functionButton: {
+            label: '닫기',
+            onClick: () => {
+              closeModal();
+            },
+            theme: 'emptyBlue',
+          },
+        });
       }
 
       return AxiosError;
@@ -53,73 +43,63 @@ export const fetchDetailPageData = (postId: string | undefined) => {
 };
 
 export const deletePostedData = async (postId: string | undefined) => {
-  const headers = getHeaderWithToken();
-
   try {
-    const response = await api.delete(`/posts/${postId}`, {
-      headers: headers,
-    });
+    const response = await api.delete(`/posts/${postId}`);
 
     if (response.status === 200) {
-      console.log('민원글 삭제에 성공');
+      // console.log('게시글 삭제에 성공');
       return response.data;
     } else {
       throw new Error(`게시글 삭제 실패 / status: ${response.status}`);
     }
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     return e;
   }
 };
 
 export const toggleDoneData = async (postId: string | undefined) => {
-  const headers = getHeaderWithToken();
-
   try {
-    const response = await api.post(`/posts/${postId}/done`, {
-      headers: headers,
-    });
+    const response = await api.post(`/posts/${postId}/done`);
 
     if (response.status === 200) {
-      console.log(response.data.msg);
+      // console.log(response.data.msg);
       return response.data;
     } else {
       throw new Error(`완료했어요 실패/ status: ${response.status}`);
     }
   } catch (e) {
     const AxiosError = e as AxiosError;
-
-    console.log(AxiosError);
-
-    if (AxiosError.response?.status === 404) {
-      alert('존재하지 않는 게시글입니다.');
-      location.href = '/main';
-      // openModal(EModalType.DONE);
-    }
-
+    // console.log(AxiosError);
     return AxiosError;
   }
 };
 
 export const toggleMetooData = async (postId: string | undefined) => {
-  const headers = getHeaderWithToken();
-
   try {
-    const response = await api.post(`/posts/${postId}/agree`, {
-      headers: headers,
-    });
+    const response = await api.post(`/posts/${postId}/agree`);
 
     if (response.status === 200) {
-      console.log(response.data.msg);
+      // console.log(response.data.msg);
       return response.data;
     } else {
-      throw new Error(`나도 불편해요 실패/ status: ${response.status}`);
+      throw new Error(`나도 불편해요 실패 status: ${response.status}`);
     }
   } catch (e) {
     const AxiosError = e as AxiosError;
-
-    console.log(AxiosError);
-
+    // console.log(AxiosError);
     return AxiosError;
   }
 };
+
+// const getHeaderWithToken = () => {
+//     const accessToken = getAccessToken();
+
+//     const headers = accessToken
+//       ? {
+//           access: `Bearer ${accessToken}`,
+//         }
+//       : undefined;
+
+//     return headers;
+//   };

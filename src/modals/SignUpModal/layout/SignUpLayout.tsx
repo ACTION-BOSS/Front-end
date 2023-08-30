@@ -1,16 +1,21 @@
 import { FC, ReactNode } from 'react';
 import {
   StModalWrapper,
-  StHeader,
-  StChildrenWrapper,
+  StLogoWrapper,
   StViewWrapper,
   StFooter,
   StButtonWrapper,
   StTransparentDiv,
+  StHeader,
+  StStepWrapper,
+  StLogoText,
+  StBackIconWrapper,
+  StCloseIconWrapper,
+  StyledLogo,
 } from './LayoutStyle';
 import { ShowStep } from '../components';
 import { EStep } from '../type';
-import { BackIcon, LOGO_SERO, XButtonIcon } from '../../../assets';
+import { BackIcon, XButtonIcon } from '../../../assets';
 import {
   $isReadyForSignup,
   $isReadyStepThree,
@@ -81,19 +86,26 @@ export const SignUpLayout: FC<SignUpLayoutProps> = ({ children }) => {
         {stepIndex === EStep.STEP1 ? (
           <StTransparentDiv />
         ) : (
-          <Pressable onClick={handleBackIconClick}>
-            <BackIcon size={24} />
-          </Pressable>
+          <StBackIconWrapper>
+            <Pressable onClick={handleBackIconClick}>
+              <BackIcon size={24} />
+            </Pressable>
+          </StBackIconWrapper>
         )}
-        <ShowStep step={stepIndex} />
-        <Pressable onClick={handleCloseIconClick}>
-          <XButtonIcon size={24} />
-        </Pressable>
+        <StStepWrapper>
+          <StLogoText>회원가입</StLogoText>
+          <ShowStep step={stepIndex} />
+        </StStepWrapper>
+        <StCloseIconWrapper>
+          <Pressable onClick={handleCloseIconClick}>
+            <XButtonIcon size={24} />
+          </Pressable>
+        </StCloseIconWrapper>
       </StHeader>
 
-      <StChildrenWrapper>
-        <img src={LOGO_SERO} />
-      </StChildrenWrapper>
+      <StLogoWrapper>
+        <StyledLogo />
+      </StLogoWrapper>
 
       <StViewWrapper>{children}</StViewWrapper>
 

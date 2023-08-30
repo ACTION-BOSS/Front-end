@@ -1,3 +1,8 @@
+export type MediaType = {
+  mobile: string;
+  tablet: string;
+};
+
 export type ColorsType = {
   pink: string;
   blue: string;
@@ -12,6 +17,7 @@ export type ColorsType = {
   gray8: string;
   white: string;
   black: string;
+  deem: string;
 };
 
 export type FontSizesType = {
@@ -25,6 +31,13 @@ export type FontSizesType = {
   label1: string;
   label2: string;
   label3: string;
+  mH1: string;
+  mH2: string;
+  mH3: string;
+  mBody1: string;
+  mBody2: string;
+  mBody3: string;
+  mL1: string;
 };
 
 export type FontWeightsType = {
@@ -38,9 +51,17 @@ export type FontWeightsType = {
   label1: string;
   label2: string;
   label3: string;
+  mH1: string;
+  mH2: string;
+  mH3: string;
+  mBody1: string;
+  mBody2: string;
+  mBody3: string;
+  mL1 : string;
 };
 
 export interface ThemeType {
+  media: MediaType;
   colors: ColorsType;
   fontSizes: FontSizesType;
   fontWeights: FontWeightsType;

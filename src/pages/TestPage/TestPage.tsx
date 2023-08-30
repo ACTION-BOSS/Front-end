@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Button } from '../../shared';
 import { EModalType, useModal } from '../../providers';
+import { UncomBigIcon } from '../../assets';
 
 type TestPageProps = {};
 
@@ -17,6 +18,7 @@ export const TestPage: FC<TestPageProps> = ({}) => {
         alignItems: 'center',
       }}
     >
+      <UncomBigIcon color="red" />
       <div style={{ width: '100px' }}>
         <Button
           label="회원가입"
@@ -44,6 +46,26 @@ export const TestPage: FC<TestPageProps> = ({}) => {
           size="small"
           onClick={() => {
             openModal(EModalType.SIGN_UP_SUCCESS);
+          }}
+        />
+      </div>
+      <div style={{ width: '100px' }}>
+        <Button
+          label="민원완료모달"
+          $buttonTheme="blueGray"
+          size="small"
+          onClick={() => {
+            openModal(EModalType.POP_UP, {
+              title: '삭제할랭려?',
+              cancelButton: false,
+              functionButton: {
+                label: '삭제???',
+                onClick: () => {
+                  alert('hi');
+                },
+                theme: 'emptyBlue',
+              },
+            });
           }}
         />
       </div>

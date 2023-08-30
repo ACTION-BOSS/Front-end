@@ -1,6 +1,10 @@
 import { ThemeType } from './type';
 
 export const Theme: ThemeType = {
+  media: {
+    mobile: '576px',
+    tablet: '990px',
+  },
   colors: {
     pink: '#FF005E',
     blue: '#5782FA',
@@ -15,18 +19,26 @@ export const Theme: ThemeType = {
     gray8: '#292F3D',
     white: '#FEFEFE',
     black: '#14171F',
+    deem: 'rgba(41, 47, 61, 0.40)',
   },
   fontSizes: {
     h1: '25px',
     h2: '18px',
     h3: '15px',
     body1: '18px',
-    body2: '15px',
+    body2: '16px',
     body3: '13px',
     body4: '15px',
     label1: '12px',
-    label2: '10px',
+    label2: '11px',
     label3: '12px',
+    mH1: '18px',
+    mH2: '14px',
+    mH3: '13px',
+    mBody1: '12px',
+    mBody2: '12px',
+    mBody3: '12px',
+    mL1 : '10px',
   },
   fontWeights: {
     h1: '600',
@@ -39,6 +51,13 @@ export const Theme: ThemeType = {
     label1: '300',
     label2: '300',
     label3: '500',
+    mH1: '700',
+    mH2: '600',
+    mH3: '600',
+    mBody1: '500',
+    mBody2: '400',
+    mBody3: '300',
+    mL1 : '300'
   },
   textDecoration: {
     label3: 'underline',

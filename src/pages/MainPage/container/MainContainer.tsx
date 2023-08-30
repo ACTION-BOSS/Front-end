@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-import { MainMap, MainPosts } from '../components';
+import { MainMap, MainPosts } from '../views';
+import * as s from './MainContainerStyle';
 
 export const MainContainer = () => {
-  const [currentOption, setCurrentOption] = useState('최신순');
+  const [isDone, setIsDone] = useState(false);
   const [mapCoordinates, setMapCoordinates] = useState({
     northlat: 0,
     eastlon: 0,
     southlat: 0,
     westlon: 0,
   });
-
-  const optionChangeHandler = (option: string) => {
-    setCurrentOption(option);
-  };
 
   const mapCoordinatesChangeHandler = (
     nort: number,
@@ -28,18 +25,21 @@ export const MainContainer = () => {
     });
   };
 
+  const handleClickDoneButton = () => {
+    setIsDone(!isDone);
+  };
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
+    <s.MainContainer>
       <MainMap
-        currentOption={currentOption}
         mapCoordinates={mapCoordinates}
         mapCoordinatesChangeHandler={mapCoordinatesChangeHandler}
+        isDone={isDone}
       />
       <MainPosts
-        currentOption={currentOption}
-        optionChangeHandler={optionChangeHandler}
         mapCoordinates={mapCoordinates}
+        isDone={isDone}
+        handleClickDoneButton={handleClickDoneButton}
       />
-    </div>
+    </s.MainContainer>
   );
 };

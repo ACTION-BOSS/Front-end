@@ -1,13 +1,15 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
+  OAuthPage,
   CreatePost,
   DetailPage,
   Introduction,
   MainPage,
   NotFoundPage,
+  TestPage,
+  OAuthCallbackPage,
 } from '../pages';
 import { Header } from '../shared/Header';
-import { TestPage } from '../pages/TestPage';
 import { EditPost } from '../pages/EditPost';
 import { ModalProvider } from '../providers';
 
@@ -25,6 +27,8 @@ export const RouterProvider = () => {
             <Route path="/test" element={<TestPage />} />
             <Route path="/*" element={<NotFoundPage />} />
           </Route>
+          <Route path="/oauth" element={<OAuthPage />} />
+          <Route path="/oauth/callback" element={<OAuthCallbackPage />} />
         </Routes>
       </ModalProvider>
     </BrowserRouter>

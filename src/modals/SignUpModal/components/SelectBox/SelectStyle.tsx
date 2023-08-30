@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { Theme } from '../../../../styles';
 
+export const StWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 export const StHiddenLayout = styled.div`
   border: 3px solid rgb(221, 221, 221);
   height: 200px;
@@ -24,7 +29,7 @@ export const StSelectTriggerWrapper = styled.button<{
   padding: 6px 12px;
 
   height: 42px;
-  width: 153px;
+  width: 100%;
 
   border-radius: 8px;
   cursor: pointer;
@@ -44,7 +49,7 @@ export const StSelectList = styled.div`
   border: 1px solid #eee;
   border-radius: 12px;
   z-index: 2;
-  width: 153px;
+  width: 100%;
   position: absolute;
   overflow: hidden;
   margin-top: 8px;

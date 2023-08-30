@@ -12,6 +12,7 @@ export const StWrapper = styled.div`
 export const StColumnDiv = styled.div`
   display: flex;
   flex: 1;
+  margin-bottom: 12px;
 
   flex-direction: column;
 `;
@@ -41,7 +42,7 @@ export const StUpperText = styled.div`
 `;
 
 export const StButtonWrapper = styled.div`
-  width: 88px;
+  width: 100px;
 
   margin-left: 5px;
   margin-right: 5px;
@@ -90,6 +91,12 @@ export const StAtText = styled.p`
   color: ${Theme.colors.black};
   font-size: 12px;
   font-weight: 500;
+`;
+
+export const StAtWrapper = styled.div`
+  display: flex;
+  flex: 0;
+  padding: 8px;
 `;
 
 export const StTimerText = styled.div`
@@ -192,4 +199,9 @@ export const StVerificationInput = styled.input<{
     font-size: ${Theme.fontSizes.label1};
     font-weight: 100;
   }
+`;
+
+export const StFlexDiv = styled.div`
+  display: flex;
+  flex: 1;
 `;

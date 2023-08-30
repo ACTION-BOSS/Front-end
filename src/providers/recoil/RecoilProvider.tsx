@@ -1,28 +1,28 @@
 import { createContext, FC, ReactNode } from 'react';
-import { atom, RecoilRoot } from 'recoil';
+import { RecoilRoot } from 'recoil';
 
-export interface PostState {
-  title: string;
-  content: string;
-  images: File[];
-  latitude: number;
-  longitude: number;
-  address: string;
-  imageUrlList?: string[];
-}
+// export interface PostState {
+//   title: string;
+//   content: string;
+//   images: File[];
+//   latitude: number;
+//   longitude: number;
+//   address: string;
+//   imageUrlList?: string[];
+// }
 
-export const postState = atom<PostState>({
-  key: 'postState',
-  default: {
-    latitude: 0,
-    longitude: 0,
-    address: '',
-    title: '',
-    content: '',
-    images: [],
-    imageUrlList: [],
-  },
-});
+// export const postState = atom<PostState>({
+//   key: 'postState',
+//   default: {
+//     latitude: 0,
+//     longitude: 0,
+//     address: '',
+//     title: '',
+//     content: '',
+//     images: [],
+//     imageUrlList: [],
+//   },
+// });
 
 export interface IRecoilContext {}
 
