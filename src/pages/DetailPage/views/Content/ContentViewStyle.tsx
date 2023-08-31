@@ -70,6 +70,7 @@ export const StContentWrapper = styled.div`
 
 export const StContentWord = styled.p`
   align-self: stretch;
+  white-space: pre-line;
 
   color: ${Theme.colors.gray8};
   font-size: ${Theme.fontSizes.body2};

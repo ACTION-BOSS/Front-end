@@ -94,6 +94,8 @@ export const StCommentContent = styled.div`
   font-size: ${Theme.fontSizes.body2};
   margin-bottom: 32px;
   margin-top: 8px;
+  word-wrap: break-word;
+  white-space: pre-line;
 
   ${media.mobile`
   font-size : ${Theme.fontSizes.mBody2};

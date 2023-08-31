@@ -68,6 +68,9 @@ export const Header = () => {
           </div>
         </s.HeaderLeft>
         <s.HeaderRight>
+          <s.Notification>
+            <div>알림</div>
+          </s.Notification>
           <s.PostUploadBtn onClick={onClickCreateHandler}>
             <div>게시물 작성</div>
             <WriteIcon />
