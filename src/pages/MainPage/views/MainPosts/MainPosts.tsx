@@ -25,8 +25,15 @@ export const MainPosts: FC<MainPostsProps> = ({
   const [isBottomContente, setIsBottomContente] = useState<boolean>(false);
   const observerElem = useRef<HTMLDivElement>(null);
 
-  const { data, isSuccess, fetchNextPage, hasNextPage, isLoading, isError } =
-    useMainPostsQuery(option, isDone, mapCoordinates);
+  const {
+    data,
+    isSuccess,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isError,
+    isFetching,
+  } = useMainPostsQuery(option, isDone, mapCoordinates);
 
   const handleObserver = useObserver(fetchNextPage, hasNextPage || false);
 
@@ -76,15 +83,15 @@ export const MainPosts: FC<MainPostsProps> = ({
         )}
         {allPosts.length !== 0 && (
           <s.MainPosts>
-            {isLoading &&
-              Array(5)
-                .fill(0)
-                .map((_, index) => <MainPostSkeleton key={index} />)}
+            {isLoading
+              ? Array(5)
+                  .fill(0)
+                  .map((_, index) => <MainPostSkeleton key={index} />)
+              : allPosts.map((post: Post) => (
+                  <MainPost key={post.postId} post={post} isDone={isDone} />
+                ))}
             {isError && <div>에러</div>}
-            {allPosts.map((post: Post) => (
-              <MainPost key={post.postId} post={post} isDone={isDone} />
-            ))}
-            <div ref={observerElem} className='observerElem'/>
+            <div ref={observerElem} className="observerElem" />
           </s.MainPosts>
         )}
       </s.MainPostsContent>
