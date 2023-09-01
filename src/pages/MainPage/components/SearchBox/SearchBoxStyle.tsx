@@ -60,6 +60,24 @@ export const SearchBoxList = styled.div`
   padding: 0px 12px;
   box-shadow: 0px 2px 5px 0px rgba(41, 47, 61, 0.3);
   width: 424px;
+  max-height: 270px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+    ${media.tablet`
+    display: none;
+    `}
+  }
+  &::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: #848484;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #84848447;
+    flex-wrap: nowrap;
+  }
   ${media.tablet`
   width: 384px;`}
   ${media.mobile`
@@ -77,4 +95,8 @@ export const SearchList = styled.div`
   font-size: ${Theme.fontSizes.mBody3};
   font-weight: ${Theme.fontWeights.mBody3};
   color: ${Theme.colors.gray8};`}
+  span {
+    color: ${Theme.colors.pink};
+    
+  }
 `;
