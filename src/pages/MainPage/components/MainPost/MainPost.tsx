@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import * as s from './MainPostStyle';
 import { ClearSumIcon, MyDirectIcon, UncomSmallIcon } from '../../../../assets';
 import { Post } from '../../type';
-import { useNavigate } from 'react-router-dom';
 
 type MainPostProps = {
   post: Post;
@@ -10,7 +9,6 @@ type MainPostProps = {
 };
 
 export const MainPost: FC<MainPostProps> = ({ post, isDone }) => {
-  const navigate = useNavigate();
   const onClickMovePage = (postId: number) => {
     window.open(`/detail/${postId}`, '_blank', 'noopener, noreferrer');
   };
@@ -29,13 +27,19 @@ export const MainPost: FC<MainPostProps> = ({ post, isDone }) => {
         </s.UnLike>
       </s.MainPostImg>
       <s.MainPostContent>
-        <div className="title">{title}</div>
+        <div className="title">
+          {title.length > 12 ? title.slice(0, 15).padEnd(18, '...') : title}
+        </div>
         <div className="content">
           <div className="address">
             <MyDirectIcon size={20} />
             <div>{croppedAddress}</div>
           </div>
-          <div className="nickname">{nickname}</div>
+          <div className="nickname">
+            {nickname.length > 6
+              ? nickname.slice(0, 6).padEnd(9, '...')
+              : nickname}
+          </div>
         </div>
       </s.MainPostContent>
     </s.MainPostStyle>
