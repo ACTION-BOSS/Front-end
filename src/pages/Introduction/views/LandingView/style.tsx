@@ -88,7 +88,7 @@ export const StText = styled.div`
 `;
 
 export const StMobileImg = styled.img.attrs({
-  src: 'https://res.cloudinary.com/dsxqz8qce/image/upload/v1693063756/app%E1%84%86%E1%85%A9%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8_bwnzbp.png',
+  src: 'https://res.cloudinary.com/dsxqz8qce/image/upload/v1693321743/app_rkgxzl.png',
   alt: 'MobileImage',
 })`
   width: 166px;
@@ -134,19 +134,19 @@ export const StNavButton = styled.button`
 `;
 
 export const StMapBox = styled.img.attrs({
-  src: 'https://res.cloudinary.com/dsxqz8qce/image/upload/v1693212239/web2_r5m8iy.png',
+  src: 'https://res.cloudinary.com/dsxqz8qce/image/upload/v1693321745/web_d9jw5w.png',
   alt: 'MapBoxImage',
 })`
   width: 780px;
   filter: drop-shadow(0 0 2px #5782fa5c) drop-shadow(0 0 15px #5782fa5c);
   z-index: 1;
   position: absolute;
-  top: 570px;
+  top: 600px;
 
   ${media.tablet`
   width: 432px;
   height: 349px;
-  top: 400px;
+  top: 500px;
   `}
 
   ${media.mobile`

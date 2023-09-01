@@ -3,6 +3,7 @@ import { media } from '../../styles';
 
 export const StIntroduction = styled.div`
   width: 100vw;
+  overflow: hidden;
   height: 3231px;
   display: flex;
   flex-direction: column;

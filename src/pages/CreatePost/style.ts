@@ -103,7 +103,7 @@ export const StBtnBox1 = styled.div`
 `;
 
 export const StBtnBox2 = styled.div`
-  width: 154px;
+  width: 164px;
 
   ${media.mobile`
   width: 100%;

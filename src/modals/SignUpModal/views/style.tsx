@@ -42,7 +42,7 @@ export const StUpperText = styled.div`
 `;
 
 export const StButtonWrapper = styled.div`
-  width: 88px;
+  width: 100px;
 
   margin-left: 5px;
   margin-right: 5px;
