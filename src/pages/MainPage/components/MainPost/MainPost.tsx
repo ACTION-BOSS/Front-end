@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import * as s from './MainPostStyle';
 import { ClearSumIcon, MyDirectIcon, UncomSmallIcon } from '../../../../assets';
 import { Post } from '../../type';
+import { useNavigate } from 'react-router-dom';
 
 type MainPostProps = {
   post: Post;
@@ -9,8 +10,9 @@ type MainPostProps = {
 };
 
 export const MainPost: FC<MainPostProps> = ({ post, isDone }) => {
+  const navigate = useNavigate();
   const onClickMovePage = (postId: number) => {
-    window.open(`/detail/${postId}`, '_blank', 'noopener, noreferrer');
+    navigate(`/detail/${postId}`);
   };
 
   const { postId, thumbnail, agreeCount, title, address, nickname } = post;
@@ -20,7 +22,7 @@ export const MainPost: FC<MainPostProps> = ({ post, isDone }) => {
     <s.MainPostStyle onClick={() => onClickMovePage(postId)}>
       <s.MainPostImg $isDone={isDone}>
         <div className="postImg">{isDone && <ClearSumIcon />}</div>
-        <img src={thumbnail} />
+        <img src={thumbnail} alt="게시물 사진" />
         <s.UnLike>
           <UncomSmallIcon size={18} />
           <div>{agreeCount}</div>
