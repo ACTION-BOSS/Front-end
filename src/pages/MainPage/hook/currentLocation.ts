@@ -16,7 +16,8 @@ export const useGetCurrentLocation = (
   };
 
   useEffect(() => {
-    getCurrentLocation();
+    const saveMapCenter = sessionStorage.getItem('mapCenter');
+    if (!saveMapCenter) getCurrentLocation();
   }, []);
 
   return getCurrentLocation;

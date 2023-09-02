@@ -1,13 +1,9 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import * as s from './SearchBoxStyle';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '../../../../api';
+import { useDebouncedCallback, useSearchListQuery } from '../../hook';
+import { Item } from '../../type';
+import { SearchList } from './SearchList';
 
-type Item = {
-  address: string;
-  latitude: number;
-  longitude: number;
-};
 type SearchBoxProps = {
   mapCenterChangeHandler: (userLocation: { lat: number; lng: number }) => void;
 };
@@ -16,26 +12,7 @@ export const SearchBox: FC<SearchBoxProps> = ({ mapCenterChangeHandler }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [keyword, setKeyword] = useState<string>('');
 
-  const { data, isLoading, error } = useQuery(
-    ['searchList', keyword],
-    async () => {
-      try {
-        const response = await api.get(`/search?keyword=${keyword}`);
-        return response.data;
-      } catch (e) {
-        console.log(e);
-        throw e;
-      }
-    },
-  );
-
-  const useDebouncedCallback = (callback: Function, duration: number) => {
-    let timer: ReturnType<typeof setTimeout>;
-    return (...args: any[]) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => callback(...args), duration);
-    };
-  };
+  const { data } = useSearchListQuery(keyword);
 
   const debouncedSetKeyword = useCallback(
     useDebouncedCallback((value: string) => {
@@ -78,34 +55,5 @@ export const SearchBox: FC<SearchBoxProps> = ({ mapCenterChangeHandler }) => {
           ))}
       </s.SearchBoxList>
     </s.SearchBox>
-  );
-};
-
-interface SearchListProps {
-  item: Item;
-  keyword: string;
-  mapCenterChangeHandler: (userLocation: { lat: number; lng: number }) => void;
-  inputValueInitialization: () => void;
-}
-
-export const SearchList: FC<SearchListProps> = ({
-  item,
-  keyword,
-  mapCenterChangeHandler,
-  inputValueInitialization,
-}) => {
-  const { address, latitude, longitude } = item;
-  const text = address.split(keyword);
-
-  const onClickMove = () => {
-    mapCenterChangeHandler({ lat: latitude, lng: longitude });
-    inputValueInitialization();
-  };
-  return (
-    <s.SearchList onClick={onClickMove}>
-      {text[0]}
-      <span>{keyword}</span>
-      {text[1]}
-    </s.SearchList>
   );
 };
