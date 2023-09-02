@@ -101,9 +101,7 @@ export const ContentView: FC<ContentViewProps> = ({
       <StContentWrapper>
         <StContentWord>{content}</StContentWord>
         <StHowManyWrapper>
-          <StHowManyLetters>{`${
-            content.trim().length
-          }/500자`}</StHowManyLetters>
+          <StHowManyLetters>{`${content.length}/500자`}</StHowManyLetters>
         </StHowManyWrapper>
       </StContentWrapper>
     </StWrapper>

@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import * as s from './SearchBoxStyle';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { api } from '../../../../api';
 
 type Item = {
   address: string;
@@ -20,9 +20,7 @@ export const SearchBox: FC<SearchBoxProps> = ({ mapCenterChangeHandler }) => {
     ['searchList', keyword],
     async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URI}/api/search?keyword=${keyword}`,
-        );
+        const response = await api.get(`/search?keyword=${keyword}`);
         return response.data;
       } catch (e) {
         console.log(e);

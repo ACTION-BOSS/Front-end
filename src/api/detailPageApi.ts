@@ -9,7 +9,10 @@ export const useFetchDetailPageData = (postId: string | undefined) => {
 
   const getDetailPageData = async () => {
     try {
+      console.log('getDetailPageData');
       const response = await api.get(`/posts/${postId}`);
+
+      console.log('detail res', response);
 
       if (response.status === 200) {
         return response.data.data;
@@ -19,6 +22,8 @@ export const useFetchDetailPageData = (postId: string | undefined) => {
     } catch (e) {
       const AxiosError = e as AxiosError;
       // console.log(AxiosError);
+
+      console.log(123, AxiosError.response);
 
       if (AxiosError.response?.status === 404) {
         navigate('/notfound');
