@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, FC } from 'react';
+import React, { FC } from 'react';
 import * as s from './MainPostsStyle';
 import { Coordinates, Post } from '../../type';
 import {
@@ -8,7 +8,7 @@ import {
   DoneButton,
   OptionButtons,
 } from '../../components';
-import { useMainPostsQuery, useObserver } from '../../hook';
+import { useMainPostsLogic } from './MainPostsLogic';
 
 type MainPostsProps = {
   mapCoordinates: Coordinates;
@@ -21,43 +21,17 @@ export const MainPosts: FC<MainPostsProps> = ({
   isDone,
   handleClickDoneButton,
 }) => {
-  const [option, setOption] = useState<string>('최신순');
-  const [isBottomContente, setIsBottomContente] = useState<boolean>(false);
-  const observerElem = useRef<HTMLDivElement>(null);
-
   const {
-    data,
-    isSuccess,
-    fetchNextPage,
-    hasNextPage,
+    option,
+    isBottomContente,
     isLoading,
+    allPosts,
     isError,
-    isFetching,
-  } = useMainPostsQuery(option, isDone, mapCoordinates);
+    observerElem,
+    handleClickOptionButton,
+    handleToggleBottomContent,
+  } = useMainPostsLogic(mapCoordinates, isDone, handleClickDoneButton);
 
-  const handleObserver = useObserver(fetchNextPage, hasNextPage || false);
-
-  const handleClickOptionButton = (option: string) => {
-    setOption(option);
-  };
-
-  const handleToggleBottomContent = () => {
-    setIsBottomContente(!isBottomContente);
-  };
-
-  useEffect(() => {
-    const element = observerElem.current;
-    if (element) {
-      const observer = new IntersectionObserver(handleObserver, {
-        threshold: 1,
-      });
-      observer.observe(element);
-      return () => observer.unobserve(element);
-    }
-  }, [handleObserver]);
-
-  const allPosts =
-    (isSuccess && data.pages.flatMap((page) => page.data.postList)) || [];
   return (
     <s.MainPostsConatiner $isBottomContente={isBottomContente}>
       <s.MainPostsShortLine onClick={handleToggleBottomContent}>
