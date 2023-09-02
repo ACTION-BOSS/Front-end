@@ -2,7 +2,8 @@ import { ThemeType } from './type';
 
 export const Theme: ThemeType = {
   media: {
-    mobile: '576px',
+    // mobile: '576px',
+    mobile: '750px',
     tablet: '990px',
   },
   colors: {
