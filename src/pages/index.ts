@@ -6,3 +6,4 @@ export * from './NotFoundPage/NotFoundPage';
 export * from './TestPage/TestPage';
 export * from './OAuthPages/OAuthPage';
 export * from './OAuthPages/OAuthCallbackPage';
+export * from './MyPage';
