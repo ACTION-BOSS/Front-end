@@ -12,7 +12,9 @@ import {
   StButton,
   StPasswordContent,
   StWarningText,
+  StGrayInput,
 } from './UserProfileStyle';
+import { SelectBox } from '../../../../modals';
 
 type UserProfileViewProps = {
   originalEmail: string;
@@ -23,6 +25,13 @@ type UserProfileViewProps = {
   handleChangeInput: (e: ChangeEvent<HTMLInputElement>) => void;
   verification: boolean | null;
   text: string | null;
+  emailIdValue: string;
+  onChangeEmailId: (...event: any[]) => void;
+  emailDomainValue: string;
+  onChangeEmailDomain: (...event: any[]) => void;
+  isSelfTypeMode: boolean;
+  setToSelfTypeMode: () => void;
+  isVerificationFailed: boolean;
 };
 
 export const UserProfileView: FC<UserProfileViewProps> = ({
@@ -34,6 +43,13 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
   handleChangeInput,
   verification,
   text,
+  emailIdValue,
+  onChangeEmailId,
+  emailDomainValue,
+  onChangeEmailDomain,
+  isSelfTypeMode,
+  setToSelfTypeMode,
+  isVerificationFailed,
 }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -56,6 +72,8 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
                 value={nicknameValue}
                 onChange={handleChangeInput}
                 $isCorrect={verification}
+                placeholder="example"
+                width="fluid"
               />
               {!verification && <StWarningText>{text}</StWarningText>}
             </div>
@@ -68,9 +86,30 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
           <StForm onSubmit={handleSubmit}>
             <StInputBox
               type="text"
-              value={originalNickname}
-              onChange={() => {}}
+              value={emailIdValue}
+              onChange={onChangeEmailId}
+              $isCorrect={null}
+              width="fluid"
             />
+            {isSelfTypeMode ? (
+              <StGrayInput
+                value={emailDomainValue}
+                onChange={onChangeEmailDomain}
+                $isError={isVerificationFailed}
+                width="fluid"
+              />
+            ) : (
+              <SelectBox
+                setToSelfTypeMode={setToSelfTypeMode}
+                initialOptions={[
+                  '직접입력',
+                  'naver.com',
+                  'gmail.com',
+                  'hanmail.net',
+                ]}
+                $isError={isVerificationFailed}
+              />
+            )}
             <StButton>닉네임 변경</StButton>
           </StForm>
         </StContent>

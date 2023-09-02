@@ -5,7 +5,14 @@ import { useMyPageFormController } from './MyPageFormController';
 
 export const useGetUserData = () => {
   const { setValue } = useFormContext<MyPageFormData>();
-  const { nicknameValue, onChangeNickname } = useMyPageFormController();
+  const {
+    nicknameValue,
+    onChangeNickname,
+    emailIdValue,
+    onChangeEmailId,
+    onChangeEmailDomain,
+    emailDomainValue,
+  } = useMyPageFormController();
 
   const originalEmail = 'asdasd@naver.com';
   const originalPassword = 'asdf1234';
@@ -31,5 +38,9 @@ export const useGetUserData = () => {
     originalNickname,
     nicknameValue,
     onChangeNickname,
+    emailIdValue,
+    onChangeEmailId,
+    onChangeEmailDomain,
+    emailDomainValue,
   };
 };
