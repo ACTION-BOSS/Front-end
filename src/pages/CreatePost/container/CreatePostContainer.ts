@@ -1,10 +1,10 @@
 import { useRecoilState } from 'recoil';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { getAccessToken } from '../../../shared';
 import { createPostState } from '../state';
 import { EModalType, useModal } from '../../../providers';
+import { api } from '../../../api';
 
 export const useCreatePost = () => {
   const { openModal, closeModal } = useModal();
@@ -40,9 +40,9 @@ export const useCreatePost = () => {
       formData.append(`images`, image);
     });
 
-    return axios.post(`${process.env.REACT_APP_API_URI}/api/posts`, formData, {
+    return api.post(`/posts`, formData, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Access: `Bearer ${token}`,
       },
     });
   };

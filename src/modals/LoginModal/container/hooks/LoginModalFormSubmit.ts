@@ -10,7 +10,7 @@ import { AxiosError } from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { $isVerificationFailed } from '../../state';
 import { useModal } from '../../../../providers';
-import { saveAccessToken } from '../../../../shared';
+import { saveAccessToken, saveRefreshToken } from '../../../../shared';
 
 export const useLoginModalFormSubmit = () => {
   const { handleSubmit } = useFormContext<LoginModalFormData>();
@@ -37,18 +37,22 @@ export const useLoginModalFormSubmit = () => {
         if (response.status === 200) {
           // console.log('로그인 요청 시 헤더:', response.headers);
 
-          const accessToken = response.headers['authorization'].split(' ')[1];
-          // console.log('access_token: ', accessToken);
+          console.log(response.headers);
+
+          const accessToken = response.headers['access'].split(' ')[1];
           accessToken && saveAccessToken(accessToken);
 
-          if (accessToken) {
-            // console.log('로그인 성공!');
+          const refreshToken = response.headers['refresh'].split(' ')[1];
+          refreshToken && saveRefreshToken(refreshToken);
+
+          if (accessToken && refreshToken) {
+            console.log('로그인 성공!');
             closeModal();
             window.location.reload();
           }
         }
       } catch (e) {
-        // console.log(e);
+        console.log(e);
         const AxiosError = e as AxiosError;
 
         if (AxiosError.response) {
