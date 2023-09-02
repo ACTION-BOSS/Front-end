@@ -88,7 +88,14 @@ export const StInputBox = styled.input<{ $isCorrect?: boolean | null }>`
   font-style: normal;
   font-weight: ${Theme.fontWeights.body2}
   line-height: 32px;
+
+  &::placeholder {
+    color: ${Theme.colors.gray4};
+    font-size: ${Theme.fontSizes.label1};
+    font-weight: 100;
+  }
 `;
+
 export const StWarningText = styled.p`
   position: absolute;
   padding-top: 10px;

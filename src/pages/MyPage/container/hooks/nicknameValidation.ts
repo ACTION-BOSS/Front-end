@@ -3,7 +3,7 @@ import { useMyPageFormController } from './MyPageFormController';
 import { AxiosError } from 'axios';
 import { api } from '../../../../api';
 
-export const useNicknameValidation = (nickname: string) => {
+export const useNicknameValidation = () => {
   const { nicknameValue, onChangeNickname } = useMyPageFormController();
   const [isDuplicatedNickname, setIsDuplicatedNickname] = useState<
     boolean | null

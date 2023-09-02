@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { UserProfileView } from '../views';
-import { useGetUserData } from './hooks';
+import { useGetUserData, useNicknameValidation } from './hooks';
 import { useRecoilValue } from 'recoil';
 import { $chosenIndex } from '../state';
 
@@ -14,7 +14,7 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
     nicknameValue,
     onChangeNickname,
   } = useGetUserData();
-
+  const { handleChangeInput, verification, text } = useNicknameValidation();
   const chosenIndex = useRecoilValue($chosenIndex);
 
   return (
@@ -26,6 +26,9 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
           originalPassword={originalPassword}
           nicknameValue={nicknameValue}
           onChangeNickname={onChangeNickname}
+          handleChangeInput={handleChangeInput}
+          verification={verification}
+          text={text}
         />
       )}
     </>

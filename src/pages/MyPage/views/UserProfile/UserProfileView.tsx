@@ -1,4 +1,4 @@
-import { FC, FormEvent } from 'react';
+import { ChangeEvent, FC, FormEvent } from 'react';
 import {
   StViewWrapper,
   StTitleWrapper,
@@ -20,6 +20,9 @@ type UserProfileViewProps = {
   originalNickname: string;
   nicknameValue: string;
   onChangeNickname: () => void;
+  handleChangeInput: (e: ChangeEvent<HTMLInputElement>) => void;
+  verification: boolean | null;
+  text: string | null;
 };
 
 export const UserProfileView: FC<UserProfileViewProps> = ({
@@ -28,12 +31,13 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
   originalPassword,
   nicknameValue,
   onChangeNickname,
+  handleChangeInput,
+  verification,
+  text,
 }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
-
-  const isValid = false;
 
   return (
     <StViewWrapper>
@@ -50,12 +54,10 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
               <StInputBox
                 type="text"
                 value={nicknameValue}
-                onChange={onChangeNickname}
-                $isCorrect={isValid}
+                onChange={handleChangeInput}
+                $isCorrect={verification}
               />
-              {!isValid && (
-                <StWarningText>이미 존재하는 닉네임이에요</StWarningText>
-              )}
+              {!verification && <StWarningText>{text}</StWarningText>}
             </div>
             <StButton>닉네임 변경</StButton>
           </StForm>
