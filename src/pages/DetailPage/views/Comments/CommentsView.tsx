@@ -101,6 +101,12 @@ export const CommentsView: FC<CommentsViewProps> = ({
             value={body}
             maxLength={200}
             onChange={onChangeComment}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                if (e.shiftKey) return;
+                handleCreateComment();
+              }
+            }}
           />
           <div>{body.length}/200자</div>
         </StTextArea>
