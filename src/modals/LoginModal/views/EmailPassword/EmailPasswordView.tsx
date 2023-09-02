@@ -108,6 +108,11 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
             onChangePassword(e.target.value);
           }}
           $isVerificated={isVerificationFailed}
+          onKeyUp={(e) => {
+            if (e.key === 'Enter') {
+              onPressLoginButton();
+            }
+          }}
         />
         {isVerificationFailed && (
           <StLabelTextWrapper>
