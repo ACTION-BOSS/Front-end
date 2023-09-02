@@ -124,7 +124,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
                   '직접입력',
                   'naver.com',
                   'gmail.com',
-                  'hanmail.com',
+                  'hanmail.net',
                 ]}
                 $isError={isEmailSendFailed}
               />
