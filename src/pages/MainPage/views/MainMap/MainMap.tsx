@@ -124,8 +124,8 @@ export const MainMap: FC<MainMapProps> = ({
     if (map) {
       const handleZoomChanged = () => {
         const currentZoomLevel = map.getLevel();
-        if (currentZoomLevel > 9) {
-          map.setLevel(9);
+        if (currentZoomLevel > 13) {
+          map.setLevel(13);
         }
         setZoomLevel(map.getLevel());
       };
@@ -218,7 +218,7 @@ export const MainMap: FC<MainMapProps> = ({
     <s.MainMapContainer>
       <div className="map" ref={mapRef} />
       <s.SearchBox>
-        <SearchBox />
+        <SearchBox mapCenterChangeHandler={mapCenterChangeHandler} />
       </s.SearchBox>
       <s.MainMapIcon>
         <MapIcon
@@ -228,7 +228,6 @@ export const MainMap: FC<MainMapProps> = ({
         />
       </s.MainMapIcon>
       <s.MainLocationBox>
-        {/* display:none */}
         <LocationBox />
       </s.MainLocationBox>
       {isModal && (

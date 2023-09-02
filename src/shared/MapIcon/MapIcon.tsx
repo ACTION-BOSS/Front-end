@@ -20,7 +20,7 @@ export const MapIcon: FC<MapIconProps> = ({
   };
 
   const zoomOutHandler = () => {
-    if (zoomLevel < 9) {
+    if (zoomLevel < 13) {
       onZoomChange(zoomLevel + 1);
     }
   };

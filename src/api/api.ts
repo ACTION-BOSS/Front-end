@@ -69,6 +69,7 @@ export const getSelectPost = async (postId: number) => {
 
 export const getSearchList = async (keyword: string) => {
   try {
+    console.log('keyword', keyword);
     const response = await axios.get(
       `${process.env.REACT_APP_API_URI}/api/search/example?keyword=${keyword}`,
     );
