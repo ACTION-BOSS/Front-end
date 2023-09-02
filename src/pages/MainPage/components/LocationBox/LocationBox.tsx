@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as s from './LocationBoxStyle';
 import { MyDirectIcon } from '../../../../assets';
+import { useLocationAddress } from '../../hook';
 
-export const LocationBox = () => {
+type LocationBoxProps = {
+  mapCenter: {
+    lat: number;
+    lng: number;
+  };
+};
+
+export const LocationBox: FC<LocationBoxProps> = ({ mapCenter }) => {
+  const address = useLocationAddress(mapCenter);
+
   return (
     <s.LocationBox>
       <div>
         <MyDirectIcon size={24} />
       </div>
-      <div>지번주소 구,동까지</div>
+      <div>{address}</div>
     </s.LocationBox>
   );
 };
