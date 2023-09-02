@@ -141,10 +141,10 @@ export const StLabel1Text = styled.p<{
   font-size: ${Theme.fontSizes.label1};
   font-weight: ${Theme.fontWeights.label1};
 
-  color: ${(props) =>
-    props.$isCorrect === false
+  color: ${({ $isCorrect }) =>
+    $isCorrect === false
       ? Theme.colors.pink
-      : props.$isCorrect === true
+      : $isCorrect === true
       ? Theme.colors.blue
       : Theme.colors.gray7};
 `;
