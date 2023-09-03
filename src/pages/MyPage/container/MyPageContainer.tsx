@@ -1,6 +1,12 @@
 import { FC, useState } from 'react';
 import { UserProfileView } from '../views';
-import { useGetUserData, useNicknameValidation } from './hooks';
+import {
+  useChangeNickname,
+  useGetUserData,
+  useNicknameValidation,
+  useSendEmailVerification,
+  useVerificationCode,
+} from './hooks';
 import { useRecoilValue } from 'recoil';
 import { $chosenIndex } from '../state';
 
@@ -19,13 +25,23 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
     emailDomainValue,
   } = useGetUserData();
   const { handleChangeInput, verification, text } = useNicknameValidation();
+  const { changeNickName } = useChangeNickname();
   const chosenIndex = useRecoilValue($chosenIndex);
+  const {
+    inputCode,
+    handleInputChange,
+    isInputFilled,
+    onEmailCodeAuthenticationButtonClick,
+    reSendEmail,
+  } = useVerificationCode();
 
   const [isSelfTypeMode, setIsSelfTypeMode] = useState<boolean>(false);
   const setToSelfTypeMode = () => {
     setIsSelfTypeMode(true);
   };
   const isVerificationFailed = true;
+
+  const { onCodeSendButtonClick } = useSendEmailVerification();
 
   return (
     <>
@@ -46,6 +62,15 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
           onChangeEmailId={onChangeEmailId}
           emailDomainValue={emailDomainValue}
           onChangeEmailDomain={onChangeEmailDomain}
+          changeNickName={changeNickName}
+          onCodeSendButtonClick={onCodeSendButtonClick}
+          inputCode={inputCode}
+          handleInputChange={handleInputChange}
+          isInputFilled={isInputFilled}
+          reSendEmail={reSendEmail}
+          onEmailCodeAuthenticationButtonClick={
+            onEmailCodeAuthenticationButtonClick
+          }
         />
       )}
     </>

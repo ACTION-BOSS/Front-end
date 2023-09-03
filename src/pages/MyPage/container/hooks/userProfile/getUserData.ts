@@ -14,7 +14,7 @@ export const useGetUserData = () => {
     emailDomainValue,
   } = useMyPageFormController();
 
-  const originalEmail = 'asdasd@naver.com';
+  let originalEmail: string | null = null;
   const originalPassword = 'asdf1234';
   const originalNickname = 'haru';
 
