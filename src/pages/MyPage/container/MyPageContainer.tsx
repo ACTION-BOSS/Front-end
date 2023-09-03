@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { UserProfileView } from '../views';
+import { UserPostsView, UserProfileView } from '../views';
 import {
   useChangeNickname,
   useGetUserData,
@@ -73,6 +73,7 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
           }
         />
       )}
+      {chosenIndex !== 0 && <UserPostsView />}
     </>
   );
 };

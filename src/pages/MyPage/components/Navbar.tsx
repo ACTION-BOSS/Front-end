@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { $chosenIndex } from '../state';
-import { Theme } from '../../../styles';
+import { Theme, media } from '../../../styles';
 type NavbarProps = {};
 
 export const Navbar: FC<NavbarProps> = ({}) => {
@@ -45,9 +45,16 @@ export const StNavbarWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 204px;
-
   gap: 27px;
   padding: 0px 12px;
+  ${media.tablet`
+  flex-direction: row;
+  width: 100%;
+  gap: 45px;
+  `}
+  ${media.mobile`
+  gap: 5px;
+  `}
 `;
 
 export const StMenuWrapper = styled.div<{ $isChosen: boolean }>`
@@ -71,4 +78,15 @@ export const StMenuWrapper = styled.div<{ $isChosen: boolean }>`
   font-weight: ${({ $isChosen }) =>
     $isChosen ? Theme.fontWeights.h2 : Theme.fontWeights.body1};
   line-height: normal;
+  ${media.mobile`
+    font-size:${Theme.fontSizes.mBody1};
+    font-weight:${Theme.fontWeights.mBody1};
+    height: 40px;
+  `}
+  ${({ $isChosen }) =>
+    $isChosen &&
+    media.mobile`
+    font-size:${Theme.fontSizes.mH3};
+    font-weight:${Theme.fontWeights.mH3};
+  `};
 `;
