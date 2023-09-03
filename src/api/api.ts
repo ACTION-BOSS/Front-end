@@ -82,6 +82,7 @@ export const getMapPing = async (
   isDone: boolean,
   mapCoordinates: Coordinates,
 ) => {
+  console.log('실행됨', isDone, mapCoordinates);
   const { northlat, eastlon, southlat, westlon } = mapCoordinates;
   try {
     const response = await axios.get(
@@ -124,18 +125,6 @@ export const getSelectPost = async (postId: number) => {
 };
 
 export const getSearchList = async (keyword: string) => {
-  try {
-    console.log('keyword', keyword);
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URI}/api/search/example?keyword=${keyword}`,
-    );
-    return response.data;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const getSearchCoordinates = async (keyword: string) => {
   try {
     const response = await axios.get(
       `${process.env.REACT_APP_API_URI}/api/search?keyword=${keyword}`,

@@ -13,10 +13,19 @@ export type Ping = {
   latitude: number;
   longitude: number;
 };
-
+export type mapCenterCoordinates = {
+  lat: number;
+  lng: number;
+};
 export type Coordinates = {
   northlat: number;
   eastlon: number;
   southlat: number;
   westlon: number;
+};
+
+export type Item = {
+  address: string;
+  latitude: number;
+  longitude: number;
 };
