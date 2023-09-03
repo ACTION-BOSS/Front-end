@@ -12,7 +12,6 @@ export const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const accessToken = getAccessToken();
-    console.log('current accesstoken', accessToken);
     if (accessToken) {
       config.headers['Access'] = `Bearer ${accessToken}`;
     }
@@ -25,29 +24,27 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
-    console.log('asdlkfjasd;lkfja');
     return response;
   },
   async (error) => {
-    console.log('a123123');
     const originalRequest = error.config;
 
-    console.log(
-      '1. Error Occured in Interceptor',
-      error.response.status === 403,
-      !originalRequest._retry,
-    );
+    // console.log(
+    //   '1. Error Occured in Interceptor',
+    //   error.response.status === 403,
+    //   !originalRequest._retry,
+    // );
 
     // 403 상태 코드가 오면 accessToken이 만료되었다고 판단
     if (error.response.status === 403 && !originalRequest._retry) {
-      console.log('2. error Occured because access token expired');
+      // console.log('2. error Occured because access token expired');
       originalRequest._retry = true;
 
       const refreshToken = getRefreshToken();
-      console.log('3. RefreshToken', refreshToken);
+      // console.log('3. RefreshToken', refreshToken);
       if (!refreshToken) return Promise.reject(error);
       try {
-        console.log('4. has RefreshToken and try reIssue AccessToken');
+        // console.log('4. has RefreshToken and try reIssue AccessToken');
         const res = await axios.get(
           `${process.env.REACT_APP_API_URI}/api/auth/login/reissueToken`,
           {
@@ -55,21 +52,21 @@ api.interceptors.response.use(
           },
         );
 
-        console.log('5. new Access Token Response', res);
+        // console.log('5. new Access Token Response', res);
 
         if (res.status === 201) {
           // 새로운 accessToken 저장
           const newAccessToken = res.headers['access'].split(' ')[1];
 
-          console.log('6. save New AccessToken', newAccessToken);
+          // console.log('6. save New AccessToken', newAccessToken);
           saveAccessToken(newAccessToken);
           api.defaults.headers['Access'] = `Bearer ${newAccessToken}`;
 
           // 원래 요청 다시 보내기
           originalRequest.headers['Access'] = `Bearer ${newAccessToken}`;
-          console.log(
-            '7. set New Access Token to Request and Fetch original Request',
-          );
+          // console.log(
+          //   '7. set New Access Token to Request and Fetch original Request',
+          // );
           return api(originalRequest);
         }
         return Promise.reject(error);

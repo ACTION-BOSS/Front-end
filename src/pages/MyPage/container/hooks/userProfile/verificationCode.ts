@@ -4,18 +4,15 @@ import { debounce } from 'lodash';
 import {
   $isCodeSent,
   $isEmailCodeVerificated,
-  $isEmailFormatError,
-  $isEmailSendFailed,
-  $isReadyStepTwo,
   $isResetCode,
-} from '../../state';
+} from '../../../state';
 import { useFormContext, useController } from 'react-hook-form';
-import { SignupModalFormData } from './SignupModalForm';
-import { api } from '../../../../api';
+import { api } from '../../../../../api';
 import { AxiosError } from 'axios';
+import { MyPageFormData } from './MyPageForm';
 
 export const useVerificationCode = () => {
-  const { control } = useFormContext<SignupModalFormData>();
+  const { control } = useFormContext<MyPageFormData>();
 
   const {
     field: { value: emailIdValue, onChange: onChangeEmailId },
@@ -39,44 +36,9 @@ export const useVerificationCode = () => {
   });
 
   const [isCodeSent, setIsCodeSent] = useRecoilState($isCodeSent);
-  const setIsEmailSendFailed = useSetRecoilState($isEmailSendFailed);
-  const setIsEmailFormatError = useSetRecoilState($isEmailFormatError);
+
   const setIsEmailCodeVerificated = useSetRecoilState($isEmailCodeVerificated);
-  const setIsReadyStepTwo = useSetRecoilState($isReadyStepTwo);
   const setIsResetCode = useSetRecoilState($isResetCode);
-
-  const onCodeSendButtonClick = useCallback(
-    debounce(async () => {
-      try {
-        const response = await api.post('auth/signup/emailSend', {
-          email: `${emailIdValue}@${emailDomainValue}`,
-        });
-
-        if (response.status === 201) {
-          setIsCodeSent(true);
-          setIsEmailSendFailed(false);
-          setIsEmailFormatError(false);
-          return;
-        }
-      } catch (e) {
-        const AxiosError = e as AxiosError;
-
-        // console.log('error: ', AxiosError);
-
-        if (AxiosError.response) {
-          if (AxiosError.response.status === 400) {
-            setIsEmailSendFailed(true);
-            setIsEmailFormatError(false);
-          }
-          if (AxiosError.response.status === 403) {
-            setIsEmailSendFailed(false);
-            setIsEmailFormatError(true);
-          }
-        }
-      }
-    }, 1000),
-    [emailDomainValue, emailIdValue],
-  );
 
   const handleInputChange = (code: string) => {
     if (/^\d*$/.test(code) || code.length < successKeyValue.length) {
@@ -97,7 +59,6 @@ export const useVerificationCode = () => {
         });
         if (response.status === 201) {
           setIsEmailCodeVerificated(true);
-          setIsReadyStepTwo(true);
           return;
         }
       } catch (e) {
@@ -141,7 +102,6 @@ export const useVerificationCode = () => {
 
   return {
     isCodeSent,
-    onCodeSendButtonClick,
     inputCode: successKeyValue,
     handleInputChange,
     isInputFilled,

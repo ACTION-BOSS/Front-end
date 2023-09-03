@@ -48,7 +48,7 @@ export const StContent = styled.div`
   align-items: center;
 `;
 
-export const StPasswordContent = styled(StContent)`
+export const StColumnContents = styled(StContent)`
   align-items: flex-start;
   flex-direction: column;
   gap: 18px;
@@ -56,6 +56,7 @@ export const StPasswordContent = styled(StContent)`
 
 export const StSubTitleWrapper = styled.div`
   display: flex;
+  flex-shrink: 0;
   width: 200px;
   color: ${Theme.colors.gray6};
 
@@ -86,14 +87,38 @@ export const StInputBox = styled.input<{ $isCorrect?: boolean | null }>`
   font-family: Pretendard;
   font-size: ${Theme.fontSizes.body2};
   font-style: normal;
-  font-weight: ${Theme.fontWeights.body2}
+  font-weight: ${Theme.fontWeights.body2};
   line-height: 32px;
 
   &::placeholder {
     color: ${Theme.colors.gray4};
     font-size: ${Theme.fontSizes.label1};
-    font-weight: 100;
+    font-weight: ${Theme.fontWeights.label1};
+    line-height: 18px;
   }
+`;
+
+export const StVerificationCodeInput = styled(StInputBox)<{
+  $isVerificated: boolean | null;
+}>`
+  width: 403px;
+
+  border: ${(props) => {
+    return props.$isVerificated === true
+      ? `1px solid ${Theme.colors.blue}`
+      : props.$isVerificated === false
+      ? `1px solid ${Theme.colors.pink}`
+      : 'none';
+  }};
+`;
+
+export const StEmailIdInput = styled(StInputBox)<{
+  $isError: boolean | null;
+}>`
+  width: 180px;
+
+  border: ${(props) =>
+    props.$isError ? `1px solid ${Theme.colors.pink}` : 'none'};
 `;
 
 export const StWarningText = styled.p`
@@ -104,7 +129,7 @@ export const StWarningText = styled.p`
   color: ${Theme.colors.pink};
 `;
 
-export const StButton = styled.button`
+export const StButton = styled.button<{ $isCorrect?: boolean | null }>`
   display: flex;
   width: 120px;
   height: 45px;
@@ -115,36 +140,57 @@ export const StButton = styled.button`
 
   border: none;
   border-radius: 12px;
-  background: ${Theme.colors.gray2};
+  background: ${({ $isCorrect }) => {
+    if ($isCorrect) {
+      return `${Theme.colors.blue}`;
+    } else {
+      return `${Theme.colors.gray2}`;
+    }
+  }};
+
   box-shadow: 0px 0px 5px 0px rgba(41, 47, 61, 0.25);
 
-  color: ${Theme.colors.gray1};
+  color: ${({ $isCorrect }) => {
+    if ($isCorrect) {
+      return `${Theme.colors.white}`;
+    } else {
+      return `${Theme.colors.gray1}`;
+    }
+  }};
+
+  ${Theme.colors.gray1};
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
 `;
 
-export const StForm = styled.form`
+export const StForm = styled.div`
   position: relative;
   display: flex;
+  align-items: center;
+  width: 640px;
   gap: 20px;
+`;
+
+export const StEmailForm = styled(StForm)`
+  width: auto;
+  gap: 14px;
 `;
 
 export const StGrayInput = styled.input<{
   $isError: boolean | null;
-  width?: string;
 }>`
   display: flex;
-  width: ${(props) => (props.width === 'fluid' ? '100%' : '153px')};
-  height: 42px;
-  padding: 6px 12px;
+  width: 180px;
+  height: 45px;
+  padding: 8px 16px;
   border-radius: 8px;
-  background-color: ${Theme.colors.blueGray};
-  color: ${Theme.colors.black};
+  background-color: ${Theme.colors.white};
+  color: ${Theme.colors.gray7};
 
-  font-size: ${Theme.fontSizes.body3};
-  font-weight: ${Theme.fontWeights.body3};
+  font-size: ${Theme.fontSizes.body2};
+  font-weight: ${Theme.fontWeights.body2};
 
   border: ${(props) =>
     props.$isError ? `1px solid ${Theme.colors.pink}` : 'none'};
@@ -155,4 +201,8 @@ export const StGrayInput = styled.input<{
     font-size: ${Theme.fontSizes.label1};
     font-weight: 100;
   }
+`;
+
+export const StSelectBoxWrapper = styled.div`
+  width: 180px;
 `;

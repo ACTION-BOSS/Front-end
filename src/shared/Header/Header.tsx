@@ -34,7 +34,10 @@ export const Header = () => {
       functionButton: {
         theme: 'pink',
         label: '로그아웃',
-        onClick: handleLogout,
+        onClick: () => {
+          handleLogout();
+          window.location.reload();
+        },
       },
     });
   };

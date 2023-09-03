@@ -1,19 +1,25 @@
 import { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { Theme } from '../../../../styles';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useTimer } from 'use-timer';
-import { $isCodeSent, $isResetCode, $isTimeOver } from '../../state';
 
 type TimerProps = {
   initialTime: number;
+  startCondition: boolean;
+  setIsTimeOver: (isTimeOver: boolean) => void;
+  isResetCode: boolean;
+  setIsResetCode: (reset: boolean) => void;
+  pauseCondition: boolean | null;
 };
 
-export const Timer: FC<TimerProps> = ({ initialTime }) => {
-  const isCodeSent = useRecoilValue($isCodeSent);
-  const [isResetCode, setIsResetCode] = useRecoilState($isResetCode);
-  const setIsTimeOver = useSetRecoilState($isTimeOver);
-
+export const Timer: FC<TimerProps> = ({
+  initialTime,
+  startCondition,
+  setIsTimeOver,
+  isResetCode,
+  setIsResetCode,
+  pauseCondition,
+}) => {
   useEffect(() => {
     if (isResetCode) {
       reset();
@@ -23,12 +29,18 @@ export const Timer: FC<TimerProps> = ({ initialTime }) => {
     setIsResetCode(false);
   }, [isResetCode]);
 
-  const { time, start, reset } = useTimer({
+  useEffect(() => {
+    if (pauseCondition) {
+      pause();
+    }
+  }, [pauseCondition]);
+
+  const { time, start, reset, pause } = useTimer({
     timerType: 'DECREMENTAL',
     initialTime,
     step: 1,
     endTime: 0,
-    autostart: isCodeSent,
+    autostart: startCondition,
     onTimeOver: () => {
       setIsTimeOver(true);
     },
