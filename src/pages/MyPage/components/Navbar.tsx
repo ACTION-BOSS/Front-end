@@ -47,7 +47,7 @@ export const StNavbarWrapper = styled.div`
   width: 204px;
 
   gap: 27px;
-  padding: 0px 32px;
+  padding: 0px 12px;
 `;
 
 export const StMenuWrapper = styled.div<{ $isChosen: boolean }>`
