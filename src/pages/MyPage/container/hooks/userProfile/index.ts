@@ -6,3 +6,4 @@ export * from './getUserData';
 export * from './nicknameValidation';
 export * from './sendEmailVerification';
 export * from './verificationCode';
+export * from './passwordValidation';

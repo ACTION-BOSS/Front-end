@@ -34,3 +34,8 @@ export const $isTimeOver = atom<boolean>({
   key: 'isTimeOverMyPage',
   default: false,
 });
+
+export const $isPasswordValid = atom<boolean>({
+  key: 'isPasswordValid',
+  default: false,
+});
