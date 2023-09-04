@@ -72,11 +72,11 @@ export const StNavbarWrapper = styled.div`
 
 export const StContentWrapper = styled.div`
   display: flex;
-
   ${media.tablet`
     flex-direction: column;
-    padding-right: 70px;
-    padding-left: 70px;
+  `}
+  ${media.mobile`
+    padding: 0px;
   `}
 `;
 
