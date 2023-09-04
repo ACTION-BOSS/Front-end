@@ -1213,3 +1213,100 @@ export const BigPingSmallIcon = (isDone: boolean) => {
     ? 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1693211407/a4ezhjrpe1amfxo0tpuf.png'
     : 'https://res.cloudinary.com/dozkdbzkh/image/upload/v1693211409/prpzfooj4og8e14by5xa.png';
 };
+
+export const NotiIcon = () => {
+  return (
+    <svg
+      width="25"
+      height="24"
+      viewBox="0 0 25 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.8921 9.2328C18.8923 9.21084 18.8924 9.18885 18.8924 9.16683C18.8924 9.14481 18.8923 9.12282 18.8921 9.10086V8.91123H18.8876C18.7533 5.37838 15.8469 2.55556 12.2812 2.55556C8.71544 2.55556 5.80903 5.37838 5.67473 8.91123H5.66988V9.16683V15.5383H3.78076V18.3716H10.0288C9.95788 18.5962 9.91965 18.8353 9.91965 19.0832C9.91965 20.3873 10.9768 21.4444 12.2808 21.4444C13.5848 21.4444 14.6419 20.3873 14.6419 19.0832C14.6419 18.8353 14.6036 18.5962 14.5327 18.3716H20.7808V15.5383H18.8921V9.2328Z"
+        fill="#454554"
+      />
+    </svg>
+  );
+};
+
+export const NewNotiIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="25"
+      height="24"
+      viewBox="0 0 25 24"
+      fill="none"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18.8921 9.2328C18.8923 9.21084 18.8924 9.18885 18.8924 9.16683C18.8924 9.14481 18.8923 9.12282 18.8921 9.10086V8.91123H18.8876C18.7533 5.37838 15.8469 2.55556 12.2812 2.55556C8.71544 2.55556 5.80903 5.37838 5.67473 8.91123H5.66988V9.16683V15.5383H3.78076V18.3716H10.0288C9.95788 18.5962 9.91965 18.8353 9.91965 19.0832C9.91965 20.3873 10.9768 21.4444 12.2808 21.4444C13.5848 21.4444 14.6419 20.3873 14.6419 19.0832C14.6419 18.8353 14.6036 18.5962 14.5327 18.3716H20.7808V15.5383H18.8921V9.2328Z"
+        fill="#454554"
+      />
+      <circle cx="18.2808" cy="4" r="3" fill="#FF005E" />
+    </svg>
+  );
+};
+
+export const RedDot = () => {
+  return (
+    <svg
+      width="4"
+      height="4"
+      viewBox="0 0 4 4"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <ellipse cx="2.28889" cy="2.16406" rx="2.02229" ry="2" fill="#FF005E" />
+    </svg>
+  );
+};
+
+export const NotificationToggle = () => {
+  return (
+    <svg
+      width="30"
+      height="16"
+      viewBox="0 0 30 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="0.948975"
+        y="0.369141"
+        width="29.0323"
+        height="15.4839"
+        rx="7.74194"
+        fill="#A3ACC2"
+      />
+      <circle cx="9.06641" cy="8.11133" r="6.25" fill="#454554" />
+    </svg>
+  );
+};
+
+export const NewNotificationToggle = () => {
+  return (
+    <svg
+      width="30"
+      height="16"
+      viewBox="0 0 30 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="0.948975"
+        y="0.380859"
+        width="29.0323"
+        height="15.4839"
+        rx="7.74194"
+        fill="#E0E3EB"
+      />
+      <circle cx="22.0664" cy="8.12305" r="6.25" fill="#FF005E" />
+    </svg>
+  );
+};
