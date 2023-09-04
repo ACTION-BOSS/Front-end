@@ -87,6 +87,7 @@ export const HeaderRight = styled.div`
 export const Notification = styled.div`
   cursor: pointer;
   display: flex;
+  gap: 2px;
 `;
 export const PostUploadBtn = styled.div`
   cursor: pointer;

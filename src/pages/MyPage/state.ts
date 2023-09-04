@@ -1,8 +1,18 @@
 import { atom } from 'recoil';
 
-export const $chosenIndex = atom({
+export const $chosenIndex = atom<number>({
   key: 'chosenIndex',
   default: 0,
+});
+
+export const $isNicknameFocused = atom<boolean>({
+  key: 'isNicknameFocused',
+  default: false,
+});
+
+export const $isNicknameChangeFinished = atom<boolean>({
+  key: 'isNicknameChangeFinished',
+  default: false,
 });
 
 export const $isCodeSent = atom<boolean>({
@@ -32,5 +42,10 @@ export const $isEmailCodeVerificated = atom<boolean | null>({
 
 export const $isTimeOver = atom<boolean>({
   key: 'isTimeOverMyPage',
+  default: false,
+});
+
+export const $isPasswordValid = atom<boolean>({
+  key: 'isPasswordValid',
   default: false,
 });

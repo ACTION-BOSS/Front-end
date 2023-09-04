@@ -7,12 +7,16 @@ import {
   $isResetCode,
 } from '../../../state';
 import { useFormContext, useController } from 'react-hook-form';
-import { api } from '../../../../../api';
+import { api, updateEmail } from '../../../../../api';
 import { AxiosError } from 'axios';
 import { MyPageFormData } from './MyPageForm';
+import { EModalType, useModal } from '../../../../../providers';
 
-export const useVerificationCode = () => {
+export const useVerificationCode = (
+  refetchUserData: (() => void) | undefined,
+) => {
   const { control } = useFormContext<MyPageFormData>();
+  const { openModal, closeModal } = useModal();
 
   const {
     field: { value: emailIdValue, onChange: onChangeEmailId },
@@ -57,22 +61,42 @@ export const useVerificationCode = () => {
           email: `${emailIdValue}@${emailDomainValue}`,
           successKey: successKeyValue,
         });
+
         if (response.status === 201) {
           setIsEmailCodeVerificated(true);
-          return;
+
+          const response = await api.patch('/mypage/updateEmail', {
+            email: `${emailIdValue}@${emailDomainValue}`,
+          });
+
+          if (response.status === 201) {
+            openModal(EModalType.POP_UP, {
+              title: '변경이 완료되었습니다.',
+              cancelButton: false,
+              functionButton: {
+                theme: 'emptyBlue',
+                label: '확인',
+                onClick: () => {
+                  refetchUserData && refetchUserData();
+                  closeModal();
+                },
+              },
+            });
+          }
+        } else {
+          setIsEmailCodeVerificated(false);
         }
       } catch (e) {
         const AxiosError = e as AxiosError;
-        // console.log('err', AxiosError);
 
-        if (AxiosError.response) {
-          if (AxiosError.response.status === 400) {
-            setIsEmailCodeVerificated(false);
-          }
+        if (AxiosError.response && AxiosError.response.status === 400) {
+          setIsEmailCodeVerificated(false);
         }
+
+        console.log('err', AxiosError);
       }
     }, 1000),
-    [successKeyValue, emailDomainValue, emailIdValue],
+    [successKeyValue, emailDomainValue, emailIdValue, updateEmail],
   );
 
   const reSendEmail = useCallback(

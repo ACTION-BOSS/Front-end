@@ -60,7 +60,9 @@ export const StNavbarWrapper = styled.div`
   margin-top: 120px;
   flex: 1;
   flex-direction: column;
+
   ${media.tablet`
+  flex-direction: row;
   margin-top: 28px;
   `}
   ${media.mobile`
@@ -70,8 +72,11 @@ export const StNavbarWrapper = styled.div`
 
 export const StContentWrapper = styled.div`
   display: flex;
+
   ${media.tablet`
-  flex-direction: column;
+    flex-direction: column;
+    padding-right: 70px;
+    padding-left: 70px;
   `}
 `;
 

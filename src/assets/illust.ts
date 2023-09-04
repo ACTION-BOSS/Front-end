@@ -15,3 +15,6 @@ export const NOTFOUNDBG =
 
 export const BAG =
   'https://res.cloudinary.com/dozkdbzkh/image/upload/v1692968353/d90ghp4zantkr1edxuxf.png';
+
+export const NO_NOTIFICATION =
+  'https://res.cloudinary.com/dsxqz8qce/image/upload/v1693559271/%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%85%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%85%E1%85%A5_nwbl02.png';

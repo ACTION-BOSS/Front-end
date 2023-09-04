@@ -18,7 +18,6 @@ export const useSendEmailVerification = () => {
   const [isCodeSent, setIsCodeSent] = useRecoilState($isCodeSent);
   const setIsEmailSendFailed = useSetRecoilState($isEmailSendFailed);
   const setIsEmailCodeVerificated = useSetRecoilState($isEmailCodeVerificated);
-
   const setIsEmailFormatError = useSetRecoilState($isEmailFormatError);
 
   const {

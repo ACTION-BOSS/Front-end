@@ -47,6 +47,7 @@ export const StNavbarWrapper = styled.div`
   width: 204px;
   gap: 27px;
   padding: 0px 12px;
+
   ${media.tablet`
   flex-direction: row;
   width: 100%;
