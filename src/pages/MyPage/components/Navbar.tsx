@@ -47,16 +47,7 @@ export const StNavbarWrapper = styled.div`
   width: 204px;
   gap: 27px;
   padding: 0px 12px;
-<<<<<<< HEAD
 
-  ${media.tablet`
-    flex-direction: row;
-    width: 100%;
-    gap: 24px;
-  `}
-
-
-=======
   ${media.tablet`
   flex-direction: row;
   width: 100%;
@@ -65,7 +56,6 @@ export const StNavbarWrapper = styled.div`
   ${media.mobile`
   gap: 5px;
   `}
->>>>>>> develop
 `;
 
 export const StMenuWrapper = styled.div<{ $isChosen: boolean }>`
