@@ -3,6 +3,7 @@ import { Header } from '../../../shared';
 import styled from 'styled-components';
 import { LOGO_FLAG, SKYLINE } from '../../../assets';
 import { Navbar } from '../components';
+import { media } from '../../../styles';
 
 type MyPageLayoutProps = { children: ReactNode };
 
@@ -10,7 +11,6 @@ export const MyPageLayout: FC<MyPageLayoutProps> = ({ children }) => {
   return (
     <StLayoutWrapper>
       <Header />
-
       <StIllustWrapper>
         <StSkyline />
       </StIllustWrapper>
@@ -54,10 +54,20 @@ export const StNavbarWrapper = styled.div`
   margin-top: 120px;
   flex: 1;
   flex-direction: column;
+
+  ${media.tablet`
+  flex-direction: row;
+  `}
 `;
 
 export const StContentWrapper = styled.div`
   display: flex;
+
+  ${media.tablet`
+    flex-direction: column;
+    padding-right: 70px;
+    padding-left: 70px;
+  `}
 `;
 
 export const StFooterFlagWrapper = styled.div`
