@@ -1,4 +1,4 @@
-import { FC, Suspense } from 'react';
+import { FC } from 'react';
 import { MyPageContainer, useMyPageForm } from './container';
 import { MyPageLayout } from './layout';
 import { FormProvider } from 'react-hook-form';
@@ -12,9 +12,9 @@ export const MyPage: FC<MyPageProps> = ({}) => {
     <RecoilProvider>
       <FormProvider {...form}>
         <MyPageLayout>
-          <Suspense fallback={<div>Loading</div>}>
-            <MyPageContainer />
-          </Suspense>
+          {/* <Suspense fallback={<div>Loading</div>}> */}
+          <MyPageContainer />
+          {/* </Suspense> */}
         </MyPageLayout>
       </FormProvider>
     </RecoilProvider>
