@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import { Button } from '../../shared';
 import { EModalType, useModal } from '../../providers';
-import { UncomBigIcon } from '../../assets';
+import { useNavigate } from 'react-router-dom';
 
 type TestPageProps = {};
 
 export const TestPage: FC<TestPageProps> = ({}) => {
   const { openModal } = useModal();
+  const navigate = useNavigate();
 
   return (
     <div
@@ -18,7 +19,6 @@ export const TestPage: FC<TestPageProps> = ({}) => {
         alignItems: 'center',
       }}
     >
-      <UncomBigIcon color="red" />
       <div style={{ width: '100px' }}>
         <Button
           label="회원가입"
@@ -66,6 +66,16 @@ export const TestPage: FC<TestPageProps> = ({}) => {
                 theme: 'emptyBlue',
               },
             });
+          }}
+        />
+      </div>
+      <div>
+        <Button
+          label="마이페이지"
+          $buttonTheme="emptyGray"
+          size="small"
+          onClick={() => {
+            navigate('/mypage');
           }}
         />
       </div>
