@@ -11,6 +11,7 @@ import {
 } from '../../assets';
 import { EModalType, useModal } from '../../providers';
 import { getAccessToken, handleLogout } from '../TokenUtils/tokenUtils';
+import { HeaderMenu } from './HeaderMenu';
 import {
   connectSseWithFetch,
   getNotification,
