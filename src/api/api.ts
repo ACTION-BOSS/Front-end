@@ -82,7 +82,6 @@ export const getMapPing = async (
   isDone: boolean,
   mapCoordinates: Coordinates,
 ) => {
-  console.log('실행됨', isDone, mapCoordinates);
   const { northlat, eastlon, southlat, westlon } = mapCoordinates;
   try {
     const response = await axios.get(

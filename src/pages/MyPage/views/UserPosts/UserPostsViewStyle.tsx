@@ -10,7 +10,7 @@ export const UserPostsView = styled.div`
   justify-content: center;
 `;
 export const UserPostsTitle = styled.div`
-  width: 90%;
+  width: 95%;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -34,7 +34,7 @@ export const StyledFlag = styled(StyledFlagIcon)`
 
 export const UserPosts = styled.div`
   padding: 40px 0;
-  width: 90%;
+  width: 95%;
   display: flex;
   flex-direction: column;
   gap: 20px;

@@ -1,18 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import * as s from './HeaderStyle';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../Button/Button';
-import { HomeIcon, ListIcon, WriteIcon } from '../../assets';
+import {
+  HomeIcon,
+  HumanIcon,
+  ListIcon,
+  NewNotiIcon,
+  NotiIcon,
+  WriteIcon,
+} from '../../assets';
 import { EModalType, useModal } from '../../providers';
 import { getAccessToken, handleLogout } from '../TokenUtils/tokenUtils';
 import { HeaderMenu } from './HeaderMenu';
+import {
+  connectSseWithFetch,
+  getNotification,
+} from '../../api/notificationApi';
+import {
+  NotificationModal,
+  NotificationType,
+} from '../../modals/NotificationModal/NotificationModal';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Theme } from '../../styles';
 
 export const Header = () => {
   const { openModal } = useModal();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [isMenu, setIsMenu] = useState(false);
+  const [openNotificationModal, setOpenNotificationModal] = useState(false);
+  const [reader, setReader] =
+    useState<ReadableStreamDefaultReader<Uint8Array> | null>(null);
+  const [showNewNotiIcon, setShowNewNotiIcon] = useState(false);
+  const [hasUnreadNotification, setHasUnreadNotification] = useState(false);
+  const queryClient = useQueryClient();
   const accessToken = getAccessToken();
+  const userLocation = useLocation().pathname;
 
   useEffect(() => {
     accessToken ? setIsLogin(true) : setIsLogin(false);
@@ -51,6 +75,36 @@ export const Header = () => {
     setIsMenu(!isMenu);
   };
 
+  const onClickHandleNotificationModal = () => {
+    setOpenNotificationModal(!openNotificationModal);
+  };
+
+  useEffect(() => {
+    if (isLogin) {
+      connectSseWithFetch(setReader, setShowNewNotiIcon);
+    }
+
+    return () => {
+      if (reader) {
+        reader.cancel();
+      }
+    };
+  }, [isLogin]);
+
+  const { data } = useQuery(['getNotification'], () => getNotification(), {
+    enabled: isLogin,
+  });
+  console.log('notification data', data?.data.data);
+
+  useEffect(() => {
+    const hasUnread =
+      data?.data.data?.length > 0 &&
+      data?.data.data.some(
+        (notification: NotificationType) => notification.readStatus === false,
+      );
+    setHasUnreadNotification(hasUnread);
+  }, [data]);
+
   return (
     <>
       {isMenu && (
@@ -60,10 +114,12 @@ export const Header = () => {
           onClickLogoutHandler={onClickLogoutHandler}
           onClickCreateHandler={onClickCreateHandler}
           onClickLoginButton={onClickLoginButton}
+          onClickMovePage={onClickMovePage}
+          onClickHandleNotificationModal={onClickHandleNotificationModal}
         />
       )}
       <s.Wrap>
-        <s.HeaderLeft>
+        <s.HeaderLeft $userLocation={userLocation}>
           <div className="mobileIcon" onClick={() => onClickMovePage('/main')}>
             <HomeIcon />
           </div>
@@ -78,13 +134,59 @@ export const Header = () => {
           </div>
         </s.HeaderLeft>
         <s.HeaderRight>
-          <s.Notification>
-            <div>알림</div>
-          </s.Notification>
-          <s.PostUploadBtn onClick={onClickCreateHandler}>
+          {isLogin && (
+            <>
+              <s.Notification
+                onClick={onClickHandleNotificationModal}
+                $openNotificationModal={openNotificationModal}
+              >
+                <div>알림</div>
+                {showNewNotiIcon || hasUnreadNotification ? (
+                  <NewNotiIcon
+                    color={
+                      openNotificationModal
+                        ? Theme.colors.pink
+                        : Theme.colors.black
+                    }
+                  />
+                ) : (
+                  <NotiIcon
+                    color={
+                      openNotificationModal
+                        ? Theme.colors.pink
+                        : Theme.colors.black
+                    }
+                  />
+                )}
+              </s.Notification>
+              <s.Mypage
+                onClick={() => onClickMovePage('/mypage')}
+                $userLocation={userLocation}
+              >
+                <div>마이 페이지</div>
+                <HumanIcon
+                  color={
+                    userLocation === '/mypage'
+                      ? Theme.colors.pink
+                      : Theme.colors.black
+                  }
+                />
+              </s.Mypage>
+            </>
+          )}
+          <s.CreatePost
+            onClick={onClickCreateHandler}
+            $userLocation={userLocation}
+          >
             <div>게시물 작성</div>
-            <WriteIcon />
-          </s.PostUploadBtn>
+            <WriteIcon
+              color={
+                userLocation === '/create'
+                  ? Theme.colors.pink
+                  : Theme.colors.black
+              }
+            />
+          </s.CreatePost>
           <div className="headerLine" />
           <div>
             {isLogin ? (
@@ -108,6 +210,14 @@ export const Header = () => {
         </s.HeaderRight>
       </s.Wrap>
       <Outlet />
+
+      {openNotificationModal && (
+        <NotificationModal
+          data={data?.data.data}
+          onClickHandleNotificationModal={onClickHandleNotificationModal}
+          queryClient={queryClient}
+        />
+      )}
     </>
   );
 };
