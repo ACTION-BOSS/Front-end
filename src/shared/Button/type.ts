@@ -10,7 +10,8 @@ export type ThemeType =
   | 'blue'
   | 'emptyGray'
   | 'emptyPink'
-  | 'empty';
+  | 'empty'
+  | 'gray3';
 
 export type SizeType = 'large' | 'medium' | 'mediumLong' | 'small' | 'xsmall';
 
@@ -89,6 +90,15 @@ export interface Mytheme extends DefaultTheme {
   };
 
   empty: {
+    backgroundColor: string;
+    color: string;
+    border: string;
+    hover: {
+      backgroundColor: string;
+    };
+  };
+
+  gray3: {
     backgroundColor: string;
     color: string;
     border: string;
