@@ -1,5 +1,10 @@
 import { atom } from 'recoil';
 
+export const $page = atom<number>({
+  key: 'pageNumber',
+  default: 0,
+});
+
 export const $chosenIndex = atom<number>({
   key: 'chosenIndex',
   default: 0,

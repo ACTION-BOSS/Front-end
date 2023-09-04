@@ -6,8 +6,46 @@ interface IconProps {
   color2?: string;
   color3?: string;
   className?: string;
+  onClick?: () => void;
 }
-
+export const ToggleLeftIcon: FC<IconProps> = ({ onClick }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="25"
+      height="25"
+      viewBox="0 0 25 25"
+      fill="none"
+      onClick={onClick}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9.51771 12.9903L17.5117 4.99632L15.3904 2.875L6.69936 11.566C6.30654 11.9589 6.11129 12.4744 6.11359 12.9893C6.11075 13.5048 6.306 14.0213 6.69935 14.4146L15.3904 23.1056L17.5117 20.9843L9.51771 12.9903Z"
+        fill="#8A8FA8"
+      />
+    </svg>
+  );
+};
+export const ToggleRightIcon: FC<IconProps> = ({ onClick }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="25"
+      height="25"
+      viewBox="0 0 25 25"
+      fill="none"
+      onClick={onClick}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M15.4823 12.9901L7.48828 20.9841L9.6096 23.1055L18.3006 14.4144C18.6935 14.0216 18.8887 13.506 18.8864 12.9912C18.8893 12.4756 18.694 11.9592 18.3007 11.5659L9.60961 2.87482L7.48829 4.99614L15.4823 12.9901Z"
+        fill="#8A8FA8"
+      />
+    </svg>
+  );
+};
 export const FlagIcon: FC<IconProps> = ({ className }) => {
   return (
     <svg
