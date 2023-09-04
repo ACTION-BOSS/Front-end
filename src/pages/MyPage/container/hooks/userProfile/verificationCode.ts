@@ -7,7 +7,7 @@ import {
   $isResetCode,
 } from '../../../state';
 import { useFormContext, useController } from 'react-hook-form';
-import { api } from '../../../../../api';
+import { api, updateEmail } from '../../../../../api';
 import { AxiosError } from 'axios';
 import { MyPageFormData } from './MyPageForm';
 
@@ -57,22 +57,32 @@ export const useVerificationCode = () => {
           email: `${emailIdValue}@${emailDomainValue}`,
           successKey: successKeyValue,
         });
+
         if (response.status === 201) {
           setIsEmailCodeVerificated(true);
-          return;
+
+          const emailUpdateStatus = await updateEmail(
+            emailIdValue,
+            emailDomainValue,
+          );
+
+          if (emailUpdateStatus === 201) {
+            console.log('hi');
+          }
+        } else {
+          setIsEmailCodeVerificated(false);
         }
       } catch (e) {
         const AxiosError = e as AxiosError;
-        // console.log('err', AxiosError);
 
-        if (AxiosError.response) {
-          if (AxiosError.response.status === 400) {
-            setIsEmailCodeVerificated(false);
-          }
+        if (AxiosError.response && AxiosError.response.status === 400) {
+          setIsEmailCodeVerificated(false);
         }
+
+        console.log('err', AxiosError);
       }
     }, 1000),
-    [successKeyValue, emailDomainValue, emailIdValue],
+    [successKeyValue, emailDomainValue, emailIdValue, updateEmail],
   );
 
   const reSendEmail = useCallback(
