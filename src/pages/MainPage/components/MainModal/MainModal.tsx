@@ -2,19 +2,21 @@ import React, { FC } from 'react';
 import { ClearSumIcon } from '../../../../assets';
 import * as s from './MainModalStyle';
 import { Post } from '../../type';
+import { useNavigate } from 'react-router-dom';
 
 type MainModalProps = {
   onClick(): void;
   post: Post;
 };
 export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
+  const navigate = useNavigate();
   const { address, done, thumbnail, agreeCount, title, nickname, postId } =
     post;
   let croppedAddress = address.split(' ').slice(0, 3).join(' ');
   console.log(postId);
 
   const onClickMovePage = (postId: number) => {
-    window.open(`/detail/${postId}`, '_blank', 'noopener, noreferrer');
+    navigate(`/detail/${postId}`);
   };
 
   return (
@@ -27,7 +29,7 @@ export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
       </s.MainModalTop>
       <s.MainModalMiddle $isDone={done} onClick={() => onClickMovePage(postId)}>
         <div className="postImg">{done && <ClearSumIcon />}</div>
-        <img src={thumbnail} />
+        <img src={thumbnail} alt="게시물 사진" />
         <s.UnLike>
           <s.Uncom />
           <div>{agreeCount}</div>

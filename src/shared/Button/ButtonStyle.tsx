@@ -40,8 +40,10 @@ export const ButtonStyle = styled.button<ButtonStyleProps>`
   box-sizing: border-box;
   font: inherit;
   border-radius: ${(props) =>
-    props.$buttonTheme === 'emptyGray' || props.size === 'xsmall'
-      ? ' 4px'
+    props.$buttonTheme === 'gray3'
+      ? '10px'
+      : props.$buttonTheme === 'emptyGray' || props.size === 'xsmall'
+      ? '4px'
       : '11px'};
   background-color: ${(props) =>
     $buttonTheme[props.$buttonTheme].backgroundColor};

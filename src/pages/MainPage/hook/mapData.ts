@@ -6,7 +6,9 @@ export const useMapDataQuery = (
   isDone: boolean,
   mapCoordinates: Coordinates,
 ) => {
-  return useQuery(['mapData', isDone, mapCoordinates], () =>
-    getMapPing(isDone, mapCoordinates),
+  return useQuery(
+    ['mapData', isDone, mapCoordinates],
+    () => getMapPing(isDone, mapCoordinates),
+    { enabled: true },
   );
 };

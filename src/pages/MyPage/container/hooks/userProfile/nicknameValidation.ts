@@ -1,18 +1,23 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useMyPageFormController } from './MyPageFormController';
 import { AxiosError } from 'axios';
-import { api } from '../../../../api';
+import { api } from '../../../../../api';
+import { debounce } from 'lodash';
+import { useRecoilValue } from 'recoil';
+import { $isNicknameChangeFinished, $isNicknameFocused } from '../../../state';
 
 export const useNicknameValidation = () => {
   const { nicknameValue, onChangeNickname } = useMyPageFormController();
   const [isDuplicatedNickname, setIsDuplicatedNickname] = useState<
     boolean | null
   >(null);
+  const isNicknameFocused = useRecoilValue($isNicknameFocused);
+  const isNicknameChangeFinished = useRecoilValue($isNicknameChangeFinished);
 
   const validationCheck = (nickname: string) => {
     const regex = /^[a-zA-Z가-힣0-9]+$/;
 
-    if (nickname.length === 0) {
+    if (nickname.length === 0 || isNicknameChangeFinished) {
       return {
         verification: null,
         text: null,
@@ -50,37 +55,40 @@ export const useNicknameValidation = () => {
     onChangeNickname(e);
   };
 
-  const { verification, text } = validationCheck(nicknameValue);
+  const { verification, text: validationLabelText } =
+    validationCheck(nicknameValue);
+
+  const checkNicknameDuplicated = debounce(async () => {
+    try {
+      const response = await api.post('auth/signup/nicknameCheck', {
+        nickname: nicknameValue,
+      });
+
+      if (response.status === 201) {
+        setIsDuplicatedNickname(false);
+      }
+    } catch (e) {
+      const AxiosError = e as AxiosError;
+
+      console.log('err', AxiosError);
+
+      if (AxiosError.response?.status === 400) {
+        setIsDuplicatedNickname(true);
+      }
+    }
+  }, 500);
 
   useEffect(() => {
-    const checkNicknameDuplicated = async () => {
-      try {
-        const response = await api.post('auth/signup/nicknameCheck', {
-          nickname: nicknameValue,
-        });
+    isNicknameFocused && checkNicknameDuplicated();
 
-        console.log(response);
-
-        if (response.status === 201) {
-          setIsDuplicatedNickname(false);
-        }
-      } catch (e) {
-        const AxiosError = e as AxiosError;
-
-        console.log('err', AxiosError);
-
-        if (AxiosError.response?.status === 400) {
-          setIsDuplicatedNickname(true);
-        }
-      }
+    return () => {
+      checkNicknameDuplicated.cancel();
     };
-
-    checkNicknameDuplicated();
-  }, [nicknameValue]);
+  }, [nicknameValue, isNicknameFocused]);
 
   return {
     handleChangeInput,
     verification,
-    text,
+    validationLabelText,
   };
 };

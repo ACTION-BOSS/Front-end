@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import * as s from './HeaderMenuStyle';
-import { ListIcon, LoginIcon, LogoutIcon, WriteIcon } from '../../../../assets';
-import { Theme } from '../../../../styles';
+import { ListIcon, LoginIcon, LogoutIcon, WriteIcon } from '../../../assets';
+import { Theme } from '../../../styles';
 
 type HeaderMenuProps = {
   isLogin: boolean;
@@ -19,7 +19,7 @@ export const HeaderMenu: FC<HeaderMenuProps> = ({
   onClickCreateHandler,
 }) => {
   return (
-    <s.HeaderMenu>
+    <s.HeaderMenu onClick={onToggleMenu}>
       <s.MenuText>
         {isLogin ? <div>로그아웃</div> : <div>로그인</div>}
         <div>게시물 작성</div>

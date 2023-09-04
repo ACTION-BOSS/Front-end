@@ -23,6 +23,7 @@ import {
   StKakaoWrapper,
   StPaddingDiv,
 } from './EmailPasswordStyle';
+import { KakaoLogin } from '../../components';
 
 type EmailPasswordViewProps = {
   emailIdValue: string;
@@ -133,7 +134,9 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
             onClick={onPressLoginButton}
             disabled={isReadyForLogin}
           />
-          <StKakaoWrapper>{/* <KakaoLogin /> */}</StKakaoWrapper>
+          <StKakaoWrapper>
+            <KakaoLogin />
+          </StKakaoWrapper>
 
           <StTextWrapper>
             <StTextL1>아직 행동대장의 회원이 아니신가요?</StTextL1>

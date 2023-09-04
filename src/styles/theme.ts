@@ -3,6 +3,7 @@ import { ThemeType } from './type';
 export const Theme: ThemeType = {
   media: {
     mobile: '576px',
+    // mobile: '750px',
     tablet: '990px',
   },
   colors: {
@@ -27,10 +28,10 @@ export const Theme: ThemeType = {
     h3: '15px',
     body1: '18px',
     body2: '16px',
-    body3: '13px',
+    body3: '14px',
     body4: '15px',
-    label1: '12px',
-    label2: '11px',
+    label1: '13px',
+    label2: '12px',
     label3: '12px',
     mH1: '18px',
     mH2: '14px',
@@ -38,7 +39,7 @@ export const Theme: ThemeType = {
     mBody1: '12px',
     mBody2: '12px',
     mBody3: '12px',
-    mL1 : '10px',
+    mL1: '10px',
   },
   fontWeights: {
     h1: '600',
@@ -57,7 +58,7 @@ export const Theme: ThemeType = {
     mBody1: '500',
     mBody2: '400',
     mBody3: '300',
-    mL1 : '300'
+    mL1: '300',
   },
   textDecoration: {
     label3: 'underline',

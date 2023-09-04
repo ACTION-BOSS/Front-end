@@ -13,10 +13,11 @@ type SelectBoxProps = {
   initialOptions: string[];
   setToSelfTypeMode: () => void;
   $isError: boolean | null;
+  myPage?: boolean;
 };
 
 export const SelectBox: FC<SelectBoxProps> = memo(
-  ({ initialOptions, setToSelfTypeMode, $isError = false }) => {
+  ({ initialOptions, setToSelfTypeMode, $isError = false, myPage = false }) => {
     const {
       isSelectOpen,
       selectedOptionIndex,
@@ -37,6 +38,7 @@ export const SelectBox: FC<SelectBoxProps> = memo(
           onBlur={() => setIsSelectOpen(false)}
           onClick={() => setIsSelectOpen((prev: boolean) => !prev)}
           $isError={$isError}
+          $myPage={myPage}
         >
           {!emailDomainValue && (
             <StPlaceholderText>선택해주세요</StPlaceholderText>

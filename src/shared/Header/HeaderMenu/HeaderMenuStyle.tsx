@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { Theme } from '../../../../styles';
+import { Theme } from '../../../styles';
 
 export const HeaderMenu = styled.div`
   position: fixed;

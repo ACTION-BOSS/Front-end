@@ -29,7 +29,6 @@ export const createComment = async ({
   postId,
   newComment,
 }: CreateCommentArgs): Promise<void> => {
-  console.log('commentApi');
   try {
     const res = await api.post(`/posts/${postId}`, {
       content: newComment,

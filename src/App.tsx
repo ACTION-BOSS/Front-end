@@ -1,14 +1,12 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { ReactQueryProvider, RecoilProvider } from './providers';
 import { RouterProvider } from './router';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, Theme } from './styles';
-import { checkTokenExpiration } from './shared';
+import { useIntervalTokenExpirationCheck } from './shared';
 
 export const App: FC = () => {
-  useEffect(() => {
-    checkTokenExpiration();
-  }, []);
+  useIntervalTokenExpirationCheck();
 
   return (
     <>

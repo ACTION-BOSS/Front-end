@@ -2,6 +2,9 @@ import { useFormContext } from 'react-hook-form';
 import { MyPageFormData } from './MyPageForm';
 import { useEffect } from 'react';
 import { useMyPageFormController } from './MyPageFormController';
+import { useFetchMypageData } from '../../../../../api';
+import { useQuery } from '@tanstack/react-query';
+import { getAccessToken } from '../../../../../shared';
 
 export const useGetUserData = () => {
   const { setValue } = useFormContext<MyPageFormData>();
@@ -13,12 +16,22 @@ export const useGetUserData = () => {
     onChangeEmailDomain,
     emailDomainValue,
   } = useMyPageFormController();
+  const { getMyProfileData } = useFetchMypageData();
+  const accessToken = getAccessToken();
+  const isLoggedIn = !!accessToken;
 
-  const originalEmail = 'asdasd@naver.com';
-  const originalPassword = 'asdf1234';
-  const originalNickname = 'haru';
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ['userProfile'],
+    queryFn: getMyProfileData,
+    enabled: isLoggedIn,
+  });
 
-  console.log('hello');
+  const refetchUserData: () => void = () => {
+    refetch();
+  };
+
+  const { email: originalEmail = null, nickname: originalNickname = null } =
+    isLoading ? {} : data?.data || {};
 
   useEffect(() => {
     if (originalNickname) {
@@ -32,9 +45,18 @@ export const useGetUserData = () => {
     }
   }, [originalEmail, originalNickname, setValue]);
 
+  if (isLoading) {
+    return {
+      isLoading,
+      data,
+      error,
+    };
+  }
+
   return {
+    isLoading,
+    error,
     originalEmail,
-    originalPassword,
     originalNickname,
     nicknameValue,
     onChangeNickname,
@@ -42,5 +64,6 @@ export const useGetUserData = () => {
     onChangeEmailId,
     onChangeEmailDomain,
     emailDomainValue,
+    refetchUserData,
   };
 };

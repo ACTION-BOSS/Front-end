@@ -20,29 +20,36 @@ export const StSelectWrapper = styled.div`
 
 export const StSelectTriggerWrapper = styled.button<{
   $isError: boolean | null;
+  $myPage?: boolean;
 }>`
   display: flex;
   position: relative;
   justify-content: space-between;
   align-items: center;
 
-  padding: 6px 12px;
-
-  height: 42px;
+  height: ${({ $myPage }) => ($myPage ? `45px` : `42px`)};
   width: 100%;
 
   border-radius: 8px;
   cursor: pointer;
+  outline: none;
 
-  background-color: ${Theme.colors.blueGray};
-  color: ${Theme.colors.black};
+  padding: ${({ $myPage }) => ($myPage ? `8px 16px` : `6px 12px`)};
 
-  font-size: ${Theme.fontSizes.body3};
-  font-weight: ${Theme.fontWeights.body3};
+  background-color: ${({ $myPage }) =>
+    $myPage ? `${Theme.colors.white}` : `${Theme.colors.blueGray}`};
+
+  color: ${({ $myPage }) =>
+    $myPage ? `${Theme.colors.gray7}` : `${Theme.colors.black}`};
+
+  font-size: ${({ $myPage }) =>
+    $myPage ? `${Theme.fontSizes.body2}` : `  ${Theme.fontSizes.body3}`};
+
+  font-weight: ${({ $myPage }) =>
+    $myPage ? `${Theme.fontWeights.body2}` : `  ${Theme.fontWeights.body3}`};
 
   border: ${(props) =>
     props.$isError ? `1px solid ${Theme.colors.pink}` : 'none'};
-  outline: none;
 `;
 
 export const StSelectList = styled.div`

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FlagIcon } from '../../../../assets';
-import { Theme } from '../../../../styles';
+import { Theme, media } from '../../../../styles';
 
 export const StViewWrapper = styled.div`
   display: flex;
@@ -8,6 +8,10 @@ export const StViewWrapper = styled.div`
   height: 100%;
   flex-direction: column;
   padding-right: 15vw;
+
+  ${media.tablet`
+  padding-right: 0px;
+`}
 `;
 
 export const StTitleWrapper = styled.div`
@@ -46,28 +50,37 @@ export const StyledFlagIcon = styled(FlagIcon)`
 export const StContent = styled.div`
   display: flex;
   align-items: center;
+  max-width: 830px;
 `;
 
-export const StPasswordContent = styled(StContent)`
+export const StColumnContents = styled(StContent)`
+  display: flex;
+  width: 100%;
   align-items: flex-start;
   flex-direction: column;
-  gap: 18px;
+  gap: 32px;
 `;
 
 export const StSubTitleWrapper = styled.div`
   display: flex;
-  width: 200px;
+  flex-shrink: 0;
+  width: 180px;
   color: ${Theme.colors.gray6};
 
   font-size: ${Theme.fontSizes.h2};
   font-style: normal;
   font-weight: ${Theme.fontWeights.h2};
   line-height: normal;
+
+  ${media.tablet`
+    width: 120px;
+  `}
 `;
 
 export const StInputBox = styled.input<{ $isCorrect?: boolean | null }>`
   display: flex;
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
   height: 45px;
   padding: 8px 16px;
   align-items: center;
@@ -86,65 +99,122 @@ export const StInputBox = styled.input<{ $isCorrect?: boolean | null }>`
   font-family: Pretendard;
   font-size: ${Theme.fontSizes.body2};
   font-style: normal;
-  font-weight: ${Theme.fontWeights.body2}
+  font-weight: ${Theme.fontWeights.body2};
   line-height: 32px;
 
   &::placeholder {
     color: ${Theme.colors.gray4};
     font-size: ${Theme.fontSizes.label1};
-    font-weight: 100;
+    font-weight: ${Theme.fontWeights.label1};
+    line-height: 18px;
   }
 `;
 
-export const StWarningText = styled.p`
-  position: absolute;
-  padding-top: 10px;
-  font-size: ${Theme.fontSizes.label1};
-  font-weight: ${Theme.fontWeights.label1};
-  color: ${Theme.colors.pink};
+export const StVerificationCodeInput = styled(StInputBox)<{
+  $isVerificated: boolean | null;
+}>`
+  border: ${(props) => {
+    return props.$isVerificated === true
+      ? `1px solid ${Theme.colors.blue}`
+      : props.$isVerificated === false
+      ? `1px solid ${Theme.colors.pink}`
+      : 'none';
+  }};
 `;
 
-export const StButton = styled.button`
+export const StEmailIdInput = styled(StInputBox)<{
+  $isError: boolean | null;
+}>`
+  width: 100%;
+  max-width: 180px;
+  min-width: 150px;
+  border: ${(props) =>
+    props.$isError ? `1px solid ${Theme.colors.pink}` : 'none'};
+
+  ${media.tablet`
+  min-width: 120px;
+  `}
+`;
+
+export const StWarningText = styled.p<{ $isCorrect: boolean | null }>`
+  position: absolute;
+  bottom: -18px;
+  font-size: ${Theme.fontSizes.label1};
+  font-weight: ${Theme.fontWeights.label1};
+  color: ${({ $isCorrect }) =>
+    $isCorrect === false
+      ? Theme.colors.pink
+      : $isCorrect === true
+      ? Theme.colors.blue
+      : Theme.colors.gray7};
+
+  ${media.tablet`
+    bottom : -24px;
+  `}
+`;
+
+export const StButton = styled.button<{ $isCorrect?: boolean | null }>`
   display: flex;
-  width: 120px;
-  height: 45px;
-  padding: 8px 16px;
+  min-width: 120px;
+  padding: 16px 16px;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  cursor: ${({ $isCorrect }) => ($isCorrect ? 'pointer' : 'default')};
 
   border: none;
   border-radius: 12px;
-  background: ${Theme.colors.gray2};
+  background: ${({ $isCorrect }) => {
+    if ($isCorrect) {
+      return `${Theme.colors.blue}`;
+    } else {
+      return `${Theme.colors.gray2}`;
+    }
+  }};
+
   box-shadow: 0px 0px 5px 0px rgba(41, 47, 61, 0.25);
 
-  color: ${Theme.colors.gray1};
+  color: ${({ $isCorrect }) => {
+    if ($isCorrect) {
+      return `${Theme.colors.white}`;
+    } else {
+      return `${Theme.colors.gray1}`;
+    }
+  }};
+
+  ${Theme.colors.gray1};
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
 `;
 
-export const StForm = styled.form`
+export const StForm = styled.div`
   position: relative;
   display: flex;
+  align-items: center;
   gap: 20px;
+  width: 100%;
+`;
+
+export const StEmailForm = styled(StForm)`
+  width: auto;
+  align-items: center;
+  gap: 14px;
 `;
 
 export const StGrayInput = styled.input<{
   $isError: boolean | null;
-  width?: string;
 }>`
   display: flex;
-  width: ${(props) => (props.width === 'fluid' ? '100%' : '153px')};
-  height: 42px;
-  padding: 6px 12px;
+  width: 180px;
+  height: 45px;
+  padding: 8px 16px;
   border-radius: 8px;
-  background-color: ${Theme.colors.blueGray};
-  color: ${Theme.colors.black};
+  background-color: ${Theme.colors.white};
+  color: ${Theme.colors.gray7};
 
-  font-size: ${Theme.fontSizes.body3};
-  font-weight: ${Theme.fontWeights.body3};
+  font-size: ${Theme.fontSizes.body2};
+  font-weight: ${Theme.fontWeights.body2};
 
   border: ${(props) =>
     props.$isError ? `1px solid ${Theme.colors.pink}` : 'none'};
@@ -155,4 +225,73 @@ export const StGrayInput = styled.input<{
     font-size: ${Theme.fontSizes.label1};
     font-weight: 100;
   }
+`;
+
+export const StSelectBoxWrapper = styled.div`
+  width: 100%;
+  max-width: 180px;
+  min-width: 150px;
+
+  ${media.tablet`
+  min-width: 120px;
+`}
+`;
+
+export const StColumnDiv = styled.div`
+  display: flex;
+  flex: 1;
+
+  flex-direction: column;
+`;
+
+export const StLabel1Text = styled.p<{
+  $isCorrect?: boolean | null;
+}>`
+  font-size: ${Theme.fontSizes.label1};
+  font-weight: ${Theme.fontWeights.label1};
+
+  color: ${({ $isCorrect }) =>
+    $isCorrect === false
+      ? Theme.colors.pink
+      : $isCorrect === true
+      ? Theme.colors.blue
+      : Theme.colors.gray7};
+`;
+
+export const StLabel3Text = styled.p`
+  font-size: ${Theme.fontSizes.label3};
+  font-weight: ${Theme.fontWeights.label3};
+
+  text-decoration-line: underline;
+  color: ${Theme.colors.gray7};
+  cursor: pointer;
+`;
+
+export const StLabelTextWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  padding-top: 8px;
+
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 4px;
+`;
+
+export const StFlexRowDiv = styled.div`
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const StRelativeDiv = styled(StFlexRowDiv)`
+  display: flex;
+  position: relative;
+  align-items: center;
+`;
+
+export const StVerificationButtonWrapper = styled.div`
+  position: absolute;
+  right: 12px;
 `;

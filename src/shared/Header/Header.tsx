@@ -11,7 +11,6 @@ import {
 } from '../../assets';
 import { EModalType, useModal } from '../../providers';
 import { getAccessToken, handleLogout } from '../TokenUtils/tokenUtils';
-import { HeaderMenu } from '../../pages/MainPage/components';
 import {
   connectSseWithFetch,
   getNotification,
@@ -49,8 +48,18 @@ export const Header = () => {
   };
 
   const onClickLogoutHandler = () => {
-    handleLogout();
-    window.location.reload();
+    openModal(EModalType.POP_UP, {
+      title: '로그아웃 하시겠습니까?',
+      cancelButton: true,
+      functionButton: {
+        theme: 'pink',
+        label: '로그아웃',
+        onClick: () => {
+          handleLogout();
+          window.location.reload();
+        },
+      },
+    });
   };
 
   const onClickLoginButton = () => {
