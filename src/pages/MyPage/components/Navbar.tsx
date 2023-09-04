@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { $chosenIndex } from '../state';
-import { Theme } from '../../../styles';
+import { Theme, media } from '../../../styles';
 type NavbarProps = {};
 
 export const Navbar: FC<NavbarProps> = ({}) => {
@@ -48,6 +48,14 @@ export const StNavbarWrapper = styled.div`
 
   gap: 27px;
   padding: 0px 12px;
+
+  ${media.tablet`
+    flex-direction: row;
+    width: 100%;
+    gap: 24px;
+  `}
+
+
 `;
 
 export const StMenuWrapper = styled.div<{ $isChosen: boolean }>`

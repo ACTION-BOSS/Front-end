@@ -17,6 +17,12 @@ import {
   StEmailForm,
   StSelectBoxWrapper,
   StVerificationCodeInput,
+  StColumnDiv,
+  StLabelTextWrapper,
+  StLabel1Text,
+  StRelativeDiv,
+  StVerificationButtonWrapper,
+  StLabel3Text,
 } from './UserProfileStyle';
 import { SelectBox, Timer } from '../../../../modals';
 import { DebouncedFunc } from 'lodash';
@@ -27,68 +33,80 @@ import {
   $isEmailCodeVerificated,
   $isEmailFormatError,
   $isEmailSendFailed,
+  $isNicknameChangeFinished,
+  $isNicknameFocused,
+  $isPasswordValid,
   $isResetCode,
   $isTimeOver,
 } from '../../state';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Theme } from '../../../../styles';
-import {
-  StColumnDiv,
-  StLabel1Text,
-  StLabel3Text,
-  StLabelTextWrapper,
-  StRelativeDiv,
-  StVerificationButtonWrapper,
-} from '../../../../modals/SignUpModal/views/style';
+import styled from 'styled-components';
 
 type UserProfileViewProps = {
   originalEmail: string | null;
-  originalPassword: string;
   originalNickname: string;
   nicknameValue: string;
   onChangeNickname: () => void;
   handleChangeInput: (e: ChangeEvent<HTMLInputElement>) => void;
   verification: boolean | null;
-  text: string | null;
+  validationLabelText: string | null;
   emailIdValue: string;
   onChangeEmailId: (...event: any[]) => void;
   emailDomainValue: string;
   onChangeEmailDomain: (...event: any[]) => void;
   isSelfTypeMode: boolean;
   setToSelfTypeMode: () => void;
-  isVerificationFailed: boolean;
   changeNickName: () => Promise<void>;
+  changePassword: () => Promise<void>;
   onCodeSendButtonClick: DebouncedFunc<() => Promise<void>>;
   inputCode: string;
   handleInputChange: (e: string) => void;
   isInputFilled: boolean;
   reSendEmail: () => void;
   onEmailCodeAuthenticationButtonClick: () => void;
+  passwordValue: string;
+  onChangePassword: (...event: any[]) => void;
+  passwordVerificationValue: string;
+  onChangePasswordVerification: (...event: any[]) => void;
+  handleChangePassword: (e: ChangeEvent<HTMLInputElement>) => void;
+  isPasswordVerified: boolean | null;
+  isVerified: boolean | null;
+  verificationInputErrorText: (isVerified: boolean | null) => string;
+  handleDeleteButtonClick: () => void;
 };
 
 export const UserProfileView: FC<UserProfileViewProps> = ({
   originalEmail,
   originalNickname,
-  originalPassword,
   nicknameValue,
   onChangeNickname,
   handleChangeInput,
   verification,
-  text,
+  validationLabelText,
   emailIdValue,
   onChangeEmailId,
   emailDomainValue,
   onChangeEmailDomain,
   isSelfTypeMode,
   setToSelfTypeMode,
-  isVerificationFailed,
   onCodeSendButtonClick,
   changeNickName,
+  changePassword,
   inputCode,
   handleInputChange,
   isInputFilled,
   reSendEmail,
   onEmailCodeAuthenticationButtonClick,
+  passwordValue,
+  onChangePassword,
+  passwordVerificationValue,
+  onChangePasswordVerification,
+  handleChangePassword,
+  verificationInputErrorText,
+  isPasswordVerified,
+  isVerified,
+  handleDeleteButtonClick,
 }) => {
   const isCodeSent = useRecoilValue($isCodeSent);
   const isEmailCodeVerificated = useRecoilValue($isEmailCodeVerificated);
@@ -98,6 +116,12 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
 
   const isEmailSendFailed = useRecoilValue($isEmailSendFailed);
   const isEmailFormatError = useRecoilValue($isEmailFormatError);
+
+  const [isNicknameFocused, setIsNicknameFocused] =
+    useRecoilState($isNicknameFocused);
+  const isNicknameChangeFinished = useRecoilValue($isNicknameChangeFinished);
+
+  const isPasswordValid = useRecoilValue($isPasswordValid);
 
   const getTextByEmailCodeVerificated = (
     isEmailCodeVerificated: boolean | null,
@@ -113,22 +137,30 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
     }
   };
 
-  const hasOrignialEmail = !!originalEmail;
+  const hasOriginalEmail = !!originalEmail;
+  const isOriginalNickname = originalNickname === nicknameValue;
+  const nicknameInputVerification = !isNicknameFocused
+    ? null
+    : isOriginalNickname
+    ? null
+    : verification;
+  const nicknameChangeButtonDisabled =
+    !isOriginalNickname && verification && isNicknameFocused;
 
   const renderEmailSection = () => {
-    if (!hasOrignialEmail) {
+    if (!hasOriginalEmail) {
       return (
         <StEmailForm>
           <StEmailIdInput
             type="text"
-            value={emailIdValue}
+            value={emailIdValue || ''}
             onChange={onChangeEmailId}
             $isError={isEmailSendFailed || isEmailFormatError}
           />
           <div>@</div>
           {isSelfTypeMode ? (
             <StGrayInput
-              value={emailDomainValue}
+              value={emailDomainValue || ''}
               onChange={onChangeEmailDomain}
               $isError={isEmailSendFailed || isEmailFormatError}
             />
@@ -154,7 +186,7 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
         <StEmailForm>
           <StEmailIdInput
             type="text"
-            value={emailIdValue}
+            value={emailIdValue || ''}
             onChange={onChangeEmailId}
             $isError={isEmailSendFailed || isEmailFormatError}
             disabled={true}
@@ -162,7 +194,7 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
           <div>@</div>
 
           <StGrayInput
-            value={emailDomainValue}
+            value={emailDomainValue || ''}
             onChange={onChangeEmailDomain}
             $isError={isEmailSendFailed || isEmailFormatError}
             disabled={true}
@@ -183,19 +215,36 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
         <StContent>
           <StSubTitleWrapper>닉네임*</StSubTitleWrapper>
           <StForm>
-            <div>
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
               <StInputBox
                 type="text"
-                value={nicknameValue}
+                value={nicknameValue || ''}
                 onChange={handleChangeInput}
-                $isCorrect={verification}
+                $isCorrect={nicknameInputVerification}
                 placeholder="닉네임을 입력해주세요"
+                onFocus={() => setIsNicknameFocused(true)}
                 width="fluid"
+                disabled={isNicknameChangeFinished}
               />
-              {!verification && <StWarningText>{text}</StWarningText>}
+              {!verification && isNicknameFocused && (
+                <StWarningText $isCorrect={false}>
+                  {isOriginalNickname ? '' : validationLabelText}
+                </StWarningText>
+              )}
+              {nicknameInputVerification && (
+                <StWarningText $isCorrect={true}>
+                  {validationLabelText}
+                </StWarningText>
+              )}
             </div>
             <StButton
-              $isCorrect={verification}
+              $isCorrect={nicknameChangeButtonDisabled}
               onClick={verification ? changeNickName : undefined}
             >
               닉네임 변경
@@ -209,6 +258,7 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
             <StForm>
               <StColumnDiv>
                 {renderEmailSection()}
+
                 {isEmailFormatError && (
                   <StLabelTextWrapper>
                     <StLabel1Text $isCorrect={false}>
@@ -224,8 +274,11 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
                   </StLabelTextWrapper>
                 )}
               </StColumnDiv>
-              {!hasOrignialEmail && (
-                <StButton $isCorrect={true} onClick={onCodeSendButtonClick}>
+              {!hasOriginalEmail && (
+                <StButton
+                  $isCorrect={!isCodeSent}
+                  onClick={isCodeSent ? undefined : onCodeSendButtonClick}
+                >
                   이메일 인증
                 </StButton>
               )}
@@ -279,27 +332,83 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
         </StColumnContents>
 
         <StColumnContents>
-          <StContent>
+          <div style={{ width: '100%', display: 'flex' }}>
             <StSubTitleWrapper>비밀번호*</StSubTitleWrapper>
-            <StInputBox
-              type="text"
-              value={originalNickname}
-              onChange={() => {}}
-            />
-          </StContent>
-          <StContent>
+            <StForm>
+              <div style={{ width: '100%', display: 'flex' }}>
+                <StInputBox
+                  placeholder="비밀번호를 입력해주세요"
+                  type="password"
+                  value={passwordValue}
+                  onChange={handleChangePassword}
+                  $isCorrect={isPasswordVerified}
+                  width="fluid"
+                />
+                {isPasswordVerified !== null && (
+                  <StWarningText $isCorrect={isPasswordVerified}>
+                    {isPasswordVerified
+                      ? '사용가능한 비밀번호입니다'
+                      : '8~15자 영어 + 숫자로만 입력 가능합니다. (특수문자 불가)'}
+                  </StWarningText>
+                )}
+              </div>
+              <StButton
+                $isCorrect={isPasswordValid}
+                onClick={undefined}
+                style={{ opacity: 0 }}
+                disabled={true}
+              >
+                비밀번호 변경
+              </StButton>
+            </StForm>
+          </div>
+          <div style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
             <StSubTitleWrapper>비밀번호 확인*</StSubTitleWrapper>
             <StForm>
-              <StInputBox
-                type="text"
-                value={originalNickname}
-                onChange={() => {}}
-              />
-              <StButton>닉네임 변경</StButton>
+              <div style={{ width: '100%', display: 'flex' }}>
+                <StInputBox
+                  placeholder="비밀번호를 확인해주세요"
+                  type="password"
+                  value={passwordVerificationValue}
+                  onChange={onChangePasswordVerification}
+                  $isCorrect={isVerified}
+                  width="fluid"
+                />
+                {isVerified !== null && (
+                  <StWarningText $isCorrect={isVerified}>
+                    {verificationInputErrorText(isVerified)}
+                  </StWarningText>
+                )}
+              </div>
+              <StButton
+                $isCorrect={isPasswordValid}
+                onClick={isPasswordValid ? changePassword : undefined}
+              >
+                비밀번호 변경
+              </StButton>
             </StForm>
-          </StContent>
+          </div>
         </StColumnContents>
       </StContentWrapper>
+
+      <StFlexEndDiv>
+        <div onClick={handleDeleteButtonClick}>
+          <Button label="회원 탈퇴" $buttonTheme="gray3" size="large" />
+        </div>
+      </StFlexEndDiv>
     </StViewWrapper>
   );
 };
+
+export const StFlexEndDiv = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding-top: 18px;
+
+  & > :first-child {
+    display: flex;
+    width: 117px;
+    height: 50px;
+  }
+`;
