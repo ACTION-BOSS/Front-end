@@ -22,7 +22,9 @@ export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
   return (
     <s.MainModalContainer>
       <s.MainModalTop>
-        <div className="title">{title}</div>
+        <div className="title">
+          {title.length > 12 ? title.slice(0, 30).padEnd(33, '...') : title}
+        </div>
         <div className="xButton" onClick={onClick}>
           <s.GrayX />
         </div>
@@ -40,7 +42,11 @@ export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
           <s.Direct />
           <div>{croppedAddress}</div>
         </div>
-        <div className="nickname">{nickname}</div>
+        <div className="nickname">
+          {nickname.length > 6
+            ? nickname.slice(0, 10).padEnd(13, '...')
+            : nickname}
+        </div>
       </s.MainModalBottom>
     </s.MainModalContainer>
   );

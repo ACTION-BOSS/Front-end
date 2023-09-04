@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import * as s from './HeaderStyle';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import {
   HomeIcon,
+  HumanIcon,
   ListIcon,
   NewNotiIcon,
   NotiIcon,
@@ -21,6 +22,7 @@ import {
   NotificationType,
 } from '../../modals/NotificationModal/NotificationModal';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Theme } from '../../styles';
 
 export const Header = () => {
   const { openModal } = useModal();
@@ -34,6 +36,7 @@ export const Header = () => {
   const [hasUnreadNotification, setHasUnreadNotification] = useState(false);
   const queryClient = useQueryClient();
   const accessToken = getAccessToken();
+  const userLocation = useLocation().pathname;
 
   useEffect(() => {
     accessToken ? setIsLogin(true) : setIsLogin(false);
@@ -111,10 +114,12 @@ export const Header = () => {
           onClickLogoutHandler={onClickLogoutHandler}
           onClickCreateHandler={onClickCreateHandler}
           onClickLoginButton={onClickLoginButton}
+          onClickMovePage={onClickMovePage}
+          onClickHandleNotificationModal={onClickHandleNotificationModal}
         />
       )}
       <s.Wrap>
-        <s.HeaderLeft>
+        <s.HeaderLeft $userLocation={userLocation}>
           <div className="mobileIcon" onClick={() => onClickMovePage('/main')}>
             <HomeIcon />
           </div>
@@ -130,19 +135,58 @@ export const Header = () => {
         </s.HeaderLeft>
         <s.HeaderRight>
           {isLogin && (
-            <s.Notification onClick={onClickHandleNotificationModal}>
-              <div>알림</div>
-              {showNewNotiIcon || hasUnreadNotification ? (
-                <NewNotiIcon />
-              ) : (
-                <NotiIcon />
-              )}
-            </s.Notification>
+            <>
+              <s.Notification
+                onClick={onClickHandleNotificationModal}
+                $openNotificationModal={openNotificationModal}
+              >
+                <div>알림</div>
+                {showNewNotiIcon || hasUnreadNotification ? (
+                  <NewNotiIcon
+                    color={
+                      openNotificationModal
+                        ? Theme.colors.pink
+                        : Theme.colors.black
+                    }
+                  />
+                ) : (
+                  <NotiIcon
+                    color={
+                      openNotificationModal
+                        ? Theme.colors.pink
+                        : Theme.colors.black
+                    }
+                  />
+                )}
+              </s.Notification>
+              <s.Mypage
+                onClick={() => onClickMovePage('/mypage')}
+                $userLocation={userLocation}
+              >
+                <div>마이 페이지</div>
+                <HumanIcon
+                  color={
+                    userLocation === '/mypage'
+                      ? Theme.colors.pink
+                      : Theme.colors.black
+                  }
+                />
+              </s.Mypage>
+            </>
           )}
-          <s.PostUploadBtn onClick={onClickCreateHandler}>
+          <s.CreatePost
+            onClick={onClickCreateHandler}
+            $userLocation={userLocation}
+          >
             <div>게시물 작성</div>
-            <WriteIcon />
-          </s.PostUploadBtn>
+            <WriteIcon
+              color={
+                userLocation === '/create'
+                  ? Theme.colors.pink
+                  : Theme.colors.black
+              }
+            />
+          </s.CreatePost>
           <div className="headerLine" />
           <div>
             {isLogin ? (

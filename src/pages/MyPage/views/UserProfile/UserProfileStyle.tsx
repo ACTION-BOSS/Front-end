@@ -10,6 +10,7 @@ export const StViewWrapper = styled.div`
   padding-right: 15vw;
 
   ${media.tablet`
+  width: 95%;
   padding-right: 0px;
 `}
 `;
@@ -38,7 +39,6 @@ export const StContentWrapper = styled.div`
   flex-direction: column;
   border-top: 1px solid ${Theme.colors.gray2};
   border-bottom: 1px solid ${Theme.colors.gray2};
-
   gap: 60px;
   padding: 80px 20px 80px 20px;
 `;
