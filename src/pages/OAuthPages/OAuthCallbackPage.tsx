@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { api } from '../../api';
-import { saveAccessToken } from '../../shared';
+import { saveAccessToken, saveRefreshToken } from '../../shared';
 type OAuthCallbackPageProps = {};
 
 export const OAuthCallbackPage: FC<OAuthCallbackPageProps> = ({}) => {
@@ -23,11 +23,12 @@ export const OAuthCallbackPage: FC<OAuthCallbackPageProps> = ({}) => {
       );
 
       if (response.status === 200) {
-        const accessToken = response.headers['authorization'].split(' ')[1];
-        // console.log('access_token: ', accessToken);
+        const accessToken = response.headers['access'].split(' ')[1];
+        const refreshToken = response.headers['refresh'].split(' ')[1];
         accessToken && saveAccessToken(accessToken);
+        refreshToken && saveRefreshToken(refreshToken);
 
-        if (accessToken) {
+        if (accessToken && refreshToken) {
           const redirectURL = sessionStorage.getItem('previousURL');
           if (redirectURL) {
             navigate(new URL(redirectURL).pathname);
@@ -38,7 +39,7 @@ export const OAuthCallbackPage: FC<OAuthCallbackPageProps> = ({}) => {
         }
       }
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
   };
 
