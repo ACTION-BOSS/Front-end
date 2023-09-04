@@ -23,6 +23,7 @@ import {
   StRelativeDiv,
   StVerificationButtonWrapper,
   StLabel3Text,
+  StFlexEndDiv,
 } from './UserProfileStyle';
 import { SelectBox, Timer } from '../../../../modals';
 import { DebouncedFunc } from 'lodash';
@@ -41,7 +42,7 @@ import {
 } from '../../state';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Theme } from '../../../../styles';
-import styled from 'styled-components';
+import { useWindowSize } from 'rooks';
 
 type UserProfileViewProps = {
   originalEmail: string | null;
@@ -146,6 +147,9 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
     : verification;
   const nicknameChangeButtonDisabled =
     !isOriginalNickname && verification && isNicknameFocused;
+
+  const { innerWidth } = useWindowSize();
+  const isMobileView = innerWidth! < 576;
 
   const renderEmailSection = () => {
     if (!hasOriginalEmail) {
@@ -332,7 +336,7 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
         </StColumnContents>
 
         <StColumnContents>
-          <div style={{ width: '100%', display: 'flex' }}>
+          <StContent>
             <StSubTitleWrapper>비밀번호*</StSubTitleWrapper>
             <StForm>
               <div style={{ width: '100%', display: 'flex' }}>
@@ -361,8 +365,8 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
                 비밀번호 변경
               </StButton>
             </StForm>
-          </div>
-          <div style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
+          </StContent>
+          <StContent>
             <StSubTitleWrapper>비밀번호 확인*</StSubTitleWrapper>
             <StForm>
               <div style={{ width: '100%', display: 'flex' }}>
@@ -387,28 +391,19 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
                 비밀번호 변경
               </StButton>
             </StForm>
-          </div>
+          </StContent>
         </StColumnContents>
       </StContentWrapper>
 
       <StFlexEndDiv>
         <div onClick={handleDeleteButtonClick}>
-          <Button label="회원 탈퇴" $buttonTheme="gray3" size="large" />
+          {isMobileView ? (
+            <p>회원 탈퇴</p>
+          ) : (
+            <Button label="회원 탈퇴" $buttonTheme="gray3" size="large" />
+          )}
         </div>
       </StFlexEndDiv>
     </StViewWrapper>
   );
 };
-
-export const StFlexEndDiv = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-  padding-top: 18px;
-
-  & > :first-child {
-    display: flex;
-    width: 117px;
-    height: 50px;
-  }
-`;

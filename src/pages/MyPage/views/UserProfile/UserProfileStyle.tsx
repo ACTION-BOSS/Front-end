@@ -10,6 +10,7 @@ export const StViewWrapper = styled.div`
   padding-right: 15vw;
 
   ${media.tablet`
+  width: 95%;
   padding-right: 0px;
 `}
 `;
@@ -38,7 +39,6 @@ export const StContentWrapper = styled.div`
   flex-direction: column;
   border-top: 1px solid ${Theme.colors.gray2};
   border-bottom: 1px solid ${Theme.colors.gray2};
-
   gap: 60px;
   padding: 80px 20px 80px 20px;
 `;
@@ -51,6 +51,13 @@ export const StContent = styled.div`
   display: flex;
   align-items: center;
   max-width: 830px;
+  width: 100%;
+
+  ${media.tablet`
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 19px;
+  `}
 `;
 
 export const StColumnContents = styled(StContent)`
@@ -108,6 +115,10 @@ export const StInputBox = styled.input<{ $isCorrect?: boolean | null }>`
     font-weight: ${Theme.fontWeights.label1};
     line-height: 18px;
   }
+
+  ${media.tablet`
+  max-width: none;
+  `}
 `;
 
 export const StVerificationCodeInput = styled(StInputBox)<{
@@ -132,7 +143,7 @@ export const StEmailIdInput = styled(StInputBox)<{
     props.$isError ? `1px solid ${Theme.colors.pink}` : 'none'};
 
   ${media.tablet`
-  min-width: 120px;
+min-width: 0;
   `}
 `;
 
@@ -181,11 +192,32 @@ export const StButton = styled.button<{ $isCorrect?: boolean | null }>`
     }
   }};
 
-  ${Theme.colors.gray1};
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+
+  ${media.tablet`
+    height: 45px;
+  `}
+
+  ${media.mobile`
+  position: absolute;
+  bottom: 120%;
+  right: 0;
+
+  min-width: 75px;
+  height: 28px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px 0px rgba(41, 47, 61, 0.25);
+
+/* M B1 */
+font-size: 12px;
+font-style: normal;
+font-weight: 500;
+line-height: 16px; 
+  `}
 `;
 
 export const StForm = styled.div`
@@ -194,6 +226,10 @@ export const StForm = styled.div`
   align-items: center;
   gap: 20px;
   width: 100%;
+
+  ${media.tablet`
+    height: 45px;
+  `}
 `;
 
 export const StEmailForm = styled(StForm)`
@@ -294,4 +330,31 @@ export const StRelativeDiv = styled(StFlexRowDiv)`
 export const StVerificationButtonWrapper = styled.div`
   position: absolute;
   right: 12px;
+`;
+
+export const StFlexEndDiv = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding-top: 18px;
+
+  & > :first-child {
+    display: flex;
+    width: 117px;
+    height: 50px;
+
+    ${media.mobile`
+  height: 26px;
+  width: auto;
+  padding-right: 20px;
+  `}
+  }
+
+  p {
+    text-decoration: underline;
+    cursor: pointer;
+    color: ${Theme.colors.gray3};
+    font-size: ${Theme.fontSizes.label3};
+    font-weight: ${Theme.fontWeights.label3};
+  }
 `;

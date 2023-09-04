@@ -34,7 +34,7 @@ export const Wrap = styled.div`
   height: 68px;
 `}
 `;
-export const HeaderLeft = styled.div`
+export const HeaderLeft = styled.div<{ $userLocation: string }>`
   display: flex;
   gap: 30px;
   ${media.mobile`
@@ -45,6 +45,8 @@ export const HeaderLeft = styled.div`
     font-size: ${Theme.fontSizes.h2};
     font-weight: ${Theme.fontWeights.h2};
     cursor: pointer;
+    color: ${({ $userLocation }) =>
+      $userLocation === '/main' ? Theme.colors.pink : Theme.colors.black};
     ${media.mobile`
   display: none;
 `}
@@ -62,7 +64,7 @@ export const HeaderRight = styled.div`
   font-weight: ${Theme.fontWeights.h3};
   gap: 40px;
   ${media.tablet`
-  gap: 28px;`}
+  gap: 20px;`}
   ${media.mobile`
   position: absolute;
   visibility: hidden;
@@ -70,7 +72,6 @@ export const HeaderRight = styled.div`
   .headerLine {
     border-right: 1px solid ${Theme.colors.gray1};
     height: 30px;
-    width: 16px;
   }
   button {
     color: black;
@@ -79,18 +80,31 @@ export const HeaderRight = styled.div`
     font-size: ${Theme.fontSizes.h2};
     font-weight: ${Theme.fontWeights.h2};
     cursor: pointer;
+    padding: 0px;
     &:hover {
       background-color: ${Theme.colors.white};
     }
   }
 `;
-export const Notification = styled.div`
-  cursor: pointer;
-  display: flex;
-  gap: 2px;
-`;
-export const PostUploadBtn = styled.div`
+export const Notification = styled.div<{ $openNotificationModal: boolean }>`
   cursor: pointer;
   display: flex;
   gap: 5px;
+  color: ${({ $openNotificationModal }) =>
+    $openNotificationModal ? Theme.colors.pink : Theme.colors.black};
+`;
+
+export const Mypage = styled.div<{ $userLocation: string }>`
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  color: ${({ $userLocation }) =>
+    $userLocation === '/mypage' ? Theme.colors.pink : Theme.colors.black};
+`;
+export const CreatePost = styled.div<{ $userLocation: string }>`
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  color: ${({ $userLocation }) =>
+    $userLocation === '/create' ? Theme.colors.pink : Theme.colors.black};
 `;
