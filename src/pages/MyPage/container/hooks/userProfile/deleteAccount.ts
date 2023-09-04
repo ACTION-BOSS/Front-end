@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { EModalType, useModal } from '../../../../../providers';
-import { deleteAccount } from '../../../../../api';
 import { handleLogout } from '../../../../../shared';
+import { api } from '../../../../../api';
 
 export const useDeleteUserAccount = () => {
   const { openModal, closeModal } = useModal();
@@ -18,9 +18,10 @@ export const useDeleteUserAccount = () => {
           closeModal();
 
           try {
-            const deleteResponse = await deleteAccount();
+            const response = await api.delete('/mypage/deleteAccount');
+            console.log(response);
 
-            if (deleteResponse && deleteResponse.status === 200) {
+            if (response.status === 200) {
               openModal(EModalType.POP_UP, {
                 title: '탈퇴가 완료되었습니다.',
                 cancelButton: false,
@@ -30,10 +31,15 @@ export const useDeleteUserAccount = () => {
                   onClick: () => {
                     handleLogout();
                     closeModal();
+                    window.location.reload();
                   },
                 },
               });
-            } else if (deleteResponse && deleteResponse.status === 404) {
+
+              return response;
+            }
+
+            if (response.status === 404) {
               openModal(EModalType.POP_UP, {
                 title: '탈퇴에 실패하였습니다.',
                 cancelButton: false,
@@ -47,8 +53,12 @@ export const useDeleteUserAccount = () => {
               });
             }
             closeModal();
+
+            return response;
           } catch (e) {
             console.log(e);
+
+            return e;
           }
         },
       },

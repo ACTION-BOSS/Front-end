@@ -49,7 +49,7 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
     isInputFilled,
     onEmailCodeAuthenticationButtonClick,
     reSendEmail,
-  } = useVerificationCode();
+  } = useVerificationCode(refetchUserData);
 
   const {
     handleChangePassword,

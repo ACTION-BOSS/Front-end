@@ -10,9 +10,13 @@ import { useFormContext, useController } from 'react-hook-form';
 import { api, updateEmail } from '../../../../../api';
 import { AxiosError } from 'axios';
 import { MyPageFormData } from './MyPageForm';
+import { EModalType, useModal } from '../../../../../providers';
 
-export const useVerificationCode = () => {
+export const useVerificationCode = (
+  refetchUserData: (() => void) | undefined,
+) => {
   const { control } = useFormContext<MyPageFormData>();
+  const { openModal, closeModal } = useModal();
 
   const {
     field: { value: emailIdValue, onChange: onChangeEmailId },
@@ -61,13 +65,23 @@ export const useVerificationCode = () => {
         if (response.status === 201) {
           setIsEmailCodeVerificated(true);
 
-          const emailUpdateStatus = await updateEmail(
-            emailIdValue,
-            emailDomainValue,
-          );
+          const response = await api.patch('/mypage/updateEmail', {
+            email: `${emailIdValue}@${emailDomainValue}`,
+          });
 
-          if (emailUpdateStatus === 201) {
-            console.log('hi');
+          if (response.status === 201) {
+            openModal(EModalType.POP_UP, {
+              title: '변경이 완료되었습니다.',
+              cancelButton: false,
+              functionButton: {
+                theme: 'emptyBlue',
+                label: '확인',
+                onClick: () => {
+                  refetchUserData && refetchUserData();
+                  closeModal();
+                },
+              },
+            });
           }
         } else {
           setIsEmailCodeVerificated(false);
