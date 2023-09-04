@@ -1,17 +1,20 @@
 import { useRecoilState } from 'recoil';
+import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { getAccessToken } from '../../../shared';
+import {
+  getAccessToken,
+  getRefreshToken,
+  saveAccessToken,
+} from '../../../shared';
 import { createPostState } from '../state';
 import { EModalType, useModal } from '../../../providers';
-import { api } from '../../../api';
 
 export const useCreatePost = () => {
   const { openModal, closeModal } = useModal();
   const token = getAccessToken();
   const [post, setPost] = useRecoilState(createPostState);
   const navigate = useNavigate();
-
   const isFormValid = () => {
     return (
       post.title &&
@@ -33,18 +36,55 @@ export const useCreatePost = () => {
       longitude: post.longitude,
       address: post.address,
     });
-
     const blob = new Blob([postJSON], { type: 'application/json' });
     formData.append('post', blob);
     post.images.forEach((image) => {
       formData.append(`images`, image);
     });
 
-    return api.post(`/posts`, formData, {
-      headers: {
-        Access: `Bearer ${token}`,
-      },
-    });
+    try {
+      return await axios.post(
+        `${process.env.REACT_APP_API_URI}/api/posts`,
+        formData,
+        {
+          headers: {
+            Access: `Bearer ${token}`,
+          },
+        },
+      );
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response && axiosError.response.status === 403) {
+        const refreshToken = getRefreshToken();
+        if (!refreshToken) throw error;
+
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URI}/api/auth/login/reissueToken`,
+          {
+            headers: { Refresh: `Bearer ${refreshToken}` },
+          },
+        );
+
+        if (res.status === 201) {
+          const newAccessToken = res.headers['access'].split(' ')[1];
+          saveAccessToken(newAccessToken);
+
+          return axios.post(
+            `${process.env.REACT_APP_API_URI}/api/posts`,
+            formData,
+            {
+              headers: {
+                Access: `Bearer ${newAccessToken}`,
+              },
+            },
+          );
+        } else {
+          throw error;
+        }
+      } else {
+        throw error;
+      }
+    }
   };
 
   const mutation = useMutation(sendPostRequest, {
@@ -63,7 +103,6 @@ export const useCreatePost = () => {
       console.error('게시 요청 실패:', error);
     },
   });
-
   const handleCreatePostClick = () => {
     if (isFormValid()) {
       openModal(EModalType.POP_UP, {
@@ -89,7 +128,6 @@ export const useCreatePost = () => {
       });
     }
   };
-
   const handleCancelClick = () => {
     openModal(EModalType.POP_UP, {
       title: '작업을 중단하고 나가시겠습니까?',
@@ -104,7 +142,6 @@ export const useCreatePost = () => {
       },
     });
   };
-
   return {
     handleCreatePostClick,
     handleCancelClick,
