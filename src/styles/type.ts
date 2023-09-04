@@ -1,5 +1,6 @@
 export type MediaType = {
   mobile: string;
+  bigMobile: string;
   tablet: string;
 };
 
@@ -57,7 +58,7 @@ export type FontWeightsType = {
   mBody1: string;
   mBody2: string;
   mBody3: string;
-  mL1 : string;
+  mL1: string;
 };
 
 export interface ThemeType {

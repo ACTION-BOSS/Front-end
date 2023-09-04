@@ -12,7 +12,8 @@ import {
   useVerificationCode,
 } from './hooks';
 import { useRecoilValue } from 'recoil';
-import { $chosenIndex } from '../state';
+import { $chosenIndex, $page } from '../state';
+import { useUserPostsData } from './hooks/userPosts/userPostsData';
 
 type MyPageContainerProps = {};
 
@@ -43,6 +44,16 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
 
   const { onCodeSendButtonClick } = useSendEmailVerification();
   const chosenIndex = useRecoilValue($chosenIndex);
+  const page = useRecoilValue($page);
+
+  const userPostsData = useUserPostsData(chosenIndex, page);
+  const {
+    data,
+    error: userPostsError,
+    hasNextPage,
+    hasPreviousPage,
+  } = userPostsData;
+
   const {
     inputCode,
     handleInputChange,
@@ -65,14 +76,13 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
     setIsSelfTypeMode(true);
   };
 
-  if (isLoading || error) {
+  if (isLoading || error || userPostsError) {
     return (
       <>
         <NotLoggedInView />
       </>
     );
   }
-
   return (
     <>
       {chosenIndex === 0 && (
@@ -111,7 +121,13 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
           changePassword={changePassword}
         />
       )}
-      {chosenIndex !== 0 && <UserPostsView />}
+      {chosenIndex !== 0 && (
+        <UserPostsView
+          data={data}
+          hasNextPage={hasNextPage}
+          hasPreviousPage={hasPreviousPage}
+        />
+      )}
     </>
   );
 };

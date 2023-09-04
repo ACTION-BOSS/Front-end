@@ -39,7 +39,7 @@ export const MainLocationBox = styled.div`
   ${media.tablet`
   bottom: 96px;
   right: 12px;`}
-  ${media.mobile`
+  ${media.bigMobile`
   display:none`}
 `;
 
