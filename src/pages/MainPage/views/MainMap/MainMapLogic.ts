@@ -91,10 +91,9 @@ export const useMainMapLogic = (
       const saveMapCenter = sessionStorage.getItem('mapCenter');
       const saveMapLevel = sessionStorage.getItem('mapLevel');
 
-      if (saveMapCenter && saveMapLevel) {
-        setMapCenter(JSON.parse(saveMapCenter));
-        setZoomLevel(JSON.parse(saveMapLevel));
-      }
+      saveMapCenter && setMapCenter(JSON.parse(saveMapCenter));
+      saveMapLevel && setZoomLevel(JSON.parse(saveMapLevel));
+
       const options = {
         center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lng),
         level: zoomLevel,
@@ -166,8 +165,8 @@ export const useMainMapLogic = (
         mapCenter.lng,
       );
       map.setCenter(newCenter);
-      updateMapBounds();
       saveMapCenter(mapCenter);
+      updateMapBounds();
     }
   }, [mapCenter]);
 
