@@ -140,7 +140,7 @@ export const Header = () => {
                 onClick={onClickHandleNotificationModal}
                 $openNotificationModal={openNotificationModal}
               >
-                <div>알림</div>
+                <div className="text">알림</div>
                 {showNewNotiIcon || hasUnreadNotification ? (
                   <NewNotiIcon
                     color={
@@ -163,7 +163,7 @@ export const Header = () => {
                 onClick={() => onClickMovePage('/mypage')}
                 $userLocation={userLocation}
               >
-                <div>마이 페이지</div>
+                <div className="text">마이 페이지</div>
                 <HumanIcon
                   color={
                     userLocation === '/mypage'
@@ -178,7 +178,7 @@ export const Header = () => {
             onClick={onClickCreateHandler}
             $userLocation={userLocation}
           >
-            <div>게시물 작성</div>
+            <div className="text">게시물 작성</div>
             <WriteIcon
               color={
                 userLocation === '/create'
