@@ -4,6 +4,7 @@ import { debounce } from 'lodash';
 import {
   $isCodeSent,
   $isEmailCodeVerificated,
+  $isEmailFormatError,
   $isEmailSendFailed,
   $isReadyStepTwo,
   $isResetCode,
@@ -39,6 +40,7 @@ export const useVerificationCode = () => {
 
   const [isCodeSent, setIsCodeSent] = useRecoilState($isCodeSent);
   const setIsEmailSendFailed = useSetRecoilState($isEmailSendFailed);
+  const setIsEmailFormatError = useSetRecoilState($isEmailFormatError);
   const setIsEmailCodeVerificated = useSetRecoilState($isEmailCodeVerificated);
   const setIsReadyStepTwo = useSetRecoilState($isReadyStepTwo);
   const setIsResetCode = useSetRecoilState($isResetCode);
@@ -53,6 +55,7 @@ export const useVerificationCode = () => {
         if (response.status === 201) {
           setIsCodeSent(true);
           setIsEmailSendFailed(false);
+          setIsEmailFormatError(false);
           return;
         }
       } catch (e) {
@@ -63,6 +66,11 @@ export const useVerificationCode = () => {
         if (AxiosError.response) {
           if (AxiosError.response.status === 400) {
             setIsEmailSendFailed(true);
+            setIsEmailFormatError(false);
+          }
+          if (AxiosError.response.status === 403) {
+            setIsEmailSendFailed(false);
+            setIsEmailFormatError(true);
           }
         }
       }
@@ -112,6 +120,8 @@ export const useVerificationCode = () => {
         const response = await api.post('auth/signup/emailSend', {
           email: `${emailIdValue}@${emailDomainValue}`,
         });
+
+        setIsResetCode(true);
 
         if (response.status === 201) {
           return;

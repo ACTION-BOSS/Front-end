@@ -16,8 +16,7 @@ export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
   console.log(postId);
 
   const onClickMovePage = (postId: number) => {
-    // navigate(`/detail/${postId}`);
-    window.open(`/detail/${postId}`, '_blank', 'noopener, noreferrer');
+    navigate(`/detail/${postId}`);
   };
 
   return (
@@ -30,7 +29,7 @@ export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
       </s.MainModalTop>
       <s.MainModalMiddle $isDone={done} onClick={() => onClickMovePage(postId)}>
         <div className="postImg">{done && <ClearSumIcon />}</div>
-        <img src={thumbnail} />
+        <img src={thumbnail} alt="게시물 사진" />
         <s.UnLike>
           <s.Uncom />
           <div>{agreeCount}</div>

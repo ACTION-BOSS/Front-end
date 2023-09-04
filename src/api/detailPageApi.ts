@@ -9,16 +9,18 @@ export const useFetchDetailPageData = (postId: string | undefined) => {
 
   const getDetailPageData = async () => {
     try {
+      console.log('getDetailPageData');
       const response = await api.get(`/posts/${postId}`);
+
+      console.log('detail res', response);
 
       if (response.status === 200) {
         return response.data.data;
-      } else {
-        throw new Error(`게시글 불러오기 실패 / status :  ${response.status}`);
       }
     } catch (e) {
       const AxiosError = e as AxiosError;
       // console.log(AxiosError);
+
 
       if (AxiosError.response?.status === 404) {
         navigate('/notfound');
@@ -91,15 +93,3 @@ export const toggleMetooData = async (postId: string | undefined) => {
     return AxiosError;
   }
 };
-
-// const getHeaderWithToken = () => {
-//     const accessToken = getAccessToken();
-
-//     const headers = accessToken
-//       ? {
-//           access: `Bearer ${accessToken}`,
-//         }
-//       : undefined;
-
-//     return headers;
-//   };

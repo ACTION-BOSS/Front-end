@@ -1,4 +1,4 @@
-export interface Post {
+export type Post = {
   postId: number;
   title: string;
   thumbnail: string;
@@ -6,17 +6,26 @@ export interface Post {
   nickname: string;
   address: string;
   done?: boolean;
-}
+};
 
-export interface Ping {
+export type Ping = {
   postId: number;
   latitude: number;
   longitude: number;
-}
-
-export interface Coordinates {
+};
+export type mapCenterCoordinates = {
+  lat: number;
+  lng: number;
+};
+export type Coordinates = {
   northlat: number;
   eastlon: number;
   southlat: number;
   westlon: number;
-}
+};
+
+export type Item = {
+  address: string;
+  latitude: number;
+  longitude: number;
+};

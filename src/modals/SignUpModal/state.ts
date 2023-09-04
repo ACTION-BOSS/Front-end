@@ -21,6 +21,11 @@ export const $isEmailSendFailed = atom<boolean>({
   default: false,
 });
 
+export const $isEmailFormatError = atom<boolean>({
+  key: 'isEmailFormatError',
+  default: false,
+});
+
 export const $isEmailCodeVerificated = atom<boolean | null>({
   key: 'isEmailCodeVerificated',
   default: null,

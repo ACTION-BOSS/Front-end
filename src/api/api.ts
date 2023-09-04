@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Coordinates } from '../pages/MainPage/type';
-import { getAccessToken } from '../shared';
+import { getAccessToken, getRefreshToken, saveAccessToken } from '../shared';
 
 export const api = axios.create({
   baseURL: `${process.env.REACT_APP_API_URI}/api`,
@@ -13,7 +13,7 @@ api.interceptors.request.use(
   (config) => {
     const accessToken = getAccessToken();
     if (accessToken) {
-      config.headers['authorization'] = `Bearer ${accessToken}`;
+      config.headers['Access'] = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -22,10 +22,67 @@ api.interceptors.request.use(
   },
 );
 
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+
+    // console.log(
+    //   '1. Error Occured in Interceptor',
+    //   error.response.status === 403,
+    //   !originalRequest._retry,
+    // );
+
+    // 403 상태 코드가 오면 accessToken이 만료되었다고 판단
+    if (error.response.status === 403 && !originalRequest._retry) {
+      // console.log('2. error Occured because access token expired');
+      originalRequest._retry = true;
+
+      const refreshToken = getRefreshToken();
+      // console.log('3. RefreshToken', refreshToken);
+      if (!refreshToken) return Promise.reject(error);
+      try {
+        // console.log('4. has RefreshToken and try reIssue AccessToken');
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URI}/api/auth/login/reissueToken`,
+          {
+            headers: { Refresh: `Bearer ${refreshToken}` },
+          },
+        );
+
+        // console.log('5. new Access Token Response', res);
+
+        if (res.status === 201) {
+          // 새로운 accessToken 저장
+          const newAccessToken = res.headers['access'].split(' ')[1];
+
+          // console.log('6. save New AccessToken', newAccessToken);
+          saveAccessToken(newAccessToken);
+          api.defaults.headers['Access'] = `Bearer ${newAccessToken}`;
+
+          // 원래 요청 다시 보내기
+          originalRequest.headers['Access'] = `Bearer ${newAccessToken}`;
+          // console.log(
+          //   '7. set New Access Token to Request and Fetch original Request',
+          // );
+          return api(originalRequest);
+        }
+        return Promise.reject(error);
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
+    return Promise.reject(error);
+  },
+);
+
 export const getMapPing = async (
   isDone: boolean,
   mapCoordinates: Coordinates,
 ) => {
+  console.log('실행됨', isDone, mapCoordinates);
   const { northlat, eastlon, southlat, westlon } = mapCoordinates;
   try {
     const response = await axios.get(
@@ -68,17 +125,6 @@ export const getSelectPost = async (postId: number) => {
 };
 
 export const getSearchList = async (keyword: string) => {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URI}/api/search/example?keyword=${keyword}`,
-    );
-    return response.data;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const getSearchCoordinates = async (keyword: string) => {
   try {
     const response = await axios.get(
       `${process.env.REACT_APP_API_URI}/api/search?keyword=${keyword}`,

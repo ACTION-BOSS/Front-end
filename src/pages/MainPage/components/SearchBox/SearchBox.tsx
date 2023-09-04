@@ -1,65 +1,59 @@
-import React, { useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import * as s from './SearchBoxStyle';
-import axios from 'axios';
+import { useDebouncedCallback, useSearchListQuery } from '../../hook';
+import { Item } from '../../type';
+import { SearchList } from './SearchList';
 
-export const SearchBox = () => {
-  const [inputValue, setInputValue] = useState('');
+type SearchBoxProps = {
+  mapCenterChangeHandler: (userLocation: { lat: number; lng: number }) => void;
+};
 
-  // const { data, isLoading, error } = useSearchListQuery(inputValue);
-  // data && console.log(data);
+export const SearchBox: FC<SearchBoxProps> = ({ mapCenterChangeHandler }) => {
+  const [inputValue, setInputValue] = useState<string>('');
+  const [keyword, setKeyword] = useState<string>('');
 
-  // const debounce = (callback: any, duration: any) => {
-  //   let timer: any;
-  //   return (...args: any) => {
-  //     clearTimeout(timer);
-  //     timer = setTimeout(() => callback(...args), duration);
-  //   };
-  // };
+  const { data } = useSearchListQuery(keyword);
 
-  // const onChangeInput = useCallback(
-  //   (e: any) => {
-  //     debounce(setInputValue(e.target.value), 500);
-  //   },
-  //   [inputValue],
-  // );
+  const debouncedSetKeyword = useCallback(
+    useDebouncedCallback((value: string) => {
+      setKeyword(value);
+    }, 500),
+    [],
+  );
 
-  const onChangeInput = (e: any) => {
-    setInputValue(e.target.value);
+  useEffect(() => {
+    debouncedSetKeyword(inputValue);
+  }, [inputValue]);
+
+  const inputValueInitialization = () => {
+    setInputValue('');
+    setKeyword('');
   };
-  const go = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URI}/api/search/example?keyword=${inputValue}`,
-      );
-      console.log(response.data);
-      return response.data;
-    } catch (e) {
-      console.log(e);
-    }
-  };
+
   return (
     <s.SearchBox>
       <s.SearchBoxInput>
-        <div onClick={go}>
+        <div>
           <s.Magnifier />
         </div>
         <s.SearchInput
           placeholder="궁금한 지역을 검색해보세요"
           value={inputValue}
-          onChange={onChangeInput}
+          onChange={(e) => setInputValue(e.target.value)}
         />
       </s.SearchBoxInput>
       <s.SearchBoxList>
-        {Array(3)
-          .fill(0)
-          .map((item, index) => (
-            <SearchList key={index} />
+        {data &&
+          data.data.map((item: Item, index: number) => (
+            <SearchList
+              key={index}
+              item={item}
+              mapCenterChangeHandler={mapCenterChangeHandler}
+              inputValueInitialization={inputValueInitialization}
+              keyword={keyword}
+            />
           ))}
       </s.SearchBoxList>
     </s.SearchBox>
   );
-};
-
-export const SearchList = () => {
-  return <s.SearchList>사당역 2호선, 4호선</s.SearchList>;
 };

@@ -8,6 +8,7 @@ import {
   NotFoundPage,
   TestPage,
   OAuthCallbackPage,
+  MyPage,
 } from '../pages';
 import { Header } from '../shared/Header';
 import { EditPost } from '../pages/EditPost';
@@ -24,6 +25,7 @@ export const RouterProvider = () => {
             <Route path="/create" element={<CreatePost />} />
             <Route path="/edit/:id" element={<EditPost />} />
             <Route path="/detail/:postId" element={<DetailPage />} />
+            <Route path="/mypage" element={<MyPage />} />
             <Route path="/test" element={<TestPage />} />
             <Route path="/*" element={<NotFoundPage />} />
           </Route>

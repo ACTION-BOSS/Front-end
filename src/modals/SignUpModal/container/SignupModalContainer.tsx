@@ -5,7 +5,12 @@ import {
   PasswordVerificationView,
 } from '../views';
 import { EStep } from '../type';
-import { useSignupModalFormController, useVerificationCode } from './hooks';
+import {
+  useNicknameValidation,
+  usePasswordValidation,
+  useSignupModalFormController,
+  useVerificationCode,
+} from './hooks';
 import { useRecoilValue } from 'recoil';
 import { $stepIndex } from '../state';
 
@@ -15,8 +20,6 @@ export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
   const step = useRecoilValue($stepIndex);
 
   const {
-    onChangeNickname,
-    onChangePassword,
     onChangePasswordVerification,
     onChangeEmailId,
     onChangeEmailDomain,
@@ -41,8 +44,16 @@ export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
     setIsSelfTypeMode(true);
   };
 
+  const {
+    handleChangePassword,
+    isPasswordVerified,
+    isVerified,
+    verificationInputErrorText,
+  } = usePasswordValidation();
+
+  const { verification, handleChangeInput, text } = useNicknameValidation();
+
   return (
-    //@ts-ignore TODO : fix typescript
     <>
       {step === EStep.STEP1 && (
         <EmailPasswordView
@@ -66,14 +77,19 @@ export const SignupModalContainer: FC<SignupModalContainerProps> = ({}) => {
         <PasswordVerificationView
           passwordValue={passwordValue}
           passwordVerificationValue={passwordVerificationValue}
-          onChangePassword={onChangePassword}
           onChangePasswordVerification={onChangePasswordVerification}
+          handleChangePassword={handleChangePassword}
+          isPasswordVerified={isPasswordVerified}
+          isVerified={isVerified}
+          verificationInputErrorText={verificationInputErrorText}
         />
       )}
       {step === EStep.STEP3 && (
         <NicknameView
           nicknameValue={nicknameValue}
-          onChangeNickname={onChangeNickname}
+          verification={verification}
+          handleChangeInput={handleChangeInput}
+          text={text}
         />
       )}
     </>

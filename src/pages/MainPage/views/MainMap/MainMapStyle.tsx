@@ -15,9 +15,8 @@ export const MainMapContainer = styled.div`
 export const SearchBox = styled.div`
   z-index: 999;
   position: absolute;
-  top: 15px;
-  left: 30px;
-  display: none;
+  top: 12px;
+  left: 12px;
   ${media.mobile`
   top: 10px;
   left: 50%;
@@ -28,19 +27,18 @@ export const SearchBox = styled.div`
 export const MainMapIcon = styled.div`
   z-index: 999;
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 12px;
+  right: 12px;
 `;
 
 export const MainLocationBox = styled.div`
-  display: none;
   z-index: 999;
   position: absolute;
-  right: 40%;
-  bottom: 30px;
+  right: 12px;
+  bottom: 12px;
   ${media.tablet`
   bottom: 96px;
-  right: 15px;`}
+  right: 12px;`}
   ${media.mobile`
   display:none`}
 `;
@@ -48,8 +46,8 @@ export const MainLocationBox = styled.div`
 export const MainModalContainer = styled.div`
   z-index: 999;
   position: absolute;
-  bottom: 30px;
-  left: 30px;
+  bottom: 12px;
+  left: 12px;
   ${media.tablet`
   bottom: 96px;
   left:15px;`}

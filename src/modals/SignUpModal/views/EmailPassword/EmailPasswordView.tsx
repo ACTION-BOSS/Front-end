@@ -1,12 +1,14 @@
 import { FC } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Theme } from '../../../../styles';
 import { SelectBox, Timer } from '../../components';
 import { Button } from '../../../../shared';
 import {
   $isCodeSent,
   $isEmailCodeVerificated,
+  $isEmailFormatError,
   $isEmailSendFailed,
+  $isResetCode,
   $isTimeOver,
 } from '../../state';
 import {
@@ -60,8 +62,10 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
 }) => {
   const isCodeSent = useRecoilValue($isCodeSent);
   const isEmailSendFailed = useRecoilValue($isEmailSendFailed);
+  const isEmailFormatError = useRecoilValue($isEmailFormatError);
   const isEmailCodeVerificated = useRecoilValue($isEmailCodeVerificated);
-  const isTimeOver = useRecoilValue($isTimeOver);
+  const [isTimeOver, setIsTimeOver] = useRecoilState($isTimeOver);
+  const [isResetCode, setIsResetCode] = useRecoilState($isResetCode);
 
   const getTextByEmailCodeVerificated = (
     isEmailCodeVerificated: boolean | null,
@@ -100,7 +104,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
               value={emailIdValue}
               onChange={onChangeEmailId}
               placeholder="example"
-              $isError={isEmailSendFailed}
+              $isError={isEmailSendFailed || isEmailFormatError}
               width="fluid"
             />
           </StFlexDiv>
@@ -114,7 +118,7 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
               <StGrayInput
                 value={emailDomainValue}
                 onChange={onChangeEmailDomain}
-                $isError={isEmailSendFailed}
+                $isError={isEmailSendFailed || isEmailFormatError}
                 width="fluid"
               />
             ) : (
@@ -124,17 +128,24 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
                   '직접입력',
                   'naver.com',
                   'gmail.com',
-                  'hanmail.com',
+                  'hanmail.net',
                 ]}
-                $isError={isEmailSendFailed}
+                $isError={isEmailSendFailed || isEmailFormatError}
               />
             )}
           </StFlexDiv>
         </StFlexRowDiv>
-        {isEmailSendFailed && (
+        {isEmailFormatError && (
           <StLabelTextWrapper>
             <StLabel1Text $isCorrect={false}>
               잘못된 이메일 형식입니다
+            </StLabel1Text>
+          </StLabelTextWrapper>
+        )}
+        {isEmailSendFailed && (
+          <StLabelTextWrapper>
+            <StLabel1Text $isCorrect={false}>
+              이미 가입된 이메일입니다
             </StLabel1Text>
           </StLabelTextWrapper>
         )}
@@ -154,7 +165,14 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
               }}
               $isVerificated={isEmailCodeVerificated}
             />
-            <Timer initialTime={180} />
+            <Timer
+              initialTime={180}
+              startCondition={isCodeSent}
+              setIsTimeOver={setIsTimeOver}
+              isResetCode={isResetCode}
+              setIsResetCode={setIsResetCode}
+              pauseCondition={isEmailCodeVerificated}
+            />
             <StVerificationButtonWrapper>
               <Button
                 label="인증하기"
