@@ -3,17 +3,20 @@ import { MyPageFormData } from './MyPageForm';
 import { EModalType, useModal } from '../../../../../providers';
 import { api } from '../../../../../api';
 import { AxiosError } from 'axios';
-import { useSetRecoilState } from 'recoil';
-import { $isNicknameChangeFinished } from '../../../state';
+import {
+  handleLogout,
+  saveAccessToken,
+  saveRefreshToken,
+} from '../../../../../shared';
 
 export const useChangeNickname = (
   refetchUserData: (() => void) | undefined,
 ) => {
   const { control } = useFormContext<MyPageFormData>();
   const { openModal, closeModal } = useModal();
-  const setIsNicknameChangeFinished = useSetRecoilState(
-    $isNicknameChangeFinished,
-  );
+  // const setIsNicknameChangeFinished = useSetRecoilState(
+  //   $isNicknameChangeFinished,
+  // );
 
   const {
     field: { value: nickname },
@@ -31,7 +34,16 @@ export const useChangeNickname = (
       console.log('response from changeNickname', response);
 
       if (response.status === 201) {
-        setIsNicknameChangeFinished(true);
+        // setIsNicknameChangeFinished(true);
+        console.log(response.headers);
+        const accessToken = response.headers['access'].split(' ')[1];
+        const refreshToken = response.headers['refresh'].split(' ')[1];
+
+        handleLogout();
+        accessToken && saveAccessToken(accessToken);
+        refreshToken && saveRefreshToken(refreshToken);
+        console.log(accessToken, refreshToken);
+
         openModal(EModalType.POP_UP, {
           title: '변경이 완료되었습니다.',
           cancelButton: false,
