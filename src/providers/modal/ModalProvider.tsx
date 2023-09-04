@@ -54,18 +54,16 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
   };
 
   const renderModal = () => {
-    if (modalType === EModalType.SIGN_UP) {
-      return <SignUpModal />;
-    }
-    if (modalType === EModalType.LOGIN) {
-      return <LoginModal />;
-    }
-    if (modalType === EModalType.SIGN_UP_SUCCESS) {
-      return <SignUpSuccessModal showConfetti={true} />;
-    }
-    if (modalType === EModalType.POP_UP) {
-      return <PopUpModal params={params} />;
-    }
+    return (
+      <StCloseModalDiv onClick={(e) => e.stopPropagation()}>
+        {modalType === EModalType.SIGN_UP && <SignUpModal />}
+        {modalType === EModalType.LOGIN && <LoginModal />}
+        {modalType === EModalType.SIGN_UP_SUCCESS && (
+          <SignUpSuccessModal showConfetti={true} />
+        )}
+        {modalType === EModalType.POP_UP && <PopUpModal params={params} />}
+      </StCloseModalDiv>
+    );
   };
 
   return (
@@ -76,7 +74,10 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
       }}
     >
       {isModalOpened && (
-        <StModalBackground $isPopUpModal={modalType === EModalType.POP_UP}>
+        <StModalBackground
+          onClick={closeModal}
+          $isPopUpModal={modalType === EModalType.POP_UP}
+        >
           {renderModal()}
         </StModalBackground>
       )}
@@ -95,7 +96,7 @@ export const useModal = () => {
 };
 
 export const StModalBackground = styled.div<{
-  $isPopUpModal: boolean;
+  $isPopUpModal?: boolean;
 }>`
   display: flex;
   align-items: center;
@@ -112,4 +113,13 @@ export const StModalBackground = styled.div<{
   border-radius: 0;
   align-items: ${$isPopUpModal ? 'center' : 'normal'}
 `}
+`;
+
+export const StCloseModalDiv = styled.div`
+  display: flex;
+  justify-content: center;
+
+  ${media.mobile`
+    width: 100%;
+  `}
 `;
