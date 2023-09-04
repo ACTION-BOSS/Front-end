@@ -28,7 +28,7 @@ export const Theme: ThemeType = {
     h3: '15px',
     body1: '18px',
     body2: '16px',
-    body3: '13px',
+    body3: '14px',
     body4: '15px',
     label1: '13px',
     label2: '12px',

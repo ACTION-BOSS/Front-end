@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { NotLoggedInView, UserProfileView } from '../views';
+import { UserProfileView, NotLoggedInView, UserPostsView } from '../views';
 import {
   useChangeNickname,
   useChangePassword,
@@ -111,6 +111,7 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
           changePassword={changePassword}
         />
       )}
+      {chosenIndex !== 0 && <UserPostsView />}
     </>
   );
 };
