@@ -17,6 +17,14 @@ export const UserPostsView: FC<UserPostsViewProps> = ({
 }) => {
   const [page, setPage] = useRecoilState($page);
   const [postData, setPostData] = useState([]);
+  const [allPages, setAllPages] = useState(0);
+
+  useEffect(() => {
+    if (data) {
+      setPostData(data.pages[0].data.content);
+      setAllPages(data.pages[0].data.totalPages);
+    }
+  }, [data]);
 
   const isChosen = (index: number) => {
     return index === page;
@@ -29,12 +37,6 @@ export const UserPostsView: FC<UserPostsViewProps> = ({
   const fetchNextPage = () => {
     hasNextPage && setPage(page + 1);
   };
-
-  useEffect(() => {
-    if (data) {
-      setPostData(data.pages[0].data.content);
-    }
-  }, [data]);
 
   return (
     <s.UserPostsView>
@@ -49,7 +51,7 @@ export const UserPostsView: FC<UserPostsViewProps> = ({
               title={item.title}
               isDone={item.isDone}
               unComNum={item.agreeCount}
-              date={item.createdDay.slice(2)}
+              date={item.createdDay}
               time={item.createdTime}
               key={item.postId}
               postId={item.postId}
@@ -59,7 +61,7 @@ export const UserPostsView: FC<UserPostsViewProps> = ({
       <s.PageNumberContainer>
         <s.ToggleLeft onClick={fetchPreviousPage} />
         {data &&
-          Array(data.pages[0].data.totalPages)
+          Array(allPages)
             .fill(0)
             .map((_, index) => (
               <s.PageNumbers
