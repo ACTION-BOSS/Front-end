@@ -1,7 +1,14 @@
 import { styled } from 'styled-components';
 import { Theme, media } from '../../../../styles';
 import { StyledFlagIcon } from '../UserProfile/UserProfileStyle';
+import { ToggleLeftIcon, ToggleRightIcon } from '../../../../assets';
 
+export const ToggleLeft = styled(ToggleLeftIcon)`
+  cursor: pointer;
+`;
+export const ToggleRight = styled(ToggleRightIcon)`
+  cursor: pointer;
+`;
 export const UserPostsView = styled.div`
   width: 100%;
   display: flex;
@@ -27,7 +34,6 @@ export const UserPostsTitle = styled.div`
   padding-bottom: 16px;
   `}
 `;
-
 export const StyledFlag = styled(StyledFlagIcon)`
   ${media.mobile`
   width: 20px;

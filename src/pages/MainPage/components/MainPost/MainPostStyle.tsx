@@ -74,6 +74,9 @@ export const MainPostContent = styled.div`
     font-size: ${Theme.fontSizes.h3};
     font-weight: ${Theme.fontWeights.h3};
     line-height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .content {
     display: flex;

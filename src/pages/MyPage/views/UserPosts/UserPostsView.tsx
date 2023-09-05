@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import * as s from './UserPostsViewStyle';
 import { StyledFlagIcon } from '../UserProfile/UserProfileStyle';
-import { ToggleLeftIcon, ToggleRightIcon } from '../../../../assets';
 import { UserPost } from '../../components';
 import { useRecoilState } from 'recoil';
 import { $page } from '../../state';
@@ -50,16 +49,15 @@ export const UserPostsView: FC<UserPostsViewProps> = ({
               title={item.title}
               isDone={item.isDone}
               unComNum={item.agreeCount}
-              date={item.createdDay}
+              date={item.createdDay.slice(2)}
               time={item.createdTime}
               key={item.postId}
+              postId={item.postId}
             />
           ))}
       </s.UserPosts>
       <s.PageNumberContainer>
-        <div onClick={fetchPreviousPage}>
-          <ToggleLeftIcon />
-        </div>
+        <s.ToggleLeft onClick={fetchPreviousPage} />
         {data &&
           Array(data.pages[0].data.totalPages)
             .fill(0)
@@ -74,9 +72,7 @@ export const UserPostsView: FC<UserPostsViewProps> = ({
                 {index + 1}
               </s.PageNumbers>
             ))}
-        <div onClick={fetchNextPage}>
-          <ToggleRightIcon />
-        </div>
+        <s.ToggleRight onClick={fetchNextPage} />
       </s.PageNumberContainer>
     </s.UserPostsView>
   );

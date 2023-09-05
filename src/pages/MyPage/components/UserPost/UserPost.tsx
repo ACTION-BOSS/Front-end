@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import * as s from './UserPostStyle';
 import { ClearIcon, UncomBigIcon } from '../../../../assets';
 import { Theme } from '../../../../styles';
+import { useNavigate } from 'react-router-dom';
 
 type UserPost = {
   title: string;
@@ -9,6 +10,7 @@ type UserPost = {
   unComNum: number;
   date: string;
   time: string;
+  postId: number;
 };
 export const UserPost: FC<UserPost> = ({
   title,
@@ -16,9 +18,15 @@ export const UserPost: FC<UserPost> = ({
   unComNum,
   date,
   time,
+  postId,
 }) => {
+  const navigate = useNavigate();
+  const onClickMovePage = (postId: number) => {
+    navigate(`/detail/${postId}`);
+  };
+
   return (
-    <s.UserPost>
+    <s.UserPost onClick={() => onClickMovePage(postId)}>
       <s.PostTitle>{title}</s.PostTitle>
       <s.PostContent>
         <s.DoneAndUncom>

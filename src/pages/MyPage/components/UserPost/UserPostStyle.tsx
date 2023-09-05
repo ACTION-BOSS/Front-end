@@ -8,11 +8,17 @@ export const UserPost = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
+  cursor: pointer;
+  ${media.mobile`
+  padding: 10px 0;`}
 `;
 export const PostTitle = styled.div`
   font-size: ${Theme.fontSizes.body1};
   font-weight: ${Theme.fontWeights.body1};
   flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   ${media.mobile`
   font-size: ${Theme.fontSizes.mH3};
   font-weight: ${Theme.fontWeights.mH3};`}
