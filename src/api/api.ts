@@ -135,7 +135,7 @@ export const getSearchList = async (keyword: string) => {
 };
 
 export const getMyPagePosts = async (page: number, select: number) => {
-  const kind = select === 1 ? 'myposts' : select === 2 ? 'agrees' : 'comments';
+  const kind = select === 1 ? 'myposts' : select === 2 ? 'comments' : 'agrees';
   try {
     const response = await api.get(`/mypage/${kind}?page=${page}`);
     console.log('fetchMyData', response);
