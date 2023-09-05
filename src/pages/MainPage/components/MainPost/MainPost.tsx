@@ -29,9 +29,7 @@ export const MainPost: FC<MainPostProps> = ({ post, isDone }) => {
         </s.UnLike>
       </s.MainPostImg>
       <s.MainPostContent>
-        <div className="title">
-          {title.length > 12 ? title.slice(0, 15).padEnd(18, '...') : title}
-        </div>
+        <div className="title">{title}</div>
         <div className="content">
           <div className="address">
             <MyDirectIcon size={20} />

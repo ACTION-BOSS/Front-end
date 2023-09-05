@@ -22,9 +22,7 @@ export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
   return (
     <s.MainModalContainer>
       <s.MainModalTop>
-        <div className="title">
-          {title.length > 12 ? title.slice(0, 30).padEnd(33, '...') : title}
-        </div>
+        <div className="title">{title}</div>
         <div className="xButton" onClick={onClick}>
           <s.GrayX />
         </div>
