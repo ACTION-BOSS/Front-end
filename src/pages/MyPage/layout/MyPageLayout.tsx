@@ -78,10 +78,6 @@ export const StContentWrapper = styled.div`
   ${media.mobile`
     padding: 0px;
   `}
-
-  ${media.mobile`
-  padding: 0 17px;
-  `}
 `;
 
 export const StFooterFlagWrapper = styled.div`

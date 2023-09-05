@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { Coordinates } from '../pages/MainPage/type';
 import { getAccessToken, getRefreshToken, saveAccessToken } from '../shared';
 
@@ -131,5 +131,22 @@ export const getSearchList = async (keyword: string) => {
     return response.data;
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const getMyPagePosts = async (page: number, select: number) => {
+  const kind = select === 1 ? 'myposts' : select === 2 ? 'agrees' : 'comments';
+  try {
+    const response = await api.get(`/mypage/${kind}?page=${page}`);
+    console.log('fetchMyData', response);
+
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (e) {
+    const AxiosError = e as AxiosError;
+    console.log(AxiosError);
+
+    return AxiosError;
   }
 };

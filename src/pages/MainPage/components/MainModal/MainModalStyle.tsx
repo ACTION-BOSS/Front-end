@@ -19,6 +19,7 @@ export const MainModalContainer = styled.div`
 export const GrayX = styled(XButtonBigIcon)`
   width: 32px;
   height: 32px;
+  margin-left: 10px;
   ${media.mobile`
   width: 18px;
   height: 18px;`}
@@ -50,6 +51,10 @@ export const MainModalTop = styled.div`
   .title {
     font-size: ${Theme.fontSizes.h3};
     font-weight: ${Theme.fontWeights.h3};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
     ${media.mobile` 
     font-size: ${Theme.fontSizes.mH2};
     font-weight: ${Theme.fontWeights.mH2};`}

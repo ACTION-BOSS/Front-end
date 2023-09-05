@@ -65,6 +65,11 @@ export const HeaderRight = styled.div`
   gap: 40px;
   ${media.tablet`
   gap: 20px;`}
+  ${media.bigMobile`
+  .text{
+    display: none;
+  }
+  `}
   ${media.mobile`
   position: absolute;
   visibility: hidden;
