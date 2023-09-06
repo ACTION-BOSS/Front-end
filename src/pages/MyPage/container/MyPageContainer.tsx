@@ -83,7 +83,6 @@ export const MyPageContainer: FC<MyPageContainerProps> = ({}) => {
       </>
     );
   }
-  data && console.log('dataaaaaaaaaaaaaaaaaaaaaaaaaaaaa', data);
   return (
     <>
       {chosenIndex === 0 && (

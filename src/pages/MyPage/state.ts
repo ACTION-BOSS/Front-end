@@ -1,7 +1,12 @@
 import { atom } from 'recoil';
 
 export const $page = atom<number>({
-  key: 'pageNumber',
+  key: 'page',
+  default: 0,
+});
+
+export const $allPages = atom<number>({
+  key: 'allPages',
   default: 0,
 });
 
