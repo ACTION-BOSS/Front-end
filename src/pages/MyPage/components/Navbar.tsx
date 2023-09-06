@@ -1,13 +1,14 @@
 import { FC } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { $chosenIndex, $page } from '../state';
+import { $allPages, $chosenIndex, $page } from '../state';
 import { Theme, media } from '../../../styles';
 type NavbarProps = {};
 
 export const Navbar: FC<NavbarProps> = ({}) => {
   const [chosenIndex, setChosenIndex] = useRecoilState($chosenIndex);
-  const [page, setPage] = useRecoilState($page);
+  const setPage = useSetRecoilState($page);
+  const setAllPages = useSetRecoilState($allPages);
   const NavbarMenus = [
     '개인정보 관리',
     '내가 쓴 글',
@@ -18,6 +19,7 @@ export const Navbar: FC<NavbarProps> = ({}) => {
   const handleClickIndex = (i: number) => {
     setChosenIndex(i);
     setPage(0);
+    setAllPages(0);
   };
 
   const isChosen = (i: number) => {
