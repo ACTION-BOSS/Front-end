@@ -65,7 +65,7 @@ export const CreateFormView = () => {
                       <StPhotoBoxInput>
                         <input
                           type="file"
-                          accept="image/*"
+                          accept="image/jpeg,image/jpg,image/png"
                           multiple
                           onChange={handleImageUpload}
                           style={{ display: 'none' }}

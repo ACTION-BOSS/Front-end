@@ -214,6 +214,7 @@ export const Header = () => {
         <NotificationModal
           data={data?.data.data}
           onClickHandleNotificationModal={onClickHandleNotificationModal}
+          setOpenNotificationModal={setOpenNotificationModal}
           queryClient={queryClient}
         />
       )}

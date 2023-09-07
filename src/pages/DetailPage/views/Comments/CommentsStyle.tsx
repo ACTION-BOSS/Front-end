@@ -33,8 +33,7 @@ export const StCommentBox = styled.div`
 
   ${media.mobile`
     padding: 20px 0px;
-    width: 100%;
-    
+    width: 100%;    
   `}
 `;
 
@@ -47,6 +46,7 @@ export const StWriter = styled.div<{ $isSame: boolean }>`
   color: ${(props) => (props.$isSame ? Theme.colors.blue : Theme.colors.black)};
   font-size: ${Theme.fontSizes.h2};
   font-weight: ${Theme.fontWeights.h2};
+  margin-bottom: 13px;
 
   ${media.mobile`
   font-size : ${Theme.fontSizes.mBody1};
@@ -73,6 +73,11 @@ export const StTimeContainer = styled.div`
     font-weight : ${Theme.fontWeights.mL1};
     `}
   }
+`;
+
+export const StContentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 
   button {
     background-color: ${Theme.colors.white};
@@ -92,8 +97,8 @@ export const StCommentContent = styled.div`
   color: ${Theme.colors.gray8};
   font-weight: ${Theme.fontWeights.body2};
   font-size: ${Theme.fontSizes.body2};
+  max-width: 90%;
   margin-bottom: 32px;
-  margin-top: 8px;
   word-wrap: break-word;
   white-space: pre-line;
 
@@ -145,6 +150,7 @@ export const StTextArea = styled.div`
     outline: none;
     resize: none;
     padding: 20px;
+    padding-right: 80px;
     color: ${Theme.colors.gray6};
     font-weight: ${Theme.fontWeights.body2};
     font-size: ${Theme.fontSizes.body2};
