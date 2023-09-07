@@ -2,9 +2,12 @@
 
 # 📌 Table Of Contents
 
-- [📖 Introduction](#-introduction)
+- <a href='https://hdaejang.com/'>홈페이지 주소</a>
+- <a href='https://teamsparta.notion.site/5f5ecc95cb2c4fabaae4df2f4e8d0669'>프로젝트 브로셔</a>
+- <a href='https://www.youtube.com/watch?v=6SPfs_ZInD8'>발표 영상</a>
+- <a href='https://www.youtube.com/watch?v=W8VOglJ89LI&t=20s'>시연 영상</a>
+- <a href='https://the-strongest-team4.atlassian.net/wiki/spaces/BOSS/pages/1245249/API'>API 명세서</a>
 
-<br />
 <br />
 <br />
 
