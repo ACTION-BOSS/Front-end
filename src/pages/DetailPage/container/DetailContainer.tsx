@@ -42,8 +42,6 @@ export const DetailContainer: FC<DetailContainerProps> = ({}) => {
     return <></>;
   }
 
-  // console.log('detail', data);
-
   return (
     <>
       <PhotosView imageUrlList={imageUrlList} postDone={postDone} />

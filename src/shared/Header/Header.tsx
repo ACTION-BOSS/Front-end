@@ -94,7 +94,6 @@ export const Header = () => {
   const { data } = useQuery(['getNotification'], () => getNotification(), {
     enabled: isLogin,
   });
-  console.log('notification data', data?.data.data);
 
   useEffect(() => {
     const hasUnread =

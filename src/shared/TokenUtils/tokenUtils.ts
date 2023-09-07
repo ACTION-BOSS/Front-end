@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { api } from '../../api';
+import axios from 'axios';
 
 export const useIntervalTokenExpirationCheck = () => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -62,36 +63,49 @@ export const getRemainingMinutesForAccessToken = (
 };
 
 export const checkTokenExpiration = async (): Promise<void> => {
-  if (isAccessTokenExpired()) {
-    console.log('엑세스 토큰이 만료되어 삭제되었거나 로그인 상태가 아닙니다.');
+  const EXPIRATION_THRESHOLD = 5;
+  const refreshToken = getRefreshToken();
+  if (!refreshToken) {
+    handleLogout();
+    return;
+  }
 
-    if (!isRefreshTokenExpired()) {
-      try {
-        await api.get('/endpoint-for-tokencheck');
-      } catch (error) {}
-    }
-  } else {
-    const remainingMinutesForAccessToken = getRemainingMinutesForAccessToken(
-      getAccessToken(),
-    );
-    if (remainingMinutesForAccessToken !== null) {
-      console.log(
-        `Access 토큰 만료까지 남은 시간: ${remainingMinutesForAccessToken}분`,
+  const remainingMinutesForAccessToken = getRemainingMinutesForAccessToken(
+    getAccessToken(),
+  );
+
+  const remainingMinutesForRefreshToken = getRemainingMinutesForRefreshToken();
+
+  if (
+    remainingMinutesForAccessToken !== null &&
+    remainingMinutesForAccessToken <= EXPIRATION_THRESHOLD
+  ) {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URI}/api/auth/login/reissueToken`,
+        {
+          headers: { Refresh: `Bearer ${refreshToken}` },
+        },
       );
+      if (res.status === 201) {
+        const newAccessToken = res.headers['access'].split(' ')[1];
+        saveAccessToken(newAccessToken);
+        api.defaults.headers['Access'] = `Bearer ${newAccessToken}`;
+      } else {
+        console.log('Access 토큰 갱신에 실패했습니다.');
+      }
+    } catch (err) {
+      console.log('Access 토큰 갱신 중 오류가 발생했습니다.');
     }
   }
 
-  if (isRefreshTokenExpired()) {
-    console.log('리프레쉬 토큰도 만료되었습니다. 로그아웃합니다.');
-    handleLogout();
-  } else {
-    const remainingMinutesForRefreshToken =
-      getRemainingMinutesForRefreshToken();
-    if (remainingMinutesForRefreshToken !== null) {
-      console.log(
-        `Refresh 토큰 만료까지 남은 시간: ${remainingMinutesForRefreshToken}분`,
-      );
-    }
+  if (
+    remainingMinutesForRefreshToken !== null &&
+    remainingMinutesForRefreshToken <= EXPIRATION_THRESHOLD
+  ) {
+    alert(
+      '로그인 유효 시간이 얼마 남지 않았습니다. 로그아웃 후 재 로그인 해주세요.',
+    );
   }
 };
 
