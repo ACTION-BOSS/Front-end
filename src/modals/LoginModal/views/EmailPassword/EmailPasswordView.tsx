@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { $isVerificationFailed } from '../../state';
 import { useRecoilValue } from 'recoil';
 import { EModalType, useModal } from '../../../../providers';
@@ -62,6 +62,16 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
     openModal(EModalType.SIGN_UP);
   };
 
+  const handleChangeEmailId = (e: ChangeEvent<HTMLInputElement>) => {
+    const EMAILID_VERIFICATION_REGEX = /^[a-zA-Z0-9._\-+]*$/;
+
+    if (!EMAILID_VERIFICATION_REGEX.test(e.target.value)) {
+      return;
+    }
+
+    return onChangeEmailId(e.target.value);
+  };
+
   return (
     <StWrapper>
       <div>
@@ -72,8 +82,8 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
           <StFlexRowDiv>
             <StGrayInput
               value={emailIdValue}
-              onChange={onChangeEmailId}
-              placeholder="example"
+              onChange={(e) => handleChangeEmailId(e)}
+              placeholder="email ID"
               $isError={isVerificationFailed}
               width="fluid"
             />
