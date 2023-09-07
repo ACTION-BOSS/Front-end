@@ -12,6 +12,14 @@ export const StLayoutWrapper = styled.div`
 
   width: 100%;
   height: 100%;
+
+  ${media.tablet`
+  min-height: 1700px;
+`}
+
+  ${media.tablet`
+ min-height: 1000px;
+`}
 `;
 
 export const StChildrenWrapper = styled.div`
@@ -47,13 +55,12 @@ export const StBg = styled.div`
   margin-top: 48.5vh;
 
   ${media.tablet`
-  margin: 0;
-  position: absolute;
+  
   bottom: 0;
   `}
 
   ${media.mobile`
-
+  bottom: 0;
   `}
 `;
 
@@ -86,6 +93,6 @@ export const StGrayBg = styled.div`
   `}
 
   ${media.mobile`
-  height: 100px;
+  height: 40px;
   `}
 `;

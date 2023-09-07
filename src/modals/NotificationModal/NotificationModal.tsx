@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import {
@@ -7,7 +7,7 @@ import {
   NO_NOTIFICATION,
   RedDot,
 } from '../../assets';
-import { Theme } from '../../styles';
+import { Theme, media } from '../../styles';
 import { useMutation } from '@tanstack/react-query';
 import { readNotification } from '../../api/notificationApi';
 
@@ -24,6 +24,7 @@ export type NotificationType = {
 
 type NotificationModalProps = {
   onClickHandleNotificationModal: () => void;
+  setOpenNotificationModal: React.Dispatch<React.SetStateAction<boolean>>;
   data: NotificationType[];
   queryClient: any;
 };
@@ -59,11 +60,30 @@ const getTimeDifference = (createdAt: string) => {
 
 export const NotificationModal: React.FC<NotificationModalProps> = ({
   onClickHandleNotificationModal,
+  setOpenNotificationModal,
   data,
   queryClient,
 }) => {
   const navigate = useNavigate();
   const [showOnlyUnread, setShowOnlyUnread] = useState(false);
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setOpenNotificationModal(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [modalRef, onClickHandleNotificationModal]);
 
   const onClickOnlyNewNotificationToggle = () => {
     setShowOnlyUnread(!showOnlyUnread);
@@ -94,7 +114,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
 
   return (
     <>
-      <StModal>
+      <StModal ref={modalRef}>
         <StToggle onClick={onClickOnlyNewNotificationToggle}>
           <StToggleText>읽지 않은 알림만 표시</StToggleText>
           {!showOnlyUnread && <NotificationToggle />}
@@ -178,8 +198,23 @@ export const StModal = styled.div`
   overflow-y: scroll;
   position: fixed;
   top: 68px;
-  right: 355px;
+  right: 440px;
   z-index: 10000;
+
+  ${media.tablet`
+ right: 365px;
+  `}
+
+  ${media.bigMobile`  
+ right: 220px;
+ `}
+
+  ${media.mobile`  
+ top: 200px;
+ right: 20px;
+ width: 358px;
+ height: 340px;
+ `}
 `;
 
 export const StToggle = styled.div`
@@ -195,6 +230,11 @@ export const StToggleText = styled.div`
   font-size: ${Theme.fontSizes.label2};
   font-weight: ${Theme.fontWeights.label2};
   color: ${Theme.colors.gray6};
+
+  ${media.mobile`
+  font-size: ${Theme.fontSizes.mL1};
+  font-weight: ${Theme.fontWeights.mL1};
+ `}
 `;
 
 export const StNotificationBox = styled.div<{ type: string }>`
@@ -222,6 +262,10 @@ export const StNotificationBox = styled.div<{ type: string }>`
           return `${Theme.colors.gray6}`;
       }
     }};
+
+  ${media.mobile`
+  width: 334px;
+ `}
 `;
 
 export const StMessageBox = styled.div`
@@ -234,12 +278,22 @@ export const StText = styled.div`
   font-size: ${Theme.fontSizes.body3};
   font-weight: ${Theme.fontWeights.body3};
   color: ${Theme.colors.gray8};
+
+  ${media.mobile`
+  font-size: ${Theme.fontSizes.mBody1};
+  font-weight: ${Theme.fontWeights.mBody1};
+ `}
 `;
 
 export const StPostTitle = styled.div`
   font-size: ${Theme.fontSizes.label2};
   font-weight: ${Theme.fontWeights.label2};
   color: ${Theme.colors.gray5};
+
+  ${media.mobile`
+  font-size: ${Theme.fontSizes.mBody3};
+  font-weight: ${Theme.fontWeights.mBody3};
+ `}
 `;
 
 export const StTimeBox = styled.div`
@@ -274,6 +328,11 @@ export const StNoMoreText = styled.div`
   font-weight: ${Theme.fontWeights.label1};
   color: ${Theme.colors.gray7};
   margin-bottom: 22px;
+
+  ${media.mobile`
+  font-size: ${Theme.fontSizes.mL1};
+  font-weight: ${Theme.fontWeights.mL1};
+ `}
 `;
 
 export const StNoNotification = styled.div`
@@ -290,10 +349,20 @@ export const StNoImg = styled.div`
   background-image: url(${NO_NOTIFICATION});
   background-size: cover;
   background-position: center;
+
+  ${media.mobile`
+  width: 120.7px;
+  height: 171.8px;
+ `}
 `;
 
 export const StNoText = styled.div`
   font-size: ${Theme.fontSizes.body2};
   font-weight: ${Theme.fontWeights.body2};
   color: ${Theme.colors.gray7};
+
+  ${media.mobile`
+  font-size: ${Theme.fontSizes.mH2};
+  font-weight: ${Theme.fontWeights.mH2};
+ `}
 `;

@@ -5,6 +5,7 @@ import {
   StWriterTime,
   StWriter,
   StTimeContainer,
+  StContentContainer,
   StCommentContent,
   StInputBox,
   StTextArea,
@@ -12,6 +13,7 @@ import {
 } from './CommentsStyle';
 import { EModalType, useModal } from '../../../../providers';
 import { useWindowSize } from 'rooks';
+import React, { useEffect, useRef } from 'react';
 
 type Comment = {
   id: string;
@@ -47,6 +49,15 @@ export const CommentsView: FC<CommentsViewProps> = ({
   const { innerWidth } = useWindowSize();
   const isMobileView = innerWidth! < 576;
 
+  const commentWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (commentWrapperRef.current) {
+      const scrollHeight = commentWrapperRef.current.scrollHeight;
+      commentWrapperRef.current.scrollTop = scrollHeight;
+    }
+  }, [comments.length]);
+
   const openDeleteModal = (commentId: string) => {
     openModal(EModalType.POP_UP, {
       title: '작성한 댓글을 삭제할까요?',
@@ -64,7 +75,7 @@ export const CommentsView: FC<CommentsViewProps> = ({
 
   return (
     <>
-      <StCommentWrapper>
+      <StCommentWrapper ref={commentWrapperRef}>
         {comments?.map((comment, index) => (
           <StCommentBox key={comment.id}>
             <StWriterTime>
@@ -75,22 +86,24 @@ export const CommentsView: FC<CommentsViewProps> = ({
                 <div>{comment.createdDay}</div>
                 <div>l</div>
                 <div>{comment.createdTime}</div>
-                {comment.commentOwner && (
-                  <>
-                    {isMobileView ? (
-                      <div onClick={() => openDeleteModal(comment.id)}>
-                        <StyledBinIcon />
-                      </div>
-                    ) : (
-                      <button onClick={() => openDeleteModal(comment.id)}>
-                        삭제
-                      </button>
-                    )}
-                  </>
-                )}
               </StTimeContainer>
             </StWriterTime>
-            <StCommentContent>{comment.content}</StCommentContent>
+            <StContentContainer>
+              <StCommentContent>{comment.content}</StCommentContent>
+              {comment.commentOwner && (
+                <>
+                  {isMobileView ? (
+                    <div onClick={() => openDeleteModal(comment.id)}>
+                      <StyledBinIcon />
+                    </div>
+                  ) : (
+                    <button onClick={() => openDeleteModal(comment.id)}>
+                      삭제
+                    </button>
+                  )}
+                </>
+              )}
+            </StContentContainer>
           </StCommentBox>
         ))}
       </StCommentWrapper>
