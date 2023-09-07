@@ -101,9 +101,9 @@ export const CommentsView: FC<CommentsViewProps> = ({
             value={body}
             maxLength={200}
             onChange={onChangeComment}
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
-                if (e.shiftKey) return;
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
                 handleCreateComment();
               }
             }}

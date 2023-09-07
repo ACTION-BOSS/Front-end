@@ -4,8 +4,6 @@ import { MyPageFormData } from './MyPageForm';
 export const useMyPageFormController = () => {
   const { control, watch } = useFormContext<MyPageFormData>();
 
-  console.log(watch());
-
   const {
     field: { value: nicknameValue, onChange: onChangeNickname },
   } = useController({

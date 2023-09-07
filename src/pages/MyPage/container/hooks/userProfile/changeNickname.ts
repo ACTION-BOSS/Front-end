@@ -14,9 +14,6 @@ export const useChangeNickname = (
 ) => {
   const { control } = useFormContext<MyPageFormData>();
   const { openModal, closeModal } = useModal();
-  // const setIsNicknameChangeFinished = useSetRecoilState(
-  //   $isNicknameChangeFinished,
-  // );
 
   const {
     field: { value: nickname },
@@ -31,18 +28,13 @@ export const useChangeNickname = (
         nickname: nickname,
       });
 
-      console.log('response from changeNickname', response);
-
       if (response.status === 201) {
-        // setIsNicknameChangeFinished(true);
-        console.log(response.headers);
         const accessToken = response.headers['access'].split(' ')[1];
         const refreshToken = response.headers['refresh'].split(' ')[1];
 
         handleLogout();
         accessToken && saveAccessToken(accessToken);
         refreshToken && saveRefreshToken(refreshToken);
-        console.log(accessToken, refreshToken);
 
         openModal(EModalType.POP_UP, {
           title: '변경이 완료되었습니다.',
@@ -61,7 +53,7 @@ export const useChangeNickname = (
       const AxiosError = e as AxiosError;
 
       if (AxiosError.response?.status === 400) {
-        console.log('이미 존재하는 닉네임');
+        console.log(AxiosError);
       }
     }
   };

@@ -151,6 +151,15 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
   const { innerWidth } = useWindowSize();
   const isMobileView = innerWidth! < 576;
 
+  const handleChangeEmailId = (e: ChangeEvent<HTMLInputElement>) => {
+    const EMAILID_VERIFICATION_REGEX = /^[a-zA-Z0-9._\-+]*$/;
+    if (!EMAILID_VERIFICATION_REGEX.test(e.target.value)) {
+      return;
+    }
+
+    return onChangeEmailId(e.target.value);
+  };
+
   const renderEmailSection = () => {
     if (!hasOriginalEmail) {
       return (
@@ -158,7 +167,7 @@ export const UserProfileView: FC<UserProfileViewProps> = ({
           <StEmailIdInput
             type="text"
             value={emailIdValue || ''}
-            onChange={onChangeEmailId}
+            onChange={(e) => handleChangeEmailId(e)}
             $isError={isEmailSendFailed || isEmailFormatError}
           />
           <div>@</div>

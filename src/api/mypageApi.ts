@@ -5,7 +5,6 @@ export const useFetchMypageData = () => {
   const getMyProfileData = async () => {
     try {
       const response = await api.get('/mypage/getUserInfo');
-      console.log('fetchMyData', response);
 
       if (response.status === 200) {
         return response.data;

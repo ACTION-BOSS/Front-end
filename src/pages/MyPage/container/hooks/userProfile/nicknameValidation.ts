@@ -70,7 +70,7 @@ export const useNicknameValidation = () => {
     } catch (e) {
       const AxiosError = e as AxiosError;
 
-      console.log('err', AxiosError);
+      console.log(AxiosError);
 
       if (AxiosError.response?.status === 400) {
         setIsDuplicatedNickname(true);

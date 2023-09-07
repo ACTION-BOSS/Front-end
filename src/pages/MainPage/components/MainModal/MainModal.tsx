@@ -13,7 +13,6 @@ export const MainModal: FC<MainModalProps> = ({ onClick, post }) => {
   const { address, done, thumbnail, agreeCount, title, nickname, postId } =
     post;
   let croppedAddress = address.split(' ').slice(0, 3).join(' ');
-  console.log(postId);
 
   const onClickMovePage = (postId: number) => {
     navigate(`/detail/${postId}`);

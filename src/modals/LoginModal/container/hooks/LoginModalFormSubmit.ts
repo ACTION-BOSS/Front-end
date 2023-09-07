@@ -32,13 +32,7 @@ export const useLoginModalFormSubmit = () => {
           email: `${emailId}@${emailDomain}`,
         });
 
-        // console.log('login response', response);
-
         if (response.status === 200) {
-          // console.log('로그인 요청 시 헤더:', response.headers);
-
-          console.log(response.headers);
-
           const accessToken = response.headers['access'].split(' ')[1];
           accessToken && saveAccessToken(accessToken);
 
@@ -46,7 +40,6 @@ export const useLoginModalFormSubmit = () => {
           refreshToken && saveRefreshToken(refreshToken);
 
           if (accessToken && refreshToken) {
-            console.log('로그인 성공!');
             closeModal();
             window.location.reload();
           }

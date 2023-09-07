@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Theme } from '../../../../styles';
 import { SelectBox, Timer } from '../../components';
@@ -81,6 +81,16 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
     }
   };
 
+  const handleChangeEmailId = (e: ChangeEvent<HTMLInputElement>) => {
+    const EMAILID_VERIFICATION_REGEX = /^[a-zA-Z0-9._\-+]*$/;
+
+    if (!EMAILID_VERIFICATION_REGEX.test(e.target.value)) {
+      return;
+    }
+
+    return onChangeEmailId(e.target.value);
+  };
+
   return (
     <StWrapper>
       <StColumnDiv>
@@ -102,8 +112,8 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
           <StFlexDiv>
             <StGrayInput
               value={emailIdValue}
-              onChange={onChangeEmailId}
-              placeholder="example"
+              onChange={(e) => handleChangeEmailId(e)}
+              placeholder="email ID"
               $isError={isEmailSendFailed || isEmailFormatError}
               width="fluid"
             />

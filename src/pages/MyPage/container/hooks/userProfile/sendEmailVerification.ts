@@ -50,8 +50,6 @@ export const useSendEmailVerification = () => {
       } catch (e) {
         const AxiosError = e as AxiosError;
 
-        // console.log('error: ', AxiosError);
-
         if (AxiosError.response) {
           if (AxiosError.response.status === 400) {
             setIsEmailFormatError(false);

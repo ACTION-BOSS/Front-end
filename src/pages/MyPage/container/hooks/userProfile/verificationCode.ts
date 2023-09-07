@@ -93,7 +93,7 @@ export const useVerificationCode = (
           setIsEmailCodeVerificated(false);
         }
 
-        console.log('err', AxiosError);
+        console.log(AxiosError);
       }
     }, 1000),
     [successKeyValue, emailDomainValue, emailIdValue, updateEmail],
@@ -113,12 +113,7 @@ export const useVerificationCode = (
         }
       } catch (e) {
         const AxiosError = e as AxiosError;
-
-        if (AxiosError.response) {
-          if (AxiosError.response.status === 400) {
-            // console.log('error: ', AxiosError);
-          }
-        }
+        console.log(AxiosError);
       }
     }, 1000),
     [emailDomainValue, emailIdValue],
