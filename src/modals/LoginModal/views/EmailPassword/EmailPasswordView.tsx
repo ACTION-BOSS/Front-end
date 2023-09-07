@@ -119,8 +119,9 @@ export const EmailPasswordView: FC<EmailPasswordViewProps> = ({
             onChangePassword(e.target.value);
           }}
           $isVerificated={isVerificationFailed}
-          onKeyUp={(e) => {
-            if (e.key === 'Enter') {
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
               onPressLoginButton();
             }
           }}

@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 import { createComment, deleteComment } from '../../../../api';
 import { getAccessToken, useToast } from '../../../../shared';
+import { debounce } from 'lodash';
 
 type CreateCommentArgs = {
   postId: string;
@@ -45,7 +46,8 @@ export const useComments = () => {
     deleteCommentMutation.mutate(commentId);
   };
 
-  const handleCreateComment = () => {
+  const handleCreateComment = debounce(() => {
+    console.log('createasdfasdf');
     if (isNotLoggedIn) {
       openToast('로그인 후 댓글 작성이 가능합니다');
       return;
@@ -59,7 +61,7 @@ export const useComments = () => {
         setBody('');
       }
     }
-  };
+  }, 300);
 
   return {
     onChangeComment,
