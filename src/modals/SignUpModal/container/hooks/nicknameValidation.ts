@@ -77,7 +77,7 @@ export const useNicknameValidation = () => {
         }
       }
     };
-
+    if (!nicknameValue) return;
     checkNicknameDuplicated();
   }, [nicknameValue]);
 
