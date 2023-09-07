@@ -60,8 +60,6 @@ export const connectSseWithFetch = async (
     }
     const eventText = new TextDecoder().decode(value);
 
-    console.log('연결text', eventText);
-
     if (eventText.slice(0, 13) !== 'event:Connect') {
       setShowNewNotiIcon(true);
     } else {

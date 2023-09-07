@@ -66,7 +66,6 @@ export const checkTokenExpiration = async (): Promise<void> => {
   const EXPIRATION_THRESHOLD = 5;
   const refreshToken = getRefreshToken();
   if (!refreshToken) {
-    console.log('리프레쉬 토큰이 없습니다. 로그아웃합니다.');
     handleLogout();
     return;
   }
@@ -81,7 +80,6 @@ export const checkTokenExpiration = async (): Promise<void> => {
     remainingMinutesForAccessToken !== null &&
     remainingMinutesForAccessToken <= EXPIRATION_THRESHOLD
   ) {
-    console.log('Access 토큰 만료가 임박했습니다. 토큰을 갱신합니다.');
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_API_URI}/api/auth/login/reissueToken`,
@@ -97,7 +95,7 @@ export const checkTokenExpiration = async (): Promise<void> => {
         console.log('Access 토큰 갱신에 실패했습니다.');
       }
     } catch (err) {
-      console.log('Access 토큰 갱신 중 오류가 발생했습니다.', err);
+      console.log('Access 토큰 갱신 중 오류가 발생했습니다.');
     }
   }
 
@@ -105,9 +103,6 @@ export const checkTokenExpiration = async (): Promise<void> => {
     remainingMinutesForRefreshToken !== null &&
     remainingMinutesForRefreshToken <= EXPIRATION_THRESHOLD
   ) {
-    console.log(
-      'Refresh 토큰 만료가 임박했습니다. 사용자에게 로그인을 유도합니다.',
-    );
     alert(
       '로그인 유효 시간이 얼마 남지 않았습니다. 로그아웃 후 재 로그인 해주세요.',
     );

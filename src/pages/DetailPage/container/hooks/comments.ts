@@ -47,7 +47,6 @@ export const useComments = () => {
   };
 
   const handleCreateComment = debounce(() => {
-    console.log('createasdfasdf');
     if (isNotLoggedIn) {
       openToast('로그인 후 댓글 작성이 가능합니다');
       return;

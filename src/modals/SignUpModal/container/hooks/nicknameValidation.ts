@@ -62,15 +62,11 @@ export const useNicknameValidation = () => {
           nickname: nicknameValue,
         });
 
-        // console.log(response);
-
         if (response.status === 201) {
           setIsDuplicatedNickname(false);
         }
       } catch (e) {
         const AxiosError = e as AxiosError;
-
-        // console.log('err', AxiosError);
 
         if (AxiosError.response?.status === 400) {
           setIsDuplicatedNickname(true);

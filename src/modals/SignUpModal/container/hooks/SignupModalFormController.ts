@@ -4,8 +4,6 @@ import { SignupModalFormData } from './SignupModalForm';
 export const useSignupModalFormController = () => {
   const { control, watch } = useFormContext<SignupModalFormData>();
 
-  // console.log(watch());
-
   const {
     field: { value: nicknameValue, onChange: onChangeNickname },
   } = useController({

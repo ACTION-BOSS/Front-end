@@ -19,7 +19,6 @@ export const useDeleteUserAccount = () => {
 
           try {
             const response = await api.delete('/mypage/deleteAccount');
-            console.log(response);
 
             if (response.status === 200) {
               openModal(EModalType.POP_UP, {
