@@ -149,7 +149,25 @@ access token, refresh token을 통한 일반 로그인 및 카카오 소셜 로�
 **해결방안:**
 
 - 지도 위치와 줌 레벨을 세션 스토리지에 저장하여 메인페이지에 올 때마다 세션 스토리지에 값이 있는지 확인하여 옵션을 세팅하여 지도 위치와 줌 레벨을 맞춰줍니다.
-- 로컬 스토리지를 사용하는 대신 세션 스토리지를 사용하여 데이터가 페이지를 나가면 사라지지 않도록 합니다.
+- 로컬 스토리지를 사용하는 대신 세션 스토리지를 사용하여 데이터가 페이지를 나가면 설정이 초기화 되도록 하였습니다.
+
+```jsx
+  useEffect(() => {
+    if (!map) {
+      const saveMapCenter = sessionStorage.getItem('mapCenter');
+      const saveMapLevel = sessionStorage.getItem('mapLevel');
+
+      saveMapCenter && setMapCenter(JSON.parse(saveMapCenter));
+      saveMapLevel && setZoomLevel(JSON.parse(saveMapLevel));
+
+      const options = {
+        center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lng),
+        level: zoomLevel,
+      };
+      setMap(new window.kakao.maps.Map(mapRef.current, options));
+    }
+  }, []);
+```
 <br/>
 <br/>
 
@@ -163,9 +181,26 @@ access token, refresh token을 통한 일반 로그인 및 카카오 소셜 로�
 **해결방안:**
 
 - 검색 결과가 없을 때 서버에서 오류를 보내는 대신 빈 배열로 응답을 보내도록 변경합니다.
-- 검색어를 입력할 때마다 서버를 호출하는 것이 느려서 UX를 저해하는 문제가 있었는데, 검색 목록과 좌표를 한 번에 받는 하나의 API를 사용하여 성능을 향상시킵니다.
+- 검색을 위하여 API를 두번 호출해야해서 UX를 저해하는 문제가 있었는데, 검색 목록과 좌표를 한 번에 받는 하나의 API를 사용하여 성능을 향상시킵니다.
 - 검색어 입력 이벤트가 자주 발생하여 불필요한 렌더링을 방지하고 사용자 경험을 향상시키기 위해 디바운싱을 사용합니다.
 
+```jsx
+  const [inputValue, setInputValue] = useState<string>('');
+  const [keyword, setKeyword] = useState<string>('');
+
+  const { data } = useSearchListQuery(keyword);
+
+  const debouncedSetKeyword = useCallback(
+    useDebouncedCallback((value: string) => {
+      setKeyword(value);
+    }, 500),
+    [],
+  );
+
+  useEffect(() => {
+    debouncedSetKeyword(inputValue);
+  }, [inputValue]);
+```
 <br/>
 <br/>
 
